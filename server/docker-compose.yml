@@ -1,0 +1,71 @@
+services:
+  db:
+    container_name: db
+    build:
+      context: ./db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: "${DB_ID}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_NAME}"
+    volumes:
+      - ./db/data:/var/lib/postgressql/data
+
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    ports:
+      - 80:80
+    depends_on:
+      - apiserver
+      - authserver
+      - fileserver
+
+  apiserver:
+    container_name: apiserver
+    build:
+      context: ./api
+    ports:
+      - 8003:8003
+    environment:
+      DB_ID: "${DB_ID}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_NAME: ${DB_NAME}"
+      DB_HOST: 'db'
+    volumes:
+      - ./api/app:/usr/app
+      - /usr/app/node_modules
+
+  authserver:
+    container_name: authserver
+    build:
+      context: ./auth
+    ports:
+      - 8001:8001
+    environment:
+      FLASK_ENV: development
+      DB_ID: "${DB_ID}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_NAME: ${DB_NAME}"
+      DB_HOST: 'db'
+    volumes:
+      - ./auth/app:/usr/app
+      - /usr/app/node_modules
+
+  fileserver:
+    container_name: fileserver
+    build:
+      context: ./auth
+    ports:
+      - 8002:8002
+    environment:
+      FLASK_ENV: development
+      DB_ID: "${DB_ID}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_NAME: ${DB_NAME}"
+      DB_HOST: 'db'
+    volumes:
+      - ./file/app:/usr/app
+      - /usr/app/node_modules
