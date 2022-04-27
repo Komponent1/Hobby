@@ -1,5 +1,5 @@
-import { getUsers, addUsers } from '../model';
-import crypto from 'crypto'
+import { Users } from '../model';
+import * as crypto from 'crypto'
 
 const createPassword = (pw: string): Promise<{ password: string, salt: string }> => (
   new Promise((resolve, reject) => {
@@ -10,19 +10,19 @@ const createPassword = (pw: string): Promise<{ password: string, salt: string }>
         resolve({ password: key.toString('base64'), salt });
       });
     } catch(err) {
-      reject({ code: 500, err: 'Salt Creating Error'});
+      reject({ code: 500, err: 'Crypto Error'});
     }
   })
 );
 
 const signUp = async (email: string, pw: string): Promise<void> => {
-  if (await getUsers(email)) {
+  if (await Users.getUsers(email)) {
     throw ({ code: 500, err: 'Already User' });
   }
   const { password, salt } = await createPassword(pw);
 
   try {
-    await addUsers(email, password, salt);
+    await Users.addUsers(email, password, salt);
   } catch(err) {
     throw ({ code: 500, err: 'Error in addUser in db' });
   } 

@@ -1,1 +1,1 @@
-export { addUsers, getUsers } from './users';
+export { default as Users, addUsers, getUsers } from './users';

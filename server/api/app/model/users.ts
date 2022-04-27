@@ -1,6 +1,6 @@
 import db from './connect';
 
-export const getUsers = async (email?: string) => {
+export const getUsers = async (email?: string): Promise<any|null> => {
   if (!email) {
     return await db.one('SELECT * FROM Users');
   } else {
@@ -10,3 +10,7 @@ export const getUsers = async (email?: string) => {
 export const addUsers = async (email: string, password: string, salt: string) => {
   return await db.none(`INSERT INTO Users(id, password, salt) VALUES(${email}, ${password}, ${salt})`);
 };
+
+export default {
+  getUsers, addUsers
+}
