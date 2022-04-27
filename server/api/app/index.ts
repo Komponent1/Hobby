@@ -10,4 +10,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', router);
 app.use(errorHandler);
 
-app.listen(8003, () => console.log('Connect'));
+const server = app.listen(8003, () => console.log('Connect'));
+
+export default server;
