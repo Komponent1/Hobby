@@ -1,1 +1,1 @@
-export { default as signUp, signupException } from './signup';
+export { default as signUp } from './signup';

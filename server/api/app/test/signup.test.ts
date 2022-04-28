@@ -1,5 +1,5 @@
 import * as request from 'supertest';
-import { signUp, signupException } from '../controller';
+import { signUp } from '../controller';
 import { Users } from '../model';
 
 describe('Testing Signup', () => {
@@ -23,7 +23,7 @@ describe('Testing Signup', () => {
 
   test("DB 에러", async () => {
     Users.getUsers = jest.fn().mockReturnValue(null);
-    Users.addUsers = jest.fn().mockRejectedValue(new signupException('Error in addUser in db'));
+    Users.addUsers = jest.fn().mockRejectedValue({ code: 500, msg: 'Error in addUser in db'});
 
     signUp(email, pw).catch(err => {
       expect(err.msg).toMatch('Error in addUser in db');

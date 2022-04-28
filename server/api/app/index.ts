@@ -5,8 +5,8 @@ import { errorHandler } from './middleware';
 
 const app = express();
 app.use('/public', express.static(`${__dirname}/public`));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use('/api', router);
 app.use(errorHandler);
 

@@ -1,14 +1,14 @@
 import db from './connect';
 
 export const getUsers = async (email?: string): Promise<any|null> => {
-  if (!email) {
+  if (!email || email === '') {
     return await db.one('SELECT * FROM Users');
   } else {
-    return await db.any('SELECT * FROM Users WHERE name = $1', [email]);
+    return await db.any('SELECT * FROM Users WHERE email = $1', [email]);
   }
 }
 export const addUsers = async (email: string, password: string, salt: string) => {
-  return await db.none(`INSERT INTO Users(id, password, salt) VALUES(${email}, ${password}, ${salt})`);
+  return await db.none(`INSERT INTO Users(email, password, salt) VALUES($1, $2, $3)`, [email, password, salt]);
 };
 
 export default {

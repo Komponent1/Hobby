@@ -1,18 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { Signup } from './pages';
 
 function App() {
-  const fetcher = () => {
-    fetch('/api').then(res => {
-      console.log(res)
-    })
-  };
+  
 
   return (
-    <div className="App">
-      <button onClick={() => fetcher()}>Test</button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='signup' element={<Signup />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

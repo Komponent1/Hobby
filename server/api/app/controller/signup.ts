@@ -1,10 +1,6 @@
 import { Users } from '../model';
 import * as crypto from 'crypto'
 
-export function signupException(msg: string) {
-  this.code = 500;
-  this.msg = msg;
-};
 const createPassword = (pw: string): Promise<{ password: string, salt: string }> => (
   new Promise((resolve, reject) => {
     try {
@@ -14,21 +10,26 @@ const createPassword = (pw: string): Promise<{ password: string, salt: string }>
         resolve({ password: key.toString('base64'), salt });
       });
     } catch(err) {
-      reject(new signupException('Crypto Error'));
+      reject({ code: 500, msg: 'Crypto Error' });
     }
   })
 );
 
 const signUp = async (email: string, pw: string): Promise<void> => {
-  if (await Users.getUsers(email)) {
-    throw new signupException('Already User');
+  try {
+    if ((await Users.getUsers(email)).length !== 0) {
+      throw ({code: 500, msg: 'Already User' });
+    }
+  } catch(err) {
+    throw ({ code: 500, msg: 'Checking error in db' })
   }
+  
   const { password, salt } = await createPassword(pw);
 
   try {
     await Users.addUsers(email, password, salt);
   } catch(err) {
-    throw new signupException('Error in addUser in db');
+    throw ({ code: 500, msg: 'Error in addUser in db' });
   }
 };
 
