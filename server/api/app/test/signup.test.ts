@@ -1,4 +1,3 @@
-import * as request from 'supertest';
 import { signUp } from '../controller';
 import { Users } from '../model';
 
@@ -7,14 +6,14 @@ describe('Testing Signup', () => {
   const pw = '1234';
 
   test('정상 응답', async () => {
-    Users.getUsers = jest.fn().mockReturnValue(null);
-    Users.addUsers = jest.fn().mockReturnValue(null);
+    Users.get = jest.fn().mockReturnValue(null);
+    Users.post = jest.fn().mockReturnValue(null);
     await signUp(email, pw);
   });
 
   test("이미 있음", async () => {
-    Users.getUsers = jest.fn().mockReturnValue([email, pw]);
-    Users.addUsers = jest.fn().mockReturnValue(null);
+    Users.get = jest.fn().mockReturnValue([email, pw]);
+    Users.post = jest.fn().mockReturnValue(null);
     
     signUp(email, pw).catch(err => {
       expect(err.msg).toMatch('Already User');
@@ -22,8 +21,8 @@ describe('Testing Signup', () => {
   });
 
   test("DB 에러", async () => {
-    Users.getUsers = jest.fn().mockReturnValue(null);
-    Users.addUsers = jest.fn().mockRejectedValue({ code: 500, msg: 'Error in addUser in db'});
+    Users.get = jest.fn().mockReturnValue(null);
+    Users.post = jest.fn().mockRejectedValue({ code: 500, msg: 'Error in addUser in db'});
 
     signUp(email, pw).catch(err => {
       expect(err.msg).toMatch('Error in addUser in db');

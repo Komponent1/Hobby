@@ -17,7 +17,7 @@ const createPassword = (pw: string): Promise<{ password: string, salt: string }>
 
 const signUp = async (email: string, pw: string): Promise<void> => {
   try {
-    if ((await Users.getUsers(email)).length !== 0) {
+    if ((await Users.get(email)).length !== 0) {
       throw ({code: 500, msg: 'Already User' });
     }
   } catch(err) {
@@ -27,7 +27,7 @@ const signUp = async (email: string, pw: string): Promise<void> => {
   const { password, salt } = await createPassword(pw);
 
   try {
-    await Users.addUsers(email, password, salt);
+    await Users.post(email, password, salt);
   } catch(err) {
     throw ({ code: 500, msg: 'Error in addUser in db' });
   }

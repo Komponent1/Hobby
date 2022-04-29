@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { setupServer } from 'msw/node';
 import { handlers } from './mockserver/spec';
 import { Signup } from './pages';
