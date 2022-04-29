@@ -36,7 +36,7 @@ const Signup: React.FC = () => {
             value={password}
             onChange={e => setPassword(e.target.value)} />
         </label>
-        <button onClick={signup}>button</button>
+        <button className='signup' onClick={signup}>button</button>
       </form>
     </div>
   )

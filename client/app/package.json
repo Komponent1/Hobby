@@ -42,5 +42,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://gateway:80"
+  "devDependencies": {
+    "msw": "^0.39.2"
+  },
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
