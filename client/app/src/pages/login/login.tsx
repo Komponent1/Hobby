@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Signup: React.FC = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
 
-  const signup = async (e: React.MouseEvent) => {
+  const login = (e: React.MouseEvent) => {
     e.preventDefault();
-    fetch('/api/users', {
+    fetch('/auth/login', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -25,6 +25,7 @@ const Signup: React.FC = () => {
 
   return (
     <div>
+      <div>
       <form>
         <label>email
           <input
@@ -36,10 +37,11 @@ const Signup: React.FC = () => {
             value={password}
             onChange={e => setPassword(e.target.value)} />
         </label>
-        <button className='signup' onClick={signup}>button</button>
+        <button className='signup' onClick={login}>button</button>
       </form>
+    </div>
     </div>
   )
 };
 
-export default Signup;
+export default Login;
