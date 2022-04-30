@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { authMiddleware } from '../middleware';
+import { auth } from '../controller';
 import { makeJwt } from '../controller/login';
 
 const mockResponse = () => {
@@ -20,14 +20,14 @@ describe('Auth Test', () => {
         authorization: `Bearer ${jwt}`
       }
     } as Request;
-    authMiddleware(req, res, next);
+    auth(req, res, next);
     expect(req.payload.email).toMatch('seo2im6492@gmail.com');
   });
 
   /* ...하는법 모르겠음 */
   // test('Expire', () => {
     
-  //   const result = authMiddleware(req, res, next) as any;
+  //   const result = auth(req, res, next) as any;
   // });
 
   /*  */
@@ -37,7 +37,7 @@ describe('Auth Test', () => {
         authorization: `Bearer 12312421`
       }
     } as Request;
-    const result = authMiddleware(req, res, next) as any;
+    const result = auth(req, res, next) as any;
     expect(result).toBe('invalid token');
   });
 });

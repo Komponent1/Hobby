@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { devHashKey } from '../controller/login';
+import { devHashKey } from './login';
 
 const EXPIRE = 'expire';
 const INVALID = 'invalid';
@@ -20,20 +20,21 @@ const decode = (token: string): string => {
   }
 };
 
-const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.authorization.split('Bearer ')[1];
+const auth = (authorization: string) => {
+  const token = authorization.split('Bearer ')[1];
   const result = decode(token);
   if (result === EXPIRE) {
-    return res.status(401).json({
+    throw ({
+      code: 401,
       msg: 'expire token'
-    })
+    });
   } else if (result === INVALID){
-    return res.status(401).json({
+    throw ({
+      code: 401,
       msg: 'invalid token'
     });
   }
-  req.payload = { email: result };
-  next();
+  return result;
 };
 
-export default authMiddleware;
+export default auth;

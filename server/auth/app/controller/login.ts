@@ -12,16 +12,12 @@ export const devHashKey: { secret: string, option: jwt.SignOptions } = {
 
 export const checkHashed = (password: string, salt: string, pw: string): Promise<boolean> => (
   new Promise((resolve, reject) => {
-    try {
-      crypto.pbkdf2(pw, salt, 9999, 64, 'sha512', (err, key) => {
-        if (err) reject({ code: 500, err: 'Hashing Error' });
-        
-        if (key.toString('base64') === password) resolve(true);
-        else resolve(false);
-      });
-    } catch (err) {
-      reject({ code: 500, err: 'Hashing Error' });
-    }
+    crypto.pbkdf2(pw, salt, 9999, 64, 'sha512', (err, key) => {
+      if (err) reject({ code: 500, err: 'Hashing Error' });
+      
+      if (key.toString('base64') === password) resolve(true);
+      else resolve(false);
+    });
   })
 );
 
@@ -34,13 +30,15 @@ export const makeJwt = (email: string): { accessToken: string, refreshToken: str
 };
 
 const login = async (email: string, pw: string): Promise<{ accessToken: string, refreshToken: string }> => {
-  const user = await Users.get(email);
+  const user = (await Users.get(email))[0];
+  
+  
   if (!user) {
     throw ({ code: 501, msg: 'No User in db'});
   }
   
   const { password, salt } = user;
-  if (!checkHashed(password, salt, pw)) {
+  if (!await checkHashed(password, salt, pw)) {
     throw ({ code: 400, msg: 'Not Correct Password' });
   }
 
