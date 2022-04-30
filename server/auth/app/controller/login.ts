@@ -2,12 +2,11 @@ import { Users } from "../model";
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken'
 
-const devHashKey = {
+export const devHashKey: { secret: string, option: jwt.SignOptions } = {
   secret: 'Secret',
   option: {
     algorithm: 'HS256',
     expiresIn: '30m',
-    issuer: 'seo2im'
   }
 }
 

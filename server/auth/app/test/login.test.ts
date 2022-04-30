@@ -41,7 +41,22 @@ describe('Testing Signup', () => {
 
     Users.get = jest.fn().mockReturnValue({ email, password, salt });
     const result = await login(email, pw);
-
-    console.log(result)
   });
+
+  test('login 실패(유저X)', async () => {
+    Users.get = jest.fn().mockReturnValue(null);
+    login(email, pw).catch(err => {
+      expect(err.msg).toMatch('No User in db');
+    })
+  });
+
+  test('login 실패(패스워드 오류)', async () => {
+    const { password, salt } = await createPassword('12345');
+    
+    Users.get = jest.fn().mockReturnValue({ email, password, salt });
+    login(email, pw).catch(err => {
+      expect(err.msg).toMatch('Not Correct Password');
+    })
+  });
+
 });

@@ -14,7 +14,7 @@ router.get('/auth/login', async (req, res, next) => {
 
   try {
     const result = await login(email, password);
-    res.status(200).json({
+    return res.status(200).json({
       access_token: result.accessToken,
       token_type: 'Bearer',
       expires_in: 1800,
@@ -25,7 +25,6 @@ router.get('/auth/login', async (req, res, next) => {
     console.log(err)
     next(err);
   }
-  
 });
 
 export default router;
