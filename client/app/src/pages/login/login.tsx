@@ -1,45 +1,43 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../../store/login';
+import { rootState } from '../../store';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const navigate = useNavigate();
+  const { data, loading, error } = useSelector((state: rootState) => state.login);
+  const dispatch = useDispatch();
 
-  const login = (e: React.MouseEvent) => {
+  const submit = (e: React.MouseEvent) => {
     e.preventDefault();
-    fetch('/auth/login', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email, password
-      })
-    }).then(res => {
-      if (res.status === 204) {
-        navigate('/login');
-      }
-    })
-  }
+    dispatch(login(email, password));
+  };
+
+  useEffect(() => {
+    
+  }, [data]);
+  useEffect(() => {
+    
+  }, [error]);
 
   return (
     <div>
       <div>
-      <form>
-        <label>email
-          <input
-            value={email}
-            onChange={e => setEmail(e.target.value)} />
-        </label>
-        <label>password
-          <input
-            value={password}
-            onChange={e => setPassword(e.target.value)} />
-        </label>
-        <button className='signup' onClick={login}>button</button>
-      </form>
-    </div>
+        <form>
+          <label>email
+            <input
+              value={email}
+              onChange={e => setEmail(e.target.value)} />
+          </label>
+          <label>password
+            <input
+              value={password}
+              onChange={e => setPassword(e.target.value)} />
+          </label>
+          <button className='button' onClick={submit}>button</button>
+        </form>
+      </div>
     </div>
   )
 };

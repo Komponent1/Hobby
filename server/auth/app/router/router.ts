@@ -36,12 +36,14 @@ router.post('/login', async (req, res, next) => {
 
   try {
     const result = await login(email, password);
+    res.cookie('blog_refresh_token', result.refreshToken, {
+      maxAge: 60 * 60 * 24 * 30
+    });
 
     return res.status(200).json({
       access_token: result.accessToken,
       token_type: 'Bearer',
       expires_in: 1800,
-      refresh_token: result.refreshToken,
       scope: 'create'
     });
   } catch (err) {

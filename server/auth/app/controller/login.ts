@@ -40,7 +40,7 @@ const login = async (email: string, pw: string): Promise<{ accessToken: string, 
   if (!await checkHashed(password, salt, pw)) {
     throw ({ code: 400, msg: 'Not Correct Password' });
   }
-  return makeJwt(email);  
+  return makeJwt(email);
 };
 
 export default login;
