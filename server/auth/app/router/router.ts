@@ -14,6 +14,7 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
     });
     const payload = auth(req.headers.authorization);
     req.payload = payload;
+    console.log(`Request Auth Success`);
     res.status(200).end();
   } catch(err) {
     console.log(err);
@@ -35,6 +36,7 @@ router.post('/login', async (req, res, next) => {
 
   try {
     const result = await login(email, password);
+
     return res.status(200).json({
       access_token: result.accessToken,
       token_type: 'Bearer',

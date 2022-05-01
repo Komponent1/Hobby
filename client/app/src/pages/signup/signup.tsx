@@ -8,7 +8,7 @@ const Signup: React.FC = () => {
 
   const signup = async (e: React.MouseEvent) => {
     e.preventDefault();
-    fetch('/api/users', {
+    fetch('/auth/users', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

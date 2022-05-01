@@ -31,8 +31,7 @@ export const makeJwt = (email: string): { accessToken: string, refreshToken: str
 
 const login = async (email: string, pw: string): Promise<{ accessToken: string, refreshToken: string }> => {
   const user = (await Users.get(email))[0];
-  
-  
+
   if (!user) {
     throw ({ code: 501, msg: 'No User in db'});
   }
@@ -41,7 +40,6 @@ const login = async (email: string, pw: string): Promise<{ accessToken: string, 
   if (!await checkHashed(password, salt, pw)) {
     throw ({ code: 400, msg: 'Not Correct Password' });
   }
-
   return makeJwt(email);  
 };
 
