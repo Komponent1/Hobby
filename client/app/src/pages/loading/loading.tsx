@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 import { rootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
 
-const Loading: React.FC<{ type: string, dep: 'login' }> = ({ type, dep }) => {
+const Loading: React.FC<{ type: string, dep: 'login'|'load' }> = ({ type, dep }) => {
   const { loading, data, error } = useSelector((state: rootState) => state[dep]);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (loading) return;
-    if (data) navigate('/main', { replace: true });
+    if (data) navigate('/', { replace: true });
     if (error) {
       alert('error Occured')
       navigate(-1);

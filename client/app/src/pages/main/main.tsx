@@ -1,8 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Main: React.FC = () => {
+const Main: React.FC = () => { 
+
   return (
-    <div>Main</div>
+    <div>
+      Main
+      <Link to='/signup'><p>sign up</p></Link>
+      <Link to='/login'><p>login</p></Link>
+    </div>
   )
 };
 

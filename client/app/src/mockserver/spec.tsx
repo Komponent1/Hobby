@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 import { users } from './data';
-// import { makeJwt } from './utils';
+import { delay } from './utils';
 
 export function handlers() {
   return [
@@ -63,7 +63,7 @@ const addUser = rest.post<userReq>('/auth/users', (req, res, ctx) => {
   );
 });
 
-const login = rest.post<userReq>('/auth/login', (req, res, ctx) => {
+const login = rest.post<userReq>('/auth/login', async (req, res, ctx) => {
   const { email, password } = req.body;
 
   if (email === 'nouser') {
@@ -83,7 +83,7 @@ const login = rest.post<userReq>('/auth/login', (req, res, ctx) => {
       })
     )
   }
-
+  await delay(5000);
   return res(
     ctx.status(200),
     ctx.cookie('blog_refresh_token', '1234', {

@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { signup } from '../../store/load';
+import { useDispatch } from 'react-redux';
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
 
-  const signup = async (e: React.MouseEvent) => {
+  const submit = async (e: React.MouseEvent) => {
     e.preventDefault();
-    fetch('/auth/users', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email, password
-      })
-    }).then(res => {
-      if (res.status === 204) {
-        navigate('/login');
-      }
-    })
+    dispatch(signup(email, password, navigate, location, 'load'))
   }
 
   return (
@@ -36,7 +28,7 @@ const Signup: React.FC = () => {
             value={password}
             onChange={e => setPassword(e.target.value)} />
         </label>
-        <button className='signup' onClick={signup}>button</button>
+        <button className='signup' onClick={submit}>button</button>
       </form>
     </div>
   )
