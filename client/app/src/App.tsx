@@ -1,19 +1,27 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { Main, Signup, Login, Loading } from './pages';
 
-import { Signup, Login } from './pages';
 
 function App() {
-  
+  const location = useLocation();
+  let state = location.state as { backgroundLocation?: Location, dep?: any };
 
   return (
-    <BrowserRouter>
-      <Routes>
+    <div>
+      <Routes location={state?.backgroundLocation || location}>
+        <Route path='/' element={<Main />} />
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<Signup />} />
       </Routes>
-    </BrowserRouter>
+
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route path='loading' element={<Loading type='wide' dep={state.dep}/>} />
+        </Routes>
+      )}
+    </div>
   );
 }
 

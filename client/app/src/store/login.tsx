@@ -1,34 +1,26 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { NavigateFunction, Location } from 'react-router-dom';
+import * as api from '../api';
+import { token } from '../api/login';
 
 export const LOGIN = 'LOGIN/PENDING';
 export const LOGIN_FAILRUE = 'LOGIN/FAILURE';
 export const LOGIN_SUCCESS = 'LOGIN/SUCCESS';
 
-export const login = (email: string, password: string) => ({ type: LOGIN, payload: { email, password } });
+export const login = (email: string, password: string, navigate: NavigateFunction, location: Location, dep: string) => (
+  {
+    type: LOGIN,
+    payload: {
+      email, password, navigate, location, dep
+    }
+  }
+);
 
-type token = {
-  access_token: string,
-  token_type: string,
-  expires_in: number,
-  scope: string
-}
-const fetcher = async (email: string, password: string): Promise<token> => {
-  const result = await fetch('/auth/login', {
-    headers: { 'Content-Type': 'application/json' },
-    method: 'post', body: JSON.stringify({ email, password })
-  }).then(res => {
-    console.log(res)
-    return res.json();
-  })
-
-  return result;
-};
-
-export function* loginSaga(action: any) {
-  console.log('saga work');
-  const param: { email: string, password: string} = action.payload;
+export function* Saga(action: any) {
+  const param: { email: string, password: string, navigate: NavigateFunction, location: Location, dep: string } = action.payload;
+  param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep }});
   try {
-    const result: token = yield call(fetcher as any, param);
+    const result: token = yield call(api.login as any, param);
     yield put({
       type: LOGIN_SUCCESS,
       payload: result,
@@ -41,8 +33,8 @@ export function* loginSaga(action: any) {
     })
   }
 };
-export function* lSaga() {
-  yield takeEvery(LOGIN, loginSaga);
+export function* loginSaga() {
+  yield takeEvery(LOGIN, Saga);
 }
 
 export type tLogin = {

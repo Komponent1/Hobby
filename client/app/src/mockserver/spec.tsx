@@ -64,9 +64,25 @@ const addUser = rest.post<userReq>('/auth/users', (req, res, ctx) => {
 });
 
 const login = rest.post<userReq>('/auth/login', (req, res, ctx) => {
-  console.log('login')
   const { email, password } = req.body;
-  // const result = makeJwt(email);
+
+  if (email === 'nouser') {
+    return res(
+      ctx.status(401),
+      ctx.json({
+        msg: 'No User in DB',
+      })
+    );
+  }
+
+  if (email === 'nopassword') {
+    return res(
+      ctx.status(401),
+      ctx.json({
+        msg: 'Not matched password'
+      })
+    )
+  }
 
   return res(
     ctx.status(200),
