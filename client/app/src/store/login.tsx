@@ -20,7 +20,7 @@ export function* Saga(action: any) {
   const param: { email: string, password: string, navigate: NavigateFunction, location: Location, dep: string } = action.payload;
   param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep }});
   try {
-    const result: token = yield call(api.login as any, param);
+    const result: token = yield call(api.login as any, param.email, param.password);
     yield put({
       type: LOGIN_SUCCESS,
       payload: result,

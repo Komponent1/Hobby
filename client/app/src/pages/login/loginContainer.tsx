@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../../store/login';
+import LoginPresenter from './loginPresenter';
 
-const Login: React.FC = () => {
+const useLogin = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const location = useLocation();
@@ -15,24 +16,18 @@ const Login: React.FC = () => {
     dispatch(login(email, password, navigate, location, 'login'));
   };
 
+  return {
+    email, setEmail,
+    password, setPassword,
+    submit
+  }
+}
+
+const Login: React.FC = () => {
+  const param = useLogin();
+
   return (
-    <div>
-      <div>
-        <form>
-          <label>email
-            <input
-              value={email}
-              onChange={e => setEmail(e.target.value)} />
-          </label>
-          <label>password
-            <input
-              value={password}
-              onChange={e => setPassword(e.target.value)} />
-          </label>
-          <button onClick={submit}>Button</button>
-        </form>
-      </div>
-    </div>
+    <LoginPresenter {...param}/>
   )
 };
 

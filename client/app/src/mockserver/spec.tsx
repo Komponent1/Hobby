@@ -44,7 +44,7 @@ type userReq = {
 const addUser = rest.post<userReq>('/auth/users', (req, res, ctx) => {  
   const { email, password } = req.body;
 
-  if(users.findIndex(e => e.email === email) !== -1) {
+  if(email === 'error') {
     return res(
       ctx.status(500),
       ctx.json({
@@ -52,11 +52,6 @@ const addUser = rest.post<userReq>('/auth/users', (req, res, ctx) => {
       })
     );
   }
-
-  users.push({
-    ID: users.length + 1,
-    email, password, salt: `salt${users.length + 1}`
-  });
 
   return res(
     ctx.status(204)
@@ -79,11 +74,10 @@ const login = rest.post<userReq>('/auth/login', async (req, res, ctx) => {
     return res(
       ctx.status(401),
       ctx.json({
-        msg: 'Not matched password'
+        msg: 'Not Matched Password'
       })
     )
   }
-  await delay(5000);
   return res(
     ctx.status(200),
     ctx.cookie('blog_refresh_token', '1234', {

@@ -1,12 +1,11 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { expectSaga } from 'redux-saga-test-plan';
-import { call } from 'redux-saga/effects';
 import { setupServer } from 'msw/node';
-import { handlers } from '../../mockserver/spec';
-import { signup as api } from '../../api';
-import loadReducer, { loadSaga } from '../../store/load';
-import SignupPresenter from '../../pages/signup/signupPresenter';
+import { handlers } from '../mockserver/spec';
+import { signup as api } from '../api';
+import loadReducer, { loadSaga } from '../store/load';
+import SignupPresenter from '../pages/signup/signupPresenter';
 
 
 const server = setupServer(...handlers());
@@ -26,7 +25,7 @@ describe('Signup Test', () => {
     });
 
     test('Fail Test', async () => {
-      const email = 'seo2im6492@gmail.com';
+      const email = 'error';
       const password = '1234';
       
       const response = await api(email, password);
@@ -36,17 +35,14 @@ describe('Signup Test', () => {
 
   describe('Saga Test', () => {
     test('Success', () => {
-      const email = 'test@test.com';
+      const email = 'test';
       const password = '1234';
-      const result = { result: true, msg: 'SUCCESS' };
       const param = {
         email, password, navigate: jest.fn(), location: {}, dep: ''
       };
 
       return expectSaga(loadSaga)
         .withReducer(loadReducer)
-        .provide([[ call(api, email, password), result ]])
-        .put({ type: 'LOADER/SUCCESS', payload: true})
         .dispatch({ type: 'LOADER/PENDING', payload: param })
         .hasFinalState({
           loading: false,
@@ -57,17 +53,14 @@ describe('Signup Test', () => {
     });
 
     test('Failure', () => {
-      const email = 'seo2im6492@gmail.com';
+      const email = 'error';
       const password = '123'
-      const result = { result: false, msg: '' };
       const param = {
         email, password, navigate: jest.fn(), location: {}, dep: ''
       };
       
       return expectSaga(loadSaga)
         .withReducer(loadReducer)
-        .provide([[ call(api, email, password), result ]])
-        .put({ type: 'LOADER/FAILURE', payload: false })
         .dispatch({ type: 'LOADER/PENDING', payload: param })
         .hasFinalState({
           loading: false,
@@ -113,5 +106,7 @@ describe('Signup Test', () => {
     })
   });
 
-  
+  describe('Container Test', () => {
+    /* not yet */
+  })
 });

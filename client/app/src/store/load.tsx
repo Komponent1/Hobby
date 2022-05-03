@@ -20,8 +20,7 @@ export function* signupSaga(action: any) {
   const param: { email: string, password: string, navigate: NavigateFunction, location: Location, dep: string } = action.payload;
   param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep  } });
 
-  const result = yield call(api.signup as any, param.email, param.password);
-  console.log(result)
+  const result: { result: boolean, msg: string } = yield call(api.signup, param.email, param.password);
   if (result.result) {
     yield put({
       type: LOADER_SUCCESS,
