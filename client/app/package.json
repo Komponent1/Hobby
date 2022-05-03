@@ -50,7 +50,8 @@
     "@types/redux": "^3.6.0",
     "@types/redux-saga": "^0.10.5",
     "msw": "^0.39.2",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "redux-saga-test-plan": "^4.0.4"
   },
   "msw": {
     "workerDirectory": "public"

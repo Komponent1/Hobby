@@ -19,18 +19,20 @@ export const loadClear = () => ({
 export function* signupSaga(action: any) {
   const param: { email: string, password: string, navigate: NavigateFunction, location: Location, dep: string } = action.payload;
   param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep  } });
-  try {
-    const result: { result: boolean, msg: string } = yield call(api.signup as any, param);
+
+  const result = yield call(api.signup as any, param.email, param.password);
+  console.log(result)
+  if (result.result) {
     yield put({
       type: LOADER_SUCCESS,
       payload: true,
     });
-  } catch(err) {
+  } else {
     yield put({
       type: LOADER_FAILURE,
       payload: false,
     });
-  }
+  };
 }
 export function* loadSaga() {
   yield takeEvery(LOADER, signupSaga);

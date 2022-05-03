@@ -41,7 +41,7 @@ const getUsers = rest.get('/api/users', (req, res, ctx) => {
 type userReq = {
   email: string, password: string
 }
-const addUser = rest.post<userReq>('/auth/users', (req, res, ctx) => {
+const addUser = rest.post<userReq>('/auth/users', (req, res, ctx) => {  
   const { email, password } = req.body;
 
   if(users.findIndex(e => e.email === email) !== -1) {
