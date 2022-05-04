@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { rootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
 
-const Loading: React.FC<{ type: string, dep: 'login'|'signup' }> = ({ type, dep }) => {
+const Loading: React.FC<{ type: string, dep: 'auth'|'signup' }> = ({ type, dep }) => {
   const state = useSelector((state: rootState) => state[dep]);
   const navigate = useNavigate();
 

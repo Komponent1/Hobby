@@ -4,8 +4,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { setupServer } from 'msw/node';
 import { handlers } from '../mockserver/spec';
 import { login as api } from '../api';
-import loginReducer, { loginSaga } from '../store/login';
-import SignupPresenter from '../pages/signup/signupPresenter';
+import loginReducer, { authSaga } from '../store/auth';
 import LoginPresenter from '../pages/login/loginPresenter';
 
 
@@ -57,9 +56,9 @@ describe('Login Test', () => {
         email, password, navigate: jest.fn(), location: {}, dep: ''
       };
 
-      return expectSaga(loginSaga)
+      return expectSaga(authSaga)
         .withReducer(loginReducer)
-        .dispatch({ type: 'LOGIN/PENDING', payload: param })
+        .dispatch({ type: 'AUTH/LOGIN', payload: param })
         .hasFinalState({
           loading: false,
           data: {
@@ -81,9 +80,9 @@ describe('Login Test', () => {
         email, password, navigate: jest.fn(), location: {}, dep: ''
       };
       
-      return expectSaga(loginSaga)
+      return expectSaga(authSaga)
         .withReducer(loginReducer)
-        .dispatch({ type: 'LOGIN/PENDING', payload: param })
+        .dispatch({ type: 'AUTH/LOGIN', payload: param })
         .hasFinalState({
           loading: false,
           data: null,
@@ -99,9 +98,9 @@ describe('Login Test', () => {
         email, password, navigate: jest.fn(), location: {}, dep: ''
       };
       
-      return expectSaga(loginSaga)
+      return expectSaga(authSaga)
         .withReducer(loginReducer)
-        .dispatch({ type: 'LOGIN/PENDING', payload: param })
+        .dispatch({ type: 'AUTH/LOGIN', payload: param })
         .hasFinalState({
           loading: false,
           data: null,

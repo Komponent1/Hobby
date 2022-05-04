@@ -5,7 +5,8 @@ export function handlers() {
   return [
     getUsers,
     addUser,
-    login
+    login,
+    refresh,
   ];
 }
 
@@ -89,4 +90,16 @@ const login = rest.post<userReq>('/auth/login', async (req, res, ctx) => {
       scope: 'create'
     })
   )
-})
+});
+
+const refresh = rest.get('/auth/refresh', async (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      accessToken: '124',
+      token_type: 'Bearer',
+      expires_in: 1800,
+      scope: 'create'
+    })
+  )
+});
