@@ -4,7 +4,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import { setupServer } from 'msw/node';
 import { handlers } from '../mockserver/spec';
 import { signup as api } from '../api';
-import loadReducer, { loadSaga } from '../store/load';
+import signupReducer, { signupSaga } from '../store/signup';
 import SignupPresenter from '../pages/signup/signupPresenter';
 
 
@@ -41,8 +41,8 @@ describe('Signup Test', () => {
         email, password, navigate: jest.fn(), location: {}, dep: ''
       };
 
-      return expectSaga(loadSaga)
-        .withReducer(loadReducer)
+      return expectSaga(signupSaga)
+        .withReducer(signupReducer)
         .dispatch({ type: 'LOADER/PENDING', payload: param })
         .hasFinalState({
           loading: false,
@@ -59,8 +59,8 @@ describe('Signup Test', () => {
         email, password, navigate: jest.fn(), location: {}, dep: ''
       };
       
-      return expectSaga(loadSaga)
-        .withReducer(loadReducer)
+      return expectSaga(signupSaga)
+        .withReducer(signupReducer)
         .dispatch({ type: 'LOADER/PENDING', payload: param })
         .hasFinalState({
           loading: false,

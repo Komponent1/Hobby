@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { NavigateFunction, Location } from 'react-router-dom';
 import * as api from '../api';
 
@@ -16,7 +16,7 @@ export const signup = (email: string, password: string, navigate: NavigateFuncti
 export const loadClear = () => ({
   type: LOADER_CLEAR
 });
-export function* signupSaga(action: any) {
+export function* Saga(action: any) {
   const param: { email: string, password: string, navigate: NavigateFunction, location: Location, dep: string } = action.payload;
   param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep  } });
 
@@ -33,8 +33,8 @@ export function* signupSaga(action: any) {
     });
   };
 }
-export function* loadSaga() {
-  yield takeEvery(LOADER, signupSaga);
+export function* signupSaga() {
+  yield takeLatest(LOADER, Saga);
 }
 export type tSignup = {
   loading: boolean,
@@ -47,7 +47,7 @@ const initialState: tSignup = {
   error: null
 };
 
-export default (state = initialState, action: any) => {
+const reducer = (state = initialState, action: any) => {
   switch (action.type) {
     case LOADER:
       return {
@@ -77,3 +77,5 @@ export default (state = initialState, action: any) => {
       return state
   }
 }
+
+export default reducer;

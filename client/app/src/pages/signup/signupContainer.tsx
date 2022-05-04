@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SignupPresenter from './signupPresenter';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { signup } from '../../store/load';
+import { signup } from '../../store/signup';
 
 type Prop = {
   
@@ -21,7 +21,7 @@ const useSignup = () => {
       alert('pw not same confirm');
       return;
     }
-    dispatch(signup(email, password, navigate, location, 'load'));
+    dispatch(signup(email, password, navigate, location, 'signup'));
   }
 
   return { email, setEmail, password, setPassword, confirmPw, setConfirmPw, submit  }

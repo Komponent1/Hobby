@@ -1,6 +1,5 @@
 import { rest } from 'msw';
 import { users } from './data';
-import { delay } from './utils';
 
 export function handlers() {
   return [
@@ -42,7 +41,7 @@ type userReq = {
   email: string, password: string
 }
 const addUser = rest.post<userReq>('/auth/users', (req, res, ctx) => {  
-  const { email, password } = req.body;
+  const { email } = req.body;
 
   if(email === 'error') {
     return res(
@@ -59,7 +58,7 @@ const addUser = rest.post<userReq>('/auth/users', (req, res, ctx) => {
 });
 
 const login = rest.post<userReq>('/auth/login', async (req, res, ctx) => {
-  const { email, password } = req.body;
+  const { email } = req.body;
 
   if (email === 'nouser') {
     return res(
