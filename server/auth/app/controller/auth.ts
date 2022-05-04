@@ -20,8 +20,7 @@ const decode = (token: string): string => {
   }
 };
 
-const auth = (authorization: string) => {
-  const token = authorization.split('Bearer ')[1];
+const auth = (token) => {
   const result = decode(token);
   if (result === EXPIRE) {
     throw ({
