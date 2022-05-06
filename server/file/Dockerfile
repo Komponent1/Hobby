@@ -1,9 +1,7 @@
-FROM node:16-alpine
+FROM avenus/vsftpd-alpine
 
-COPY app /usr/app
-WORKDIR /usr/app
-
-RUN npm install
-
-EXPOSE 8002
-CMD ["npm", "start"]
+ENV FTP_USER=test
+ENV FTP_PASS=test
+ENV PASV_ADDRESS=5.6.7.8
+ENV PASV_MIN=21100
+ENV PASV_MAX=21110

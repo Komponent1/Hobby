@@ -45,7 +45,7 @@ services:
     ports:
       - 8001:8001
     environment:
-      FLASK_ENV: development
+      NODE_ENV: development
       DB_ID: "${DB_ID}"
       DB_PASSWORD: "${DB_PASSWORD}"
       DB_NAME: ${DB_NAME}"
@@ -57,15 +57,7 @@ services:
   fileserver:
     container_name: fileserver
     build:
-      context: ./auth
+      context: ./file
     ports:
-      - 8002:8002
-    environment:
-      FLASK_ENV: development
-      DB_ID: "${DB_ID}"
-      DB_PASSWORD: "${DB_PASSWORD}"
-      DB_NAME: ${DB_NAME}"
-      DB_HOST: 'db'
-    volumes:
-      - ./file/app:/usr/app
-      - /usr/app/node_modules
+      - 21:21
+      - 21100-21110:21100-21110
