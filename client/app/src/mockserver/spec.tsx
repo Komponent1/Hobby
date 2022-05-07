@@ -7,6 +7,7 @@ export function handlers() {
     addUser,
     login,
     refresh,
+    postArticle
   ];
 }
 
@@ -103,3 +104,11 @@ const refresh = rest.get('/auth/refresh', async (req, res, ctx) => {
     })
   )
 });
+
+const postArticle = rest.post('/api/article', (req, res, ctx) => {
+  console.log(req);
+
+  return res(
+    ctx.status(200)
+  )
+})

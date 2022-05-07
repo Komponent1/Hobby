@@ -1,10 +1,10 @@
+import { Readable, Writable } from 'stream';
 import { Client } from 'basic-ftp';
 
-const fileSend
+const del
 = async (
   user: string,
-  filename: string,
-  fileStream: ReadableStream
+  filename: string
 ): Promise<void> => {
   const client = new Client();
   client.ftp.verbose = true;
@@ -15,8 +15,31 @@ const fileSend
       password: 'test',
       /* scure: true */
     });
-    
-    await client.uploadFrom(fileStream, `${user}/${filename}`);
+    await client.ensureDir(user)
+    await client.remove(filename);
+  } catch(err) {
+    console.log('wi~' /* call administer... */)
+    client.close();
+  }
+}
+
+const send
+= async (
+  user: string,
+  filename: string,
+  fileStream: Readable
+): Promise<void> => {
+  const client = new Client();
+  client.ftp.verbose = true;
+  try {
+    await client.access({
+      host: 'fileserver',
+      user: 'test',
+      password: 'test',
+      /* scure: true */
+    });
+    await client.ensureDir(user)
+    await client.uploadFrom(fileStream, `${filename}`);
     client.close();
   } catch (err) {
     console.log(err);
@@ -24,11 +47,11 @@ const fileSend
   }
 };
 
-const fileLoad = 
-async (
+const load
+= async (
   path: string,
-  writeStream: WritableStream
-): Promise<WritableStream> => {
+  writeStream: Writable
+): Promise<Writable> => {
   const client = new Client();
   client.ftp.verbose = true;
   try {
@@ -46,4 +69,4 @@ async (
   }
 }
 
-export { fileSend, fileLoad };
+export { send, load, del };

@@ -8,6 +8,7 @@ const Main: React.FC = () => {
       Main
       <Link to='/signup'><p>sign up</p></Link>
       <Link to='/login'><p>login</p></Link>
+      <Link to='/post'><p>post</p></Link>
     </div>
   )
 };

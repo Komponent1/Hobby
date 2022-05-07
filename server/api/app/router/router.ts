@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { fileStream } from '../middleware';
 import { post } from '../controller'
 
@@ -13,11 +13,15 @@ router.get('/', (req, res) => {
 router.get('/test', (req, res) => {
   return res.send('clear');
 });
-router.post('/post', fileStream.any(), async (req, res, next) => {
+type Query = {
+  user: string, filename: string, category: string
+};
+router.post('/article', fileStream.any(), async (req: Request<{}, {}, {}, Query>, res: Response, next: NextFunction) => {
   try {
-    const { user, filename, category } = req.query;
-    const { buffer } = req.file;
-    await post(user, category, filename, buffer);
+    const { user, category }: { user: string, filename: string, category: string } = req.query;
+    const { buffer, originalname } = req.files[0];
+    
+    await post(user, category, originalname, buffer);
     
 
     return res.status(204).end();
