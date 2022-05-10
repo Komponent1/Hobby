@@ -42,8 +42,11 @@ const send
     await client.uploadFrom(fileStream, `${filename}`);
     client.close();
   } catch (err) {
-    console.log(err);
     client.close();
+    throw ({
+      code: 500,
+      msg: 'FTP server Error'
+    })
   }
 };
 
@@ -61,7 +64,10 @@ const load
       password: 'test',
       /* scure: true */
     });
-    await client.downloadTo(writeStream, path);
+    const [ dir, filename ] = path.split('/');
+    await client.ensureDir(dir)
+    await client.downloadTo(writeStream, filename);
+    client.close();
     return writeStream;
   } catch (err) {
     console.log(err);

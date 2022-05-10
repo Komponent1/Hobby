@@ -8,15 +8,15 @@ router.use((req, res, next) => {
 })
 
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
+  console.log('auth_check');
   try {
     if (!req.headers.authorization) throw ({
       code: 401,
       msg: 'no token'
     });
     const payload = auth(req.headers.authorization.split('Bearer ')[1]);
-    req.payload = payload;
-    console.log(`Request Auth Success`);
-    res.status(200).end();
+    console.log('user', payload);
+    res.status(200).header('x-user', payload).end();
   } catch(err) {
     console.log(err);
     next(err);

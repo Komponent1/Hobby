@@ -18,6 +18,8 @@ services:
       context: ./gateway
     ports:
       - 80:80
+    volumes:
+      - ./gateway/app/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - apiserver
       - authserver
