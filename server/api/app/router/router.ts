@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { fileStream } from '../middleware';
-import { postCategory, postArticle, getArticle } from '../controller'
+import {  postArticle, getArticle } from '../controller'
 
 const router = express.Router();
 router.use((req, res, next) => {
@@ -27,15 +27,6 @@ router.post('/article', fileStream.any(), async (req: Request<{}, {}, {}, postAr
     next(err);
   }
 });
-router.post('/category', async (req: Request<{}>, res: Response, next: NextFunction) => {
-  try {
-    const { user, category_name } = req.body;
-    await postCategory(user, category_name);
-    res.status(204).end();
-  } catch(err) {
-    next(err);
-  }
-});
 type getArticleQuery = {
   user: string, category_name: string, title: string
 };
@@ -45,7 +36,7 @@ router.get('/article', async (req: Request<{}, {}, {}, getArticleQuery>, res: Re
     const content = await getArticle(title, category_name, user);
     
     /* sending md file & get file load in client */
-    res.status(200).write(content).end();
+    res.status(200).write(content);
   } catch (err) {
     next(err);
   };

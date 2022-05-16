@@ -1,14 +1,27 @@
 import db from './connect';
 
-export const get = async (user_email: string) => {
-  if (!user_email || user_email === '') {
-    throw ({ code: 500, msg: 'NO user_email DB' });
+type CategoryGetFunction = (
+  user_email: string,
+  option?: {
+    category_id?: string
+    category_name?: string
+  }
+) => Promise<any[] | any>
+export const get: CategoryGetFunction = async (user_email, option) => {
+  if (option?.category_id) {
+    return await db.many('SELECT * FROM Category WHERE category_id = $1', [option.category_id]);
+  } else if (option?.category_name) {
+    return await db.one('SELECT * FROM Category WHERE user_email = $1 AND category_name = $2', [user_email, option.category_name]);
   } else {
-    return await db.any('SELECT * FROM Category WHERE user_email $1', [user_email]);
+    return await db.many('SELECT * FROM Category WHERE user_email = $1', [user_email]);
   }
 };
-export const post = async (category_name: string, user_email: string) => {
-  return await db.none('INSERT INTO Category(name, user_email) VALUES($1, $2)', [category_name, user_email]);
+type CategoryPostFunction = (
+  user_email: string,
+  category_name: string
+) => Promise<any>
+export const post: CategoryPostFunction = async (category_name, user_email) => {
+  return await db.one('INSERT INTO Category(name, user_email) VALUES($1, $2) RETUNRING *', [category_name, user_email]);
 };
 
 export default { get, post };

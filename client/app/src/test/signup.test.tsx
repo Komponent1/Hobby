@@ -7,7 +7,6 @@ import { signup as api } from '../api';
 import signupReducer, { signupSaga } from '../store/signup';
 import SignupPresenter from '../pages/signup/signupPresenter';
 
-
 const server = setupServer(...handlers());
 
 beforeAll(() => server.listen());

@@ -58,5 +58,4 @@ describe('Testing Signup', () => {
       expect(err.msg).toMatch('Not Correct Password');
     })
   });
-
 });

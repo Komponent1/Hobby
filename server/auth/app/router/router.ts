@@ -15,7 +15,6 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
       msg: 'no token'
     });
     const payload = auth(req.headers.authorization.split('Bearer ')[1]);
-    console.log('user', payload);
     res.status(200).header('x-user', payload).end();
   } catch(err) {
     console.log(err);
