@@ -2,10 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { Article } from "../model";
 import { Writable } from 'stream';
 import * as file from '../lib/file';
-import article from '../model/article';
 
-
-const getFile = async (path): Promise<any> => {
+export const getFile = async (path): Promise<any> => {
   try {
     let result = '';
     const stream = new Writable({

@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { Article } from "../model";
-import { Writable } from 'stream';
-import * as file from '../lib/file';
 
 type getArticlesQuery = { user: string, category_id: string, pagination: string, num: string }
 const getArticles = async (req: Request<{}, {}, {}, getArticlesQuery>, res: Response, next: NextFunction) => {
