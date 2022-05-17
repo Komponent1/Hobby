@@ -30,8 +30,8 @@ export const post
   user_email: string,
   path: string
 ) => {
-  return await db.none(
-    'INSERT INTO Article(title, publish_date, category_id, user_email, path) VALUES($1, $2, $3, $4, $5)',
+  return await db.one(
+    'INSERT INTO Article(title, publish_date, category_id, user_email, path) VALUES($1, $2, $3, $4, $5) RETURNING *',
     [title, new Date().toString(), category_id, user_email, path]
   )
 };

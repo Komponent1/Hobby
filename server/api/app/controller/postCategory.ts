@@ -38,20 +38,20 @@ export const addCategory: tAddCatorgory = async (category_name, user) => {
   }
 };
 const postCategory = async (req: Request, res: Response, next: NextFunction) => {
-  const { user, category_name } = req.body;
-  const author = req.headers['x-user'];
-
-  /* client is not blog owner */
-  if (user !== author) return next(({
-    code: 401,
-    msg: 'No match client with blog owner',
-  }));
-
   try {
+    const { user, category_name } = req.body;
+    const author = req.headers['x-user'];
+
+    /* client is not blog owner */
+    if (user !== author) return next(({
+      code: 401,
+      msg: 'No match client with blog owner',
+    }));
+
     const new_category = await addCategory(category_name, user);
     return res.status(200).json(new_category);
-  } catch (err){
-    return next(err);
+  } catch (err) {
+    return next(err)
   }
 }
 

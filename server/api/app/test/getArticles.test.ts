@@ -3,7 +3,7 @@ import getArticles from '../controller/getArticles';
 
 describe('get /articles', () => {
   const req = {
-
+    query: { user: 'test_user', category_id: 'test_category_id'}
   } as Request;
   const res = (() => {
     let res: any = {};
@@ -12,7 +12,7 @@ describe('get /articles', () => {
   })();
   describe('Router Test', () => {
     test('Normal Test', () => {
-      
+
     });
   });
 });

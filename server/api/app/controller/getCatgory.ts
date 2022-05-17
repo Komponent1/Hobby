@@ -3,8 +3,9 @@ import { Category } from '../model';
 
 type getCategoryQuery = { user: string };
 const getCategory = async (req: Request<{}, {}, {}, getCategoryQuery>, res: Response, next: NextFunction) => {
-  const { user } = req.query;
   try {
+    const { user } = req.query;
+
     const categories = await Category.get(user);
     return res.status(200).json({
       categories

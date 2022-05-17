@@ -30,14 +30,20 @@ type postArticleQuery = { user: string, category_id: string }
 const postArticle = async (req: Request<{}, {}, {}, postArticleQuery>, res: Response, next: NextFunction) => {
   try {
     const { user, category_id } = req.query;
+    const author = req.headers['x-user'];
+
+    if (user !== author) return next({
+      code: 401,
+      msg: 'No match client with blog owner'
+    });
     const { buffer, originalname } = req.files[0];
     
     await savingFile(originalname, user, category_id, buffer);
-    await pathupload(originalname, user, category_id);
+    const article = await pathupload(originalname, user, category_id);
 
-    return res.status(204).end();
+    return res.status(200).json({ article });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 

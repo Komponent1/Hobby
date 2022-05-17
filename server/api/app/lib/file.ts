@@ -70,8 +70,11 @@ const load
     client.close();
     return writeStream;
   } catch (err) {
-    console.log(err);
     client.close();
+    throw ({
+      code: 500,
+      msg: 'FTP server Error'
+    })
   }
 }
 
