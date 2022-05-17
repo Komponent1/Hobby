@@ -1,5 +1,5 @@
 const fetcher = async (email: string, password: string) => {
-  const res = await fetch('/auth/users', {
+  const res = await fetch('/sign/users', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'

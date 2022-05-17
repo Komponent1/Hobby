@@ -5,7 +5,7 @@ export type token = {
   scope: string
 }
 const fetcher = async (email: string, password: string): Promise<token> => {
-  const response = await fetch('/auth/login', {
+  const response = await fetch('/sign/login', {
     headers: { 'Content-Type': 'application/json' },
     method: 'post', body: JSON.stringify({ email, password })
   });

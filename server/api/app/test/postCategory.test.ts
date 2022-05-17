@@ -1,5 +1,6 @@
-import { addCategory } from '../controller';
+import postCategory, { addCategory } from '../controller/postCategory';
 import { Category } from '../model';
+import { Request, Response, NextFunction } from 'express';
 
 describe('post /category', () => {
   Category.get = jest.fn().mockReturnValue([]);
@@ -24,6 +25,19 @@ describe('post /category', () => {
   });
 
   describe('router Test', () => {
+    const req = {
+      headers: { 'X-User': user },
+      body: { user, category_name }
+    };
+    const res = (() => {
+      const res: any = {};
+      res.status = jest.fn().mockReturnValue(res);
+      res.json = jest.fn((obj) => obj)
+      return res;
+    })();
 
-  })
+    test('Normal Test', async () => {
+      const response = await postCategory(req, res, (err) => err);
+      expect(response).toHaveProperty('category_id', 'test_id');    });
+  });
 });

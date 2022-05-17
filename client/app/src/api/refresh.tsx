@@ -5,7 +5,7 @@ export type token = {
   scope: string
 }
 const fetcher = async (): Promise<token> => {
-  const response = await fetch('/auth/refresh');
+  const response = await fetch('/sign/refresh');
   const result = await response.json();
   if (response.status !== 200) {
     throw result;

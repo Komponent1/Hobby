@@ -25,6 +25,7 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.30",
     "jest": "^27.5.1",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.3",
     "ts-jest": "^27.1.4",
