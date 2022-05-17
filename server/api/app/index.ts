@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import router from './router/router'
-import auth_router from './router/auth_router';
+import authorRouter from './router/authorRouter';
 import logger from 'morgan';
 import { errorHandler } from './middleware';
 
@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger());
 app.use('/api', router);
-app.use('/author', auth_router);
+app.use('/author', authorRouter);
 app.use(errorHandler);
 
 const server = app.listen(8003, () => console.log('Connect'));

@@ -1,18 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { fileStream } from '../middleware';
-import {  postArticle, getArticle } from '../controller'
+import {  postArticle, getArticle, getCategory } from '../controller'
 
 const router = express.Router();
 router.use((req, res, next) => {
   next();
 })
 
-router.get('/', (req, res) => {
-  return res.send('Hello API Server');
-});
-router.get('/test', (req, res) => {
-  return res.send('clear');
-});
 type postArticleQuery = {
   user: string, filename: string, category: string
 };
@@ -41,5 +35,7 @@ router.get('/article', async (req: Request<{}, {}, {}, getArticleQuery>, res: Re
     next(err);
   };
 });
+
+router.get('/category', getCategory);
 
 export default router;
