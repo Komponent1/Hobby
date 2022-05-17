@@ -5,16 +5,32 @@ type CategoryGetFunction = (
   option?: {
     category_id?: string
     category_name?: string
+  },
+  pagination?: {
+    id: number,
+    num: number
   }
 ) => Promise<any[] | any>
-export const get: CategoryGetFunction = async (user_email, option) => {
+export const get: CategoryGetFunction = async (user_email, option, pagination) => {
+  let query = 'SELECT * FROM Category WHERE';
+  let data = null;
+
   if (option?.category_id) {
-    return await db.many('SELECT * FROM Category WHERE category_id = $1', [option.category_id]);
+    query += ' category_id = $1';
+    data = [option.category_id];
   } else if (option?.category_name) {
-    return await db.many('SELECT * FROM Category WHERE user_email = $1 AND name = $2', [user_email, option.category_name]);
+    query += ' user_email = $1 AND name = $2';
+    data = [user_email, option.category_name];
   } else {
-    return await db.many('SELECT * FROM Category WHERE user_email = $1', [user_email]);
+    query += ' user_email = $1';
+    data = [user_email];
   }
+
+  if (pagination) {
+    query += ` OFFSET ${pagination.id} limit ${pagination.num}`;
+  }
+
+  return await db.many(query, data);
 };
 type CategoryPostFunction = (
   user_email: string,

@@ -3,7 +3,9 @@ import { login, auth, signUp } from '../controller';
 import { makeJwt } from '../controller/login';
 
 const router = express.Router();
-
+router.use((req, res, next) => {
+  next();
+});
 router.post('/users', async (req, res, next) => {
   try {
     const { email, password } = req.body;
