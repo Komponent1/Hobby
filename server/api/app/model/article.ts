@@ -1,16 +1,26 @@
 import db from './connect';
 
-export const get
-= async (
-  title: string,
-  category_id: string,
-  user_email: string
-) => {
-  return await db.one(
-    'SELECT path FROM Article WHERE\
-      (title = $1 AND category_id = $2 AND user_email = $3)',
-    [title, category_id, user_email]
-  );
+type tGetArticle = (user: string, option?: { category_id?: string, article_id?: string }, pagination?: { id: number, num: number }) => Promise<any[]>
+export const get: tGetArticle = async (user, option, pagination) => {
+  let query = 'SELECT * FROM Article WHERE';
+  let data = null;
+
+  if (option?.article_id) {
+    query += ' ID = $1';
+    data = [option.article_id];
+  } else if (option?.category_id) {
+    query += ' user_email = $1 AND category_id = $2';
+    data = [user, option.category_id];
+  } else {
+    query += ' user_id = $1';
+    data = [user];
+  }
+
+  if (pagination) {
+    query += ` OFFSET ${pagination.id} limit ${pagination.num}`;
+  }
+
+  return await db.many(query, data);
 };
 
 export const post

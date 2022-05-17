@@ -1,14 +1,20 @@
-import { signUp } from '../controller';
+import { Request, Response, NextFunction } from 'express';
+import postUser, { signUp } from '../controller/postUser';
 import { Users } from '../model';
 
-describe('Testing Signup', () => {
+describe('post /user', () => {
   const email = 'seo2im6492@gmail.com';
   const pw = '1234';
 
-  test('정상 응답', async () => {
-    Users.get = jest.fn().mockReturnValue(null);
-    Users.post = jest.fn().mockReturnValue(null);
-    await signUp(email, pw);
+  describe('FunctionTest', () => {
+    test('Normal Test', async () => {
+      Users.get = jest.fn().mockReturnValue(null);
+      Users.post = jest.fn().mockReturnValue(null);
+      const spy = jest.spyOn(Users, 'get');
+      await signUp(email, pw);
+
+      expect(spy).toBeCalledTimes(1);
+    });
   });
 
   test("이미 있음", async () => {
@@ -25,7 +31,7 @@ describe('Testing Signup', () => {
     Users.post = jest.fn().mockRejectedValue({ code: 500, msg: 'Error in addUser in db'});
 
     signUp(email, pw).catch(err => {
-      expect(err.msg).toMatch('Error in addUser in db');
+      expect(err.msg).toMatch('Error in DB');
     })
   })
 });

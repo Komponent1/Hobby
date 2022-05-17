@@ -12,7 +12,7 @@ export const get: CategoryGetFunction = async (user_email, option) => {
   let data = null;
 
   if (option?.category_id) {
-    query += ' category_id = $1';
+    query += ' ID = $1';
     data = [option.category_id];
   } else if (option?.category_name) {
     query += ' user_email = $1 AND name = $2';

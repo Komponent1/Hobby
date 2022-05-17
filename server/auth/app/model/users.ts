@@ -2,9 +2,9 @@ import db from './connect';
 
 export const get = async (email?: string): Promise<any|null> => {
   if (!email || email === '') {
-    return await db.any('SELECT * FROM Users');
+    return await db.many('SELECT * FROM Users');
   } else {
-    return await db.any('SELECT * FROM Users WHERE email = $1', [email]);
+    return await db.one('SELECT * FROM Users WHERE email = $1', [email]);
   }
 }
 export const post = async (email: string, password: string, salt: string) => {

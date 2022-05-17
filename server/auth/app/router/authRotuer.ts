@@ -5,18 +5,6 @@ const router = express.Router();
 router.use((req, res, next) => {
   next();
 });
-router.get('/', (req: Request, res: Response, next: NextFunction) => {
-  try {
-    if (!req.headers.authorization) throw ({
-      code: 401,
-      msg: 'no token'
-    });
-    const payload = auth(req.headers.authorization.split('Bearer ')[1]);
-    res.status(204).header('x-user', payload).end();
-  } catch(err) {
-    console.log(err);
-    next(err);
-  }
-});
+router.get('/', auth);
 
 export default router;

@@ -1,16 +1,10 @@
+import { Request, Response, NextFunction } from 'express';
 import { Users } from "../model";
 import * as crypto from 'crypto';
-import * as jwt from 'jsonwebtoken'
+import { makeJwt } from '../lib';
 
-export const devHashKey: { secret: string, option: jwt.SignOptions } = {
-  secret: 'Secret',
-  option: {
-    algorithm: 'HS256',
-    expiresIn: '30m',
-  }
-}
-
-export const checkHashed = (password: string, salt: string, pw: string): Promise<boolean> => (
+type tCheckHash = (password: string, salt: string, pw: string) => Promise<boolean>
+export const checkHashed: tCheckHash = (password, salt, pw) => (
   new Promise((resolve, reject) => {
     crypto.pbkdf2(pw, salt, 9999, 64, 'sha512', (err, key) => {
       if (err) reject({ code: 500, err: 'Hashing Error' });
@@ -21,26 +15,42 @@ export const checkHashed = (password: string, salt: string, pw: string): Promise
   })
 );
 
-export const makeJwt = (email: string): { accessToken: string, refreshToken: string } => {
-  return ({
-    accessToken: jwt.sign({ email }, devHashKey.secret, devHashKey.option),
-    /* TODO: Have to end token */
-    refreshToken: jwt.sign({ email }, devHashKey.secret, { ...devHashKey.option, expiresIn: '1h' })
-  })
-};
+type tLogin = (email: string, pw: string) => Promise<{ accessToken: string, refreshToken: string }>
+export const login: tLogin = async (email, pw) => {
+  let user = null;
+  try {
+    user = await Users.get(email);
+  } catch(err) {
+    if (err.code === 0) throw ({ code: 501, msg: 'No user in db'});
+    else throw({ code: 500, msg: 'Error in DB' });
+  };
 
-const login = async (email: string, pw: string): Promise<{ accessToken: string, refreshToken: string }> => {
-  const user = (await Users.get(email))[0];
-
-  if (!user) {
-    throw ({ code: 501, msg: 'No User in db'});
-  }
-  
   const { password, salt } = user;
   if (!await checkHashed(password, salt, pw)) {
-    throw ({ code: 400, msg: 'Not Correct Password' });
+    throw ({ code: 401, msg: 'Not Correct Password' });
   }
   return makeJwt(email);
 };
 
-export default login;
+const postLogin = async (req: Request, res: Response, next: NextFunction) => {
+  const { email, password } = req.body;
+
+  try {
+    const result = await login(email, password);
+    res.cookie('blog_refresh_token', result.refreshToken, {
+      maxAge: 60 * 60 * 24 * 30
+    });
+
+    return res.status(200).json({
+      access_token: result.accessToken,
+      token_type: 'Bearer',
+      expires_in: 1800,
+      scope: 'create'
+    });
+  } catch (err) {
+    console.log(err)
+    next(err);
+  }
+};
+
+export default postLogin;

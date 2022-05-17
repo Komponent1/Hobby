@@ -1,41 +1,15 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import { fileStream } from '../middleware';
-import {  postArticle, getArticle, getCategory } from '../controller'
+import {  postArticle, getArticle, getCategory, getArticles } from '../controller'
 
 const router = express.Router();
 router.use((req, res, next) => {
   next();
 })
 
-type postArticleQuery = {
-  user: string, filename: string, category: string
-};
-router.post('/article', fileStream.any(), async (req: Request<{}, {}, {}, postArticleQuery>, res: Response, next: NextFunction) => {
-  try {
-    const { user, category } = req.query;
-    const { buffer, originalname } = req.files[0];
-    
-    await postArticle(user, category, originalname, buffer);
-    return res.status(204).end();
-  } catch (err) {
-    next(err);
-  }
-});
-type getArticleQuery = {
-  user: string, category_name: string, title: string
-};
-router.get('/article', async (req: Request<{}, {}, {}, getArticleQuery>, res: Response, next: NextFunction) => {
-  try {
-    const { user, category_name, title } = req.query;
-    const content = await getArticle(title, category_name, user);
-    
-    /* sending md file & get file load in client */
-    res.status(200).write(content);
-  } catch (err) {
-    next(err);
-  };
-});
-
+router.post('/article', fileStream.any(), postArticle);
+router.get('/article', getArticle);
+router.get('/articles', getArticles);
 router.get('/category', getCategory);
 
 export default router;

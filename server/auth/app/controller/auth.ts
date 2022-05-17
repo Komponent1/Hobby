@@ -1,39 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
-import * as jwt from 'jsonwebtoken';
-import { devHashKey } from './login';
+import { authorization } from '../lib';
 
-const EXPIRE = 'expire';
-const INVALID = 'invalid';
-
-type tToken = {
-  email: string
-}
-const decode = (token: string): string => {
+const auth = (req: Request, res: Response, next: NextFunction) => {
   try {
-    return (jwt.verify(token, devHashKey.secret) as tToken).email;
-  } catch (err: any) {
-    if (err.message === 'jwt expired') {
-      return EXPIRE;
-    } else {
-      return INVALID;
-    }
-  }
-};
-
-const auth = (token) => {
-  const result = decode(token);
-  if (result === EXPIRE) {
-    throw ({
+    if (!req.headers.authorization) throw ({
       code: 401,
-      msg: 'expire token'
+      msg: 'no token'
     });
-  } else if (result === INVALID){
-    throw ({
-      code: 401,
-      msg: 'invalid token'
-    });
+    const payload = authorization(req.headers.authorization.split('Bearer ')[1]);
+    res.status(204).header('x-user', payload).end();
+  } catch(err) {
+    console.log(err);
+    next(err);
   }
-  return result;
 };
 
 export default auth;
