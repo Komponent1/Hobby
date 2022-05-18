@@ -19,7 +19,7 @@ function App() {
 
       {state?.backgroundLocation && (
         <Routes>
-          <Route path='loading' element={<Loading type='wide' dep={state.dep}/>} />
+          <Route path='loading' element={<Loading dep={state.dep}/>} />
         </Routes>
       )}
     </div>

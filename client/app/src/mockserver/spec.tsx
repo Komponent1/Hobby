@@ -42,14 +42,23 @@ const getUsers = rest.get('/api/users', (req, res, ctx) => {
 type userReq = {
   email: string, password: string
 }
-const addUser = rest.post<userReq>('/auth/users', (req, res, ctx) => {  
+const addUser = rest.post<userReq>('/sign/users', (req, res, ctx) => {  
   const { email } = req.body;
 
-  if(email === 'error') {
+  if(email === '401') {
+    return res(
+      ctx.status(401),
+      ctx.json({
+        msg: 'Already in User'
+      })
+    );
+  }
+
+  if (email === '500') {
     return res(
       ctx.status(500),
       ctx.json({
-        msg: 'Already in User'
+        msg: 'Internal Server Error'
       })
     );
   }

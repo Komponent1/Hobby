@@ -20,16 +20,16 @@ export function* Saga(action: any) {
   const param: { email: string, password: string, navigate: NavigateFunction, location: Location, dep: string } = action.payload;
   param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep  } });
 
-  const result: { result: boolean, msg: string } = yield call(api.signup, param.email, param.password);
-  if (result.result) {
+  const result: { code: number, data: any } = yield call(api.postUser, param.email, param.password);
+  if (result.code === 204) {
     yield put({
       type: LOADER_SUCCESS,
-      payload: true,
+      payload: result.code,
     });
   } else {
     yield put({
       type: LOADER_FAILURE,
-      payload: false,
+      payload: result.code,
     });
   };
 }
@@ -38,8 +38,8 @@ export function* signupSaga() {
 }
 export type tSignup = {
   loading: boolean,
-  data: boolean|null
-  error: boolean|null
+  data: number|null
+  error: number|null
 };
 const initialState: tSignup = {
   loading: false,
@@ -58,14 +58,14 @@ const reducer = (state = initialState, action: any) => {
     case LOADER_SUCCESS:
       return {
         loading: false,
-        data: true,
+        data: action.payload,
         error: null,
       }
     case LOADER_FAILURE:
       return {
         loading: false,
         data: null,
-        error: true
+        error: action.payload,
       }
     case LOADER_CLEAR:
       return {
