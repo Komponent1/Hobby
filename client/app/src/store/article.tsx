@@ -1,58 +1,58 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as api from '../api';
 
-export const CATEGORY = 'CATEGORY/PENDING';
-export const CATEGORY_SUCCESS = 'CATEGORY/SUCCESS';
-export const CATEGORY_FAILURE = 'CATEGORY/FAILURE';
+export const ARTICLE = 'ARTICLE/PENDING';
+export const ARTICLE_SUCCESS = 'ARTICLE/SUCCESS';
+export const ARTICLE_FAILURE = 'ARTICLE/FAILURE';
 
-export const getCategory = (email: string) => ({
-  type: CATEGORY,
-  payload: { email }
+export const getArticle = (article_id: string) => ({
+  type: ARTICLE,
+  payload: { article_id }
 });
-export function* Saga(action: any) {
-  const { email }: { email: string } = action.payload;
+export function *Saga(action: any) {
+  const { article_id }: { article_id: string } = action.payload;
 
-  const result: { code: number, data: any } = yield call(api.getCategory, email);
+  const result: { code: number, data: any } = yield call(api.getArticle, article_id);
   if (result.code === 200) {
     yield put({
-      type: CATEGORY_SUCCESS,
+      type: ARTICLE_SUCCESS,
       payload: result.data
     })
   } else {
     yield put({
-      type: CATEGORY_FAILURE,
+      type: ARTICLE_FAILURE,
       payload: result.code
     })
   }
 };
-export function *getCategorySaga() {
-  yield takeLatest(CATEGORY, Saga);
+export function* getArticleSaga() {
+  yield takeLatest(ARTICLE, Saga);
 };
-export type tGetCategory = {
+export type tGetArticle = {
   loading: boolean,
   data: any,
   error: number|null
 };
-const initialState: tGetCategory = {
+const initialState: tGetArticle = {
   loading: false,
   data: null,
   error: null
 };
 const reducer = (state = initialState, action: any) => {
-  switch(action.type) {
-    case CATEGORY:
+  switch (action.type) {
+    case ARTICLE:
       return {
         loading: true,
         data: null,
         error: null,
       };
-    case CATEGORY_SUCCESS:
+    case ARTICLE_SUCCESS:
       return {
         loading: false,
         data: action.payload,
         error: null,
       };
-    case CATEGORY_FAILURE:
+    case ARTICLE_FAILURE:
       return {
         loading: false,
         data: null,
