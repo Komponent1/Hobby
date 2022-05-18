@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import { expectSaga } from 'redux-saga-test-plan';
 import { setupServer } from 'msw/node';
 import { handlers } from '../mockserver/spec';
-import { signup as api } from '../api';
+import { postUser as api } from '../api';
 import signupReducer, { signupSaga } from '../store/signup';
 import SignupPresenter from '../pages/signup/signupPresenter';
 

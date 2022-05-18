@@ -1,9 +1,10 @@
 import { rest } from 'msw';
-import { users } from './data';
+import { users, category } from './data';
 
 export function handlers() {
   return [
     getUsers,
+    getCategory,
     addUser,
     login,
     refresh,
@@ -119,5 +120,14 @@ const postArticle = rest.post('/api/article', (req, res, ctx) => {
 
   return res(
     ctx.status(200)
+  )
+});
+
+const getCategory = rest.get('/api/category', (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      categories: category
+    })
   )
 })

@@ -12,3 +12,26 @@ export const users = [
     salt: 'salt2'
   }
 ];
+
+export const category = [
+  {
+    ID: 1,
+    name: 'test_category_1',
+    user_email: 'seo2im6492@gmail.com',
+  },
+  {
+    ID: 2,
+    name: 'test_category_2',
+    user_email: 'seo2im6492@gmail.com',
+  },
+  {
+    ID: 3,
+    name: 'test_category_3',
+    user_email: 'seo2im6492@gmail.com',
+  },
+  {
+    ID: 4,
+    name: 'test_category_4',
+    user_email: 'yeonghwa17@naver.com',
+  },
+]
