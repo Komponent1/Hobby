@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import auth, { authSaga } from './auth';
 import signup, { signupSaga } from './signup';
-import category, { getCategorySaga } from './category';
+import category, { categorySaga } from './category';
 import article, { getArticleSaga } from './article';
 import articles, { getArticlesSaga } from './articles';
 import { all, fork } from 'redux-saga/effects';
@@ -14,7 +14,7 @@ export function* rootSaga (){
   yield all([ 
     fork(authSaga),
     fork(signupSaga),
-    fork(getCategorySaga),
+    fork(categorySaga),
     fork(getArticlesSaga),
     fork(getArticleSaga)
   ])

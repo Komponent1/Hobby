@@ -4,3 +4,4 @@ export { default as refresh } from './refresh';
 export { default as getCategory } from './getCategory';
 export { default as getArticle } from './getArticle';
 export { default as getArticles } from './getArticles';
+export { default as postCategory } from './postCategory';
