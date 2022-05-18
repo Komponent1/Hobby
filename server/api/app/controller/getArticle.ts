@@ -20,13 +20,13 @@ export const getFile = async (path): Promise<any> => {
   }
 };
 
-type getArticleQuery = { user: string, article_id: string }
+type getArticleQuery = { article_id: string }
 const getArticle = async (req: Request<{}, {}, {}, getArticleQuery>, res: Response, next: NextFunction) => {
   try {
     let article = null;
-    const { user, article_id } = req.query;
+    const { article_id } = req.query;
     try {
-      article = (await Article.get(user, { article_id }))[0];
+      article = (await Article.get({ article_id }))[0];
     } catch(err) {
       throw ({
         code: 500,

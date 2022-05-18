@@ -1,7 +1,7 @@
 import db from './connect';
 
-type tGetArticle = (user: string, option?: { category_id?: string, article_id?: string }, pagination?: { id: number, num: number }) => Promise<any[]>
-export const get: tGetArticle = async (user, option, pagination) => {
+type tGetArticle = (option: { user?: string, category_id?: string, article_id?: string }, pagination?: { id: number, num: number }) => Promise<any[]>
+export const get: tGetArticle = async (option, pagination) => {
   let query = 'SELECT * FROM Article WHERE';
   let data = null;
 
@@ -10,10 +10,10 @@ export const get: tGetArticle = async (user, option, pagination) => {
     data = [option.article_id];
   } else if (option?.category_id) {
     query += ' user_email = $1 AND category_id = $2';
-    data = [user, option.category_id];
-  } else {
-    query += ' user_id = $1';
-    data = [user];
+    data = [option.user, option.category_id];
+  } else if (option){
+    query += ' user_email = $1';
+    data = [option.user];
   }
 
   if (pagination) {
