@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom'
-import { Category, Header, Banner } from '../../components';
+import { Category, Header, Banner, Editor } from '../../components';
 import ArticlesBoard from '../../components/articlesboard/articlesborad';
 import queryString from 'query-string';
 
@@ -14,6 +14,7 @@ const Main: React.FC = () => {
       <Banner/>
       <Category/>
       <ArticlesBoard category_id={category_id}/>
+      <Editor />
     </div>
   )
 };
