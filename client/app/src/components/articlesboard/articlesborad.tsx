@@ -24,10 +24,14 @@ const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
   useEffect(() => {
     console.log(loading, data, error);
   }, [ loading ])
-
+  useEffect(() => {
+    if (category_id) {
+      setIdx(0);
+      dispatch(getArticles('email', 0, NUM, category_id));
+    }
+  }, [ category_id ])
 
   const onClickArticle = (idx: number) => {
-    console.log(data.articles[idx].ID);
     dispatch(getArticle(data.articles[idx].ID, navigate, location, 'article'))
   }
 
@@ -38,7 +42,7 @@ const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
           <li onClick={() => onClickArticle(i)}>{e.title}</li>
         ))}
       </ul>
-      <Pagination count={10} onChange={(e: React.ChangeEvent<unknown>, page) => setIdx(page - 1)}/>
+      <Pagination count={10} page={idx + 1} onChange={(e: React.ChangeEvent<unknown>, page) => setIdx(page - 1)}/>
     </div>
 
   )

@@ -19,13 +19,14 @@ const Category: React.FC = () => {
 
   /* click to category */
   const onClick = (idx: number) => {
-    navigate(`?category_id=${data[idx].category_id}`);
+    console.log(data.categories[idx])
+    navigate(`?category_id=${data.categories[idx].ID}`);
   };
 
   return (
     <ul>
-      {data?.categories.map((e: any) => (
-        <li>{e.name}</li>
+      {data?.categories.map((e: any, i: number) => (
+        <li onClick={() => onClick(i)}>{e.name}</li>
       ))}
     </ul>
   );
