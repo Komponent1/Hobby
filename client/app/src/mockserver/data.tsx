@@ -32,6 +32,35 @@ export const category = [
   {
     ID: 4,
     name: 'test_category_4',
-    user_email: 'yeonghwa17@naver.com',
+    user_email: 'seo2im6492@gmail.com',
+  },
+  {
+    ID: 5,
+    name: 'test_category_5',
+    user_email: 'seo2im6492@gmail.com',
   },
 ]
+const nums = Array.from({ length: 50 }).map((_, i) => i);
+export const articles = nums.map(e => ({
+  ID: e,
+  title: `test_article_${e}`,
+  publish_date: `2022-01-${Math.floor(e / 30)}`,
+  category_id: Math.floor(e / 10),
+  path: `test_path_${e}`
+}));
+
+export const article = {
+  article_id: 0,
+  content: '\
+  # Title \
+  ## Header \
+  ### Sub Title \
+  **bold** \
+  *italic* \
+  '
+}
+export const newCatetgory = {
+  ID: 6,
+  name: 'new_category_6',
+  user_email: 'seo2im6492@gmail.com'
+}

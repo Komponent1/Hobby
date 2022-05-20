@@ -1,14 +1,18 @@
 import { rest } from 'msw';
-import { users, category } from './data';
+import { users, category, articles, article, newCatetgory } from './data';
 
 export function handlers() {
   return [
     getUsers,
     getCategory,
+    getArticles,
     addUser,
     login,
     refresh,
-    postArticle
+    postArticle,
+    getArticle,
+    getArticles,
+    postCategory
   ];
 }
 
@@ -39,7 +43,6 @@ const getUsers = rest.get('/api/users', (req, res, ctx) => {
     })
   );
 });
-
 type userReq = {
   email: string, password: string
 }
@@ -68,7 +71,6 @@ const addUser = rest.post<userReq>('/sign/users', (req, res, ctx) => {
     ctx.status(204)
   );
 });
-
 const login = rest.post<userReq>('/auth/login', async (req, res, ctx) => {
   const { email } = req.body;
 
@@ -102,7 +104,6 @@ const login = rest.post<userReq>('/auth/login', async (req, res, ctx) => {
     })
   )
 });
-
 const refresh = rest.get('/auth/refresh', async (req, res, ctx) => {
   return res(
     ctx.status(200),
@@ -114,15 +115,14 @@ const refresh = rest.get('/auth/refresh', async (req, res, ctx) => {
     })
   )
 });
-
-const postArticle = rest.post('/api/article', (req, res, ctx) => {
-  console.log(req);
-
+const postArticle = rest.post('/author/article', (req, res, ctx) => {
   return res(
-    ctx.status(200)
+    ctx.status(200),
+    ctx.json({
+      article_id: 0
+    })
   )
 });
-
 const getCategory = rest.get('/api/category', (req, res, ctx) => {
   return res(
     ctx.status(200),
@@ -131,3 +131,31 @@ const getCategory = rest.get('/api/category', (req, res, ctx) => {
     })
   )
 })
+const getArticles = rest.get('/api/articles', (req, res, ctx) => {
+  const { category_id } = req.query;
+  const data = category_id ? articles.filter(e => e.category_id === category_id)
+    : articles;
+
+  return res(
+    ctx.status(200),
+    ctx.json({
+      articles: data
+    })
+  );
+});
+const getArticle = rest.get('/api/aritcle', (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      article
+    })
+  )
+});
+const postCategory = res.post('/author/article', (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      category: newCatetgory
+    })
+  );
+});
