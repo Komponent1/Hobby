@@ -18,7 +18,7 @@ const Article: React.FC = () => {
   }, []);
 
   return (
-    <ArticlePresenter />
+    <ArticlePresenter content={data?.article.content}/>
   )
 };
 

@@ -11,14 +11,11 @@ const Banner: React.FC = () => {
   const title = (pathname: string, search: string) => {
     switch (pathname) {
       case '/':
-        return 'BLOG'
-      case '/category':
-        const { category_id } = queryString.parse(search);
-        return category.data.find((e: any)=> e.category_id === category_id).title
-      return 
-        
+        const category_id = queryString.parse(search).category_id as string;
+        if (category_id) return category.data.categories.find((e: any)=> e.ID === parseInt(category_id)).name
+        else return 'BLOG'
       case '/article':
-        return article.data.title
+        return article.data.article.title
     }
   }
 

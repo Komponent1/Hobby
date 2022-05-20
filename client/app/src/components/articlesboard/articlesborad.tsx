@@ -13,7 +13,7 @@ type Prop = {
 }
 const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
   const [idx, setIdx] = useState<number>(0);
-  const { loading, data, error } = useSelector((state: rootState) => state.articles);
+  const { data } = useSelector((state: rootState) => state.articles);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,9 +21,6 @@ const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
   useEffect(() => {
     dispatch(getArticles('email', idx, NUM, category_id))
   }, [ idx ])
-  useEffect(() => {
-    console.log(loading, data, error);
-  }, [ loading ])
   useEffect(() => {
     if (category_id) {
       setIdx(0);
@@ -39,7 +36,7 @@ const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
     <div>
       <ul>
         {data?.articles.map((e: any, i: number) => (
-          <li onClick={() => onClickArticle(i)}>{e.title}</li>
+          <li key={i} onClick={() => onClickArticle(i)}>{e.title}</li>
         ))}
       </ul>
       <Pagination count={10} page={idx + 1} onChange={(e: React.ChangeEvent<unknown>, page) => setIdx(page - 1)}/>

@@ -7,15 +7,11 @@ import { getCategory } from '../../store/category';
 const Category: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, data, error } = useSelector((state: rootState) => state.category);
+  const { data } = useSelector((state: rootState) => state.category);
 
   useEffect(() => {
     dispatch(getCategory('email'));
   }, []);
-
-  useEffect(() => {
-    console.log(loading, data, error);
-  }, [ loading ]);
 
   /* click to category */
   const onClick = (idx: number) => {
@@ -26,7 +22,7 @@ const Category: React.FC = () => {
   return (
     <ul>
       {data?.categories.map((e: any, i: number) => (
-        <li onClick={() => onClick(i)}>{e.name}</li>
+        <li key={i} onClick={() => onClick(i)}>{e.name}</li>
       ))}
     </ul>
   );

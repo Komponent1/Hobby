@@ -51,6 +51,7 @@ export const articles = nums.map(e => ({
 
 export const article = {
   ID: 0,
+  title: 'test_article',
   content: '\
   # Title \
   ## Header \

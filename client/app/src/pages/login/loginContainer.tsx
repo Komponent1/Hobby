@@ -13,7 +13,7 @@ const useLogin = (navigate: NavigateFunction) => {
 
   const submit = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(login(email, password, navigate, location, 'login'));
+    dispatch(login(email, password, navigate, location, 'auth'));
   };
 
   return {

@@ -71,7 +71,7 @@ const addUser = rest.post<userReq>('/sign/users', (req, res, ctx) => {
     ctx.status(204)
   );
 });
-const login = rest.post<userReq>('/auth/login', async (req, res, ctx) => {
+const login = rest.post<userReq>('/sign/login', async (req, res, ctx) => {
   const { email } = req.body;
 
   if (email === 'nouser') {
@@ -104,7 +104,7 @@ const login = rest.post<userReq>('/auth/login', async (req, res, ctx) => {
     })
   )
 });
-const refresh = rest.get('/auth/refresh', async (req, res, ctx) => {
+const refresh = rest.get('/sign/refresh', async (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({
