@@ -132,8 +132,8 @@ const getCategory = rest.get('/api/category', (req, res, ctx) => {
   )
 })
 const getArticles = rest.get('/api/articles', (req, res, ctx) => {
-  const { category_id } = req.query;
-  const data = category_id ? articles.filter(e => e.category_id === category_id)
+  const category_id = req.url.searchParams.get('category_id');
+  const data = category_id ? articles.filter(e => e.category_id === parseInt(category_id))
     : articles;
 
   return res(
@@ -151,7 +151,7 @@ const getArticle = rest.get('/api/aritcle', (req, res, ctx) => {
     })
   )
 });
-const postCategory = res.post('/author/article', (req, res, ctx) => {
+const postCategory = rest.post('/author/article', (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({

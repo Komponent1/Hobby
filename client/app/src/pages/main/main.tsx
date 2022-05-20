@@ -7,7 +7,6 @@ import { rootState } from '../../store';
 
 const Main: React.FC = () => {
   const { search } = useLocation();
-  const { data } = useSelector((state: rootState) => state.category);
 
   const getName = useCallback(() => {
     return 'category_name with query'
