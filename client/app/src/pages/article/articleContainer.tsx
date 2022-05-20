@@ -14,7 +14,7 @@ const Article: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (data.artcle_id !== article_id) dispatch(getArticle(article_id, navigate, location, 'article'));
+    if (data.article.ID !== parseInt(article_id)) dispatch(getArticle(parseInt(article_id), navigate, location, 'article'));
   }, []);
 
   return (

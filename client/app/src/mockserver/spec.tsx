@@ -133,17 +133,20 @@ const getCategory = rest.get('/api/category', (req, res, ctx) => {
 })
 const getArticles = rest.get('/api/articles', (req, res, ctx) => {
   const category_id = req.url.searchParams.get('category_id');
+  const idx = parseInt(req.url.searchParams.get('pagination')  as string);
+  const num = parseInt(req.url.searchParams.get('num') as string);
+
   const data = category_id ? articles.filter(e => e.category_id === parseInt(category_id))
     : articles;
 
   return res(
     ctx.status(200),
     ctx.json({
-      articles: data
+      articles: data.slice(idx * num, (idx + 1) * num)
     })
   );
 });
-const getArticle = rest.get('/api/aritcle', (req, res, ctx) => {
+const getArticle = rest.get('/api/article', (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({

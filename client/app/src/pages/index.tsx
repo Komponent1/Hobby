@@ -3,3 +3,4 @@ export { default as Signup } from './signup/signupContainer';
 export { default as Login } from './login/loginContainer';
 export { default as Loading } from './loading/loadingContainer';
 export { default as Post } from './post/post';
+export { default as Article } from './article/articleContainer';

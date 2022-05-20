@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { Main, Signup, Login, Loading, Post } from './pages';
+import { Main, Signup, Login, Loading, Post, Article } from './pages';
 
 function App() {
   const location = useLocation();
@@ -14,6 +14,7 @@ function App() {
         <Route path='login' element={<Login />} />
         <Route path='signup' element={<Signup />} />
         <Route path='post' element={<Post />} />
+        <Route path='article' element={<Article />} />
       </Routes>
 
       {state?.backgroundLocation && (

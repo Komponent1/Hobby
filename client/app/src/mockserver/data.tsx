@@ -50,7 +50,7 @@ export const articles = nums.map(e => ({
 }));
 
 export const article = {
-  article_id: 0,
+  ID: 0,
   content: '\
   # Title \
   ## Header \

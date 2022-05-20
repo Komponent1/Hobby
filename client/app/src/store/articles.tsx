@@ -5,7 +5,7 @@ export const ARTICLES = 'ARTICLES/PENDING';
 export const ARTICLES_SUCCESS = 'ARTICLES/SUCCESS';
 export const ARTICLES_FAILURE = 'ARTICLES/FAILURE';
 
-export const getArticles = (email: string, idx: number, num: number, category_id?: string) => ({
+export const getArticles = (email: string, idx: number, num: number, category_id?: string|null) => ({
   type: ARTICLES,
   payload: { email, idx, num, category_id }
 });

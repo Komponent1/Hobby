@@ -23,7 +23,11 @@ const Category: React.FC = () => {
   };
 
   return (
-    <div>TEST</div>
+    <ul>
+      {data?.categories.map((e: any) => (
+        <li>{e.name}</li>
+      ))}
+    </ul>
   );
 };
 

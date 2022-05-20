@@ -1,4 +1,4 @@
-const getArticle = async (article_id: string) => {
+const getArticle = async (article_id: number) => {
   const res = await fetch(`/api/article?article_id=${article_id}`, {
     headers: {
       'Content-Type': 'application/json'
