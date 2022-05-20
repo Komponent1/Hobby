@@ -114,7 +114,8 @@ describe('Login Test', () => {
     const props = {
       email: 'test', setEmail: jest.fn((email: string) => null),
       password: 'test', setPassword: jest.fn((password: string) => null),
-      submit: jest.fn((e: React.MouseEvent) => null)
+      submit: jest.fn((e: React.MouseEvent) => null),
+      signupLinker: jest.fn(),
     };
     
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { applyMiddleware, createStore } from 'redux';
 import rootReducer, { rootSaga } from './store';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import ReactDOM from 'react-dom/client';
@@ -10,6 +10,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import { serviceWorker } from './mockserver/server';
+import { CookiesProvider } from 'react-cookie';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -25,11 +26,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <CookiesProvider>
+      <ReduxProvider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ReduxProvider>
+    </CookiesProvider>
   </React.StrictMode>
 );
 

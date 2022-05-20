@@ -37,7 +37,7 @@ describe('Signup Test', () => {
       const email = 'test';
       const password = '1234';
       const param = {
-        email, password, navigate: jest.fn(), location: {}, dep: ''
+        email, password, navigate: jest.fn(), location: {}, dep: '', signupLinker: jest.fn(),
       };
 
       return expectSaga(signupSaga)
@@ -55,8 +55,10 @@ describe('Signup Test', () => {
       const email = 'error';
       const password = '123'
       const param = {
-        email, password, navigate: jest.fn(), location: {}, dep: ''
+        email, password, navigate: jest.fn(), location: {}, dep: '',
+        signupLinker: jest.fn(),
       };
+
       
       return expectSaga(signupSaga)
         .withReducer(signupReducer)
@@ -75,7 +77,8 @@ describe('Signup Test', () => {
       email: 'test', setEmail: jest.fn((email: string) => null),
       password: 'test', setPassword: jest.fn((password: string) => null),
       confirmPw: 'test', setConfirmPw: jest.fn((confirmPw: string) => null),
-      submit: jest.fn((e: React.MouseEvent) => null)
+      submit: jest.fn((e: React.MouseEvent) => null),
+      signupLinker: jest.fn(),
     };
     
 

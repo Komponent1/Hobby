@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, NavigateFunction } from 'react-router-dom';
 import { login } from '../../store/auth';
 import LoginPresenter from './loginPresenter';
 
-const useLogin = () => {
+const useLogin = (navigate: NavigateFunction) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const location = useLocation();
-  const navigate = useNavigate();
+  
   const dispatch = useDispatch();
 
   const submit = (e: React.MouseEvent) => {
@@ -24,10 +24,14 @@ const useLogin = () => {
 }
 
 const Login: React.FC = () => {
-  const param = useLogin();
+  const navigate = useNavigate();
+  const param = useLogin(navigate);
+  const signupLinker = () => {
+    navigate('/signup');
+  } 
 
   return (
-    <LoginPresenter {...param}/>
+    <LoginPresenter {...param} signupLinker={signupLinker}/>
   )
 };
 

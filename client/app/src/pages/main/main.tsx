@@ -1,16 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Category } from '../../components';
+import React, { useCallback } from 'react';
+import { useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { Category, Header, Banner } from '../../components';
+import ArticlesBoard from '../../components/articlesboard/articlesborad';
+import { rootState } from '../../store';
 
-const Main: React.FC = () => { 
+const Main: React.FC = () => {
+  const { search } = useLocation();
+  const { data } = useSelector((state: rootState) => state.category);
+
+  const getName = useCallback(() => {
+    return 'category_name with query'
+  }, [ search ]);
+  const getCategoryId = useCallback(()=> {
+    return 'category_id with query'
+  }, [ search ]);
 
   return (
     <div>
-      Main
-      <Category />
-      <Link to='/signup'><p>sign up</p></Link>
-      <Link to='/login'><p>login</p></Link>
-      <Link to='/post'><p>post</p></Link>
+      <Header />
+      <Banner title={getName()}/>
+      <Category/>
+      <ArticlesBoard category_id={getCategoryId()}/>
     </div>
   )
 };

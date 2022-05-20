@@ -35,7 +35,7 @@ const getArticle = async (req: Request<{}, {}, {}, getArticleQuery>, res: Respon
     }
     const content = await getFile(article.path);
     
-    res.status(200).json({ article, content });
+    res.status(200).json({ title: article.title, article_id, content });
   } catch (err) {
     return next(err);
   }

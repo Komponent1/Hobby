@@ -34,20 +34,19 @@ export function* loginSaga(action: any) {
     })
   }
 };
-export const refresh = (callback: any) => (
+export const refresh = (navigate: NavigateFunction, location: Location, dep: string) => (
   {
     type: REFRESH,
     payload: {
-      callback
+      navigate, location, dep
     }
   }
 );
 export function* refreshSaga(action: any) {
-  const param: { callback: any/* dispather */ } = action.payload;
-  param.callback();
+  const param: { navigate: NavigateFunction, location: Location, dep: string } = action.payload;
+  param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep }});
   try {
     const result: token = yield call(api.refresh as any);
-    param.callback();
     yield put({
       type: AUTH_SUCCESS,
       payload: result
