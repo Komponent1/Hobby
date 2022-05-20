@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { rootState } from '../../store';
 import LoadingPresenter from './loadingPresenter';
 
-type tDep = 'signup'|'auth'
+type tDep = 'signup'|'auth'|'article'|'post'
 const useLoading = (dep: tDep, navigate: any) => {
-  const { loading, data, error } = useSelector((state: rootState) => state[dep]);
+  const { loading, data, error } = useSelector((state: rootState) => state[dep === 'post' ? 'article' : dep]);
 
   const auth = useCallback((data: any, error: number|null) => {
     if (error === 401) { /* not correct email or password */
@@ -17,7 +17,6 @@ const useLoading = (dep: tDep, navigate: any) => {
       navigate('/', { replace: true })
     }
   }, []);
-
   const signup = useCallback((data: number|null, error: number|null) => {
     if (error === 401) {
       navigate(-1);
@@ -27,7 +26,6 @@ const useLoading = (dep: tDep, navigate: any) => {
       navigate('/', { replace: true });
     }
   }, []);
-
   const article = useCallback((data: any, error: number|null) => {
     if (error) {
       navigate(-1);
@@ -45,6 +43,11 @@ const useLoading = (dep: tDep, navigate: any) => {
       case 'auth':
         auth(data, error);
         break;
+      case 'article':
+        article(data, error);
+        break;
+      case 'post':
+        
       default:
         return;
     };

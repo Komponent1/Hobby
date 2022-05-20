@@ -3,7 +3,6 @@ import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Main, Signup, Login, Loading, Post } from './pages';
 
-
 function App() {
   const location = useLocation();
   let state = location.state as { backgroundLocation?: Location, dep?: any };
