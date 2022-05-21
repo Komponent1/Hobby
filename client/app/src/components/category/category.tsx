@@ -15,12 +15,14 @@ const Category: React.FC = () => {
 
   /* click to category */
   const onClick = (idx: number) => {
-    console.log(data.categories[idx])
+    if (idx === -1) navigate('/');
+  
     navigate(`?category_id=${data.categories[idx].ID}`);
   };
 
   return (
     <ul>
+      <li onClick={() => onClick(-1)}>전체보기</li>
       {data?.categories.map((e: any, i: number) => (
         <li key={i} onClick={() => onClick(i)}>{e.name}</li>
       ))}

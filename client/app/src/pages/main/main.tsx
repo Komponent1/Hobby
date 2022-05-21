@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom'
-import { Category, Header, Banner, Editor } from '../../components';
+import { Category,  Banner } from '../../components';
 import ArticlesBoard from '../../components/articlesboard/articlesborad';
 import queryString from 'query-string';
+import * as style from './style';
 
 const Main: React.FC = () => {
   const { search } = useLocation();
   const category_id = queryString.parse(search).category_id as string|null|undefined;
+  const [ open, setOpen ] = useState<boolean>(false);
 
   return (
-    <div>
-      <Header />
-      <Banner/>
-      <Category/>
-      <ArticlesBoard category_id={category_id}/>
-      <Editor />
-    </div>
+    <>
+      <style.head>
+        <Banner />
+      </style.head>
+      <style.div>
+        <style.section>
+          <ArticlesBoard category_id={category_id}/>
+        </style.section>
+        <style.menu open={open}>
+          <Category/>
+        </style.menu>
+        <style.menuOpen onClick={() => setOpen(!open)}>{open ? '->' : '<-'}</style.menuOpen>
+      </style.div>
+    </>
   )
 };
 

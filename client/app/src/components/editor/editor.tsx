@@ -2,13 +2,6 @@ import React, { useRef, useEffect } from 'react';
 import { Editor as form } from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-// const editor = new form({
-//   el: document.querySelector('.editor'),
-//   previewStyle: 'vertical',
-//   height: '500px',
-//   initialValue: 'none'
-// });
-
 const Editor: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {

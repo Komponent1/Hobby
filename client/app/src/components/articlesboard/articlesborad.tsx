@@ -5,6 +5,7 @@ import { rootState } from '../../store';
 import { getArticles } from '../../store/articles';
 import { getArticle } from '../../store/article';
 import { Pagination } from '@mui/material'
+import { ArticleGrid } from '..';
 
 const NUM = 5;
 
@@ -34,11 +35,7 @@ const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
 
   return (
     <div>
-      <ul>
-        {data?.articles.map((e: any, i: number) => (
-          <li key={i} onClick={() => onClickArticle(i)}>{e.title}</li>
-        ))}
-      </ul>
+      <ArticleGrid articles={data ? data.articles : []} />
       <Pagination count={10} page={idx + 1} onChange={(e: React.ChangeEvent<unknown>, page) => setIdx(page - 1)}/>
     </div>
 

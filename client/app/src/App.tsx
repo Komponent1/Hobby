@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { Header } from './components';
 import { Main, Signup, Login, Loading, Post, Article } from './pages';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
 
   return (
     <div>
+      <Header />
       <Routes location={state?.backgroundLocation || location}>
         <Route path='/' element={<Main />} />
         <Route path='login' element={<Login />} />
