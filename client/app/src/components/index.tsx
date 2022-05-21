@@ -1,8 +1,10 @@
 export { default as Input } from './input/input';
 export { default as SimpleButton } from './button/button';
 export { default as Category } from './category/category';
+export { default as AuthButton } from './authButton/authButtonContainer';
 export { default as Header } from './header/header';
 export { default as Banner } from './banner/banner';
 export { default as Editor } from './editor/editor';
 export { default as ArticleGrid } from './grid/grid';
 export { default as ArticleCard } from './articleCard/articleCard';
+export { default as FormBox } from './formBox/formBox';

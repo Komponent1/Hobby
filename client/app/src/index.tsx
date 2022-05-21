@@ -28,7 +28,7 @@ root.render(
   <React.StrictMode>
     <CookiesProvider>
       <ReduxProvider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename='seo2im6492@gmail.com'>
           <App />
         </BrowserRouter>
       </ReduxProvider>

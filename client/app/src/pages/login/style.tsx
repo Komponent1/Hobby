@@ -1,7 +1,6 @@
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-export const div = css`
-  margin: auto;
-  width: 30rem;
-  height: 30rem;
+export const div = styled.div`
+  width: 100vw;
+  height: 100vh;
 `;

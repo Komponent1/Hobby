@@ -4,10 +4,12 @@ import { Button } from '@mui/material';
 type Prop = {
   label: string
   onClick: (event: React.MouseEvent) => void
+  sx?: any
 };
-const SimpleButton: React.FC<Prop> = ({ label, onClick }) => {
+const SimpleButton: React.FC<Prop> = ({ label, onClick, sx }) => {
   return (
     <Button variant='contained'
+      sx={sx}
       onClick={onClick}>
       {label}
     </Button>

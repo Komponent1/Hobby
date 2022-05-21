@@ -1,6 +1,6 @@
 import React from 'react';
 import * as style from './style';
-import { Input, SimpleButton } from '../../components';
+import { Input, FormBox } from '../../components';
 import { Link } from '@mui/material';
 
 type Prop = {
@@ -16,12 +16,13 @@ const LoginPresenter: React.FC<Prop> =
   submit, signupLinker
 }) => {
   return (
-    <div css={style.div}>
-      <Input label='email' value={email} onChange={e => setEmail(e.target.value)} />
-      <Input label='password' type='Password' value={password} onChange={e => setPassword(e.target.value)} />
-      <Link onClick={signupLinker}>singup</Link>
-      <SimpleButton label='Sign Up' onClick={submit} />
-    </div>
+    <style.div>
+      <FormBox width={20} height={20} label={'LOG IN'} submit={submit}>
+        <Input label='email' value={email} onChange={e => setEmail(e.target.value)} />
+        <Input label='password' type='Password' value={password} onChange={e => setPassword(e.target.value)} />
+        <Link sx={{ textAlign: 'center' }} onClick={signupLinker}>create account</Link>
+      </FormBox>
+    </style.div>
   )
 };
 

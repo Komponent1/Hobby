@@ -7,7 +7,7 @@ export const LOGIN = 'AUTH/LOGIN';
 export const REFRESH = 'AUTH/REFRESH';
 export const AUTH_FAILURE = 'AUTH/FAILURE';
 export const AUTH_SUCCESS = 'AUTH/SUCCESS';
-
+export const LOGOUT = 'AUTH/LOGOUT';
 
 export const login = (email: string, password: string, navigate: NavigateFunction, location: Location, dep: string) => (
   {
@@ -59,7 +59,9 @@ export function* refreshSaga(action: any) {
     })
   }
 }
-
+export const logout = () => ({
+  type: LOGOUT
+})
 
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
@@ -97,6 +99,8 @@ const reducer = (state = initialState, action: any) => {
         data: null,
         error: action.payload
       };
+    case LOGOUT:
+      return initialState
     default:
       return state;
   }
