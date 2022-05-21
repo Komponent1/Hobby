@@ -9,11 +9,12 @@ const ArticleCard: React.FC<Prop> = ({ article, onClick }) => {
   return (
     <Card onClick={onClick}>
       <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant='h5' component='div'>
+        <CardContent sx={{ height: '10rem', postion: 'relative'}}>
+          <Typography sx={{ fontWeight: 'bold'}}  gutterBottom variant='h5' component='div'>
             {article.title}
           </Typography>
-          <Typography variant='body2' color='text.secondary'>
+          <Typography sx={{ position: 'absolute', bottom: '1rem', right: '1rem' }}
+            variant='body2' color='text.secondary'>
             {article.publish_date}
           </Typography>
         </CardContent>

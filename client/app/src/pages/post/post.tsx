@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { postArticle } from '../../api';
 import { rootState } from '../../store';
+import { Editor } from '../../components';
 
 const Post: React.FC = () => {
   const [value, setValue] = useState<string>('');
@@ -44,9 +45,7 @@ const Post: React.FC = () => {
 
   return (
     <div>
-      <textarea
-        value={value}
-        onChange={e => setValue(e.target.value)}/>
+      <Editor />
       <button onClick={() => postfile()}>submit</button>
     </div>
   )

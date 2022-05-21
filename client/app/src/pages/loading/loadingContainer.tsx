@@ -6,7 +6,6 @@ import LoadingPresenter from './loadingPresenter';
 
 type tDep = 'signup'|'auth'|'article'|'post'
 const useLoading = (dep: tDep, navigate: any) => {
-  console.log(dep)
   const { loading, data, error } = useSelector((state: rootState) => state[dep === 'post' ? 'article' : dep]);
 
   const auth = useCallback((data: any, error: number|null) => {

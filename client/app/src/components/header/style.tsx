@@ -11,3 +11,6 @@ export const header = styled.header`
 
   box-shadow: 0 0 4px rgb(172, 172, 172);
 `;
+export const buttonDiv = styled.div`
+  display: flex;
+`
