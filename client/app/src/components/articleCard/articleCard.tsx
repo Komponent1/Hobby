@@ -2,11 +2,12 @@ import React from 'react';
 import { Card, CardContent, CardActionArea, Typography } from '@mui/material'
 
 type Prop = {
-  article: any
+  article: any,
+  onClick: (e: React.MouseEvent) => void
 };
-const ArticleCard: React.FC<Prop> = ({ article }) => {
+const ArticleCard: React.FC<Prop> = ({ article, onClick }) => {
   return (
-    <Card>
+    <Card onClick={onClick}>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant='h5' component='div'>

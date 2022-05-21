@@ -12,6 +12,10 @@ export const div = styled.div`
 export const section = styled.section`
   width: calc(100% - 28rem);
   padding: 4rem;
+
+  @media screen and (max-width: 900px) {
+    width: calc(100% - 8rem);
+  }
 `;
 export const menu = styled.div<{ open: boolean }>`
   width: 20rem;

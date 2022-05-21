@@ -15,8 +15,7 @@ const Category: React.FC = () => {
 
   /* click to category */
   const onClick = (idx: number) => {
-    if (idx === -1) navigate('/');
-  
+    if (idx === -1) return navigate('/');
     navigate(`?category_id=${data.categories[idx].ID}`);
   };
 
