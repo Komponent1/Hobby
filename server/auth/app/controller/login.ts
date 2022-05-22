@@ -21,7 +21,7 @@ export const login: tLogin = async (email, pw) => {
   try {
     user = await Users.get(email);
   } catch(err) {
-    if (err.code === 0) throw ({ code: 501, msg: 'No user in db'});
+    if (err.code === 0) throw ({ code: 401, msg: 'No user in db'});
     else throw({ code: 500, msg: 'Error in DB' });
   };
 

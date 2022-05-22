@@ -1,5 +1,15 @@
 import db from './connect';
 
+type tCount = (user?: string, category_id?: string) => Promise<any>
+export const count: tCount = (user, category_id) => {
+  let query = 'SELECT COUNT(*) as cnt FROM Article WHERE ';
+  
+  if (user) {
+    return db.one(query + 'user_email = $1', [ user ]);
+  } else {
+    return db.one(query + 'category_id = $1', [ category_id ])
+  }
+};
 type tGetArticle = (option: { user?: string, category_id?: string, article_id?: string }, pagination?: { id: number, num: number }) => Promise<any[]>
 export const get: tGetArticle = async (option, pagination) => {
   let query = 'SELECT * FROM Article WHERE';
@@ -36,4 +46,4 @@ export const post
   )
 };
 
-export default { get, post };
+export default { get, post, count };
