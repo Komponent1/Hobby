@@ -16,7 +16,7 @@ const Banner: React.FC = () => {
         if (category_id) return category.data?.categories.find((e: any)=> e.ID === parseInt(category_id)).name
         else return 'BLOG'
       case '/article':
-        return article.data.article.title
+        return article.data?.article.title
     }
   }
 
