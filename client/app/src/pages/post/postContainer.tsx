@@ -30,7 +30,7 @@ const useEditor = () => {
   const [ editor, setEditor ] = useState<any>(null);
 
   useEffect(() => {
-    if (!ref) return;
+    if (!ref.current) return;
 
     const saved = window.localStorage.getItem('blog_content_temp_save');
     let html = new Editor({
@@ -42,7 +42,7 @@ const useEditor = () => {
     setEditor(html);
     
     if (saved && saved !== '') {
-      alert('이전에 작성하던 글을 불러옵니다');
+      alert('이전 내용을 불러옵니다')
     }
 
     const id = setInterval(() => {
@@ -51,7 +51,7 @@ const useEditor = () => {
     }, 60 * 1000);
 
     return () => clearInterval(id);
-  }, [ ref ]);
+  }, []);
 
   return { ref, editor };
 }
@@ -90,7 +90,7 @@ const PostContainer: React.FC = () => {
   const { ref, editor } = useEditor();
   const { categories, title, setTitle, categoryId, setCategory } = useSubInformation();
   const { submit } = useSubmit(navigate, title, categoryId);
-  
+
   const openModal = () => {
     navigate('/modal/test', { state: { backgroundLocation: location }});
   }

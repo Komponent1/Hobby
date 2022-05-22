@@ -25,15 +25,13 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <CookiesProvider>
-      <ReduxProvider store={store}>
-        <BrowserRouter basename='seo2im6492@gmail.com'>
-          <App />
-        </BrowserRouter>
-      </ReduxProvider>
-    </CookiesProvider>
-  </React.StrictMode>
+  <CookiesProvider>
+    <ReduxProvider store={store}>
+      <BrowserRouter basename='seo2im6492@gmail.com'>
+        <App />
+      </BrowserRouter>
+    </ReduxProvider>
+  </CookiesProvider> 
 );
 
 // If you want to start measuring performance in your app, pass a function
