@@ -31,6 +31,7 @@ export const addCategory: tAddCatorgory = async (category_name, user) => {
   try {
     return await Category.post(user, category_name);
   } catch(err) {
+    console.log(err)
     throw ({
       code: 500,
       msg: 'DB server error'

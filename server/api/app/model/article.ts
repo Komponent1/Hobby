@@ -27,7 +27,7 @@ export const get: tGetArticle = async (option, pagination) => {
   }
 
   if (pagination) {
-    query += ` OFFSET ${pagination.id} limit ${pagination.num}`;
+    query += ` OFFSET ${pagination.id * pagination.num} limit ${pagination.num}`;
   }
 
   return await db.many(query, data);

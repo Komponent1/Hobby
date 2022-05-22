@@ -8,7 +8,7 @@ const getArticles = async (req: Request<{}, {}, {}, getArticlesQuery>, res: Resp
     const count = await Article.count(user, category_id);
     const articles = await Article.get({ user, category_id }, { id: parseInt(pagination), num: parseInt(num) });
 
-    return res.status(200).json({ count, articles });
+    return res.status(200).json({ count: count.cnt, articles });
   } catch(err) {
     if (err.code === 0) {
       return res.status(200).json({
