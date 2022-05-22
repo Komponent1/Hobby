@@ -22,7 +22,7 @@ const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getArticles(BASENAME, idx, NUM, category_id))
+    dispatch(getArticles(BASENAME, idx, NUM, category_id));
   }, [ idx ])
   useEffect(() => {
     setIdx(0);
@@ -40,9 +40,12 @@ const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
   return (
     <style.div>
       <ArticleGrid articles={data ? data.articles : []} onClickArticle={onClickArticle}/>
-      <Pagination
-        sx={style.pagination_ul}
-        count={10} page={idx + 1} onChange={(e: React.ChangeEvent<unknown>, page) => setIdx(page - 1)}/>
+      {data?.count && data.count >= NUM ?
+        <Pagination
+          sx={style.pagination_ul}
+          count={Math.floor(data.count / NUM) + 1} page={idx + 1} onChange={(e: React.ChangeEvent<unknown>, page) => setIdx(page - 1)}/>
+        : null
+      }
     </style.div>
 
   )

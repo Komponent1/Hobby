@@ -10,6 +10,7 @@ const useLoading = (dep: tDep, navigate: any) => {
 
   const auth = useCallback((data: any, error: number|null) => {
     if (error === 401) { /* not correct email or password */
+      alert('이메일이나 비밀번호가 잘못되었습니다');
       navigate(-1);
     } else if (error === 500) { /* server error */
       navigate(-1);
@@ -30,7 +31,7 @@ const useLoading = (dep: tDep, navigate: any) => {
   const article = useCallback((data: any, error: number|null) => {
     if (error) {
       navigate(-1);
-    } else {
+    } else if (data) {
       navigate(`/article?article_id=${data.article.id}`, { replace: true });
     }
   }, []);

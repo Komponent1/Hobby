@@ -10,9 +10,14 @@ import { getCategory } from '../../store/category';
 import { BASENAME } from '../../env';
 
 const useSubInformation = () => {
+  const dispatch = useDispatch();
   const { data } = useSelector((state: rootState) => state.category);
   const [title, setTitle] = useState<string>('');
   const [categoryId, setCategoryId] = useState<string>('');
+
+  useEffect(() => {
+    dispatch(getCategory(BASENAME));
+  }, []);
 
   const setCategory = (e: SelectChangeEvent) => {
     setCategoryId(e.target.value as string);
@@ -23,24 +28,27 @@ const useSubInformation = () => {
 const useEditor = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [ editor, setEditor ] = useState<any>(null);
+
   useEffect(() => {
     if (!ref) return;
 
     const saved = window.localStorage.getItem('blog_content_temp_save');
-    // if (saved && saved !== '') {
-    //   alert('불러올지 확인 후 setVale(saved)');
-    // }
-
-    const id = setInterval(() => {
-      window.localStorage.setItem('blog_content_temp_save', editor?.getMarkdown());
-    }, 60 * 1000);
-
-    setEditor(new Editor({
+    let html = new Editor({
       el: ref.current as HTMLElement,
       previewStyle: 'vertical',
       height: '700px',
       initialValue: saved ? saved : ''
-    }));
+    })
+    setEditor(html);
+    
+    if (saved && saved !== '') {
+      alert('이전에 작성하던 글을 불러옵니다');
+    }
+
+    const id = setInterval(() => {
+      console.log('auto saved', html.getMarkdown())
+      window.localStorage.setItem('blog_content_temp_save', html.getMarkdown());
+    }, 60 * 1000);
 
     return () => clearInterval(id);
   }, [ ref ]);
@@ -79,16 +87,10 @@ const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string
 const PostContainer: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { categories, title, setTitle, categoryId, setCategory } = useSubInformation();
   const { ref, editor } = useEditor();
+  const { categories, title, setTitle, categoryId, setCategory } = useSubInformation();
   const { submit } = useSubmit(navigate, title, categoryId);
-  const dispatch = useDispatch();
   
-
-  useEffect(() => {
-    dispatch(getCategory(BASENAME))
-  }, [])
-
   const openModal = () => {
     navigate('/modal/test', { state: { backgroundLocation: location }});
   }

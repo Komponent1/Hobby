@@ -44,7 +44,6 @@ export const menuOpen = styled.div`
   }
 `;
 export const viewerStyle = (matches: boolean) => ({
-  background: 'grey',
   maxWidth: matches ? 'none' : '900px',
   width: '100%'
 });

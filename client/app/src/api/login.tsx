@@ -11,7 +11,7 @@ const fetcher = async (email: string, password: string): Promise<token> => {
   });
   const result = await response.json();
   if (response.status !== 200) {
-    throw result
+    throw response.status
   }
 
   return result;

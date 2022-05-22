@@ -14,8 +14,16 @@ type Prop = {
   setCategory: (e: SelectChangeEvent) => void
   openModal: () => void
 }
-const PostPresenter = React.forwardRef<HTMLDivElement ,Prop>(({ submit, title, setTitle, categories, category_id, setCategory, openModal }, ref) => {
-  console.log(categories)
+const PostPresenter = React.forwardRef<HTMLDivElement ,Prop>(({
+  submit,
+  title,
+  setTitle,
+  categories,
+  category_id,
+  setCategory,
+  openModal
+}, ref) => {
+  const [open, setOpen] = useState<boolean>(false)
 
   return (
     <style.div>
@@ -30,9 +38,9 @@ const PostPresenter = React.forwardRef<HTMLDivElement ,Prop>(({ submit, title, s
             {categories.map((category: any, i: number) => (
               <MenuItem key={i} value={category.id}>{category.name}</MenuItem>
             ))}
-            <MenuItem onClick={() => {
+            <MenuItem value={-1} onClick={() => {
               openModal();
-            }}>추가</MenuItem>
+            }}>+ 추가</MenuItem>
           </Select>
         </FormControl>
       </style.sub>

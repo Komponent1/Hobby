@@ -25,6 +25,7 @@ export const section = styled.section`
 export const menu = styled.div<{ open: boolean }>`
   margin: 0 2rem;
   background: white;
+  min-width: 10rem;
 
   @media screen and (max-width: 1200px) {
     position: fixed;

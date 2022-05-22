@@ -10,7 +10,7 @@ import { BASENAME } from '../../env';
 type Prop = {
 
 };
-const AddCategoryModal: React.FC<Prop> = () => {
+const AddCategoryModal = React.forwardRef<HTMLDivElement, Prop>((prop, ref) => {
   const [name, setName] = useState<string>('');
   const { data } = useSelector((state: rootState) => state.auth);
   const dispatch = useDispatch();
@@ -26,12 +26,12 @@ const AddCategoryModal: React.FC<Prop> = () => {
   
   
   return (
-    <Card sx={{ width: '40rem', margin: 'auto', padding: '3rem', marginTop: 'calc(50vh - 10rem)' }}>
+    <Card ref={ref} sx={{ width: '40rem', margin: 'auto', padding: '3rem', marginTop: 'calc(50vh - 10rem)' }}>
       <Typography variant='h5' component='h5'>카테고리 추가</Typography>
       <Input label='category name' value={name} onChange={(e: any) => setName(e.target.value) }/>
       <SimpleButton label='추가' onClick={() => addCategory()}/>
     </Card>
   )
-};
+});
 
 export default AddCategoryModal;

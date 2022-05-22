@@ -4,24 +4,29 @@ import { useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { rootState } from '../../store';
 import { Typography } from '@mui/material';
+import { BLOGNAME, BLOGEXPLAIN } from '../../env';
 
 const Banner: React.FC = () => {
   const { pathname, search } = useLocation();
   const { category, article } = useSelector((state: rootState) => state);
+  const category_id = queryString.parse(search).category_id as string;
 
   const title = (pathname: string, search: string) => {
     switch (pathname) {
       case '/':
-        const category_id = queryString.parse(search).category_id as string;
+        
         if (category_id) return category.data?.categories.find((e: any)=> e.id === parseInt(category_id)).name
-        else return 'BLOG'
+        else return BLOGNAME;
       case '/article':
         return article.data?.article.title
     }
   }
 
   return (
-    <Typography sx={{ padding: '2rem 0', textAlign: 'center', color: 'white', fontWeight: 'bold', background: 'black' }} variant='h2' component='h1'>{title(pathname, search)}</Typography>
+    <div style={{ background: 'black' }}>
+      <Typography sx={{ padding: '2rem', color: 'white', fontWeight: 'bold', background: 'black' }} variant='h3' component='h1'>{title(pathname, search)}</Typography>
+      {category_id ? null : <Typography sx={{ color: 'white', padding: '2rem' }} variant='h5' component='h5'>{BLOGEXPLAIN}</Typography>}
+    </div>
   )
 };
 
