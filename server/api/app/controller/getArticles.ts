@@ -7,8 +7,13 @@ const getArticles = async (req: Request<{}, {}, {}, getArticlesQuery>, res: Resp
     const { user, category_id, pagination, num } = req.query;
     const articles = await Article.get({ user, category_id }, { id: parseInt(pagination), num: parseInt(num) });
 
-    res.status(200).json({ articles });
+    return res.status(200).json({ articles });
   } catch(err) {
+    if (err.code === 0) {
+      return res.status(200).json({
+        articles: []
+      })
+    }
     next({
       code: 500,
       msg: 'Error in DB'

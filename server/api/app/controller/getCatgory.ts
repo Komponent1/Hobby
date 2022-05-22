@@ -11,6 +11,11 @@ const getCategory = async (req: Request<{}, {}, {}, getCategoryQuery>, res: Resp
       categories
     });
   } catch(err) {
+    if (err.code === 0) {
+      return res.status(200).json({
+        categories: []
+      })
+    }
     return next({
       code: 500,
       msg: 'Error in DB'
