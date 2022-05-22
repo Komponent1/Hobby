@@ -18,11 +18,11 @@ const Main: React.FC = () => {
       <style.div>
         <style.section>
           <ArticlesBoard category_id={category_id}/>
+          <style.menu open={open}>
+            <Category/>
+          </style.menu>
+          <style.menuOpen onClick={() => setOpen(!open)}>{open ? '->' : '<-'}</style.menuOpen>
         </style.section>
-        <style.menu open={open}>
-          <Category/>
-        </style.menu>
-        <style.menuOpen onClick={() => setOpen(!open)}>{open ? '->' : '<-'}</style.menuOpen>
       </style.div>
     </>
   )

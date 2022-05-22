@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 
 export const head = styled.div`
   width: 100vw;
-`;
+`
 export const div = styled.div`
-  width: 100vw;
-  position: relative;
+  display: flex;
+  flex-direction: row;
 `;
 export const section = styled.section`
   display: flex;
@@ -23,13 +23,13 @@ export const section = styled.section`
   }
 `;
 export const menu = styled.div<{ open: boolean }>`
-  margin: 0 2rem;
+margin: 0 2rem;
   background: white;
 
   @media screen and (max-width: 1200px) {
     position: fixed;
     right: 0;
-    top: 50vh;
+    top: 5vh;
     transform: scaleX(${({ open }) => open ? '1' : '0'});
   }
 `;
@@ -43,3 +43,8 @@ export const menuOpen = styled.div`
     top: 50vh;
   }
 `;
+export const viewerStyle = (matches: boolean) => ({
+  background: 'grey',
+  maxWidth: matches ? 'none' : '900px',
+  width: '100%'
+});

@@ -97,6 +97,7 @@ const login = rest.post<userReq>('/sign/login', async (req, res, ctx) => {
       maxAge: 60 * 60 * 24 * 30
     }),
     ctx.json({
+      email: 'seo2im6492@gmail.com',
       accessToken: '124',
       token_type: 'Bearer',
       expires_in: 1800,
@@ -108,6 +109,7 @@ const refresh = rest.get('/sign/refresh', async (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({
+      email: 'seo2im6492@gmail.com',
       accessToken: '124',
       token_type: 'Bearer',
       expires_in: 1800,

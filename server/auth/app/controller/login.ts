@@ -42,6 +42,7 @@ const postLogin = async (req: Request, res: Response, next: NextFunction) => {
     });
 
     return res.status(200).json({
+      email,
       access_token: result.accessToken,
       token_type: 'Bearer',
       expires_in: 1800,

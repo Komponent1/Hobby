@@ -16,7 +16,7 @@ const Header: React.FC = () => {
     <style.header>
       <Typography variant='h6' component='p'>{BASENAME}</Typography>
       <style.buttonDiv>
-        {data ?
+        {data && data.email === BASENAME?
           <SimpleButton sx={{ marginRight: '1rem'}} label='POST' onClick={() => navigate('/post')}/>
           :null
         }

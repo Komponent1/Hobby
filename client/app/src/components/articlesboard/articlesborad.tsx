@@ -8,7 +8,7 @@ import { Pagination } from '@mui/material';
 import { ArticleGrid } from '..';
 import * as style from './style';
 
-const NUM = 5;
+const NUM = 6;
 
 type Prop = {
   category_id?: string|null

@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { rootState } from '../../store';
-import * as style from './style';
 import { Typography } from '@mui/material';
 
 const Banner: React.FC = () => {
@@ -22,7 +21,7 @@ const Banner: React.FC = () => {
   }
 
   return (
-    <Typography sx={{ padding: '2rem 20rem', color: 'white', fontWeight: 'bold', background: 'black' }} variant='h2' component='h1'>{title(pathname, search)}</Typography>
+    <Typography sx={{ padding: '2rem 0', textAlign: 'center', color: 'white', fontWeight: 'bold', background: 'black' }} variant='h2' component='h1'>{title(pathname, search)}</Typography>
   )
 };
 

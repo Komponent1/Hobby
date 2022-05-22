@@ -5,6 +5,7 @@ export const div = styled.div`
 `;
 export const pagination_ul = {
   '& .MuiPagination-ul': {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin: '2rem',
   }
 }

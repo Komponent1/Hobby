@@ -16,6 +16,7 @@ const getRefresh = (req: Request, res: Response, next: NextFunction) => {
       maxAge: 60 * 60 * 24 * 30
     });
     return res.status(200).json({
+      email: payload,
       access_token: result.accessToken,
       token_type: 'Bearer',
       expires_in: 1800,
