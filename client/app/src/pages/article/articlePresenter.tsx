@@ -18,7 +18,7 @@ const ArticlePresenter: React.FC<Prop> = ({ content }) => {
     if (!ref) return;
     new Viewer({
       el: ref.current as HTMLElement,
-      initialValue: 'test...'
+      initialValue: content
     });
 
   }, [ ref ]);

@@ -19,6 +19,7 @@ const useLoading = (dep: tDep, navigate: any) => {
   }, []);
   const signup = useCallback((data: number|null, error: number|null) => {
     if (error === 401) {
+      alert('이미 존재하는 유저입니다');
       navigate(-1);
     } else if (error === 500) {
       navigate(-1);
@@ -30,7 +31,7 @@ const useLoading = (dep: tDep, navigate: any) => {
     if (error) {
       navigate(-1);
     } else {
-      navigate(`/article?article_id=${data.article.ID}`, { replace: true });
+      navigate(`/article?article_id=${data.article.id}`, { replace: true });
     }
   }, []);
 

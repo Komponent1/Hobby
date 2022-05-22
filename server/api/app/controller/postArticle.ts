@@ -6,8 +6,9 @@ import { Article } from '../model';
 type tPathupload = (filename: string, user: string, category_id: string) => Promise<void>
 const pathupload: tPathupload = async (filename, user, category_id) => {
   try {
-    await Article.post(filename, category_id, user, `${user}/${filename}`);
+    return await Article.post(filename, category_id, user, `${user}/${filename}`);
   } catch(err) {
+    console.log('db', err);
     file.del(user, filename);
     throw ({
       code: 500,
@@ -16,12 +17,13 @@ const pathupload: tPathupload = async (filename, user, category_id) => {
   };
 };
 
-type tSavingFile = (filename: string, user: string, category_id: string, buffer: any) => Promise<void>
-const savingFile: tSavingFile = async (filename, user, category_id, buffer) => {
+type tSavingFile = (filename: string, user: string, buffer: any) => Promise<void>
+const savingFile: tSavingFile = async (filename, user, buffer) => {
   const stream = Readable.from(buffer.toString());
   try {
     await file.send(user, filename, stream);
   } catch (err) {
+    console.log('file', err);
     throw(err);
   }
 };
@@ -36,10 +38,12 @@ const postArticle = async (req: Request<{}, {}, {}, postArticleQuery>, res: Resp
       code: 401,
       msg: 'No match client with blog owner'
     });
-    const { buffer, originalname } = req.files[0];
+    console.log(req.file)
+    const { buffer, originalname } = req.file;
     
-    await savingFile(originalname, user, category_id, buffer);
+    await savingFile(originalname, user, buffer);
     const article = await pathupload(originalname, user, category_id);
+    console.log(article)
 
     return res.status(200).json({ article });
   } catch (err) {

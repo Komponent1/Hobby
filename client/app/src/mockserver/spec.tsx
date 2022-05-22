@@ -156,7 +156,7 @@ const getArticle = rest.get('/api/article', (req, res, ctx) => {
     })
   )
 });
-const postCategory = rest.post('/author/article', (req, res, ctx) => {
+const postCategory = rest.post('/author/category', (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({

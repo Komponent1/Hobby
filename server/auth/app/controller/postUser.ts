@@ -20,10 +20,16 @@ const createPassword: tCreatePassword = (pw) => (
 type tSignup = (email: string, pw: string) => Promise<void>
 export const signUp: tSignup = async (email, pw) => {
   try {
-    await Users.get(email);
+    const user = await Users.get(email);
+    if (user) {
+      throw ({ code: 401, msg: 'Already User' })
+    }
   } catch (err) {
-    if (err.code === 0) throw ({ code: 501, msg: 'Already User' })
-    else throw ({ code: 500, msg: 'Error in DB(select)' });
+    if (err.code === 401) {
+      throw(err);
+    } if (err.code !== 0) {
+      throw ({ code: 500, msg: 'Error in DB(select)' });
+    }
   }
   
   const { password, salt } = await createPassword(pw);
@@ -31,6 +37,7 @@ export const signUp: tSignup = async (email, pw) => {
   try {
     await Users.post(email, password, salt);
   } catch(err) {
+    console.log(err)
     throw ({ code: 500, msg: 'Error in DB(insert)' });
   }
 };

@@ -7,7 +7,7 @@ const postArticle = async (token: string, email: string, category_id: string, fi
     body: file
   });
 
-  const result = res.json();
+  const result = await res.json();
   return ({ code: res.status, data: result });
 };
 

@@ -53,6 +53,7 @@ export function* postSaga(action: any) {
 
 export function *categorySaga() {
   yield takeLatest(GET_CATEGORY, getSaga);
+  yield takeLatest(POST_CATEGORY, postSaga);
 };
 export type tGetCategory = {
   loading: boolean,
@@ -92,7 +93,9 @@ const reducer = (state = initialState, action: any) => {
     case POST_CATEGORY_SUCCESS:
       return {
         loading: false,
-        data: [ ...state.data, action.payload ],
+        data: {
+          categories: [...state.data.categories, action.payload.category]
+        },
         error: null,
       }
     /* Check it error effect get action */

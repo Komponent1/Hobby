@@ -49,7 +49,9 @@ const postCategory = async (req: Request, res: Response, next: NextFunction) => 
     }));
 
     const new_category = await addCategory(category_name, user);
-    return res.status(200).json(new_category);
+    return res.status(200).json({
+      category: new_category
+    });
   } catch (err) {
     return next(err)
   }

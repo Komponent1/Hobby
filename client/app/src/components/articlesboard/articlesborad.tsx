@@ -7,6 +7,7 @@ import { getArticle } from '../../store/article';
 import { Pagination } from '@mui/material';
 import { ArticleGrid } from '..';
 import * as style from './style';
+import { BASENAME } from '../../env';
 
 const NUM = 6;
 
@@ -21,19 +22,19 @@ const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getArticles('email', idx, NUM, category_id))
+    dispatch(getArticles(BASENAME, idx, NUM, category_id))
   }, [ idx ])
   useEffect(() => {
     setIdx(0);
     if (category_id) {
-      dispatch(getArticles('email', 0, NUM, category_id));
+      dispatch(getArticles(BASENAME, 0, NUM, category_id));
     } else {
-      dispatch(getArticles('email', 0, NUM));
+      dispatch(getArticles(BASENAME, 0, NUM));
     }
   }, [ category_id ])
 
   const onClickArticle = (idx: number) => {
-    dispatch(getArticle(data.articles[idx].ID, navigate, location, 'article'))
+    dispatch(getArticle(data.articles[idx].id, navigate, location, 'article'))
   }
 
   return (

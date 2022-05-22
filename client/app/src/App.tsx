@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from './components';
-import { Main, Signup, Login, Loading, Post, Article } from './pages';
+import { Main, Signup, Login, Loading, Post, Article, Modal } from './pages';
 
 function App() {
   const location = useLocation();
@@ -22,6 +22,7 @@ function App() {
       {state?.backgroundLocation && (
         <Routes>
           <Route path='loading' element={<Loading dep={state.dep}/>} />
+          <Route path='modal/*' element={<Modal />} />
         </Routes>
       )}
     </div>
