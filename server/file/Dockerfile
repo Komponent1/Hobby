@@ -1,5 +1,7 @@
 FROM avenus/vsftpd-alpine
 
+COPY backup /home/test
+
 ENV FTP_USER=test
 ENV FTP_PASS=test
 ENV PASV_ADDRESS=5.6.7.8

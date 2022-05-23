@@ -27,7 +27,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <CookiesProvider>
     <ReduxProvider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename='blog'>
         <App />
       </BrowserRouter>
     </ReduxProvider>
