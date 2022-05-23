@@ -27,7 +27,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <CookiesProvider>
     <ReduxProvider store={store}>
-      <BrowserRouter basename='seo2im6492@gmail.com'>
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </ReduxProvider>
