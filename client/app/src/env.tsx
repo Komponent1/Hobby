@@ -1,4 +1,4 @@
 export const BASENAME = 'seo2im6492@gmail.com';
 export const BLOGNAME = '개발 스토리'
 export const BLOGEXPLAIN = '개발은 재미있나'
-export const BASEURL = (process.env.NODE_ENV === 'development') ? '' : 'http://144.24.68.226:80';
+export const BASEURL = (process.env.NODE_ENV === 'development') ? '' : 'http://152.67.208.97:80';
