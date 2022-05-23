@@ -2,8 +2,9 @@
 const pgp = require('pg-promise');
 
 const { DB_ID, DB_PASSWORD, DB_HOST } = process.env;
+
 const connection = {
-  host: DB_HOST,
+  host: "db",
   port: 5432,
   database: 'test',
   user: DB_ID,
