@@ -1,6 +1,12 @@
 import React from 'react';
 import { Card, CardContent, CardActionArea, Typography } from '@mui/material'
 
+const date2string = (datestring: string) => {
+  const date = new Date(datestring);
+
+  return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`
+}
+
 type Prop = {
   article: any,
   onClick: (e: React.MouseEvent) => void
@@ -15,7 +21,7 @@ const ArticleCard: React.FC<Prop> = ({ article, onClick }) => {
           </Typography>
           <Typography sx={{ position: 'absolute', bottom: '1rem', right: '1rem' }}
             variant='body2' color='text.secondary'>
-            {article.publish_date}
+            {date2string(article.publish_date)}
           </Typography>
         </CardContent>
       </CardActionArea>

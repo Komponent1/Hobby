@@ -22,11 +22,10 @@ const Banner: React.FC = () => {
     }
   }
 
-  console.log(article_id)
   return (
     <div style={{ background: article_id ? 'white' : 'black' }}>
       <Typography sx={{ padding: '2rem', color: article_id ? 'black' : 'white', fontWeight: 'bold' }} variant='h3' component='h1'>{title(pathname)}</Typography>
-      {category_id || article_id ? null : <Typography sx={{ color: 'white', padding: '2rem' }} variant='h5' component='h5'>{BLOGEXPLAIN}</Typography>}
+      <Typography sx={{ color: 'white', padding: '2rem' }} variant='h5' component='h5'>{category_id || article_id ? '' : BLOGEXPLAIN}</Typography>
     </div>
   )
 };
