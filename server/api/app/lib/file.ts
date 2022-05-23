@@ -11,8 +11,8 @@ const del
   try {
     await client.access({
       host: 'fileserver',
-      user: 'test',
-      password: 'test',
+      user: process.env.FILE_USER,
+      password: process.env.FILE_PASSWORD,
       /* scure: true */
     });
     await client.ensureDir(user)

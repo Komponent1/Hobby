@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: "${DB_PASSWORD}"
       POSTGRES_DB: "${DB_NAME}"
     volumes:
-      - ./db/data:/var/lib/postgressql/data
+      - ./db/data:/backup
 
   gateway:
     container_name: gateway
@@ -36,6 +36,8 @@ services:
       DB_PASSWORD: "${DB_PASSWORD}"
       DB_NAME: ${DB_NAME}"
       DB_HOST: 'db'
+      FILE_USER: "${FILE_USER}"
+      FILE_PASSWORD: "${FILE_PASSWORD}"
     volumes:
       - ./api/app:/usr/app
       - /usr/app/node_modules
@@ -60,6 +62,12 @@ services:
     container_name: fileserver
     build:
       context: ./file
+    environment:
+      FTP_USER: "${FILE_USER}"
+      FTP_PASS: "${FILE_PASSWORD}"
+      PASV_ADDRESS: "5.6.7.8"
+      PASV_MIN: 21100
+      PASV_MAX: 21110
     ports:
       - 21:21
       - 21100-21110:21100-21110
