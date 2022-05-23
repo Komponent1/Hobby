@@ -64,5 +64,5 @@
   "msw": {
     "workerDirectory": "public"
   },
-  "proxy": "http://144.24.68.226:80"
+  "proxy": "http://gateway:80"
 }

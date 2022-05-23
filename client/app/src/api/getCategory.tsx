@@ -1,9 +1,9 @@
+import { fetcher } from "./fetcher";
+
 const getCategory = async (email: string) => {
-  const res = await fetch(`/api/category?user=${email}`, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
+  const res = await fetcher(`/api/category?user=${email}`, {
+    'Content-Type': 'application/json'
+  }, {});
 
   const result = await res.json();
 

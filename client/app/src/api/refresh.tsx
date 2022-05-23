@@ -4,7 +4,7 @@ export type token = {
   expires_in: number,
   scope: string
 }
-const fetcher = async (): Promise<token> => {
+const login = async (): Promise<token> => {
   const response = await fetch('/sign/refresh');
   const result = await response.json();
   if (response.status !== 200) {
@@ -14,4 +14,4 @@ const fetcher = async (): Promise<token> => {
   return result;
 };
 
-export default fetcher;
+export default login;
