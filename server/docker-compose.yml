@@ -21,11 +21,14 @@ services:
     ports:
       - 80:80
       - 443:443
+    expose:
+      - '80'
+      - '443'
     restart: always
     volumes:
       - ./gateway/app/nginx.conf:/etc/nginx/nginx.conf
       - ./gateway/data/certbot/www:/var/www/certbot
-      - ./gateway/data/certbot/conf:/etc/nginx/ssl
+      - ./gateway/data/certbot/conf:/etc/letsencrypt
     depends_on:
       - apiserver
       - authserver
