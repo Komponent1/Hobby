@@ -18,12 +18,24 @@ services:
       context: ./gateway
     ports:
       - 80:80
+      - 443:443
+    restart: always
     volumes:
       - ./gateway/app/nginx.conf:/etc/nginx/nginx.conf
+      - ./gateway/data/certbot/www:/var/www/certbot
+      - ./gateway/data/certbot/conf:/etc/nginx/ssl
     depends_on:
       - apiserver
       - authserver
       - fileserver
+  
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:latest
+    volumns:
+      - ./gateway/data/certbot/conf:/etc/letsencrypt
+      - ./gateway/data/certbot/www:/var/www/certbot
+
 
   apiserver:
     container_name: apiserver
