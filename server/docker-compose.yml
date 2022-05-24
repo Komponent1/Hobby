@@ -32,7 +32,7 @@ services:
   certbot:
     container_name: certbot
     image: certbot/certbot:latest
-    volumns:
+    volumes:
       - ./gateway/data/certbot/conf:/etc/letsencrypt
       - ./gateway/data/certbot/www:/var/www/certbot
 
