@@ -2,7 +2,7 @@ import getCategory from '../controller/getCatgory';
 import { Category } from '../model';
 import { Request, Response } from 'express';
 
-describe('get /category', () => {
+describe('GET /category', () => {
   const req = {
     query: { user: 'test_user' }
   } as Request<{}, {}, {}, { user: string }>
@@ -12,11 +12,11 @@ describe('get /category', () => {
     res.json = jest.fn((obj) => obj);
     return res;
   })() as Response;
-  Category.get = jest.fn().mockReturnValue([ 'test category' ])
 
   describe('controller Test', () => {
+    Category.get = jest.fn().mockReturnValue([ 'test category' ])
     test('Normal Test', async () => {
-      const response = await getCategory(req, res, (err) => err);
+      const response = await getCategory(req, res, (err) => err) as any;
       expect(response).toHaveProperty('categories', ['test category']);
     });
 
@@ -24,7 +24,7 @@ describe('get /category', () => {
       Category.get = jest.fn(() => {
         throw 1;
       });
-      const response = await getCategory(req, res, (err) => err);
+      const response = await getCategory(req, res, (err) => err) as any;
       expect(response).toHaveProperty('msg', 'Error in DB');
     })
   });

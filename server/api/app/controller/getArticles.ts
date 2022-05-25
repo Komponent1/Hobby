@@ -10,13 +10,12 @@ const getArticles = async (req: Request<{}, {}, {}, getArticlesQuery>, res: Resp
 
     return res.status(200).json({ count: count.cnt, articles });
   } catch(err) {
-    console.log(err)
     if (err.code === 0) {
       return res.status(200).json({
         articles: []
       })
     }
-    next({
+    return next({
       code: 500,
       msg: 'Error in DB'
     });

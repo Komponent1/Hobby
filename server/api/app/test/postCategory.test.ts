@@ -2,7 +2,7 @@ import postCategory, { addCategory } from '../controller/postCategory';
 import { Category } from '../model';
 import { Request, Response } from 'express';
 
-describe('post /category', () => {
+describe('POST /category', () => {
   Category.get = jest.fn(() => {
     throw ({ code: 0 });
   });
@@ -10,23 +10,7 @@ describe('post /category', () => {
   const category_name = 'test_category';
   const user = 'test_user';
 
-  describe('controller Test', () => {
-    test('Normal Test', async () => {
-      const new_category = await addCategory(category_name, user);
-      expect(new_category).toHaveProperty('category_id', 'test_id');
-    });
-
-    test('Already Category Name', async () => {
-      Category.get = jest.fn().mockReturnValue([1]);
-      try {
-        await addCategory(category_name, user);
-      } catch (err) {
-        expect(err).toHaveProperty('msg', 'Already category name');
-      }
-    });
-  });
-
-  describe('router Test', () => {
+  describe('Router TEST', () => {
     const req = {
       body: { user, category_name },
     } as Request;
@@ -38,18 +22,32 @@ describe('post /category', () => {
       return res;
     })() as Response;
 
-    test('Normal Test', async () => {
-      Category.get = jest.fn(() => {
-        throw ({ code: 0 });
-      });
-      const response = await postCategory(req, res, (err) => err);
-      expect(response).toHaveProperty('category_id', 'test_id');    
+    test('succuess TEST', async () => {
+      const response = await postCategory(req, res, (err) => err) as any;
+      
+      expect(response.category).toHaveProperty('category_id', 'test_id');    
+      expect(response.category).toHaveProperty('category_name', 'test_name');
     });
 
-    test('User not same', async () => {
+    test('fail TEST (User not matched)', async () => {
       req.headers = { 'x-user': '123' }
-      const response = await postCategory(req, res, (err) => err);
+      const response = await postCategory(req, res, (err) => err) as any;
       expect(response).toHaveProperty('msg', 'No match client with blog owner');
+    });
+    
+    test('fail TEST (DB post error)', async () => {
+      req.headers = { 'x-user': user }
+      Category.post = jest.fn(() => { throw 'err' });
+      
+      const response = await postCategory(req, res, (err) => err);
+      expect(response).toHaveProperty('msg', 'DB server error');
+    });
+    
+    test('fail TEST (category already name)', async () => {
+      Category.get = jest.fn().mockReturnValue([]);
+
+      const response = await postCategory(req, res, (err) => err);
+      expect(response).toHaveProperty('msg', 'Already category name');
     });
   });
 });

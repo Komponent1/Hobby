@@ -1,43 +1,48 @@
 import { Request, Response, NextFunction } from 'express';
 import { auth } from '../controller';
-import { makeJwt } from '../controller/login';
+import { makeJwt } from '../lib';
 
-const mockResponse = () => {
-  const res: any = {};
-  res.status = jest.fn().mockReturnValue(res);
-  res.json = jest.fn((obj) => obj.msg)
-  return res;
-}
+describe('GET /', () => {
+  const jwt = makeJwt('seo2im').accessToken;
+  const req = {
+    headers: {
+      authorization: `Bearer ${jwt}`
+    }
+  } as Request;
+  const res = (() => {
+    let res: any = {};
+    res.status = jest.fn().mockReturnValue(res);
+    res.header = jest.fn((key, payload) => {
+      res[key] = payload;
 
-describe('Auth Test', () => {
-  const jwt = makeJwt('seo2im6492@gmail.com').accessToken;
-  const res = mockResponse() as Response;
-  const next = (() => 'authorization') as NextFunction;
-
-  test('Clear', () => {
-    const req = {
-      headers: {
-        authorization: `Bearer ${jwt}`
-      }
-    } as Request;
-    auth(req, res, next);
-    expect(req.payload.email).toMatch('seo2im6492@gmail.com');
-  });
-
-  /* ...하는법 모르겠음 */
-  // test('Expire', () => {
+      return res;
+    })
+    res.end = jest.fn().mockReturnValue(res);
     
-  //   const result = auth(req, res, next) as any;
-  // });
+    return res;
+  })();
 
-  /*  */
-  test('Invalid', () => {
-    const req = {
-      headers: {
-        authorization: `Bearer 12312421`
-      }
-    } as Request;
-    const result = auth(req, res, next) as any;
-    expect(result).toBe('invalid token');
-  });
+  describe('Router TEST', () => {
+    test('success TEST', () => {
+      const result = auth(req, res, (err:any) => err);
+      
+      expect(result).toHaveProperty('x-user', 'seo2im');
+    });
+
+    test('fail TEST (No headers)', () => {
+      req.headers = {};
+      const result = auth(req, res, (err:any) => err);
+      expect(result).toHaveProperty('msg', 'no token');
+    });
+
+    // test('fail TEST (No)', () => {
+    //   const req = {
+    //     headers: {
+    //       authorization: `Bearer 12312421`
+    //     }
+    //   } as Request;
+    //   const result = auth(req, res, next) as any;
+    //   expect(result).toBe('invalid token');
+    // });
+  });  
 });

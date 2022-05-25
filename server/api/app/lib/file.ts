@@ -45,7 +45,7 @@ const send
     client.close();
     throw ({
       code: 500,
-      msg: 'FTP server Error'
+      msg: 'FTP server error'
     })
   }
 };
@@ -54,7 +54,7 @@ const load
 = async (
   path: string,
   writeStream: Writable
-): Promise<Writable> => {
+): Promise<void> => {
   const client = new Client();
   client.ftp.verbose = true;
   try {
@@ -68,14 +68,13 @@ const load
     await client.ensureDir(dir)
     await client.downloadTo(writeStream, filename);
     client.close();
-    return writeStream;
   } catch (err) {
     client.close();
     throw ({
       code: 500,
-      msg: 'FTP server Error'
+      msg: 'FTP server error'
     })
   }
 }
 
-export { send, load, del };
+export default { send, load, del };

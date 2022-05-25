@@ -8,10 +8,9 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
       msg: 'no token'
     });
     const payload = authorization(req.headers.authorization.split('Bearer ')[1]);
-    res.status(204).header('x-user', payload).end();
+    return res.status(204).header('x-user', payload).end();
   } catch(err) {
-    console.log(err);
-    next(err);
+    return next(err);
   }
 };
 

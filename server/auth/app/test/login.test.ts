@@ -1,5 +1,5 @@
 import postLogin, { login } from '../controller/login';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { Users } from '../model';
 import * as crypto from 'crypto';
 
@@ -17,7 +17,7 @@ const createPassword = (pw: string): Promise<{ password: string, salt: string }>
   })
 );
 
-describe('post /login', () => {
+describe('POST /login', () => {
   const email = 'seo2im6492@gmail.com';
   const pw = '1234';
 

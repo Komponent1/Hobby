@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { Article } from "../model";
 import { Writable } from 'stream';
-import * as file from '../lib/file';
+import { file } from '../lib';
 
 export const getFile = async (path): Promise<any> => {
   try {
@@ -34,8 +34,7 @@ const getArticle = async (req: Request<{}, {}, {}, getArticleQuery>, res: Respon
       })
     }
     const content = await getFile(article.path);
-    
-    res.status(200).json({ 
+    return res.status(200).json({ 
       article: { 
         title: article.title, id: article_id, content
       }
