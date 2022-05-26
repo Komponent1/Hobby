@@ -17,6 +17,7 @@ const pathupload: tPathupload = async (filename, user, category_id) => {
   try {
     return await Article.post(filename, category_id, user, `${user}/${filename}`);
   } catch(err) {
+    console.log('ERROR LOG', err)
     file.del(user, filename);
     throw ({
       code: 500,

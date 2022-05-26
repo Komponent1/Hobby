@@ -28,6 +28,7 @@ const getArticle = async (req: Request<{}, {}, {}, getArticleQuery>, res: Respon
     try {
       article = (await Article.get({ article_id }))[0];
     } catch(err) {
+      console.log('ERROR LOG', err);
       throw ({
         code: 500,
         msg: 'Error in DB'

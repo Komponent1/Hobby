@@ -42,6 +42,7 @@ const send
     await client.uploadFrom(fileStream, `${filename}`);
     client.close();
   } catch (err) {
+    console.log('ERROR LOG', err);
     client.close();
     throw ({
       code: 500,
@@ -69,6 +70,7 @@ const load
     await client.downloadTo(writeStream, filename);
     client.close();
   } catch (err) {
+    console.log('ERROR LOG', err);
     client.close();
     throw ({
       code: 500,

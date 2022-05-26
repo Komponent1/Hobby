@@ -13,14 +13,14 @@ describe('GET /category', () => {
     return res;
   })() as Response;
 
-  describe('controller Test', () => {
+  describe('Router TEST', () => {
     Category.get = jest.fn().mockReturnValue([ 'test category' ])
-    test('Normal Test', async () => {
+    test('success TEST', async () => {
       const response = await getCategory(req, res, (err) => err) as any;
       expect(response).toHaveProperty('categories', ['test category']);
     });
 
-    test('Error Case', async () => {
+    test('fail TEST', async () => {
       Category.get = jest.fn(() => {
         throw 1;
       });

@@ -11,6 +11,7 @@ export const checkAlreadyIn: tCheckAlreadyIn = async (user, category_name)=> {
     if (err.code  === 0) { /* Check connection not work */
       return false;
     }
+    console.log('ERROR LOG', err)
     throw ({
       code: 500,
       msg: 'DB server error'
@@ -31,6 +32,7 @@ export const addCategory: tAddCatorgory = async (category_name, user) => {
   try {
     return await Category.post(user, category_name);
   } catch(err) {
+    console.log('ERROR LOG', err);
     throw ({
       code: 500,
       msg: 'DB server error'

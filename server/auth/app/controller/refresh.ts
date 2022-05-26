@@ -4,6 +4,7 @@ import { authorization, makeJwt } from '../lib';
 const getRefresh = (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.cookies.blog_refresh_token) {
+      console.log('ERROR LOG(cookie check)', req.cookies)
       throw ({
         code: 401,
         msg: 'No token in header'

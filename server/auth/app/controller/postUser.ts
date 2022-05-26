@@ -28,6 +28,7 @@ export const signUp: tSignup = async (email, pw) => {
     if (err.code === 401) {
       throw(err);
     } if (err.code !== 0) {
+      console.log('ERROR LOG', err);
       throw ({ code: 500, msg: 'Error in DB(select)' });
     }
   }
@@ -37,7 +38,7 @@ export const signUp: tSignup = async (email, pw) => {
   try {
     await Users.post(email, password, salt);
   } catch(err) {
-    console.log(err)
+    console.log('ERROR LOG', err);
     throw ({ code: 500, msg: 'Error in DB(insert)' });
   }
 };
