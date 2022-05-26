@@ -52,13 +52,13 @@ export const articles = nums.map(e => ({
 export const article = {
   ID: 0,
   title: 'test_article',
-  content: '\
-  # Title \
-  ## Header \
-  ### Sub Title \
-  **bold** \
-  *italic* \
-  '
+  content: `
+  # Title 
+  ## Header 
+  ### Sub Title 
+  **bold** 
+  *italic* 
+  `
 }
 export const newCatetgory = {
   ID: 6,

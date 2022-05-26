@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom'
-import { Category,  Banner } from '../../components';
-import ArticlesBoard from '../../components/articlesboard/articlesborad';
+import { Category,  Banner, ArticlesBoard } from '../../components';
 import queryString from 'query-string';
 import * as style from './style';
 

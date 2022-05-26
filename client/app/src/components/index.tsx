@@ -6,5 +6,6 @@ export { default as Header } from './header/header';
 export { default as Banner } from './banner/banner';
 export { default as ArticleGrid } from './grid/grid';
 export { default as ArticleCard } from './articleCard/articleCard';
+export { default as ArticlesBoard } from './articlesboard/articlesborad';
 export { default as FormBox } from './formBox/formBox';
 export { default as TextMenuList } from './TextMenuList/TextMenuList'; 

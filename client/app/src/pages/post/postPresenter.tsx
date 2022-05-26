@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { Input, SimpleButton } from '../../components';
 import { SelectChangeEvent } from '@mui/material/Select';
@@ -23,7 +23,6 @@ const PostPresenter = React.forwardRef<HTMLDivElement ,Prop>(({
   setCategory,
   openModal
 }, ref) => {
-  const [open, setOpen] = useState<boolean>(false)
 
   return (
     <style.div>

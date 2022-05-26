@@ -17,7 +17,7 @@ const useLoading = (dep: tDep, navigate: any) => {
     } else {
       navigate('/', { replace: true })
     }
-  }, []);
+  }, [ dep ]);
   const signup = useCallback((data: number|null, error: number|null) => {
     if (error === 401) {
       alert('이미 존재하는 유저입니다');
@@ -27,14 +27,14 @@ const useLoading = (dep: tDep, navigate: any) => {
     } else if (data === 204) {
       navigate('/login', { replace: true });
     }
-  }, []);
+  }, [ dep ]);
   const article = useCallback((data: any, error: number|null) => {
     if (error) {
       navigate(-1);
     } else if (data) {
       navigate(`/article?article_id=${data.article.id}`, { replace: true });
     }
-  }, []);
+  }, [ dep ]);
 
   useEffect(() => {   
     if (loading) return;

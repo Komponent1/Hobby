@@ -12,7 +12,7 @@ const ArticlePresenter: React.FC<Prop> = ({ content }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [ open, setOpen ] = useState<boolean>(false);
   const mediaMatch = window.matchMedia('(max-width: 1200px)');
-  const [matches, setMatched] = useState(mediaMatch.matches);
+  const matches = useRef<boolean>(mediaMatch.matches);
   const [viewer, setViewer] = useState<any>(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const ArticlePresenter: React.FC<Prop> = ({ content }) => {
     if (!viewer) return;
 
     viewer.setMarkdown(content);
-  }, [ content ])
+  }, [ content ]);
   return (
     <>
       <style.head>
@@ -34,7 +34,7 @@ const ArticlePresenter: React.FC<Prop> = ({ content }) => {
       </style.head>
       <style.div>
         <style.section>
-          <div style={style.viewerStyle(matches)} ref={ref}/>
+          <div style={style.viewerStyle(matches.current)} ref={ref}/>
           <style.menu open={open}>
             <Category />
           </style.menu>

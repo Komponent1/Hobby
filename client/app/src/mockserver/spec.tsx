@@ -17,8 +17,8 @@ export function handlers() {
 }
 
 const getUsers = rest.get('/api/users', (req, res, ctx) => {
-  const email = req.url.searchParams.get('email');
-  if (!email || email === '') {
+  const user = req.url.searchParams.get('user');
+  if (!user || user === '') {
     return res(
       ctx.status(200),
       ctx.json({
@@ -28,8 +28,8 @@ const getUsers = rest.get('/api/users', (req, res, ctx) => {
   }
   
   
-  const user = users.find(e => e.email === email);
-  if (!user) return res(
+  
+  if (user === 'error') return res(
     ctx.status(500),
     ctx.json({
       msg: 'No user in db'
@@ -126,6 +126,17 @@ const postArticle = rest.post('/author/article', (req, res, ctx) => {
   )
 });
 const getCategory = rest.get('/api/category', (req, res, ctx) => {
+  const user = req.url.searchParams.get('user');
+
+  if (user === 'error') {
+    return res(
+      ctx.status(500),
+      ctx.json({
+        msg: 'Error in DB'
+      })
+    )
+  }
+
   return res(
     ctx.status(200),
     ctx.json({
@@ -134,6 +145,16 @@ const getCategory = rest.get('/api/category', (req, res, ctx) => {
   )
 })
 const getArticles = rest.get('/api/articles', (req, res, ctx) => {
+  const user = req.url.searchParams.get('user');
+
+  if (user === 'error') {
+    return res(
+      ctx.status(500),
+      ctx.json({
+        msg: 'error'
+      })
+    )
+  }
   const category_id = req.url.searchParams.get('category_id');
   const idx = parseInt(req.url.searchParams.get('pagination')  as string);
   const num = parseInt(req.url.searchParams.get('num') as string);

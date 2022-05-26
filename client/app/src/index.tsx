@@ -12,6 +12,12 @@ import reportWebVitals from './reportWebVitals';
 import { serviceWorker } from './mockserver/server';
 import { CookiesProvider } from 'react-cookie';
 
+// if (process.env.NODE_ENV === 'development') {
+//   serviceWorker.start({
+    
+//   }).then(res => console.log(res)).catch(err => console.log(err));
+// }
+
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer, 
@@ -37,5 +43,6 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
-// if (process.env.NODE_ENV === 'development') serviceWorker.start();
+
+// reportWebVitals();
+
