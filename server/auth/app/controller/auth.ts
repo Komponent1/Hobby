@@ -3,6 +3,11 @@ import { authorization } from '../lib';
 
 const auth = (req: Request, res: Response, next: NextFunction) => {
   try {
+    /* judge preflight (temporary) */
+    if (req.method === 'OPTIONS') {
+      return res.status(204).end();
+    }
+
     if (!req.headers.authorization) {
       console.log('ERROR LOG(header check)', req.headers)
       throw ({
