@@ -34,8 +34,8 @@ const send
   try {
     await client.access({
       host: 'fileserver',
-      user: 'test',
-      password: 'test',
+      user: process.env.FILE_USER,
+      password: process.env.FILE_PASSWORD,
       /* scure: true */
     });
     await client.ensureDir(user)
@@ -61,8 +61,8 @@ const load
   try {
     await client.access({
       host: 'fileserver',
-      user: 'test',
-      password: 'test',
+      user: process.env.FILE_USER,
+      password: process.env.FILE_PASSWORD,
       /* scure: true */
     });
     const [ dir, filename ] = path.split('/');

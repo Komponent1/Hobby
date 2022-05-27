@@ -10,7 +10,7 @@ CREATE TABLE Users(
 
 CREATE TABLE Category(
   ID          SERIAL        not null  primary key,
-  name        varchar(100)  not null  UNIQUE,
+  name        varchar(100)  not null,
   user_email  varchar(100)  not null  REFERENCES Users(email)
 );
 
