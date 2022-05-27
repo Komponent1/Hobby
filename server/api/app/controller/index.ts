@@ -3,3 +3,5 @@ export { default as getCategory } from './getCatgory';
 export { default as postCategory } from './postCategory';
 export { default as getArticles } from './getArticles';
 export { default as getArticle } from './getArticle';
+export { default as deleteCategory } from './deleteCategory';
+

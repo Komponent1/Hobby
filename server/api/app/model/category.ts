@@ -31,5 +31,9 @@ type CategoryPostFunction = (
 export const post: CategoryPostFunction = async (user_email, category_name) => {
   return await db.one('INSERT INTO Category(name, user_email) VALUES($1, $2) RETURNING *', [category_name, user_email]);
 };
+type CategoryDelFunction = (category_id: string) => Promise<void>
+export const del: CategoryDelFunction = async (category_id) => {
+  return await db.none('DELETE FROM Category WHERE ID = $1', [category_id]);
+};
 
-export default { get, post };
+export default { get, post, del };

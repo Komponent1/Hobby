@@ -33,17 +33,21 @@ export const get: tGetArticle = async (option, pagination) => {
   return await db.many(query, data);
 };
 
-export const post
-= async (
+type ArticlePostFunction = (
   title: string,
   category_id: string,
   user_email: string,
   path: string
-) => {
+) => Promise<any>
+export const post: ArticlePostFunction = async (title, category_id, user_email, path) => {
   return await db.one(
     'INSERT INTO Article(title, publish_date, category_id, user_email, path) VALUES($1, $2, $3, $4, $5) RETURNING *',
     [title, new Date().toString(), category_id, user_email, path]
   )
 };
+type ArticleDeleteFunction = (article_id: string) => Promise<any>
+export const del: ArticleDeleteFunction = async (article_id) => {
+  return await db.one('DELETE FROM Article WHERE ID = $1 RETURNING *', [article_id])
+};
 
-export default { get, post, count };
+export default { get, post, count, del };
