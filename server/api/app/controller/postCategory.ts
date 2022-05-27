@@ -45,10 +45,13 @@ const postCategory = async (req: Request, res: Response, next: NextFunction) => 
     const author = req.headers['x-user'];
 
     /* client is not blog owner */
-    if (user !== author) return next(({
-      code: 401,
-      msg: 'No match client with blog owner',
-    }));
+    if (user !== author) {
+      console.log('ERROR LOG', user, author);
+      return next(({
+        code: 401,
+        msg: 'No match client with blog owner',
+      }));
+    }
 
     const new_category = await addCategory(category_name, user);
     return res.status(200).json({
