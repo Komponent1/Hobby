@@ -9,7 +9,7 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
     }
 
     if (!req.headers.authorization) {
-      console.log('ERROR LOG(header check)', req.headers)
+      console.log('ERROR LOG(request check)', req)
       throw ({
         code: 401,
         msg: 'no token'
