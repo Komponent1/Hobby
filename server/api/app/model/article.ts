@@ -41,13 +41,27 @@ type ArticlePostFunction = (
 ) => Promise<any>
 export const post: ArticlePostFunction = async (title, category_id, user_email, path) => {
   return await db.one(
-    'INSERT INTO Article(title, publish_date, category_id, user_email, path) VALUES($1, $2, $3, $4, $5) RETURNING *',
-    [title, new Date().toString(), category_id, user_email, path]
+    'INSERT INTO Article(title, publish_date, update_date, category_id, user_email, path) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+    [title, new Date().toString(), new Date().toString(), category_id, user_email, path]
   )
 };
 type ArticleDeleteFunction = (article_id: string) => Promise<any>
 export const del: ArticleDeleteFunction = async (article_id) => {
   return await db.one('DELETE FROM Article WHERE ID = $1 RETURNING *', [article_id])
 };
+type ArticlePatchFunction = (article_id: string, title?: string) => Promise<any>;
+export const patch: ArticlePatchFunction = async (article_id, title) => {
+  let i = 1;
+  let data = [new Date().toString()];
+  let sql = 'PATCH Article SET update_date = $1';
 
-export default { get, post, count, del };
+  if (title) {
+    sql += ` title = ${++i}`
+    data = [...data, title];
+  }
+
+  sql += ` WHERE ID = ${++i} RETURNING *`;
+  return await db.one(sql, [...data, article_id]);
+};
+
+export default { get, post, count, del, patch };

@@ -4,4 +4,6 @@ export { default as postCategory } from './postCategory';
 export { default as getArticles } from './getArticles';
 export { default as getArticle } from './getArticle';
 export { default as deleteCategory } from './deleteCategory';
-
+export { default as deleteArticle } from './deleteArticle';
+export { default as updateCategory } from './updateCategory';
+export { default as updateArticle } from './updateArticle';
