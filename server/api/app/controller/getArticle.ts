@@ -37,7 +37,7 @@ const getArticle = async (req: Request<{}, {}, {}, getArticleQuery>, res: Respon
     const content = await getFile(article.path);
     return res.status(200).json({ 
       article: { 
-        title: article.title, id: article_id, content
+        title: article.title, category_id: article.category_id, id: article_id, content
       }
     });
   } catch (err) {

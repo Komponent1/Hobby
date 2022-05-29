@@ -22,7 +22,7 @@ const parse = (req: Request<{}, {}, {}, updateArticleQuery>) => {
 type tGetPath = (article_id: string) => Promise<{ title: string, path: string }>;
 const getFileInformation: tGetPath = async (article_id) => {
   try {
-    const { title, path } = await Article.get({ article_id }) as any;
+    const { title, path } = (await Article.get({ article_id }) as any[])[0];
 
     return { title, path };
   } catch (err) {
@@ -42,13 +42,12 @@ const savingFile: tSavingFile = async (filename, user, buffer) => {
     throw(err);
   }
 };
-type tPatchArticle = (article_id: string, callback: Function, originalname?: string) => Promise<any>
-const patchArticle: tPatchArticle = async (article_id, callback, originalname) => {
+type tPatchArticle = (article_id: string, originalname?: string, user?: string) => Promise<any>
+const patchArticle: tPatchArticle = async (article_id, originalname, user) => {
   try {
-    return await Article.patch(article_id, originalname);
+    return await Article.patch(article_id, originalname, user);
   } catch (err) {
     console.log('ERROR LOG(DB)', err);
-    callback();
     throw({
       code: 500,
       msg: 'Error in DB'
@@ -59,29 +58,33 @@ const patchArticle: tPatchArticle = async (article_id, callback, originalname) =
 const updateArticle = async (req: Request<{}, {}, {}, updateArticleQuery>, res: Response, next: NextFunction) => {
   try {
     const { author, user, article_id, buffer, originalname } = parse(req);
-    authorization(author, user);
+    authorization(user, author);
     const { title, path } = await getFileInformation(article_id);
     await savingFile(originalname, user, buffer);
     let article = null;
     if (title !== originalname) {
-      const callback = () => file.del(user, originalname).catch((err) => {
-        console.log('ERROR LOG', 'call adminisrator')
-      });
-      article = await patchArticle(article_id, callback, originalname);
+      article = await patchArticle(article_id, originalname, user);
     } else {
       /* TODO: when fail, file rollback? */
-      article = await patchArticle(article_id, () => {});
+      article = await patchArticle(article_id);
     }
-
-    res.status(200).json({ article });
 
     if (title !== originalname) {
       const oldfilename = path.split('/')[1];
+      
       file.del(user, oldfilename).catch((err) => {
-        console.log('ERROR LOG', 'call adminisrator');
+        console.log('ERROR LOG(file del)', 'call adminisrator');
       });
     }
-    return 'success'; /* For testing */
+
+    return res.status(200).json({ 
+      article: {
+        title: article.title,
+        category_id: article.category_id,
+        id: article_id,
+        content: buffer.toString(),
+      }
+    });
   } catch (err) {
     return next(err);
   }
