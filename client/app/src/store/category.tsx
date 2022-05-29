@@ -9,6 +9,14 @@ export const POST_CATEGORY = 'POST_CATEGORY/PENDING';
 export const POST_CATEGORY_SUCCESS = 'POST_CATEGORY/SUCCESS';
 export const POST_CATEGORY_FAILURE = 'POST_CATEGORY/FAILURE';
 
+export const PATCH_CATEGORY = 'PATCH_CATEGORY/PENDING';
+export const PATCH_CATEGORY_SUCCESS = 'PATCH_CATEGORY/SUCCESS';
+export const PATCH_CATEGORY_FAILURE = 'PATCH_CATEGORY/FALIURE';
+
+export const DELETE_CATEGORY = 'DELETE_CATEGORY/PENDING';
+export const DELETE_CATEGORY_SUCCESS = 'DELETE_CATEGORY/SUCCESS';
+export const DELETE_CATEGORY_FAILURE = 'DELETE_CATEGORY/FAILURE';
+
 export const getCategory = (email: string) => ({
   type: GET_CATEGORY,
   payload: { email }
@@ -50,10 +58,54 @@ export function* postSaga(action: any) {
     })
   }
 }
+export const patchCategory = (token: string, email: string, category_id: string, category_name: string) => ({
+  type: PATCH_CATEGORY,
+  payload: { token, email, category_id, category_name }
+});
+export function* patchSaga(action: any) {
+  const { token, email, category_id, category_name }:
+  { token: string, email: string, category_id: string, category_name: string } = action.payload
+
+  const result: { code: number, data: any } = yield call(api.patchCategory, token, email, category_id, category_name);
+  if (result.code === 200) {
+    yield put({
+      type: PATCH_CATEGORY_SUCCESS,
+      payload: result.data
+    });
+  } else {
+    yield put({
+      type: PATCH_CATEGORY_FAILURE,
+      payload: result.code
+    });
+  }
+};
+export const deleteCategory = (token: string, email: string, category_id: string) => ({
+  type: DELETE_CATEGORY,
+  payload: { token, email, category_id }
+});
+export function* deleteSaga(action: any) {
+  const { token, email, category_id }:
+  { token: string, email: string, category_id: string } = action.payload;
+
+  const result: { code: number } = yield call(api.deleteCategory, token, email, category_id);
+  if (result.code === 204) {
+    yield put({
+      type: DELETE_CATEGORY_SUCCESS,
+      payload: category_id 
+    })
+  } else {
+    yield put ({
+      type: DELETE_CATEGORY_FAILURE,
+      payload: result.code
+    })
+  }
+};
 
 export function *categorySaga() {
   yield takeLatest(GET_CATEGORY, getSaga);
   yield takeLatest(POST_CATEGORY, postSaga);
+  yield takeLatest(PATCH_CATEGORY, patchSaga);
+  yield takeLatest(DELETE_CATEGORY, deleteSaga);
 };
 export type tGetCategory = {
   loading: boolean,
@@ -69,9 +121,9 @@ const reducer = (state = initialState, action: any) => {
   switch(action.type) {
     case GET_CATEGORY:
       return {
+        ...state,
         loading: true,
-        data: null,
-        error: null,
+        error: null,        
       };
     case GET_CATEGORY_SUCCESS:
       return {
@@ -85,7 +137,8 @@ const reducer = (state = initialState, action: any) => {
         data: null,
         error: action.payload
       };
-    case POST_CATEGORY:
+    
+      case POST_CATEGORY:
       return {
         ...state,
         loading: true,
@@ -101,10 +154,53 @@ const reducer = (state = initialState, action: any) => {
     /* Check it error effect get action */
     case POST_CATEGORY_FAILURE:
       return {
+        ...state,
         loading: false,
-        data: [...state.data],
         error: action.payload
       }
+    
+    case PATCH_CATEGORY:
+      return {
+        ...state,
+        loading: false,
+      }
+    case PATCH_CATEGORY_SUCCESS:
+      return {
+        loading: false,
+        data: {
+          categories: state.data.categories.map((e: any) => e.id === action.payload.category.id ?
+            action.payload.category : e
+          )
+      },
+        error: null,
+      }
+    case PATCH_CATEGORY_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    
+    case DELETE_CATEGORY:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_CATEGORY_SUCCESS:
+      return {
+        loading: false,
+        data: {
+          categories: state.data.categories.filter((e: any) => e.id !== parseInt(action.payload))
+        },
+        error: null
+      };
+    case DELETE_CATEGORY_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        erorr: action.payload
+      };
+
     default:
       return state;
   }

@@ -37,7 +37,7 @@ export const del: CategoryDelFunction = async (category_id) => {
 };
 type CategoryPatchFunction = (category_id: string, category_name: string) => Promise<void>
 export const patch: CategoryPatchFunction = async (category_id: string, category_name: string) => {
-  return db.one('UPDATE Category SET category_name = $1 WHERE ID = $2 RETURNING *', [category_name, category_id])
+  return db.one('UPDATE Category SET name = $1 WHERE ID = $2 RETURNING *', [category_name, category_id])
 };
 
 export default { get, post, del, patch };

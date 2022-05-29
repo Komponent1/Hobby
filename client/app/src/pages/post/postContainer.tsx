@@ -127,7 +127,7 @@ const PostContainer: React.FC = () => {
   const { submit } = useSubmit(navigate, title, categoryId, article_id);
 
   const openModal = () => {
-    navigate('/modal/test', { state: { backgroundLocation: location }});
+    navigate('/modal/category?type=post', { state: { backgroundLocation: location }});
   }
 
   return ( 

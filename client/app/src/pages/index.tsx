@@ -5,3 +5,4 @@ export { default as Loading } from './loading/loadingContainer';
 export { default as Post } from './post/postContainer';
 export { default as Article } from './article/articleContainer';
 export { default as Modal } from './modal/modal';
+export { default as Mypage } from './mypage/mypageContainer';

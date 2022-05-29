@@ -2,12 +2,12 @@ import { Request, Response, NextFunction } from 'express';
 import { authorization, checkAlreadyIn } from '../lib';
 import { Category } from '../model';
 
-
 type tParse = (req: Request) => ({ author: string, user: string, category_id: string, category_name: string });
 const parse: tParse = (req) => {
   try {
     const author = req.headers['x-user'] as string;
     const { user, category_id, category_name } = req.body;
+    console.log(user, author, category_id, category_name);
     
     return { author, user, category_id, category_name };
   } catch (err) {
@@ -33,7 +33,7 @@ const patchCategory: tPatchCategory = async (category_id, category_name) => {
 const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { author, user, category_id, category_name } = parse(req);
-    authorization(author, user);
+    authorization(user, author);
     await checkAlreadyIn('Category', [user, { category_name }]);
     const category = await patchCategory(category_id, category_name);
     

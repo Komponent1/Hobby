@@ -17,9 +17,13 @@ const Header: React.FC = () => {
       <Typography onClick={() => navigate('/')} variant='h6' component='p'>{BASENAME}</Typography>
       <style.buttonDiv>
         {data && data.email === BASENAME?
-          <SimpleButton sx={{ marginRight: '1rem'}} label='POST' onClick={() => navigate('/post')}/>
+          <>
+            <SimpleButton sx={{ marginRight: '1rem'}} label='POST' onClick={() => navigate('/post')}/>
+            <SimpleButton sx={{ marginRight: '1rem'}} label='My Page' onClick={() => navigate('/mypage')}/>
+          </>
           :null
         }
+        
         <AuthButton label={data? 'logout':'login'} />
       </style.buttonDiv>
     </style.header>
