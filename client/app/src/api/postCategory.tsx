@@ -10,8 +10,6 @@ const postCategory = async (token: string, user: string, category_name: string) 
   });
 
   const result = await res.json();
-  console.log(res, result)
-;
   return ({ code: res.status, data: result });
 };
 

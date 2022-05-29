@@ -33,6 +33,8 @@ const useLoading = (dep: tDep, navigate: any) => {
       navigate(-1);
     } else if (data) {
       navigate(`/article?article_id=${data.article.id}`, { replace: true });
+    } else {
+      navigate('/', { replace: true });
     }
   }, [ dep ]);
 

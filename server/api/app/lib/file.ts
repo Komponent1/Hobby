@@ -15,9 +15,12 @@ const del
       password: process.env.FILE_PASSWORD,
       /* scure: true */
     });
+    console.log('111222333');
     await client.ensureDir(user)
     await client.remove(filename);
+    await client.close();
   } catch(err) {
+    console.log('ERROR LOG(file)', err);
     console.log('wi~' /* call administer... */)
     client.close();
   }
@@ -40,9 +43,9 @@ const send
     });
     await client.ensureDir(user)
     await client.uploadFrom(fileStream, `${filename}`);
-    client.close();
+    await client.close();
   } catch (err) {
-    console.log('ERROR LOG', err);
+    console.log('ERROR LOG(file)', err);
     client.close();
     throw ({
       code: 500,
@@ -68,9 +71,9 @@ const load
     const [ dir, filename ] = path.split('/');
     await client.ensureDir(dir)
     await client.downloadTo(writeStream, filename);
-    client.close();
+    await client.close();
   } catch (err) {
-    console.log('ERROR LOG', err);
+    console.log('ERROR LOG(file)', err);
     client.close();
     throw ({
       code: 500,

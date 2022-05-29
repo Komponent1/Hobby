@@ -1,18 +1,40 @@
 import React, { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, NavigateFunction, Location } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { rootState } from '../../store';
-import { getArticle } from '../../store/article';
+import { deleteArticle, getArticle } from '../../store/article';
 import ArticlePresenter from './articlePresenter';
+import { BASENAME } from '../../env';
+
+const usePagemove = (article_id: string, navigate: NavigateFunction, location: Location, dispatch: any) => {
+  
+  const { data } = useSelector((state: rootState) => state.auth);
+
+  const openEditor = () => navigate(`/post?article_id=${article_id}`);
+  const openDel = () => {
+    if (!data) {
+      alert('로그인이 필요합니다');
+      navigate('/login');
+    }
+    
+    dispatch(deleteArticle(
+      parseInt(article_id), data.access_token, BASENAME,
+      navigate, location, 'article'
+    ));
+  }
+
+  return { openEditor, openDel };
+}
 
 const Article: React.FC = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
-  const { data } = useSelector((state: rootState) => state.article);
-  const { article_id } = queryString.parse(location.search) as { article_id: string };
+  const location = useLocation();
   const navigate = useNavigate();
-
+  const { article_id } = queryString.parse(location.search) as { article_id: string };
+  const { data } = useSelector((state: rootState) => state.article);
+  const { openEditor, openDel } = usePagemove(article_id, navigate, location, dispatch);
+  
   useEffect(() => {
     if (data?.article.id !== article_id) {
       dispatch(getArticle(parseInt(article_id), navigate, location, 'article'));
@@ -20,7 +42,11 @@ const Article: React.FC = () => {
   }, []);
 
   return (
-    <ArticlePresenter content={data?.article.content}/>
+    <ArticlePresenter
+      content={data?.article.content}
+      openEditor={openEditor}
+      openDel={openDel}
+    />
   )
 };
 

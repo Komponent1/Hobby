@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import auth, { authSaga } from './auth';
 import signup, { signupSaga } from './signup';
 import category, { categorySaga } from './category';
-import article, { getArticleSaga } from './article';
+import article, { articleSaga } from './article';
 import articles, { getArticlesSaga } from './articles';
 import { all, fork } from 'redux-saga/effects';
 
@@ -16,6 +16,6 @@ export function* rootSaga (){
     fork(signupSaga),
     fork(categorySaga),
     fork(getArticlesSaga),
-    fork(getArticleSaga)
+    fork(articleSaga)
   ])
 };

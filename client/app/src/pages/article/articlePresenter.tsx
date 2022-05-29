@@ -1,14 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer'
+import { useNavigate } from 'react-router-dom';
 import * as style from './style';
-import { Banner, Category } from '../../components';
+import { Banner, Category, SimpleButton } from '../../components';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 
 type Prop = {
   content: string|undefined
+  openEditor: () => void
+  openDel: () => void
 }
 
-const ArticlePresenter: React.FC<Prop> = ({ content }) => {
+const ArticlePresenter: React.FC<Prop> = ({ content, openEditor, openDel }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [ open, setOpen ] = useState<boolean>(false);
   const mediaMatch = window.matchMedia('(max-width: 1200px)');
@@ -34,7 +37,13 @@ const ArticlePresenter: React.FC<Prop> = ({ content }) => {
       </style.head>
       <style.div>
         <style.section>
-          <div style={style.viewerStyle(matches.current)} ref={ref}/>
+          <div>
+            <div>
+              <SimpleButton label='수정하기' onClick={openEditor}/>
+              <SimpleButton label='삭제하기' onClick={openDel}/>
+            </div>
+            <div style={style.viewerStyle(matches.current)} ref={ref}/>
+          </div>
           <style.menu open={open}>
             <Category />
           </style.menu>
