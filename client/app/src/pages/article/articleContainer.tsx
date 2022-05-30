@@ -6,9 +6,10 @@ import { rootState } from '../../store';
 import { deleteArticle, getArticle } from '../../store/article';
 import ArticlePresenter from './articlePresenter';
 import { BASENAME } from '../../env';
+import { useLoading } from '../../hooks';
 
 const usePagemove = (article_id: string, navigate: NavigateFunction, location: Location, dispatch: any) => {
-  
+  const { loading } = useLoading('article');
   const { data } = useSelector((state: rootState) => state.auth);
 
   const openEditor = () => navigate(`/post?article_id=${article_id}`);
@@ -19,8 +20,8 @@ const usePagemove = (article_id: string, navigate: NavigateFunction, location: L
     }
     
     dispatch(deleteArticle(
-      parseInt(article_id), data.access_token, BASENAME,
-      navigate, location, 'article'
+      article_id, data.access_token, BASENAME,
+      loading
     ));
   }
 
@@ -29,15 +30,14 @@ const usePagemove = (article_id: string, navigate: NavigateFunction, location: L
 
 const Article: React.FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { loading, location, navigate } = useLoading('article');
   const { article_id } = queryString.parse(location.search) as { article_id: string };
   const { data } = useSelector((state: rootState) => state.article);
   const { openEditor, openDel } = usePagemove(article_id, navigate, location, dispatch);
   
   useEffect(() => {
-    if (data?.article.id !== article_id) {
-      dispatch(getArticle(parseInt(article_id), navigate, location, 'article'));
+    if (data?.article.id !== parseInt(article_id)) {
+      dispatch(getArticle(article_id, loading));
     }
   }, []);
 

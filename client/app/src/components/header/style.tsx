@@ -8,8 +8,6 @@ export const header = styled.header`
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
-
-  box-shadow: 0 0 4px rgb(172, 172, 172);
 `;
 export const buttonDiv = styled.div`
   display: flex;

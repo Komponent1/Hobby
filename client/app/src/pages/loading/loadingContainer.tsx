@@ -4,9 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import { rootState } from '../../store';
 import LoadingPresenter from './loadingPresenter';
 
-type tDep = 'signup'|'auth'|'article'|'post'
-const useLoading = (dep: tDep, navigate: any) => {
-  const { loading, data, error } = useSelector((state: rootState) => state[dep === 'post' ? 'article' : dep]);
+type tDep = 'signup'|'auth'|'article'|'articles'|'category'|'postarticle'
+type state = 'signup'|'auth'|'article'|'articles'|'category'
+const next = (url: string|Function, dep?: string) => {
+  if (typeof url === 'string') return url;
+  if (dep) return url(dep);
+}
+const dependency = (dep: tDep): state => {
+  switch (dep) {
+    case 'postarticle':
+      return 'article';
+    default:
+      return dep;
+  }
+}
+const useAllload = () => {
+  const { signup, auth, articles, article, category } = useSelector((state: rootState) => state);
+
+  return { 
+    loading: signup.loading || auth.loading || articles.loading || article.loading || category.loading
+  }
+}
+const useNext = (dep: tDep, url: string|Function) => {  
+  const navigate = useNavigate();
+  const { loading } = useAllload();
+  const { data, error } = useSelector((state: rootState) => state[dependency(dep)]);
 
   const auth = useCallback((data: any, error: number|null) => {
     if (error === 401) { /* not correct email or password */
@@ -15,7 +37,7 @@ const useLoading = (dep: tDep, navigate: any) => {
     } else if (error === 500) { /* server error */
       navigate(-1);
     } else {
-      navigate('/', { replace: true })
+      navigate(next(url), { replace: true });
     }
   }, [ dep ]);
   const signup = useCallback((data: number|null, error: number|null) => {
@@ -25,18 +47,40 @@ const useLoading = (dep: tDep, navigate: any) => {
     } else if (error === 500) {
       navigate(-1);
     } else if (data === 204) {
-      navigate('/login', { replace: true });
+      navigate(next(url), { replace: true });
     }
   }, [ dep ]);
-  const article = useCallback((data: any, error: number|null) => {
+  const article = useCallback((data: any, error: number|null, dep: tDep) => {
+    if (error === 401) {
+      alert('로그아웃 되었습니다. 로그인이 필요합니다');
+      navigate('/login');
+    } else if (error === 500) {
+      alert('서버에 문제가 있습니다, 다시 시도해주세요');
+      navigate(-1);
+    } else if (data) {
+      if (dep === 'postarticle') {
+        navigate(next(url, data.article.id), { replace: true });
+      } else {
+        navigate(next(url), { replace: true });
+      }
+    } else {
+      navigate(next(url), { replace: true });
+    }
+  }, [ dep ]);
+  const articles = useCallback((data: any, error: number|null) => {
     if (error) {
       navigate(-1);
     } else if (data) {
-      navigate(`/article?article_id=${data.article.id}`, { replace: true });
-    } else {
-      navigate('/', { replace: true });
+      navigate(next(url), { replace: true })
     }
   }, [ dep ]);
+  const category = useCallback((data: any, error: number|null) => {
+    if (error) {
+      navigate(-1);
+    } else if (data) {
+      navigate(next(url), { replace: true })
+    }
+  }, [ dep ])
 
   useEffect(() => {   
     if (loading) return;
@@ -47,11 +91,15 @@ const useLoading = (dep: tDep, navigate: any) => {
       case 'auth':
         auth(data, error);
         break;
-      case 'article':
-        article(data, error);
+      case 'article' || 'postarticle':
+        article(data, error, dep);
         break;
-      case 'post':
-        
+      case 'articles':
+        articles(data, error);
+        break;
+      case 'category':
+        category(data, error);
+        break;
       default:
         return;
     };
@@ -59,10 +107,12 @@ const useLoading = (dep: tDep, navigate: any) => {
   }, [ loading ])
 };
 
-type Prop = { dep: tDep }
-const LoadingContainer: React.FC<Prop> = ({ dep }) => {
-  const navigate = useNavigate();
-  useLoading(dep, navigate);
+type Prop = {
+  dep: tDep
+  url: string|Function
+}
+const LoadingContainer: React.FC<Prop> = ({ dep, url }) => {
+  useNext(dep, url);
 
   return (
     <LoadingPresenter />

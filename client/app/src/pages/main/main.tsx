@@ -6,7 +6,7 @@ import * as style from './style';
 
 const Main: React.FC = () => {
   const { search } = useLocation();
-  const category_id = queryString.parse(search).category_id as string|null|undefined;
+  const category_id = queryString.parse(search).category_id as string|undefined;
   const [ open, setOpen ] = useState<boolean>(false);
 
   return (

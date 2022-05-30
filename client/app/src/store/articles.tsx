@@ -5,14 +5,15 @@ export const ARTICLES = 'ARTICLES/PENDING';
 export const ARTICLES_SUCCESS = 'ARTICLES/SUCCESS';
 export const ARTICLES_FAILURE = 'ARTICLES/FAILURE';
 
-export const getArticles = (email: string, idx: number, num: number, category_id?: string|null) => ({
+export const getArticles = (email: string, idx: number, num: number, category_id?: string, loading?: Function,) => ({
   type: ARTICLES,
-  payload: { email, idx, num, category_id }
+  payload: { loading, email, idx, num, category_id }
 });
 export function *Saga(action: any) {
-  const { email, idx, num, category_id }:
-  { email: string, idx: number, num: number, category_id?: string } = action.payload;
+  const { loading, email, idx, num, category_id }:
+  { loading?: Function, email: string, idx: number, num: number, category_id?: string } = action.payload;
 
+  if (loading) loading(category_id ? `/?${category_id}&pagination=${idx}&unm=${num}` : `/?pagenation=${idx}&num=${num}`);
   const result: { code: number, data: any } = yield call(api.getArticles, email, idx, num, category_id);
   if (result.code === 200) {
     yield put({
@@ -43,8 +44,8 @@ const reducer = (state = initialState, action: any) => {
   switch (action.type) {
     case ARTICLES:
       return {
+        ...state,
         loading: true,
-        data: null,
         error: null,
       };
     case ARTICLES_SUCCESS:

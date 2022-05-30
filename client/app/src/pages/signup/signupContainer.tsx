@@ -3,6 +3,7 @@ import SignupPresenter from './signupPresenter';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signup } from '../../store/signup';
+import { useLoading } from '../../hooks';
 
 type Prop = {
   
@@ -11,8 +12,7 @@ const useSignup = () => {
   const [ email, setEmail ] = useState<string>('');
   const [ password, setPassword ] = useState<string>('');
   const [ confirmPw, setConfirmPw ] = useState<string>('');
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { loading } = useLoading('signup');
   const dispatch = useDispatch();
 
   const submit = async (e: React.MouseEvent) => {
@@ -21,7 +21,7 @@ const useSignup = () => {
       alert('pw not same confirm');
       return;
     }
-    dispatch(signup(email, password, navigate, location, 'signup'));
+    dispatch(signup(email, password, loading));
   }
 
   return { email, setEmail, password, setPassword, confirmPw, setConfirmPw, submit  }

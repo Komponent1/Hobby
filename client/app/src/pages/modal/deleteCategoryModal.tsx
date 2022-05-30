@@ -7,24 +7,24 @@ import queryString from 'query-string';
 import { rootState } from '../../store';
 import { BASENAME } from '../../env';
 import { deleteCategory } from '../../store/category';
+import { useLoading } from '../../hooks';
 
 type Prop = {
   
 }
 const DeleteCategoryModal = React.forwardRef<HTMLDivElement, Prop>((prop, ref) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { search } = useLocation();
   const category_id = queryString.parse(search).category_id as string;
   const { data } = useSelector((state: rootState) => state.auth);
+  const { loading, navigate } = useLoading('category', '/mypage');
 
   const click = () => {
     if (!data) {
       alert('로그인 다시 해야함');
       return navigate('/login');
     }
-    dispatch(deleteCategory(data.access_token, BASENAME, category_id));
-    navigate(-1);
+    dispatch(deleteCategory(data.access_token, BASENAME, category_id, loading));
   }
 
   return (

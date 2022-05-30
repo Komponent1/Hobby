@@ -4,9 +4,10 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from './components';
 import { Main, Signup, Login, Loading, Post, Article, Modal, Mypage } from './pages';
 
+type tDep = 'signup'|'auth'|'article'|'articles'|'category'|'postarticle'
 function App() {
   const location = useLocation();
-  let state = location.state as { backgroundLocation?: Location, dep?: any };
+  let state = location.state as { backgroundLocation: Location, dep: tDep, url: string|Function };
 
   return (
     <div>
@@ -22,8 +23,14 @@ function App() {
 
       {state?.backgroundLocation && (
         <Routes>
-          <Route path='loading' element={<Loading dep={state.dep}/>} />
-          <Route path='modal/*' element={<Modal />} />
+          <Route path='loading' element={<Loading dep={state.dep} url={state.url}/>} />
+          <Route path='modal/*' element={
+            <Modal
+              background={
+                state.backgroundLocation.pathname + state.backgroundLocation.search
+              }
+            />}
+          />
         </Routes>
       )}
     </div>

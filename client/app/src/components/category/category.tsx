@@ -7,16 +7,18 @@ import { Typography } from '@mui/material';
 import { TextMenuList } from '..';
 import queryString from 'query-string';
 import { BASENAME } from '../../env';
+import { useLoading } from '../../hooks';
 
 const Category: React.FC = () => {
-  const navigate = useNavigate();
+  const location = useLocation();
+  const { loading, navigate } = useLoading('category', location.pathname + location.search);
   const dispatch = useDispatch();
   const { search } = useLocation();
   const category_id = queryString.parse(search).category_id as string;
   const { data } = useSelector((state: rootState) => state.category);
 
   useEffect(() => {
-    dispatch(getCategory(BASENAME));
+    dispatch(getCategory(BASENAME, loading));
   }, []);
 
   /* click to category */

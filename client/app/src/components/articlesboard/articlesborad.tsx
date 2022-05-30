@@ -8,34 +8,47 @@ import { Pagination } from '@mui/material';
 import { ArticleGrid } from '..';
 import * as style from './style';
 import { BASENAME } from '../../env';
+import { useLoading } from '../../hooks';
 
 const NUM = 6;
 
-type Prop = {
-  category_id?: string|null
-}
-const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
-  const [idx, setIdx] = useState<number>(0);
+
+const useArticles = (category_id?: string) => {
   const { data } = useSelector((state: rootState) => state.articles);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const [idx, setIdx] = useState<number>(0);
   const dispatch = useDispatch();
+  const { loading } = useLoading('articles');
 
   useEffect(() => {
-    dispatch(getArticles(BASENAME, idx, NUM, category_id));
+    dispatch(getArticles(BASENAME, idx, NUM, category_id, loading));
   }, [ idx ])
   useEffect(() => {
     setIdx(0);
     if (category_id) {
-      dispatch(getArticles(BASENAME, 0, NUM, category_id));
+      dispatch(getArticles(BASENAME, 0, NUM, category_id, loading));
     } else {
-      dispatch(getArticles(BASENAME, 0, NUM));
+      dispatch(getArticles(BASENAME, 0, NUM, undefined, loading));
     }
-  }, [ category_id ])
+  }, [ category_id ]);
+
+  return { data, idx, setIdx };
+}
+const useArticle = (data: any) => {
+  const dispatch = useDispatch();
+  const { loading } = useLoading('article');
 
   const onClickArticle = (idx: number) => {
-    dispatch(getArticle(data.articles[idx].id, navigate, location, 'article'))
+    dispatch(getArticle(data.articles[idx].id, loading))
   }
+
+  return { onClickArticle };
+}
+type Prop = {
+  category_id?: string
+}
+const ArticlesBoard: React.FC<Prop> = ({ category_id }) => {
+  const { data, idx, setIdx } = useArticles(category_id);
+  const { onClickArticle } = useArticle(data)  
 
   return (
     <style.div>

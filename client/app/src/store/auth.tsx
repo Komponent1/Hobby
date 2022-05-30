@@ -9,19 +9,16 @@ export const AUTH_FAILURE = 'AUTH/FAILURE';
 export const AUTH_SUCCESS = 'AUTH/SUCCESS';
 export const LOGOUT = 'AUTH/LOGOUT';
 
-export const login = (email: string, password: string, navigate: NavigateFunction, location: Location, dep: string) => (
-  {
-    type: LOGIN,
-    payload: {
-      email, password, navigate, location, dep
-    }
-  }
-);
+export const login = (email: string, password: string, loading?: Function) => ({
+  type: LOGIN,
+  payload: { email, password, loading }
+});
 export function* loginSaga(action: any) {
-  const param: { email: string, password: string, navigate: NavigateFunction, location: Location, dep: string } = action.payload;
-  param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep }});
+  const { email, password, loading }:
+  { email: string, password: string, loading?: Function } = action.payload;
+  if (loading) loading('/');
   try {
-    const result: token = yield call(api.login as any, param.email, param.password);
+    const result: token = yield call(api.login as any, email, password);
     yield put({
       type: AUTH_SUCCESS,
       payload: result,
@@ -34,17 +31,13 @@ export function* loginSaga(action: any) {
     })
   }
 };
-export const refresh = (navigate: NavigateFunction, location: Location, dep: string) => (
-  {
-    type: REFRESH,
-    payload: {
-      navigate, location, dep
-    }
-  }
-);
+export const refresh = (loading?: Function) => ({
+  type: REFRESH,
+  payload: { loading }
+});
 export function* refreshSaga(action: any) {
-  const param: { navigate: NavigateFunction, location: Location, dep: string } = action.payload;
-  param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep }});
+  const { loading }: { loading: Function } = action.payload;
+  if (loading) loading('/')
   try {
     const result: token = yield call(api.refresh as any);
     yield put({

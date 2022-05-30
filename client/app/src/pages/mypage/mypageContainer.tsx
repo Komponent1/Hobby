@@ -5,14 +5,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import MypagePresenter from './mypagePresenter';
 import { getCategory } from '../../store/category';
 import { BASENAME } from '../../env';
+import { useLoading } from '../../hooks';
 
 const MypageContaier: React.FC = () => {
   const location = useLocation();
   const { data } = useSelector((state: rootState) => state.category);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { loading, navigate } = useLoading('category', '/mypage');
   useEffect(() => {
-    dispatch(getCategory(BASENAME));
+    dispatch(getCategory(BASENAME, loading));
   }, []);
 
   const openUpdateCategory = (category_id: string) => {

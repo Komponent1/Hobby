@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, NavigateFunction, useLocation } from 'react-router-dom';
-import { postArticle } from '../../api';
+import { postArticle } from '../../store/article';
 import { rootState } from '../../store';
 import { Editor } from '@toast-ui/editor';
 import { SelectChangeEvent } from '@mui/material/Select';
@@ -10,6 +10,7 @@ import { getCategory } from '../../store/category';
 import { BASENAME } from '../../env';
 import queryString from 'query-string';
 import { getArticle, patchArticle } from '../../store/article';
+import { useLoading } from '../../hooks';
 
 const useSubInformation = (article: any) => {
   const dispatch = useDispatch();
@@ -38,12 +39,13 @@ const useEditor = (article_id: string|undefined) => {
   const { data } = useSelector((state: rootState) => state.article);
   const ref = useRef<HTMLDivElement>(null);
   const [ editor, setEditor ] = useState<any>(null);
+  const { loading } = useLoading('article');
 
   useEffect(() => {
     if (!ref.current) return;
 
     if (article_id) {
-      dispatch(getArticle(parseInt(article_id)));
+      dispatch(getArticle(article_id, loading));
     }
 
     const saved = window.localStorage.getItem(`blog_content_temp_save${article_id}`);
@@ -76,8 +78,8 @@ const useEditor = (article_id: string|undefined) => {
 }
 const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string, article_id?: string) => {
   const { data } = useSelector((state: rootState) => state.auth);
+  const { loading } = useLoading('article');
   const dispatch = useDispatch();
-  const location = useLocation();
   const changefile = (md: string) => {
     const file = new Blob([md], { type: 'text/plain' });
     return file;
@@ -93,22 +95,12 @@ const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string
 
     let response: any = null;
     if (article_id) {
-      return dispatch(patchArticle(
-        parseInt(article_id), data.access_token, BASENAME, formData,
-        navigate, location, 'article'
+      dispatch(patchArticle(
+        article_id, data.access_token, BASENAME, formData,
+        loading
       ));
     } else {
-      response = await postArticle(data.access_token, BASENAME, category_id, formData);
-    }
-
-    if (response.code === 500) {
-
-    } else if (response.code === 401) {
-      alert('로그아웃되었습니다. 재 로그인이 요구됩니다');
-      navigate('/login');
-    } else {
-      window.localStorage.removeItem(`blog_content_temp_save${article_id}`);
-      navigate(`/article?article_id=${response.data.article.id}`)
+      dispatch(postArticle(data.access_token, BASENAME, category_id, formData, loading))
     }
   }
   const submit = (editor: any) => {

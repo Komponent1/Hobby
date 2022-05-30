@@ -23,9 +23,9 @@ const Banner: React.FC = () => {
   }
 
   return (
-    <div style={{ background: article_id ? 'white' : 'black' }}>
-      <Typography sx={{ padding: '2rem', color: article_id ? 'black' : 'white', fontWeight: 'bold' }} variant='h3' component='h1'>{title(pathname)}</Typography>
-      <Typography sx={{ color: 'white', padding: '2rem' }} variant='h5' component='h5'>{category_id || article_id ? '' : BLOGEXPLAIN}</Typography>
+    <div>
+      <Typography sx={{ padding: '2rem', fontWeight: 'bold' }} variant='h3' component='h1'>{title(pathname)}</Typography>
+      <Typography sx={{ padding: '2rem' }} variant='h5' component='h5'>{category_id || article_id ? '' : BLOGEXPLAIN}</Typography>
     </div>
   )
 };

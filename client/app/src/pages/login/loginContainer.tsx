@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useLocation, NavigateFunction } from 'react-router-dom';
+import { useLoading } from '../../hooks';
 import { login } from '../../store/auth';
 import LoginPresenter from './loginPresenter';
 
-const useLogin = (navigate: NavigateFunction) => {
+const useLogin = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const location = useLocation();
+  const { loading, navigate } = useLoading('auth');
   
   const dispatch = useDispatch();
 
   const submit = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(login(email, password, navigate, location, 'auth'));
+    dispatch(login(email, password, loading));
   };
 
   return {
+    navigate,
     email, setEmail,
     password, setPassword,
     submit
@@ -24,8 +25,8 @@ const useLogin = (navigate: NavigateFunction) => {
 }
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
-  const param = useLogin(navigate);
+  const param = useLogin();
+  const { navigate } = param;
   const signupLinker = () => {
     navigate('/signup');
   } 

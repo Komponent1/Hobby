@@ -17,12 +17,13 @@ export const DELETE_CATEGORY = 'DELETE_CATEGORY/PENDING';
 export const DELETE_CATEGORY_SUCCESS = 'DELETE_CATEGORY/SUCCESS';
 export const DELETE_CATEGORY_FAILURE = 'DELETE_CATEGORY/FAILURE';
 
-export const getCategory = (email: string) => ({
+export const getCategory = (email: string, loading?: Function) => ({
   type: GET_CATEGORY,
-  payload: { email }
+  payload: { email, loading }
 });
 export function* getSaga(action: any) {
-  const { email }: { email: string } = action.payload;
+  const { email, loading }: { email: string, loading?: Function } = action.payload;
+  if (loading) loading('prev url');
 
   const result: { code: number, data: any } = yield call(api.getCategory, email);
   if (result.code === 200) {
@@ -37,34 +38,36 @@ export function* getSaga(action: any) {
     })
   }
 };
-export const postCategory = (token: string, email: string, category_name: string) => ({
+export const postCategory = (token: string, email: string, category_name: string, loading?: Function) => ({
   type: POST_CATEGORY,
-  payload: { token, email, category_name }
+  payload: { token, email, category_name, loading }
 });
 export function* postSaga(action: any) {
-  const  { token, email, category_name }:
-  { token: string, email: string, category_name: string } = action.payload;
+  const  { token, email, category_name, loading }:
+  { token: string, email: string, category_name: string, loading?: Function } = action.payload;
+  if (loading) loading('prev url');
 
   const result: { code: number, data: any } = yield call(api.postCategory, token, email, category_name);
   if (result.code === 200) {
     yield put({
       type: POST_CATEGORY_SUCCESS,
       payload: result.data
-    })
+    });
   } else {
     yield put({
       type: POST_CATEGORY_FAILURE,
       payload: result.code
-    })
+    });
   }
 }
-export const patchCategory = (token: string, email: string, category_id: string, category_name: string) => ({
+export const patchCategory = (token: string, email: string, category_id: string, category_name: string, loading?: Function) => ({
   type: PATCH_CATEGORY,
-  payload: { token, email, category_id, category_name }
+  payload: { token, email, category_id, category_name, loading }
 });
 export function* patchSaga(action: any) {
-  const { token, email, category_id, category_name }:
-  { token: string, email: string, category_id: string, category_name: string } = action.payload
+  const { token, email, category_id, category_name, loading }:
+  { token: string, email: string, category_id: string, category_name: string, loading?: Function } = action.payload
+  if (loading) loading('/');
 
   const result: { code: number, data: any } = yield call(api.patchCategory, token, email, category_id, category_name);
   if (result.code === 200) {
@@ -79,13 +82,14 @@ export function* patchSaga(action: any) {
     });
   }
 };
-export const deleteCategory = (token: string, email: string, category_id: string) => ({
+export const deleteCategory = (token: string, email: string, category_id: string, loading?: Function) => ({
   type: DELETE_CATEGORY,
-  payload: { token, email, category_id }
+  payload: { token, email, category_id, loading }
 });
 export function* deleteSaga(action: any) {
-  const { token, email, category_id }:
-  { token: string, email: string, category_id: string } = action.payload;
+  const { token, email, category_id, loading }:
+  { token: string, email: string, category_id: string, loading?: Function } = action.payload;
+  if (loading) loading('prev url');
 
   const result: { code: number } = yield call(api.deleteCategory, token, email, category_id);
   if (result.code === 204) {

@@ -7,20 +7,19 @@ export const SIGNUP_SUCCESS = 'SIGNUP/SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP/FAILURE';
 export const SIGNUP_CLEAR = 'SIGNUP/CLEAR';
 
-export const signup = (email: string, password: string, navigate: NavigateFunction, location: Location, dep: string) => ({
+export const signup = (email: string, password: string, loading?: Function) => ({
   type: SIGNUP,
-  payload: {
-    email, password, navigate, location, dep
-  }
+  payload: { email, password, loading }
 });
 export const loadClear = () => ({
   type: SIGNUP_CLEAR
 });
 export function* Saga(action: any) {
-  const param: { email: string, password: string, navigate: NavigateFunction, location: Location, dep: string } = action.payload;
-  param.navigate('/loading', { state: { backgroundLocation: param.location, dep: param.dep  } });
+  const { email, password, loading }:
+  { email: string, password: string, loading?: Function } = action.payload;
+  if (loading) loading('/login');
 
-  const result: { code: number, data: any } = yield call(api.postUser, param.email, param.password);
+  const result: { code: number, data: any } = yield call(api.postUser, email, password);
   if (result.code === 204) {
     yield put({
       type: SIGNUP_SUCCESS,
