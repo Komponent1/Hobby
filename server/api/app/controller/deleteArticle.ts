@@ -48,7 +48,10 @@ const deleteArticle = async (req: Request<{}, {}, {}, deleteArticleQuery>, res: 
     authorization(user, author);
 
     const path = await deleteDB(article_id);
-    await deleteFile(path);
+    /* File의 삭제는 별도로 관리 */
+    deleteFile(path).catch(err => {
+      console.log('ERROR LOG(file del)', 'call adminisrator');
+    });
 
     return res.status(204).end();
   } catch (err) {
