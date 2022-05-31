@@ -39,7 +39,7 @@ const useEditor = (article_id: string|undefined) => {
   const { data } = useSelector((state: rootState) => state.article);
   const ref = useRef<HTMLDivElement>(null);
   const [ editor, setEditor ] = useState<any>(null);
-  const { loading } = useLoading('article');
+  const { loading } = useLoading('article', `/post?article_id=${article_id}`);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -48,7 +48,10 @@ const useEditor = (article_id: string|undefined) => {
       dispatch(getArticle(article_id, loading));
     }
 
-    const saved = window.localStorage.getItem(`blog_content_temp_save${article_id}`);
+    let saved = window.localStorage.getItem(`blog_content_temp_save${article_id ? article_id : '' }`);
+    if (article_id) {
+      saved = data?.article.content;
+    }
     let html = new Editor({
       el: ref.current as HTMLElement,
       previewStyle: 'vertical',
@@ -57,13 +60,13 @@ const useEditor = (article_id: string|undefined) => {
     })
     setEditor(html);
     
-    if (saved && saved !== '') {
+    if (saved && saved !== '' && !article_id) {
       alert('이전 내용을 불러옵니다')
     }
 
     const id = setInterval(() => {
       console.log('auto saved', html.getMarkdown())
-      window.localStorage.setItem(`blog_content_temp_save${article_id}`, html.getMarkdown());
+      window.localStorage.setItem(`blog_content_temp_save${article_id ? article_id : ''}`, html.getMarkdown());
     }, 60 * 1000);
 
     return () => clearInterval(id);
@@ -71,6 +74,7 @@ const useEditor = (article_id: string|undefined) => {
 
   useEffect(() => {
     if (!article_id || !data || !editor) return;
+    console.log('???')
     editor.setMarkdown(data.article.content);
   }, [data]);
 
@@ -93,7 +97,6 @@ const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string
     const formData = new FormData();
     formData.append('file', file, title);
 
-    let response: any = null;
     if (article_id) {
       dispatch(patchArticle(
         article_id, data.access_token, EMAIL, formData,

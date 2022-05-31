@@ -13,11 +13,13 @@ const usePagemove = (article_id: string, navigate: NavigateFunction, location: L
   const { data } = useSelector((state: rootState) => state.auth);
 
   const openEditor = () => navigate(`/post?article_id=${article_id}`);
+  
   const openDel = () => {
     if (!data) {
       alert('로그인이 필요합니다');
       navigate('/login');
     }
+    
     
     dispatch(deleteArticle(
       article_id, data.access_token, EMAIL,

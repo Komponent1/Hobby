@@ -5,7 +5,6 @@ export const head = styled.div`
 `;
 export const div = styled.div`
   width: 100vw;
-  position: relative;
 `;
 //border-top은 margin 겹치기 방지
 export const section = styled.section`
