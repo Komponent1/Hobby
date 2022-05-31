@@ -21,12 +21,14 @@ export const login: tLogin = async (email, pw) => {
   try {
     user = await Users.get(email);
   } catch(err) {
+    console.log('ERROR LOG(db)', err);
     if (err.code === 0) throw ({ code: 401, msg: 'No user in db'});
     else throw({ code: 500, msg: 'Error in DB' });
   };
 
   const { password, salt } = user;
   if (!await checkHashed(password, salt, pw)) {
+    console.log('ERROR LOG(hashed)', 'Password no matched');
     throw ({ code: 401, msg: 'Not Correct Password' });
   }
   return makeJwt(email);
@@ -49,7 +51,6 @@ const postLogin = async (req: Request, res: Response, next: NextFunction) => {
       scope: 'create'
     });
   } catch (err) {
-    console.log(err)
     next(err);
   }
 };

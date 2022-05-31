@@ -7,7 +7,7 @@ import { Editor } from '@toast-ui/editor';
 import { SelectChangeEvent } from '@mui/material/Select';
 import PostPresenter from './postPresenter';
 import { getCategory } from '../../store/category';
-import { BASENAME } from '../../env';
+import { EMAIL } from '../../env';
 import queryString from 'query-string';
 import { getArticle, patchArticle } from '../../store/article';
 import { useLoading } from '../../hooks';
@@ -19,7 +19,7 @@ const useSubInformation = (article: any) => {
   const [categoryId, setCategoryId] = useState<string>('');
 
   useEffect(() => {
-    dispatch(getCategory(BASENAME));
+    dispatch(getCategory(EMAIL));
   }, []);
 
   const setCategory = (e: SelectChangeEvent) => {
@@ -96,11 +96,11 @@ const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string
     let response: any = null;
     if (article_id) {
       dispatch(patchArticle(
-        article_id, data.access_token, BASENAME, formData,
+        article_id, data.access_token, EMAIL, formData,
         loading
       ));
     } else {
-      dispatch(postArticle(data.access_token, BASENAME, category_id, formData, loading))
+      dispatch(postArticle(data.access_token, EMAIL, category_id, formData, loading))
     }
   }
   const submit = (editor: any) => {

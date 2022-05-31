@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { AuthButton, SimpleButton } from '..';
 import *  as style from './style';
-import { Typography } from '@mui/material';
+import { Typography, Avatar } from '@mui/material';
 import { rootState } from '../../store';
-
-const BASENAME = 'seo2im6492@gmail.com'
+import { BASENAME, EMAIL } from '../../env';
 
 const Header: React.FC = () => {
   const { data } = useSelector((state: rootState) => state.auth);
@@ -14,12 +13,19 @@ const Header: React.FC = () => {
 
   return (
     <style.header>
-      <Typography onClick={() => navigate('/')} variant='h6' component='p'>{BASENAME}</Typography>
+      <style.logo>
+        <Avatar
+          sx={{ width: '2rem', height: '2rem', margin: 'auto' }}
+          alt={BASENAME} src='logo64.png' />
+        <Typography
+          sx={{ margin: 'auto', marginLeft: '1rem' }}
+          onClick={() => navigate('/')} variant='h6' component='p'>{BASENAME}</Typography>
+      </style.logo>
       <style.buttonDiv>
-        {data && data.email === BASENAME?
+        {data && data.email === EMAIL?
           <>
-            <SimpleButton sx={{ marginRight: '1rem'}} label='POST' onClick={() => navigate('/post')}/>
-            <SimpleButton sx={{ marginRight: '1rem'}} label='My Page' onClick={() => navigate('/mypage')}/>
+            <SimpleButton sx={{ height: '2rem', margin: 'auto', marginRight: '1rem'}} label='POST' onClick={() => navigate('/post')}/>
+            <SimpleButton sx={{ height: '2rem', margin: 'auto', marginRight: '1rem'}} label='My Page' onClick={() => navigate('/mypage')}/>
           </>
           :null
         }
@@ -31,3 +37,8 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+
+/*
+1px solid rgba(25, 118, 210, 0.5)
+#1976d2
+*/

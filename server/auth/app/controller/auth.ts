@@ -14,7 +14,6 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
     const payload = authorization(req.headers.authorization.split('Bearer ')[1]);
     return res.status(204).header('x-user', payload).end();
   } catch(err) {
-    console.log(err);
     return next(err);
   }
 };

@@ -75,7 +75,6 @@ const useNext = (dep: tDep, url: string|Function) => {
     }
   }, [ dep ]);
   const category = useCallback((data: any, error: number|null) => {
-    console.log(data, error);
     if (error === 401) {
       alert('로그인이 필요합니다.');
       navigate('/login');

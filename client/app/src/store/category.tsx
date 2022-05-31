@@ -89,7 +89,6 @@ export const deleteCategory = (token: string, email: string, category_id: string
 export function* deleteSaga(action: any) {
   const { token, email, category_id, loading }:
   { token: string, email: string, category_id: string, loading?: Function } = action.payload;
-  console.log('category_id', category_id);
   if (loading) loading('prev url');
 
   const result: { code: number } = yield call(api.deleteCategory, token, email, category_id);

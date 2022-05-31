@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import MypagePresenter from './mypagePresenter';
 import { getCategory } from '../../store/category';
-import { BASENAME } from '../../env';
+import { EMAIL } from '../../env';
 import { useLoading } from '../../hooks';
 
 const MypageContaier: React.FC = () => {
@@ -13,7 +13,7 @@ const MypageContaier: React.FC = () => {
   const dispatch = useDispatch();
   const { loading, navigate } = useLoading('category', '/mypage');
   useEffect(() => {
-    dispatch(getCategory(BASENAME, loading));
+    dispatch(getCategory(EMAIL, loading));
   }, []);
 
   const openUpdateCategory = (category_id: string) => {

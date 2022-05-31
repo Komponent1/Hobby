@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Card } from '@mui/material';
 import queryString from 'query-string';
 import { rootState } from '../../store';
-import { BASENAME } from '../../env';
+import { EMAIL } from '../../env';
 import { deleteCategory } from '../../store/category';
 import { useLoading } from '../../hooks';
 
@@ -24,7 +24,7 @@ const DeleteCategoryModal = React.forwardRef<HTMLDivElement, Prop>((prop, ref) =
       alert('로그인 다시 해야함');
       return navigate('/login');
     }
-    dispatch(deleteCategory(data.access_token, BASENAME, category_id, loading));
+    dispatch(deleteCategory(data.access_token, EMAIL, category_id, loading));
   }
 
   return (

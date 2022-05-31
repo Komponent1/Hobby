@@ -23,7 +23,6 @@ const delCategory = async (category_id: string) => {
     await Category.del(category_id);
   } catch(err) {
     console.log('ERRORLOG(DB)', err);
-    console.log(err.code, typeof(err.code))
     if (err.code === '23503') {
       throw ({
         code: 501,

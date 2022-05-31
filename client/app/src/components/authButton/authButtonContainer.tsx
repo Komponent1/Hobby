@@ -30,7 +30,11 @@ const AuthButtonContainer: React.FC<Prop> = ({ label }) => {
   }, [])
 
   return (
-    <SimpleButton label={label} onClick={() => label === 'login' ? login():logout()}/>
+    <SimpleButton
+      label={label}
+      onClick={() => label === 'login' ? login():logout()}
+      sx={{ height: '2rem', margin: 'auto' }}
+    />
   )
 };
 

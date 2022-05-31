@@ -7,40 +7,37 @@ export const div = styled.div`
   width: 100vw;
   position: relative;
 `;
+//border-top은 margin 겹치기 방지
 export const section = styled.section`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  position: absolute;
-  padding-top: 2rem;
-  right: 0;
-  width: 1200px;
-
-  @media screen and (max-width: calc(1200px)) {
-    width: calc(100% - 8rem);
-    padding: 0 4rem;
-    padding-top: 2rem;
-  }
+  position: relative;
+`;
+export const article = styled.div<{ width: number }>`
+  max-width: ${({ width }) => Math.floor(width / 2)}px;
+  margin: auto;
 `;
 export const menu = styled.div<{ open: boolean }>`
-  margin: 0 2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
   background: white;
-  min-width: 10rem;
+  padding-left: 2rem;
+  width: calc(15rem - 2rem);
+  height: calc(100vh - 18rem);
+  
+  border-left: 1px solid black;
 
   @media screen and (max-width: 1200px) {
-    position: fixed;
-    right: 0;
-    top: 50vh;
     transform: scaleX(${({ open }) => open ? '1' : '0'});
   }
 `;
-export const menuOpen = styled.div`
+export const menuOpen = styled.div<{ open: boolean }>`
   display: none;
 
   @media screen and (max-width: 1200px) {
     display: block;
-    position: fixed;
-    right: 0;
-    top: 50vh;
+    position: absolute;
+    top: 5rem;
+    right: ${({ open }) => open ? '13.5rem' : '0'};
+    transform: rotate(${({ open }) => open ? '180deg' : 0});
   }
 `;

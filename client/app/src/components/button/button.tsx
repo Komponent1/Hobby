@@ -8,7 +8,7 @@ type Prop = {
 };
 const SimpleButton: React.FC<Prop> = ({ label, onClick, sx }) => {
   return (
-    <Button variant='contained'
+    <Button variant='outlined'
       sx={sx}
       onClick={onClick}>
       {label}

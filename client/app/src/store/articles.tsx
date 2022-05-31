@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as api from '../api';
+import { category } from '../mockserver/data';
 
 export const ARTICLES = 'ARTICLES/PENDING';
 export const ARTICLES_SUCCESS = 'ARTICLES/SUCCESS';
@@ -13,7 +14,7 @@ export function *Saga(action: any) {
   const { loading, email, idx, num, category_id }:
   { loading?: Function, email: string, idx: number, num: number, category_id?: string } = action.payload;
 
-  if (loading) loading(category_id ? `/?${category_id}&pagination=${idx}&unm=${num}` : `/?pagenation=${idx}&num=${num}`);
+  if (loading) loading(category_id ? `/?category_id=${category_id}` : `/`);
   const result: { code: number, data: any } = yield call(api.getArticles, email, idx, num, category_id);
   if (result.code === 200) {
     yield put({

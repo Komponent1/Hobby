@@ -3,8 +3,9 @@ import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { rootState } from '../../store';
-import { Typography } from '@mui/material';
-import { BLOGNAME, BLOGEXPLAIN } from '../../env';
+import { Typography, Avatar } from '@mui/material';
+import { BLOGNAME, BLOGEXPLAIN, LOGO } from '../../env';
+import * as style from './style';
 
 const Banner: React.FC = () => {
   const { pathname, search } = useLocation();
@@ -23,10 +24,13 @@ const Banner: React.FC = () => {
   }
 
   return (
-    <div>
-      <Typography sx={{ padding: '2rem', fontWeight: 'bold' }} variant='h3' component='h1'>{title(pathname)}</Typography>
-      <Typography sx={{ padding: '2rem' }} variant='h5' component='h5'>{category_id || article_id ? '' : BLOGEXPLAIN}</Typography>
-    </div>
+    <style.div>
+      <style.textbox width={window.screen.width}>
+        <Typography sx={{ fontWeight: 'bold' }} variant='h3' component='h1'>{title(pathname)}</Typography>
+        <Typography variant='h5' component='h5'>{category_id || article_id ? '' : BLOGEXPLAIN}</Typography>
+        <Avatar alt='owner' src={LOGO} sx={style.img}/>
+      </style.textbox>
+    </style.div>
   )
 };
 

@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import { rootState } from '../../store';
 import { deleteArticle, getArticle } from '../../store/article';
 import ArticlePresenter from './articlePresenter';
-import { BASENAME } from '../../env';
+import { EMAIL } from '../../env';
 import { useLoading } from '../../hooks';
 
 const usePagemove = (article_id: string, navigate: NavigateFunction, location: Location, dispatch: any) => {
@@ -20,7 +20,7 @@ const usePagemove = (article_id: string, navigate: NavigateFunction, location: L
     }
     
     dispatch(deleteArticle(
-      article_id, data.access_token, BASENAME,
+      article_id, data.access_token, EMAIL,
       loading
     ));
   }

@@ -15,13 +15,12 @@ const del
       password: process.env.FILE_PASSWORD,
       /* scure: true */
     });
-    console.log('111222333');
     await client.ensureDir(user)
     await client.remove(filename);
     await client.close();
   } catch(err) {
     console.log('ERROR LOG(file)', err);
-    console.log('wi~' /* call administer... */)
+    console.log('관리자 호출 요구' /* call administer... */)
     client.close();
   }
 }

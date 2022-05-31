@@ -6,7 +6,7 @@ import { Input, SimpleButton } from '../../components';
 import { Typography, Card } from '@mui/material';
 import { postCategory } from '../../store/category';
 import { rootState } from '../../store';
-import { BASENAME } from '../../env';
+import { EMAIL } from '../../env';
 import { patchCategory } from '../../store/category';
 import { useLoading } from '../../hooks';
 
@@ -21,7 +21,7 @@ const useCategory = (background: string) => {
       alert('로그인 다시 해야함');
       return navigate('/login');
     }
-    dispatch(patchCategory(data.access_token, BASENAME, category_id, name, loading));
+    dispatch(patchCategory(data.access_token, EMAIL, category_id, name, loading));
   }
 
   const addCategory = () => {
@@ -29,7 +29,7 @@ const useCategory = (background: string) => {
       alert('로그인 다시 해야함');
       return navigate('/login');
     }
-    dispatch(postCategory(data.access_token, BASENAME, name, loading));
+    dispatch(postCategory(data.access_token, EMAIL, name, loading));
   }
 
   return { name, setName, updateCategory, addCategory };
