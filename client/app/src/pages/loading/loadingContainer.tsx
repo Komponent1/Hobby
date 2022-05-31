@@ -75,7 +75,15 @@ const useNext = (dep: tDep, url: string|Function) => {
     }
   }, [ dep ]);
   const category = useCallback((data: any, error: number|null) => {
-    if (error) {
+    console.log(data, error);
+    if (error === 401) {
+      alert('로그인이 필요합니다.');
+      navigate('/login');
+    } else if(error === 501) {
+      alert('카테고리에 게시글이 있습니다. 게시글 삭제 후 시도해주세요');
+      navigate(-1);
+    }else if (error === 500) {
+      alert('서버 에러, 나중에 다시 시도해주세요');
       navigate(-1);
     } else if (data) {
       navigate(next(url), { replace: true })

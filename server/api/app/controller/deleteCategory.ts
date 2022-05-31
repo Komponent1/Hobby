@@ -18,14 +18,34 @@ const parse: tParse = (req) => {
     })
   }
 }
+const delCategory = async (category_id: string) => {
+  try {
+    await Category.del(category_id);
+  } catch(err) {
+    console.log('ERRORLOG(DB)', err);
+    console.log(err.code, typeof(err.code))
+    if (err.code === '23503') {
+      throw ({
+        code: 501,
+        msg: 'Category have articles'
+      })
+    }
+    throw ({
+      code: 500,
+      msg: 'Error in DB'
+    })
+  }
+
+}
 const deleteCategory = async (req: Request<{}, {}, {}, deleteCategoryQuery>, res: Response, next: NextFunction) => {
   try {
     const { user, author, category_id } = parse(req);
     authorization(user, author);
-    await Category.del(category_id);
+    await delCategory(category_id);
     
     return res.status(204).end();
   } catch(err) {
+    
     return next(err);
   }
 };
