@@ -17,7 +17,7 @@ const pathupload: tPathupload = async (filename, user, category_id) => {
   try {
     return await Article.post(filename, category_id, user, `${user}/${filename}`);
   } catch(err) {
-    console.log('ERROR LOG', err)
+    console.log('ERROR LOG(DB)', err)
     file.del(user, filename);
     throw ({
       code: 500,
@@ -39,9 +39,17 @@ const postArticle = async (req: Request<{}, {}, {}, postArticleQuery>, res: Resp
     const { buffer, originalname } = req.file;
     
     await savingFile(originalname, user, buffer);
-    const article = await pathupload(originalname, user, category_id);
+    const article = await pathupload(originalname, user, category_id) as any;
 
-    return res.status(200).json({ article });
+    return res.status(200).json({
+      article: {
+        title: article.title,
+        category_id: article.category_id,
+        id: article.id,
+        content: buffer.toString(),
+      }
+
+    });
   } catch (err) {
     return next(err);
   }

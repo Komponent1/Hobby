@@ -8,7 +8,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 type Prop = {
   title: string
   setTitle: Function
-  submit: () => void
+  submit: (e: React.MouseEvent) => void
   categories: any[]
   category_id: string,
   setCategory: (e: SelectChangeEvent) => void
@@ -44,7 +44,7 @@ const PostPresenter = React.forwardRef<HTMLDivElement ,Prop>(({
         </FormControl>
       </style.sub>
       <div className='editor' ref={ref} style={{ marginBottom: '2rem' }}/>
-      <SimpleButton onClick={() => submit()} label='POST' />
+      <SimpleButton onClick={(e: React.MouseEvent) => submit(e)} label='POST' />
     </style.div>
   )
 });

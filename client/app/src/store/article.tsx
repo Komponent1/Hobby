@@ -9,10 +9,6 @@ export const POST_ARTICLE = 'POST_ARTICLE/PENDING';
 export const POST_ARTICLE_SUCCESS = 'POST_ARTICLE/SUCCESS';
 export const POST_ARTICLE_FAILURE = 'POST_ARTICLE/FAILURE';
 
-export const DELETE_ARTICLE = 'DELETE_ARTICLE/PENDING';
-export const DELETE_ARTICLE_SUCCESS = 'DELETE_ARTICLE/SUCCESS';
-export const DELETE_ARTICLE_FAILURE = 'DELETE_ARTICLE/FAILURE';
-
 export const PATCH_ARTICLE = 'PATCH_ARTICLE/PENDING';
 export const PATCH_ARTICLE_SUCCESS = 'PATCH_ARTICLE/SUCCESS';
 export const PATCH_ARTICLE_FAILURE = 'PATCH_ARTICLE/FAILURE';
@@ -37,27 +33,6 @@ export function *getSaga(action: any) {
   } else {
     yield put({
       type: GET_ARTICLE_FAILURE,
-      payload: result.code
-    })
-  }
-};
-export const deleteArticle = (article_id: string, token: string, email: string, loading?: Function) => ({
-  type: DELETE_ARTICLE,
-  payload: { article_id, token, email, loading }
-});
-export function* deleteSaga(action: any) {
-  const { article_id, token, email, loading }:
-  { article_id: string, token: string, email: string, loading?: Function } = action.payload;
-  if (loading) loading('/')
-
-  const result: { code: number } = yield call(api.deleteArticle, token, email, article_id);
-  if (result.code === 204) {
-    yield put({
-      type: DELETE_ARTICLE_SUCCESS,
-    })
-  } else {
-    yield put({
-      type: DELETE_ARTICLE_FAILURE,
       payload: result.code
     })
   }
@@ -91,7 +66,7 @@ export const postArticle = (token: string, email: string, category_id: string, f
 export function* postSaga(action: any) {
   const { token, email, category_id, file, loading }:
   { token: string, email: string, category_id: string, file: FormData, loading?: Function } = action.payload;
-  if (loading) loading((article_id: string) => `/article?article_id=${article_id}`);
+  if (loading) loading('/');
 
   const result: { code: number, data: any } = yield call(api.postArticle, token, email, category_id, file);
   if (result.code === 200) {
@@ -108,7 +83,6 @@ export function* postSaga(action: any) {
 };
 export function* articleSaga() {
   yield takeLatest(GET_ARTICLE, getSaga);
-  yield takeLatest(DELETE_ARTICLE, deleteSaga);
   yield takeLatest(PATCH_ARTICLE, patchSaga);
   yield takeLatest(POST_ARTICLE, postSaga);
 };
@@ -142,19 +116,6 @@ const reducer = (state = initialState, action: any) => {
         data: null,
         error: action.payload
       };
-
-    case DELETE_ARTICLE:
-      return {
-        ...state,
-        loading: true,
-      };
-    case DELETE_ARTICLE_SUCCESS:
-      return initialState;
-    case DELETE_ARTICLE_FAILURE:
-      return {
-        ...state,
-        error: action.payload
-      }
     
     case PATCH_ARTICLE:
       return {

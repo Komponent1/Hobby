@@ -27,7 +27,7 @@ export const get: tGetArticle = async (option, pagination) => {
   }
 
   if (pagination) {
-    query += ` OFFSET ${pagination.id * pagination.num} limit ${pagination.num}`;
+    query += `ORDER BY id DESC OFFSET ${pagination.id * pagination.num} limit ${pagination.num}`;
   }
 
   return await db.many(query, data);
@@ -61,6 +61,7 @@ export const patch: ArticlePatchFunction = async (article_id, title, user) => {
   }
 
   sql += ` WHERE ID = $${++i} RETURNING *`;
+  console.log(sql)
   return await db.one(sql, [...data, article_id]);
 };
 

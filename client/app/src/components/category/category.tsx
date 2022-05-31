@@ -28,9 +28,11 @@ const useArticles = (data: any) => {
 
   const onClick = (idx: number) => {
     if (idx === -1) {
-      dispatch(getArticles(EMAIL, 0, 6, undefined, loading));
+      navigate('/');
+      // dispatch(getArticles(EMAIL, 0, 6, undefined, loading));
     } else {
-      dispatch(getArticles(EMAIL, 0, 6, String(data?.categories[idx].id), loading));
+      navigate(`/?category_id=${data?.categories[idx].id}`);
+      // dispatch(getArticles(EMAIL, 0, 6, String(data?.categories[idx].id), loading));
     }
   };
 

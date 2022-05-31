@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const useLoading = (dep: string, prevurl?: string|Function) => {
+const useLoading = (dep: string, prevurl?: string) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const loading = (url: string|Function) => {
+  const loading = (url: string) => {
     navigate(
       '/loading',
       {

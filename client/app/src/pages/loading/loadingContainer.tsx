@@ -25,7 +25,7 @@ const useAllload = () => {
     loading: signup.loading || auth.loading || articles.loading || article.loading || category.loading
   }
 }
-const useNext = (dep: tDep, url: string|Function) => {  
+const useNext = (dep: tDep, url: string) => {  
   const navigate = useNavigate();
   const { loading } = useAllload();
   const { data, error } = useSelector((state: rootState) => state[dependency(dep)]);
@@ -59,7 +59,7 @@ const useNext = (dep: tDep, url: string|Function) => {
       navigate(-1);
     } else if (data) {
       if (dep === 'postarticle') {
-        navigate(next(url, data.article.id), { replace: true });
+        navigate(next(`/article?article_id=${data.article.id}`), { replace: true });
       } else {
         navigate(next(url), { replace: true });
       }
@@ -89,7 +89,7 @@ const useNext = (dep: tDep, url: string|Function) => {
     }
   }, [ dep ])
 
-  useEffect(() => {   
+  useEffect(() => {
     if (loading) return;
     switch(dep) {
       case 'signup':
@@ -98,7 +98,10 @@ const useNext = (dep: tDep, url: string|Function) => {
       case 'auth':
         auth(data, error);
         break;
-      case 'article' || 'postarticle':
+      case 'article':
+        article(data, error, dep);
+        break;
+      case'postarticle':
         article(data, error, dep);
         break;
       case 'articles':
@@ -116,7 +119,7 @@ const useNext = (dep: tDep, url: string|Function) => {
 
 type Prop = {
   dep: tDep
-  url: string|Function
+  url: string
 }
 const LoadingContainer: React.FC<Prop> = ({ dep, url }) => {
   useNext(dep, url);

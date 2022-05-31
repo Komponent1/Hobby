@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { List } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { ArticleItem } from '..';
+import { rootState } from '../../store';
 
 type Prop = {
   articles: any[]
   onClickArticle: (idx:number) => void
 }
-const Articlelist: React.FC<Prop> = ({ articles, onClickArticle }) => {
+const Articlelist = React.forwardRef<HTMLDivElement, Prop>(({ articles, onClickArticle }, ref) => {
+
   return (
     <List>
       {articles.map((article, i) => (
         <ArticleItem key={i}
           article={article} onClick={() => onClickArticle(i)}/>
       ))}
+      <div ref={ref} />
     </List>
   )
-};
+});
 
 export default Articlelist;

@@ -7,7 +7,7 @@ import { Main, Signup, Login, Loading, Post, Article, Modal, Mypage } from './pa
 type tDep = 'signup'|'auth'|'article'|'articles'|'category'|'postarticle'
 function App() {
   const location = useLocation();
-  let state = location.state as { backgroundLocation: Location, dep: tDep, url: string|Function };
+  let state = location.state as { backgroundLocation: Location, dep: tDep, url: string};
 
   return (
     <div>

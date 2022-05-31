@@ -74,7 +74,6 @@ const useEditor = (article_id: string|undefined) => {
 
   useEffect(() => {
     if (!article_id || !data || !editor) return;
-    console.log('???')
     editor.setMarkdown(data.article.content);
   }, [data]);
 
@@ -82,7 +81,7 @@ const useEditor = (article_id: string|undefined) => {
 }
 const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string, article_id?: string) => {
   const { data } = useSelector((state: rootState) => state.auth);
-  const { loading } = useLoading('article');
+  const { loading } = useLoading('postarticle');
   const dispatch = useDispatch();
   const changefile = (md: string) => {
     const file = new Blob([md], { type: 'text/plain' });
@@ -127,7 +126,9 @@ const PostContainer: React.FC = () => {
 
   return ( 
     <PostPresenter
-      ref={ref} submit={() => submit(editor)}
+      ref={ref} submit={(e: React.MouseEvent) => {
+        submit(editor);
+      }}
       title={title} setTitle={setTitle}
       categories={categories}
       category_id={categoryId} setCategory={setCategory}
