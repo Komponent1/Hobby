@@ -94,4 +94,4 @@ services:
       - 21:21
       - 21100-21110:21100-21110
     volumes:
-      - ./file/backup:/home/test
+      - ./file/backup:/home

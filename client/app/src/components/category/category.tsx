@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { rootState } from '../../store';
 import { getCategory } from '../../store/category';
 import { TextMenuList } from '..';
 import queryString from 'query-string';
 import { EMAIL } from '../../env';
 import { useLoading } from '../../hooks';
-import { getArticles } from '../../store/articles';
 
 const useCategory = () => {
   const { data } = useSelector((state: rootState) => state.category);
@@ -23,16 +22,13 @@ const useCategory = () => {
   return { data, category_id }
 };
 const useArticles = (data: any) => {
-  const { loading, navigate } = useLoading('articles');
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onClick = (idx: number) => {
     if (idx === -1) {
       navigate('/');
-      // dispatch(getArticles(EMAIL, 0, 6, undefined, loading));
     } else {
       navigate(`/?category_id=${data?.categories[idx].id}`);
-      // dispatch(getArticles(EMAIL, 0, 6, String(data?.categories[idx].id), loading));
     }
   };
 

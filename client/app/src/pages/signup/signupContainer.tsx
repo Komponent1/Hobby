@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SignupPresenter from './signupPresenter';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signup } from '../../store/signup';
 import { useLoading } from '../../hooks';

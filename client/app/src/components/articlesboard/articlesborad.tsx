@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { rootState } from '../../store';
@@ -32,9 +32,7 @@ const useArticles = () => {
       const idx = !data ? 0 : (
         data.articles.length / NUM < 1 ? Math.floor(data.articles.length / NUM) + 1 : Math.floor(data.articles.length / NUM)
       );
-      console.log(idx);
       loadArticles(idx);
-      console.log('intersect')
       observer.disconnect();
       
     }

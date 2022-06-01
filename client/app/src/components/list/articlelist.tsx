@@ -1,8 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { List } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { ArticleItem } from '..';
-import { rootState } from '../../store';
 
 type Prop = {
   articles: any[]

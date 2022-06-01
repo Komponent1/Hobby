@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { rootState } from '../../store';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import MypagePresenter from './mypagePresenter';
 import { getCategory } from '../../store/category';

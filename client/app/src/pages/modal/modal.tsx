@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Routes, Route, useNavigate, Location } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import AddCategoryModal from './addCategoryModal';
 import DeleteCategoryModal from './deleteCategoryModal';
 

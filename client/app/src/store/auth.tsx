@@ -1,5 +1,4 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { NavigateFunction, Location } from 'react-router-dom';
 import * as api from '../api';
 import { token } from '../api/login';
 
