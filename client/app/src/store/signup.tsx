@@ -18,7 +18,7 @@ export function* Saga(action: any) {
   { email: string, password: string, loading?: Function } = action.payload;
   if (loading) loading('/login');
 
-  const result: { code: number, data: any } = yield call(api.postUser, email, password);
+  const result: { code: number } = yield call(api.postUser, email, password);
   if (result.code === 204) {
     yield put({
       type: SIGNUP_SUCCESS,
@@ -63,7 +63,7 @@ const reducer = (state = initialState, action: any) => {
       return {
         loading: false,
         data: null,
-        error: action.payload,
+        error: action.payload
       };
     case SIGNUP_CLEAR:
       return {

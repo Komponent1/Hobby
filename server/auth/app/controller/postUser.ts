@@ -47,7 +47,7 @@ export const signUp: tSignup = async (email, hashpassword, salt) => {
 const postUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = parse(req);
-    await checkAlreadyIn('user', [email]);
+    await checkAlreadyIn('Users', [email]);
     const { hashpassword, salt } = await createPassword(password);
     await signUp(email, hashpassword, salt);
     
