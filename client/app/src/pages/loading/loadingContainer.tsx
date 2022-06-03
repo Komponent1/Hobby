@@ -89,6 +89,7 @@ const useNext = (dep: tDep, url: string) => {
       navigate(-1);
     } else if (data) {
       if (dep === 'postarticle') {
+        window.localStorage.removeItem(`blog_post_temp_save`);
         navigate(next(`/article?article_id=${data.article.id}`), { replace: true });
       } else {
         navigate(next(url), { replace: true });
@@ -97,6 +98,20 @@ const useNext = (dep: tDep, url: string) => {
       navigate(url, { replace: true });
     }
   }, [ dep ]);
+  const category = useCallback((data: any, error: number|null) => {
+    if (error === 500) {
+      alert('서버에 문제가 있습니다, 다시 시도해주세요');
+      navigate(-1);
+    } else if (error === 401 || error === 403) {
+      alert('로그아웃 되었습니다. 로그인이 필요합니다');
+      navigate('/login');
+    } else if (error === 412) {
+      alert('이미 존재하는 카테고리입니다.');
+      navigate(-1);
+    } else {
+      navigate(url);
+    }
+  }, [ dep ])
 
   useEffect(() => {
     if (loading) return;
@@ -118,6 +133,9 @@ const useNext = (dep: tDep, url: string) => {
         break;
       case 'deletearticle':
         article(data, error, dep);
+        break;
+      case 'category':
+        category(data, error);
         break;
       default:
         return;

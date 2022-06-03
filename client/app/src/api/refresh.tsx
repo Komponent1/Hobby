@@ -16,7 +16,7 @@ const login = async () => {
     res.status === 500
   ) return ({ code: res.status });
   
-    const result = res.json();
+    const result = await res.json();
     return ({ code: res.status, data: result });
 };
 

@@ -76,14 +76,14 @@ const reducer = (state = initialState, action: any) => {
   switch (action.type) {
     case LOGIN:
       return {
-        ...state,
+        data: null,
         loading: true,
         error: null
       };
     case REFRESH:
       return {
-        ...state,
         loading: true,
+        data: null,
         error: null,
       };
     case AUTH_SUCCESS:
@@ -99,7 +99,11 @@ const reducer = (state = initialState, action: any) => {
         error: action.payload
       };
     case LOGOUT:
-      return initialState
+      return {
+        loading: false,
+        data: {},
+        error: null,
+      }
     default:
       return state;
   }

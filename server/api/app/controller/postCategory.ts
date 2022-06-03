@@ -36,7 +36,7 @@ const postCategory = async (req: Request, res: Response, next: NextFunction) => 
   try {
     const { user, author, category_name } = parse(req);
     authorization(user, author);
-    await checkAlreadyIn('category', [user, { category_name }]);
+    await checkAlreadyIn('Category', [user, { category_name }]);
     const category = await addCategory(category_name, user);
     
     return res.status(200).json({ category });

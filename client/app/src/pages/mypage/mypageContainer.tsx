@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
 import { rootState } from '../../store';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import MypagePresenter from './mypagePresenter';
 import { getCategory } from '../../store/category';
 import { EMAIL } from '../../env';
-import { useLoading } from '../../hooks';
 
 const MypageContaier: React.FC = () => {
   const location = useLocation();
   const { data } = useSelector((state: rootState) => state.category);
   const dispatch = useDispatch();
-  const { loading, navigate } = useLoading('category', '/mypage');
+  const navigate = useNavigate();
   useEffect(() => {
-    dispatch(getCategory(EMAIL, loading));
+    dispatch(getCategory(EMAIL));
   }, []);
 
   const openUpdateCategory = (category_id: string) => {

@@ -23,8 +23,8 @@ const AuthButtonContainer: React.FC<Prop> = ({ label }) => {
     }
   }, []);
   const logout = useCallback(() => {
+    cookie.remove('blog_refresh_token', { path: '/' });
     dispatch(logoutAction());
-    cookie.remove('blog_refresh_token');
     alert('logout 되었습니다');
     navigate('/');
   }, []);

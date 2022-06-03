@@ -17,7 +17,8 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const refresh_token = cookie.get('blog_refresh_token');
-    if (!data && refresh_token) dispatch(refresh());  
+    if (!data && refresh_token) dispatch(refresh());
+    
   }, [ data ]);
 
   return (
@@ -38,7 +39,7 @@ const Header: React.FC = () => {
           </>
           :null
         }
-        <AuthButton label={data? 'logout':'login'} />
+        <AuthButton label={data?.access_token ? 'logout':'login'} />
       </style.buttonDiv>
     </style.header>
   )

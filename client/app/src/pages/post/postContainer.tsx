@@ -11,6 +11,7 @@ import queryString from 'query-string';
 import { getArticle, patchArticle } from '../../store/article';
 import { useLoading } from '../../hooks';
 import { Loading } from '../../components';
+import { category } from '../../mockserver/data';
 
 const useEditor = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -71,10 +72,24 @@ const useAutosave = (
   editor: any,
   article_id?: string
 ) => {
+  const callback = useRef<Function|null>(null);
+
+  useEffect(() => {
+    callback.current = () => {
+      const str = JSON.stringify({
+        title,
+        categoryId,
+        content: editor.getMarkdown(),
+      });
+
+      window.localStorage.setItem(`blog_post_temp_save`, str);
+    };
+  }, [ title, categoryId, editor ]);
+
   useEffect(() => {
     if (!editor) return;
     if (article_id) return;
-
+    
     const saved = window.localStorage.getItem('blog_post_temp_save');
     if (saved && saved !== '') {
       alert('이전 작성 내용을 불러옵니다');
@@ -84,16 +99,10 @@ const useAutosave = (
       editor.setMarkdown(content);
     };
 
-    const id = setInterval(() => {
-      const str = JSON.stringify({
-        title,
-        categoryId,
-        content: editor.getMarkdown(),
-      });
-      console.log('auto saved');
-      window.localStorage.setItem(`blog_post_temp_save`, str);
-    }, 60 * 1000);
-  
+    const tick = () => {
+      if (callback?.current) callback.current()
+    }
+    let id = setInterval(tick, 60 * 1000);
     return () => clearInterval(id);
   }, [ editor ]);
 };
