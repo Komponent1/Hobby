@@ -58,9 +58,7 @@ export const patch: ArticlePatchFunction = async (article_id, category_id, title
   sql += `, title = $${++i}, path = $${++i}`
   data = [...data, title, path];
   
-
   sql += ` WHERE ID = $${++i} RETURNING *`;
-  console.log(sql, data)
   return await db.one(sql, [...data, article_id]);
 };
 

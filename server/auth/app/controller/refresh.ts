@@ -28,7 +28,6 @@ const getRefresh = (req: Request, res: Response, next: NextFunction) => {
       scope: 'create'
     });
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };
