@@ -21,10 +21,10 @@ const parse = (req: Request) => {
     ERROR.paramError(err);
   }
 };
-type tCheckHash = (password: string, salt: string, pw: string) => Promise<boolean>
-export const checkHashed: tCheckHash = (password, salt, pw) => (
+type tCheckHash = (originpassword: string, salt: string, password: string) => Promise<boolean>
+export const checkHashed: tCheckHash = (originpassword, salt, password) => (
   new Promise((resolve, reject) => {
-    crypto.pbkdf2(pw, salt, 9999, 64, 'sha512', (err, key) => {
+    crypto.pbkdf2(originpassword, salt, 9999, 64, 'sha512', (err, key) => {
       if (err) {
         console.log('ERROR LOG(LOGIC)', err);
         reject({ code: 500, msg: 'Hashing Error' });
@@ -32,7 +32,7 @@ export const checkHashed: tCheckHash = (password, salt, pw) => (
       
       if (key.toString('base64') === password) resolve(true);
       else {
-        console.log('ERROR LOG(auth)', err);
+        console.log('ERROR LOG(auth)', );
         reject({ code: 403, msg: 'No Correct Password'});
       }
     });
@@ -50,8 +50,9 @@ const dataFromDB = async (email: string) => {
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, originpassword } = parse(req);
-    const { password, salt } = dataFromDB(email) as any;
+    const { password, salt } = await dataFromDB(email) as any;
     await checkHashed(originpassword, salt, password);
+    
     const jwt = makeJwt(email);
     
     res.cookie('blog_refresh_token', jwt.refreshToken, {
