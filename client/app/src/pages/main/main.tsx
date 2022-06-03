@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Category,  Banner, ArticlesBoard } from '../../components';
+import { Category,  Banner, ArticlesBoard, Article } from '../../components';
+import { useLocation } from 'react-router-dom';
 import * as style from './style';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { Avatar } from '@mui/material';
 
 const Main: React.FC = () => {
+  const { pathname } = useLocation();
   const [ open, setOpen ] = useState<boolean>(false);
 
   return (
@@ -15,7 +17,10 @@ const Main: React.FC = () => {
       <style.div>
         <style.section>
           <style.article width={window.screen.width}>
-            <ArticlesBoard/>
+            {
+              pathname === '/article' ?
+                <Article /> :<ArticlesBoard/>
+            }
           </style.article>
           <style.menu open={open}>
             <Category/>

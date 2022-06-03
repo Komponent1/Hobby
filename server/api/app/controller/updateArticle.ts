@@ -1,22 +1,31 @@
 import { Request, Response, NextFunction } from 'express';
 import { Readable } from 'stream';
-import { authorization, file }from '../lib';
+import { authorization, ERROR, file }from '../lib';
 import { Article } from '../model';
-
-type updateArticleQuery = { user: string, article_id: string }
+/*
+  AUTHORIZATION token
+  QUERY: user, article_id, category_id
+  BODY: file(x-form-data)
+  RES:
+    200, { artilc: { title, id, category_id, content } }
+  ERORR:
+    400, paramter
+    401, authentication (in auth)
+    403, authorization
+    500, DB or File
+  ETC:
+    파일 삭제에 실패한 경우 관리자를 호출, 직접 삭제요망
+*/
+type updateArticleQuery = { user: string, article_id: string, category_id: string }
 const parse = (req: Request<{}, {}, {}, updateArticleQuery>) => {
   try {
     const author = req.headers['x-user'] as string;
-    const { user, article_id } = req.query;
+    const { user, article_id, category_id } = req.query;
     const { buffer, originalname } = req.file;
 
-    return { author, user, article_id, buffer, originalname };
+    return { author, user, article_id: article_id, category_id: category_id, buffer, originalname };
   } catch (err) {
-    console.log('ERROR LOG(parse)', err);
-    throw ({
-      code: 500,
-      msg: 'No correct parameter'
-    });
+    ERROR.paramError(err);
   }
 };
 type tGetPath = (article_id: string) => Promise<{ title: string, path: string }>;
@@ -26,47 +35,35 @@ const getFileInformation: tGetPath = async (article_id) => {
 
     return { title, path };
   } catch (err) {
-    console.log('ERROR LOG(DB)', err);
-    throw ({
-      code: 500,
-      msg: 'Error in DB'
-    });
+    ERROR.dbError(err);
   }
 };
 type tSavingFile = (filename: string, user: string, buffer: any) => Promise<void>
 const savingFile: tSavingFile = async (filename, user, buffer) => {
   const stream = Readable.from(buffer.toString());
+  await file.send(user, filename, stream);
+};
+type tPatchArticle = (article_id: string, category_id: string, originalname?: string, user?: string) => Promise<any>
+const patchArticle: tPatchArticle = async (article_id, category_id, originalname, user) => {
   try {
-    await file.send(user, filename, stream);
+    return await Article.patch(article_id, category_id, originalname, user);
   } catch (err) {
-    throw(err);
+    ERROR.dbError(err);
   }
 };
-type tPatchArticle = (article_id: string, originalname?: string, user?: string) => Promise<any>
-const patchArticle: tPatchArticle = async (article_id, originalname, user) => {
-  try {
-    return await Article.patch(article_id, originalname, user);
-  } catch (err) {
-    console.log('ERROR LOG(DB)', err);
-    throw({
-      code: 500,
-      msg: 'Error in DB'
-    })
-  }
-}
 
 const updateArticle = async (req: Request<{}, {}, {}, updateArticleQuery>, res: Response, next: NextFunction) => {
   try {
-    const { author, user, article_id, buffer, originalname } = parse(req);
+    const { author, user, article_id, category_id, buffer, originalname } = parse(req);
     authorization(user, author);
     const { title, path } = await getFileInformation(article_id);
     await savingFile(originalname, user, buffer);
     let article = null;
     if (title !== originalname) {
-      article = await patchArticle(article_id, originalname, user);
+      article = await patchArticle(article_id, category_id, originalname, user);
     } else {
       /* TODO: when fail, file rollback? */
-      article = await patchArticle(article_id);
+      article = await patchArticle(article_id, category_id);
     }
 
     if (title !== originalname) {

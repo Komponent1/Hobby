@@ -1,10 +1,13 @@
 import { fetcher } from "./fetcher";
-
-const resultMsg = {
-  204: 'SUCCESS',
-  401: 'Already User',
-  500: 'Internal Server Error',
-};
+/*
+  BODY: email, password
+  RES:
+    204, success
+  ERROR:
+    400, paramter
+    412, ref (already email)
+    500, logic or db
+*/
 const postUser = async (email: string, password: string) => {
   const res = await fetcher('/sign/users', {
       'Content-Type': 'application/json'
@@ -13,7 +16,7 @@ const postUser = async (email: string, password: string) => {
       body: JSON.stringify({ email, password })
   });
 
-  return ({ code: res.status, data: resultMsg[res.status as (204|500|401)] });
+  return res.status;
 }
 
 export default postUser;

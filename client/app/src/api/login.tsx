@@ -1,22 +1,27 @@
 import { fetcher } from "./fetcher";
-
-export type token = {
-  access_token: string,
-  token_type: string,
-  expires_in: number,
-  scope: string
-}
-const login = async (email: string, password: string): Promise<token> => {
-  const response = await fetcher('/sign/login', {
+/*
+  BODY: email, password
+  RES:
+    200, { OAuth 표준 }
+  ERROR:
+    400, parameter
+    403, authentication
+    412, ref error(no email)
+    500, logic or db
+*/
+const login = async (email: string, password: string) => {
+  const res = await fetcher('/sign/login', {
     'Content-Type': 'application/json'
   }, {
     method: 'post', body: JSON.stringify({ email, password })
   });
-  const result = await response.json();
-  if (response.status !== 200) {
-    throw response.status
-  }
-
-  return result;
+  if (
+    res.status === 400 ||
+    res.status === 403 ||
+    res.status === 500
+  ) return ({ code: res.status });
+  const result = await res.json();
+  
+  return ({ code: res.status, data: result });
 };
 export default login;

@@ -9,3 +9,5 @@ export { default as ArticlesBoard } from './articlesboard/articlesborad';
 export { default as FormBox } from './formBox/formBox';
 export { default as TextMenuList } from './TextMenuList/TextMenuList'; 
 export { default as Articlelist } from './list/articlelist';
+export { default as Loading } from './loading/loading';
+export { default as Article } from './article/articleContainer';

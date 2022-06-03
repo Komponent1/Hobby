@@ -10,8 +10,8 @@ type Prop = {
   setTitle: Function
   submit: (e: React.MouseEvent) => void
   categories: any[]
-  category_id: string,
-  setCategory: (e: SelectChangeEvent) => void
+  categoryId: number,
+  setCategoryId: Function
   openModal: () => void
 }
 const PostPresenter = React.forwardRef<HTMLDivElement ,Prop>(({
@@ -19,8 +19,8 @@ const PostPresenter = React.forwardRef<HTMLDivElement ,Prop>(({
   title,
   setTitle,
   categories,
-  category_id,
-  setCategory,
+  categoryId,
+  setCategoryId,
   openModal
 }, ref) => {
 
@@ -31,9 +31,9 @@ const PostPresenter = React.forwardRef<HTMLDivElement ,Prop>(({
         <FormControl fullWidth>
           <InputLabel>category</InputLabel>
           <Select
-            value={category_id}
+            value={String(categoryId)}
             label='category'
-            onChange={setCategory}>
+            onChange={(e: SelectChangeEvent) => setCategoryId(parseInt(e.target.value))}>
             {categories.map((category: any, i: number) => (
               <MenuItem key={i} value={category.id}>{category.name}</MenuItem>
             ))}
@@ -43,7 +43,7 @@ const PostPresenter = React.forwardRef<HTMLDivElement ,Prop>(({
           </Select>
         </FormControl>
       </style.sub>
-      <div className='editor' ref={ref} style={{ marginBottom: '2rem' }}/>
+      <div ref={ref} style={{ marginBottom: '2rem' }}/>
       <SimpleButton onClick={(e: React.MouseEvent) => submit(e)} label='POST' />
     </style.div>
   )

@@ -1,4 +1,4 @@
-import getArticle, { getFile } from '../controller/getArticle';
+import getArticle from '../controller/getArticle';
 import { Request, Response } from 'express';
 import { Article } from '../model';
 import { file } from '../lib';
@@ -11,14 +11,6 @@ describe('GET /article', () => {
     return Promise.resolve();
   });
   Article.get = jest.fn().mockReturnValue([{ title: 'This is title', path: 'This is path' }])
-
-  describe('Function TEST', () => {
-    test('getFile TEST', async () => {
-      const path = '';    
-      const result = await getFile(path);
-      expect(result).toMatch('This is content');
-    });
-  });
 
   describe('Router TEST', () => {
     type getArticleQuery = { article_id: string }
@@ -41,11 +33,19 @@ describe('GET /article', () => {
       expect(result.article).toHaveProperty('content', 'This is content');
     });
 
-    test('fail TEST', async () => {
+    test('fail TEST(db)', async () => {
       Article.get = jest.fn(() => { throw 'err' });
       const result = await getArticle(req, res, (obj) => obj);
 
-      expect(result).toHaveProperty('msg', 'Error in DB');
-    })
+      expect(result).toHaveProperty('msg', 'Error In Db');
+      Article.get = jest.fn().mockReturnValue([{ title: 'This is title', path: 'This is path' }])
+    });
+    test('fail TEST(file)', async () => {
+      file.load = jest.fn(() => {
+        throw 'err'
+      });
+      const result = await getArticle(req, res, (obj) => obj);
+      expect(result).toHaveProperty('msg', 'Error In File');
+    });
   });
 });

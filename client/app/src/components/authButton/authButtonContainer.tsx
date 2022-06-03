@@ -13,7 +13,7 @@ const AuthButtonContainer: React.FC<Prop> = ({ label }) => {
   const cookie = new Cookies();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useLoading('auth');
+  const { loading } = useLoading('refresh');
   const login = useCallback(async () => {
     const refresh_token = cookie.get('blog_refresh_token');
     if (refresh_token) {
@@ -27,7 +27,7 @@ const AuthButtonContainer: React.FC<Prop> = ({ label }) => {
     cookie.remove('blog_refresh_token');
     alert('logout 되었습니다');
     navigate('/');
-  }, [])
+  }, []);
 
   return (
     <SimpleButton

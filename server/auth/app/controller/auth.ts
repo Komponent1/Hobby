@@ -1,17 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
-import { authorization } from '../lib';
-
+import { authorization, ERROR } from '../lib';
+/*
+  AUTHORIZATION token
+  RES:
+    204, success
+  ERROR:
+    400, no auth header
+    403, authentication 
+*/
 const auth = (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.headers.authorization) {
-      console.log('ERROR LOG(request check)', req)
-      throw ({
-        code: 401,
-        msg: 'no token'
-      });
+      ERROR.paramError('No authorization header');
     }
-    console.log(req.headers.authorization);
     const payload = authorization(req.headers.authorization.split('Bearer ')[1]);
+
     return res.status(204).header('x-user', payload).end();
   } catch(err) {
     return next(err);

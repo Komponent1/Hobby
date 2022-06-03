@@ -1,27 +1,35 @@
 import { Readable, Writable } from 'stream';
 import { Client } from 'basic-ftp';
+import { ERROR } from '.';
+
+const connect = async () => {
+  const client = new Client();
+  client.ftp.verbose = true;
+  await client.access({
+    host: 'fileserver',
+    user: process.env.FILE_USER,
+    password: process.env.FILE_PASSWORD,
+    /* scure: true */
+  });
+  
+  return client;
+};
 
 const del
 = async (
   user: string,
   filename: string
 ): Promise<void> => {
-  const client = new Client();
-  client.ftp.verbose = true;
+  let client = null;
+  
   try {
-    await client.access({
-      host: 'fileserver',
-      user: process.env.FILE_USER,
-      password: process.env.FILE_PASSWORD,
-      /* scure: true */
-    });
+    client = await connect();
     await client.ensureDir(user)
     await client.remove(filename);
     await client.close();
   } catch(err) {
-    console.log('ERROR LOG(file)', err);
-    console.log('관리자 호출 요구' /* call administer... */)
-    client.close();
+    client?.close();
+    ERROR.fileError(err);
   }
 }
 
@@ -31,25 +39,15 @@ const send
   filename: string,
   fileStream: Readable
 ): Promise<void> => {
-  const client = new Client();
-  client.ftp.verbose = true;
+  let client = null;
   try {
-    await client.access({
-      host: 'fileserver',
-      user: process.env.FILE_USER,
-      password: process.env.FILE_PASSWORD,
-      /* scure: true */
-    });
+    client = await connect();
     await client.ensureDir(user)
     await client.uploadFrom(fileStream, `${filename}`);
     await client.close();
   } catch (err) {
-    console.log('ERROR LOG(file)', err);
-    client.close();
-    throw ({
-      code: 500,
-      msg: 'FTP server error'
-    })
+    client?.close();
+    ERROR.fileError(err);
   }
 };
 
@@ -58,26 +56,15 @@ const load
   path: string,
   writeStream: Writable
 ): Promise<void> => {
-  const client = new Client();
-  client.ftp.verbose = true;
+  let client = null;
   try {
-    await client.access({
-      host: 'fileserver',
-      user: process.env.FILE_USER,
-      password: process.env.FILE_PASSWORD,
-      /* scure: true */
-    });
     const [ dir, filename ] = path.split('/');
+    client = await connect();
     await client.ensureDir(dir)
     await client.downloadTo(writeStream, filename);
     await client.close();
   } catch (err) {
-    console.log('ERROR LOG(file)', err);
-    client.close();
-    throw ({
-      code: 500,
-      msg: 'FTP server error'
-    })
+    ERROR.fileError(err);
   }
 }
 

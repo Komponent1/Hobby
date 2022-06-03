@@ -1,7 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { Category } from '../model';
-import { authorization } from '../lib';
-
+import { authorization, ERROR } from '../lib';
+/*
+  AUTHORIZATION token
+  QUERY: user, category_id
+  RES:
+    204, success
+  ERROR:
+    400, parameter
+    401, authentication (in auth)
+    403, authorization
+    412, category have articles
+    500, DB
+*/
 type deleteCategoryQuery = { user: string, category_id: string }
 type tParse = (req: Request<{}, {}, {}, deleteCategoryQuery>) => ({ user: string, author: string, category_id: string })
 const parse: tParse = (req) => {
@@ -11,30 +22,18 @@ const parse: tParse = (req) => {
 
     return { user, author, category_id };
   } catch (err) {
-    console.log('ERROR LOG(parse)', err);
-    throw ({
-      code: 500,
-      msg: 'No correct parameter'
-    })
+    ERROR.paramError(err);
   }
 }
 const delCategory = async (category_id: string) => {
   try {
     await Category.del(category_id);
   } catch(err) {
-    console.log('ERRORLOG(DB)', err);
     if (err.code === '23503') {
-      throw ({
-        code: 501,
-        msg: 'Category have articles'
-      })
-    }
-    throw ({
-      code: 500,
-      msg: 'Error in DB'
-    })
-  }
-
+      ERROR.refError(err);
+    };
+    ERROR.dbError(err);
+  };
 }
 const deleteCategory = async (req: Request<{}, {}, {}, deleteCategoryQuery>, res: Response, next: NextFunction) => {
   try {
@@ -43,8 +42,7 @@ const deleteCategory = async (req: Request<{}, {}, {}, deleteCategoryQuery>, res
     await delCategory(category_id);
     
     return res.status(204).end();
-  } catch(err) {
-    
+  } catch(err) { 
     return next(err);
   }
 };

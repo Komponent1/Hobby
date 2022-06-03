@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { rootState } from '../../store';
 import LoadingPresenter from './loadingPresenter';
 
-type tDep = 'signup'|'auth'|'article'|'articles'|'category'|'postarticle'
+type tDep = 'signup'|'auth'|'article'|'articles'|'category'|'postarticle'|'refresh'
 type state = 'signup'|'auth'|'article'|'articles'|'category'
 const next = (url: string|Function, dep?: string) => {
   if (typeof url === 'string') return url;
@@ -14,6 +14,8 @@ const dependency = (dep: tDep): state => {
   switch (dep) {
     case 'postarticle':
       return 'article';
+    case 'refresh':
+      return 'auth'
     default:
       return dep;
   }
@@ -31,23 +33,48 @@ const useNext = (dep: tDep, url: string) => {
   const { data, error } = useSelector((state: rootState) => state[dependency(dep)]);
 
   const auth = useCallback((data: any, error: number|null) => {
-    if (error === 401) { /* not correct email or password */
-      alert('이메일이나 비밀번호가 잘못되었습니다');
+    if (error === 400) {
+      alert('요청에 문제가 있습니다.');
       navigate(-1);
-    } else if (error === 500) { /* server error */
+    } else if (error === 403) {
+      alert('존재하지 않는 유저입니다.');
+      navigate(-1);
+    } else if (error === 412) {
+      alert('비밀번호가 일치하지 않습니다.');
+      navigate(-1);
+    } else if (error === 500) {
+      alert('서버 오류가 있습니다. 나중에 다시 시도해주세요');
       navigate(-1);
     } else {
-      navigate(next(url), { replace: true });
+      navigate(url, { replace: true });
+    }
+  }, [ dep ]);
+  const refresh = useCallback((data: any, error: number|null) => {
+    if (error === 400) {
+      alert('요청에 문제가 있습니다.');
+      navigate(-1);
+    } else if (error === 403) {
+      alert('유효기간이 만료되었습니다. 재로그인이 필요합니다.');
+      navigate('/login', { replace: true });
+    } else if (error === 500) {
+      alert('서버 오류가 있습니다. 나중에 다시 시도해주세요');
+      navigate(-1);
+    } else {
+      navigate(url, { replace: true });
     }
   }, [ dep ]);
   const signup = useCallback((data: number|null, error: number|null) => {
-    if (error === 401) {
+    if (error === 400) {
+      alert('요청에 문제가 있습니다.');
+      navigate(-1);
+    } else if (error === 412) {
       alert('이미 존재하는 유저입니다');
       navigate(-1);
     } else if (error === 500) {
+      alert('서버 오류가 있습니다. 나중에 다시 시도해주세요');
       navigate(-1);
-    } else if (data === 204) {
-      navigate(next(url), { replace: true });
+    } else {
+      navigate(url, { replace: true });
     }
   }, [ dep ]);
   const article = useCallback((data: any, error: number|null, dep: tDep) => {
@@ -67,27 +94,6 @@ const useNext = (dep: tDep, url: string) => {
       navigate(next(url), { replace: true });
     }
   }, [ dep ]);
-  const articles = useCallback((data: any, error: number|null) => {
-    if (error) {
-      navigate(-1);
-    } else if (data) {
-      navigate(next(url), { replace: true })
-    }
-  }, [ dep ]);
-  const category = useCallback((data: any, error: number|null) => {
-    if (error === 401) {
-      alert('로그인이 필요합니다.');
-      navigate('/login');
-    } else if(error === 501) {
-      alert('카테고리에 게시글이 있습니다. 게시글 삭제 후 시도해주세요');
-      navigate(-1);
-    }else if (error === 500) {
-      alert('서버 에러, 나중에 다시 시도해주세요');
-      navigate(-1);
-    } else if (data) {
-      navigate(next(url), { replace: true })
-    }
-  }, [ dep ])
 
   useEffect(() => {
     if (loading) return;
@@ -98,18 +104,16 @@ const useNext = (dep: tDep, url: string) => {
       case 'auth':
         auth(data, error);
         break;
+      case 'refresh':
+        refresh(data, error);
+        break;
       case 'article':
         article(data, error, dep);
         break;
       case'postarticle':
         article(data, error, dep);
         break;
-      case 'articles':
-        articles(data, error);
-        break;
-      case 'category':
-        category(data, error);
-        break;
+      
       default:
         return;
     };

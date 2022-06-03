@@ -1,9 +1,11 @@
 import * as jwt from 'jsonwebtoken';
-import { devHashKey } from '.';
+import { devHashKey, ERROR } from '.';
 
 type tToken = {
   email: string
 }
+const EXPIRE = 'expire';
+const INVALID = 'invalid';
 const decode = (token: string): string => {
   try {
     return (jwt.verify(token, devHashKey.secret) as tToken).email;
@@ -15,22 +17,12 @@ const decode = (token: string): string => {
     }
   }
 };
-
-const EXPIRE = 'expire';
-const INVALID = 'invalid';
-
 const authorization = (token) => {
   const result = decode(token);
   if (result === EXPIRE) {
-    throw ({
-      code: 401,
-      msg: 'expire token'
-    });
+    ERROR.authError('EXPIRED TOKEN')
   } else if (result === INVALID){
-    throw ({
-      code: 401,
-      msg: 'invalid token'
-    });
+    ERROR.authError('INVALID TOKEN')
   }
   return result;
 };

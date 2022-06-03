@@ -1,6 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as api from '../api';
-import { token } from '../api/login';
 
 export const LOGIN = 'AUTH/LOGIN';
 export const REFRESH = 'AUTH/REFRESH';
@@ -16,17 +15,18 @@ export function* loginSaga(action: any) {
   const { email, password, loading }:
   { email: string, password: string, loading?: Function } = action.payload;
   if (loading) loading('/');
-  try {
-    const result: token = yield call(api.login as any, email, password);
+  
+  const result: { code: number, data?: any } = yield call(api.login as any, email, password);
+  if (result.code === 200) {
     yield put({
       type: AUTH_SUCCESS,
-      payload: result,
+      payload: result.data,
     });
-  } catch (err) {
+  } else {
     yield put({
       type: AUTH_FAILURE,
       err: true,
-      payload: err
+      payload: result.code
     })
   }
 };
@@ -37,17 +37,18 @@ export const refresh = (loading?: Function) => ({
 export function* refreshSaga(action: any) {
   const { loading }: { loading: Function } = action.payload;
   if (loading) loading('/')
-  try {
-    const result: token = yield call(api.refresh as any);
+  
+  const result: { code: number, data?: any } = yield call(api.refresh as any);
+  if (result.code === 200) {
     yield put({
       type: AUTH_SUCCESS,
-      payload: result
+      payload: result.data
     })
-  } catch(err) {
+  } else {
     yield put({
       type: AUTH_FAILURE,
       err: true,
-      payload: err
+      payload: result.code
     })
   }
 }
@@ -73,11 +74,17 @@ const initialState: tLogin = {
 
 const reducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case LOGIN || REFRESH:
+    case LOGIN:
       return {
         ...state,
         loading: true,
         error: null
+      };
+    case REFRESH:
+      return {
+        ...state,
+        loading: true,
+        error: null,
       };
     case AUTH_SUCCESS:
       return {

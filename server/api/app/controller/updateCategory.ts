@@ -1,21 +1,27 @@
 import { Request, Response, NextFunction } from 'express';
-import { authorization, checkAlreadyIn } from '../lib';
+import { authorization, checkAlreadyIn, ERROR } from '../lib';
 import { Category } from '../model';
-
+/*
+  AUTHORIZATION token
+  BODY: user, category_id, category_name
+  RES:
+    200, { category }
+  ERORR:
+    400, paramter
+    401, authentication (in auth)
+    403, authorization
+    412, category name already in db
+    500, DB
+*/
 type tParse = (req: Request) => ({ author: string, user: string, category_id: string, category_name: string });
 const parse: tParse = (req) => {
   try {
     const author = req.headers['x-user'] as string;
     const { user, category_id, category_name } = req.body;
-    console.log(user, author, category_id, category_name);
     
     return { author, user, category_id, category_name };
   } catch (err) {
-    console.log('ERROR LOG(parse)', err);
-    throw ({
-      code: 500,
-      msg: 'No correct parameter'
-    })
+    ERROR.paramError(err);
   }
 };
 type tPatchCategory = (category_id: string, category_name: string) => Promise<any>
@@ -23,11 +29,7 @@ const patchCategory: tPatchCategory = async (category_id, category_name) => {
   try {
     return await Category.patch(category_id, category_name);
   } catch(err) {
-    console.log('ERROR LOG(DB)', err);
-    throw({
-      code: 500,
-      msg: 'Error in DB'
-    })
+    ERROR.dbError(err);
   };
 };
 const updateCategory = async (req: Request, res: Response, next: NextFunction) => {

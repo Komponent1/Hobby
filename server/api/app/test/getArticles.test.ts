@@ -16,7 +16,7 @@ describe('GET /articles', () => {
 
       return res;
     })() as Response;
-    test('success TEST', async () => {
+    test('success TEST(data in)', async () => {
       Article.count = jest.fn().mockReturnValue({ cnt: 5 });
       Article.get = jest.fn().mockReturnValue('article Test');
       
@@ -25,11 +25,21 @@ describe('GET /articles', () => {
       expect(result).toHaveProperty('count', 5);
       expect(result).toHaveProperty('articles', 'article Test');
     });
+    test('success TEST(no data)', async () => {
+      Article.count = jest.fn().mockReturnValue({ cnt: 0 });
+      Article.get = jest.fn(() => {
+        throw ({ code: 0 });
+      })
+      
+      const result = await getArticles(req, res, (obj:any) => obj) as any;
+      expect(result).toHaveProperty('count', 0);
+      expect(result).toHaveProperty('articles', 'article Test');
+    });
     test('fail TEST', async () => {
       Article.count = jest.fn(() => { throw 'err' });
       const result = await getArticles(req, res, (obj:any) => obj) as any;
 
-      expect(result).toHaveProperty('msg', 'Error in DB');
+      expect(result).toHaveProperty('msg', 'Error in Db');
     })
   });
 });

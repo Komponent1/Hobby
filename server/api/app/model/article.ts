@@ -10,7 +10,7 @@ export const count: tCount = (user, category_id) => {
     return db.one(query + 'category_id = $1', [ category_id ])
   }
 };
-type tGetArticle = (option: { user?: string, category_id?: string, article_id?: string }, pagination?: { id: number, num: number }) => Promise<any[]>
+type tGetArticle = (option: { user?: string, category_id?: string, article_id?: string }, pagination?: { id: string, num: string }) => Promise<any[]>
 export const get: tGetArticle = async (option, pagination) => {
   let query = 'SELECT * FROM Article WHERE';
   let data = null;
@@ -27,7 +27,7 @@ export const get: tGetArticle = async (option, pagination) => {
   }
 
   if (pagination) {
-    query += `ORDER BY id DESC OFFSET ${pagination.id * pagination.num} limit ${pagination.num}`;
+    query += `ORDER BY id DESC OFFSET ${parseInt(pagination.id) * parseInt(pagination.num)} limit ${parseInt(pagination.num)}`;
   }
 
   return await db.many(query, data);
@@ -49,11 +49,11 @@ type ArticleDeleteFunction = (article_id: string) => Promise<any>
 export const del: ArticleDeleteFunction = async (article_id) => {
   return await db.one('DELETE FROM Article WHERE ID = $1 RETURNING *', [article_id])
 };
-type ArticlePatchFunction = (article_id: string, title?: string, user?: string) => Promise<any>;
-export const patch: ArticlePatchFunction = async (article_id, title, user) => {
-  let i = 1;
-  let data = [new Date().toString()];
-  let sql = 'UPDATE Article SET update_date = $1';
+type ArticlePatchFunction = (article_id: string, category_id: string, title?: string, user?: string) => Promise<any>;
+export const patch: ArticlePatchFunction = async (article_id, category_id, title, user) => {
+  let i = 2;
+  let data = [new Date().toString(), category_id];
+  let sql = `UPDATE Article SET update_date = $1, category_id = $2`;
 
   if (title) {
     sql += `, title = $${++i}, path = $${++i}`
@@ -61,7 +61,7 @@ export const patch: ArticlePatchFunction = async (article_id, title, user) => {
   }
 
   sql += ` WHERE ID = $${++i} RETURNING *`;
-  console.log(sql)
+  console.log(sql, data)
   return await db.one(sql, [...data, article_id]);
 };
 

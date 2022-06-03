@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavigateFunction, Location } from 'react-router-dom';
+import { useNavigate, useLocation, NavigateFunction, Location } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 import { rootState } from '../../store';
@@ -8,6 +8,7 @@ import { deleteArticle } from '../../store/articles';
 import ArticlePresenter from './articlePresenter';
 import { EMAIL } from '../../env';
 import { useLoading } from '../../hooks';
+import { Loading } from '../../components';
 
 const usePagemove = (article_id: string, navigate: NavigateFunction, location: Location, dispatch: any) => {
   const { loading } = useLoading('articles', '/');
@@ -20,8 +21,7 @@ const usePagemove = (article_id: string, navigate: NavigateFunction, location: L
       alert('로그인이 필요합니다');
       navigate('/login');
     }
-    
-    
+
     dispatch(deleteArticle(
       article_id, data.access_token, EMAIL,
       loading
@@ -32,18 +32,18 @@ const usePagemove = (article_id: string, navigate: NavigateFunction, location: L
 }
 
 const Article: React.FC = () => {
-  const { loading, navigate, location } = useLoading('article');
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const { article_id } = queryString.parse(location.search) as { article_id: string };
-  const { data } = useSelector((state: rootState) => state.article);
+  const { loading, data } = useSelector((state: rootState) => state.article);
   const { openEditor, openDel } = usePagemove(article_id, navigate, location, dispatch);
   
   useEffect(() => {
-    if (data?.article.id !== parseInt(article_id)) {
-      dispatch(getArticle(article_id, loading));
-    }
-  }, []);
+    dispatch(getArticle(article_id));
+  }, [ article_id ]);
 
+  if (loading) return <Loading />
   return (
     <ArticlePresenter
       content={data?.article.content}

@@ -4,82 +4,101 @@ import { useNavigate, NavigateFunction, useLocation } from 'react-router-dom';
 import { postArticle } from '../../store/article';
 import { rootState } from '../../store';
 import { Editor } from '@toast-ui/editor';
-import { SelectChangeEvent } from '@mui/material/Select';
 import PostPresenter from './postPresenter';
 import { getCategory } from '../../store/category';
 import { EMAIL } from '../../env';
 import queryString from 'query-string';
 import { getArticle, patchArticle } from '../../store/article';
 import { useLoading } from '../../hooks';
+import { Loading } from '../../components';
 
-const useSubInformation = (article: any) => {
-  const dispatch = useDispatch();
-  const { data } = useSelector((state: rootState) => state.category);
-  const [title, setTitle] = useState<string>('');
-  const [categoryId, setCategoryId] = useState<string>('');
-
-  useEffect(() => {
-    dispatch(getCategory(EMAIL));
-  }, []);
-
-  const setCategory = (e: SelectChangeEvent) => {
-    setCategoryId(e.target.value as string);
-  }
-
-  useEffect(() => {
-    if (!article) return;
-    setCategoryId(article.category_id as string);
-    setTitle(article.title as string);
-  }, [ article ]);
-
-  return { categories: data ? data.categories : [], title, setTitle, categoryId, setCategory };
-}
-const useEditor = (article_id: string|undefined) => {
-  const dispatch = useDispatch();
-  const { data } = useSelector((state: rootState) => state.article);
+const useEditor = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [ editor, setEditor ] = useState<any>(null);
-  const { loading } = useLoading('article', `/post?article_id=${article_id}`);
 
   useEffect(() => {
-    if (!ref.current) return;
-
-    if (article_id) {
-      dispatch(getArticle(article_id, loading));
-    }
-
-    let saved = window.localStorage.getItem(`blog_content_temp_save${article_id ? article_id : '' }`);
-    if (article_id) {
-      saved = data?.article.content;
-    }
     let html = new Editor({
       el: ref.current as HTMLElement,
       previewStyle: 'vertical',
       height: '700px',
-      initialValue: saved ? saved : ''
-    })
+      initialValue: ''
+    });
+
     setEditor(html);
-    
-    if (saved && saved !== '' && !article_id) {
-      alert('이전 내용을 불러옵니다')
-    }
-
-    const id = setInterval(() => {
-      console.log('auto saved', html.getMarkdown())
-      window.localStorage.setItem(`blog_content_temp_save${article_id ? article_id : ''}`, html.getMarkdown());
-    }, 60 * 1000);
-
-    return () => clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    if (!article_id || !data || !editor) return;
-    editor.setMarkdown(data.article.content);
-  }, [data]);
-
-  return { ref, editor, article: data?.article };
+  return { ref, editor };
 }
-const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string, article_id?: string) => {
+const useInformation = (editor: any, article_id?: string) => {
+  const dispatch = useDispatch();
+  const { category, article } = useSelector((state: rootState) => state);
+  const [ title, setTitle ] = useState<string>('');
+  const [ categoryId, setCategoryId ] = useState<number>(-1);
+
+  /*
+    TODO: critical error, 동시에 2개의 dispatch가 발생하면 editor화면이 나오지 않는 문제가 발생한다.
+    수정하기에선 2개의 데이터를 참조하므로 2개를 모두 요구됨, 현재는 새로고침을 안한다는 가정하에 카테고리만 호출
+  */
+  useEffect(() => {
+    dispatch(getCategory(EMAIL)); 
+    // if (article_id) dispatch(getArticle(article_id));
+  }, [ article_id ]);
+
+  useEffect(() => {
+    if (!editor) return;
+    if (!article_id) return;
+    if (!article.data) return;
+
+    setCategoryId(article.data.article.category_id);
+    setTitle(article.data.article.title);
+    editor.setMarkdown(article.data.article.content);
+  }, [ category.data ]) /* 후에 이부분도 수정이 요망됨 */
+
+  return {
+    loading: category.loading && article.loading,
+    title,
+    setTitle,
+    category,
+    categoryId,
+    setCategoryId,
+  };
+};
+const useAutosave = (
+  title: string,
+  categoryId: number,
+  setTitle: Function,
+  setCategoryId: Function,
+  editor: any,
+  article_id?: string
+) => {
+  useEffect(() => {
+    if (!editor) return;
+    if (article_id) return;
+
+    const saved = window.localStorage.getItem('blog_post_temp_save');
+    if (saved && saved !== '') {
+      alert('이전 작성 내용을 불러옵니다');
+      const { title, categoryId, content } = JSON.parse(saved);
+      setTitle(title);
+      setCategoryId(categoryId);
+      editor.setMarkdown(content);
+    };
+
+    const id = setInterval(() => {
+      const str = JSON.stringify({
+        title,
+        categoryId,
+        content: editor.getMarkdown(),
+      });
+      console.log('auto saved');
+      window.localStorage.setItem(`blog_post_temp_save`, str);
+    }, 60 * 1000);
+  
+    return () => clearInterval(id);
+  }, [ editor ]);
+};
+
+const useSubmit = (navigate: NavigateFunction, title: string, category_id: number, article_id?: string) => {
   const { data } = useSelector((state: rootState) => state.auth);
   const { loading } = useLoading('postarticle');
   const dispatch = useDispatch();
@@ -87,7 +106,7 @@ const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string
     const file = new Blob([md], { type: 'text/plain' });
     return file;
   }
-  const postfile = async (md: string, category_id: string, article_id?: string) => {
+  const postfile = async (md: string, category_id: number, article_id?: string) => {
     if (!data) {
       alert('로그아웃되었습니다. 재 로그인이 요구됩니다');
       navigate('/login');
@@ -98,7 +117,7 @@ const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string
 
     if (article_id) {
       dispatch(patchArticle(
-        article_id, data.access_token, EMAIL, formData,
+        article_id, category_id, data.access_token, EMAIL, formData,
         loading
       ));
     } else {
@@ -106,7 +125,7 @@ const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string
     }
   }
   const submit = (editor: any) => {
-    postfile(editor.getMarkdown(), categoryId, article_id);
+    postfile(editor.getMarkdown(), category_id, article_id);
   }
 
   return { submit };
@@ -115,23 +134,25 @@ const useSubmit = (navigate: NavigateFunction, title: string, categoryId: string
 const PostContainer: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { article_id } = queryString.parse(location.search) as { article_id: string|undefined };
-  const { ref, editor, article } = useEditor(article_id);
-  const { categories, title, setTitle, categoryId, setCategory } = useSubInformation(article);
+  const article_id = queryString.parse(location.search).article_id as string;
+  const { editor, ref } = useEditor();
+  const { loading, title, category, setTitle, categoryId, setCategoryId } = useInformation(editor, article_id);;
+  useAutosave(title, categoryId, setTitle, setCategoryId, editor, article_id);
   const { submit } = useSubmit(navigate, title, categoryId, article_id);
 
   const openModal = () => {
     navigate('/modal/category?type=post', { state: { backgroundLocation: location }});
   }
 
+  if (loading) return <Loading />
   return ( 
     <PostPresenter
       ref={ref} submit={(e: React.MouseEvent) => {
         submit(editor);
       }}
       title={title} setTitle={setTitle}
-      categories={categories}
-      category_id={categoryId} setCategory={setCategory}
+      categories={category.data ? category.data.categories : []}
+      categoryId={categoryId} setCategoryId={setCategoryId}
       openModal={openModal}
     />
   );

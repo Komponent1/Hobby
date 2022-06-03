@@ -1,14 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { rootState } from '../../store';
 import { getArticles } from '../../store/articles';
-import { getArticle } from '../../store/article';
 import { Articlelist } from '..';
 import * as style from './style';
 import { EMAIL } from '../../env';
-import { useLoading } from '../../hooks';
 import queryString from 'query-string';
+import { category } from '../../mockserver/data';
 
 const NUM = 6;
 
@@ -18,44 +17,47 @@ const useArticles = () => {
   const category_id = queryString.parse(location.search).category_id as string|undefined;
   const { data } = useSelector((state: rootState) => state.articles);
   const dispatch = useDispatch();
+  const [observer, setObserver] = useState<any>(null);
 
   /* For redirect(새로고침) */
-  const loadArticles = (idx: number) => {
+  const loadArticles = useCallback((idx: number) => {
     if (category_id) {
       dispatch(getArticles(EMAIL, idx, NUM, category_id));
     } else {
       dispatch(getArticles(EMAIL, idx, NUM, undefined));
     }
-  };
-  const observer = new IntersectionObserver(async ([entry], observer) => {
-    if (entry.isIntersecting) {
-      const idx = !data ? 0 : (
-        data.articles.length / NUM < 1 ? Math.floor(data.articles.length / NUM) + 1 : Math.floor(data.articles.length / NUM)
-      );
-      loadArticles(idx);
-      observer.disconnect();
-      
-    }
-  }, { threshold: 0.5 });
+  }, [ category_id ]);
+  
   useEffect(() => {
-    if (!ref?.current) return;
     if (!data) return;
     if (data && data.count === data.articles.length) return;
-
-    observer.observe(ref.current);
+    setObserver(new IntersectionObserver(async ([entry], observer) => {
+      if (entry.isIntersecting) {
+        const idx = !data ? 0 : (
+          data.articles.length / NUM < 1 ? Math.floor(data.articles.length / NUM) + 1 : Math.floor(data.articles.length / NUM)
+        );
+        loadArticles(idx);
+        observer.disconnect();
+      }
+    }, { threshold: 0.5 }));
   }, [ data ])
   useEffect(() => {
+    if (!observer) return;
+    if(!ref?.current) return;
+    observer.observe(ref.current);
+  }, [ observer ])
+  useEffect(() => {
+    if (observer) observer.disconnect();
     loadArticles(0);
   }, [ category_id ]);
 
   return { data, ref };
 }
 const useArticle = (data: any) => {
-  const dispatch = useDispatch();
-  const { loading } = useLoading('article');
+  const navigate = useNavigate();
 
   const onClickArticle = (idx: number) => {
-    dispatch(getArticle(data.articles[idx].id, loading))
+    navigate(`/article?article_id=${data.articles[idx].id}`);
   }
 
   return { onClickArticle };

@@ -27,17 +27,8 @@ describe('DELETE /category', () => {
       req.headers = {};
       const result = await deleteCategory(req, res, (err: any) => err);
 
-      expect(result).toHaveProperty('msg', 'No matched author with blog owner');
+      expect(result).toHaveProperty('msg', 'No Authorization');
       req.headers = { 'x-user': 'user'}
     });
-    
-    // test('fail TEST(header)', async () => {
-    // Query => how to query is in or not
-    //   req.query = {};
-    //   const result = await deleteCategory(req, res, (err: any) => err);
-
-    //   expect(result).toHaveProperty('msg', 'No correct parameter');
-    //   req.query = { user: 'user', category_id: 'test' };
-    // })
   })
 });

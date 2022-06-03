@@ -37,16 +37,16 @@ export function *getSaga(action: any) {
     })
   }
 };
-export const patchArticle = (article_id: string, token: string, email: string, file: FormData, loading?: Function) => ({
+export const patchArticle = (article_id: string, category_id: number, token: string, email: string, file: FormData, loading?: Function) => ({
   type: PATCH_ARTICLE,
-  payload: { article_id, token, email, file, loading }
+  payload: { article_id, category_id, token, email, file, loading }
 });
 export function* patchSaga(action: any) {
-  const { article_id, token, email, file, loading }:
-  { article_id: string, token: string, email: string, file: FormData, loading: Function } = action.payload;
+  const { article_id, token, email, file, loading, category_id }:
+  { article_id: string, category_id: number, token: string, email: string, file: FormData, loading: Function } = action.payload;
   if (loading) loading(`/article?article_id=${article_id}`);
 
-  const result: { code: number, data: any } = yield call(api.patchArticle, token, email, article_id, file);
+  const result: { code: number, data: any } = yield call(api.patchArticle, token, email, article_id, category_id, file);
   if (result.code === 200) {
     yield put({
       type: PATCH_ARTICLE_SUCCESS,
@@ -59,13 +59,13 @@ export function* patchSaga(action: any) {
     });
   }
 }
-export const postArticle = (token: string, email: string, category_id: string, file: FormData, loading?: Function) => ({
+export const postArticle = (token: string, email: string, category_id: number, file: FormData, loading?: Function) => ({
   type: POST_ARTICLE,
   payload: { token, email, category_id, file, loading }
 });
 export function* postSaga(action: any) {
   const { token, email, category_id, file, loading }:
-  { token: string, email: string, category_id: string, file: FormData, loading?: Function } = action.payload;
+  { token: string, email: string, category_id: number, file: FormData, loading?: Function } = action.payload;
   if (loading) loading('/');
 
   const result: { code: number, data: any } = yield call(api.postArticle, token, email, category_id, file);
@@ -74,7 +74,7 @@ export function* postSaga(action: any) {
       type: POST_ARTICLE_SUCCESS,
       payload: result.data
     });
-  } else {
+  } else if (result){
     yield put({
       type: POST_ARTICLE_FAILURE,
       payload: result.code

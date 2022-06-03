@@ -25,7 +25,7 @@ export function* getSaga(action: any) {
   const { email, loading }: { email: string, loading?: Function } = action.payload;
   if (loading) loading('prev url');
 
-  const result: { code: number, data: any } = yield call(api.getCategory, email);
+  const result: { code: number, data?: any } = yield call(api.getCategory, email);
   if (result.code === 200) {
     yield put({
       type: GET_CATEGORY_SUCCESS,

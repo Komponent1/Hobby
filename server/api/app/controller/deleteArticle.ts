@@ -1,7 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
-import { file, authorization } from '../lib';
+import { file, authorization, ERROR } from '../lib';
 import { Article } from '../model';
 
+/*
+  AUTHORIZATION token
+  QUERY: user, article_id
+  RES:
+    204, success
+  ERROR:
+    400, paramter
+    401, authentication (in auth)
+    403, authorization
+    500, DB or File
+  ETC:
+    파일 삭제에 실패한 경우 관리자를 호출, 직접 삭제요망
+*/
 type deleteArticleQuery = { user: string, article_id: string }
 type tParse = (req: Request<{}, {}, {}, deleteArticleQuery>) => ({ user: string, author: string, article_id: string });
 const parse: tParse = (req) => {
@@ -11,11 +24,7 @@ const parse: tParse = (req) => {
 
     return { user, author, article_id }
   } catch (err) {
-    console.log('ERROR LOG(parse)', err);
-    throw ({
-      code: 500,
-      msg: 'No correct parameter'
-    })
+    ERROR.paramError(err);
   }
 }
 type tGetPath = (article_id: string) => Promise<string>
@@ -25,12 +34,7 @@ const deleteDB: tGetPath = async (article_id) => {
 
     return path as string;
   } catch (err) {
-    console.log('ERROR LOG(DB, get)', err);
-
-    throw ({
-      code: 500,
-      msg: 'Error in DB'
-    })
+    ERROR.dbError(err);
   };
 };
 type tDeleteFile = (path: string) => Promise<void>

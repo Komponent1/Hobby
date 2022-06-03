@@ -15,17 +15,24 @@ describe('GET /category', () => {
 
   describe('Router TEST', () => {
     Category.get = jest.fn().mockReturnValue([ 'test category' ])
-    test('success TEST', async () => {
+    test('success TEST(정상동작)', async () => {
       const response = await getCategory(req, res, (err) => err) as any;
       expect(response).toHaveProperty('categories', ['test category']);
     });
-
-    test('fail TEST', async () => {
+    test('success TEST(정상동작)', async () => {
       Category.get = jest.fn(() => {
-        throw 1;
+        throw ({ code: 0 });
       });
       const response = await getCategory(req, res, (err) => err) as any;
-      expect(response).toHaveProperty('msg', 'Error in DB');
-    })
+      expect(response).toHaveProperty('categories', []);
+    });
+
+    test('fail TEST(From DB)', async () => {
+      Category.get = jest.fn(() => {
+        throw ({ code: 1 });
+      });
+      const response = await getCategory(req, res, (err) => err) as any;
+      expect(response).toHaveProperty('msg', 'Error In Db');
+    });
   });
 });
