@@ -49,16 +49,15 @@ type ArticleDeleteFunction = (article_id: string) => Promise<any>
 export const del: ArticleDeleteFunction = async (article_id) => {
   return await db.one('DELETE FROM Article WHERE ID = $1 RETURNING *', [article_id])
 };
-type ArticlePatchFunction = (article_id: string, category_id: string, title?: string, user?: string) => Promise<any>;
-export const patch: ArticlePatchFunction = async (article_id, category_id, title, user) => {
+type ArticlePatchFunction = (article_id: string, category_id: string, title: string, path: string) => Promise<any>;
+export const patch: ArticlePatchFunction = async (article_id, category_id, title, path) => {
   let i = 2;
   let data = [new Date().toString(), category_id];
   let sql = `UPDATE Article SET update_date = $1, category_id = $2`;
 
-  if (title) {
-    sql += `, title = $${++i}, path = $${++i}`
-    data = [...data, title, `${user}/${title}`];
-  }
+  sql += `, title = $${++i}, path = $${++i}`
+  data = [...data, title, path];
+  
 
   sql += ` WHERE ID = $${++i} RETURNING *`;
   console.log(sql, data)

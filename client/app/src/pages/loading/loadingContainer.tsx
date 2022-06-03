@@ -1,10 +1,11 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { articles } from '../../mockserver/data';
 import { rootState } from '../../store';
 import LoadingPresenter from './loadingPresenter';
 
-type tDep = 'signup'|'auth'|'article'|'articles'|'category'|'postarticle'|'refresh'
+type tDep = 'signup'|'auth'|'article'|'articles'|'category'|'postarticle'|'refresh'|'deletearticle'
 type state = 'signup'|'auth'|'article'|'articles'|'category'
 const next = (url: string|Function, dep?: string) => {
   if (typeof url === 'string') return url;
@@ -16,6 +17,8 @@ const dependency = (dep: tDep): state => {
       return 'article';
     case 'refresh':
       return 'auth'
+    case 'deletearticle':
+      return 'article';
     default:
       return dep;
   }
@@ -78,7 +81,7 @@ const useNext = (dep: tDep, url: string) => {
     }
   }, [ dep ]);
   const article = useCallback((data: any, error: number|null, dep: tDep) => {
-    if (error === 401) {
+    if (error === 401 || error === 403) {
       alert('로그아웃 되었습니다. 로그인이 필요합니다');
       navigate('/login');
     } else if (error === 500) {
@@ -91,7 +94,7 @@ const useNext = (dep: tDep, url: string) => {
         navigate(next(url), { replace: true });
       }
     } else {
-      navigate(next(url), { replace: true });
+      navigate(url, { replace: true });
     }
   }, [ dep ]);
 
@@ -113,11 +116,12 @@ const useNext = (dep: tDep, url: string) => {
       case'postarticle':
         article(data, error, dep);
         break;
-      
+      case 'deletearticle':
+        article(data, error, dep);
+        break;
       default:
         return;
     };
-    
   }, [ loading ])
 };
 

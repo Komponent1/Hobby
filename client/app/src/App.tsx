@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { Header } from './components';
-import { Main, Signup, Login, Loading, Post, Article, Modal, Mypage } from './pages';
-import { rootState } from './store';
+import { Main, Signup, Login, Loading, Post, Modal, Mypage } from './pages';
 
 type tDep = 'signup'|'auth'|'article'|'articles'|'category'|'postarticle'|'refresh'
 function App() {

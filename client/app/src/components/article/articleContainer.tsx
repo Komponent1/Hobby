@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { rootState } from '../../store';
 import { getArticle } from '../../store/article';
-import { deleteArticle } from '../../store/articles';
+import { deleteArticle } from '../../store/article';
 import ArticlePresenter from './articlePresenter';
 import { EMAIL } from '../../env';
 import { useLoading } from '../../hooks';
@@ -13,7 +13,7 @@ import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 
 const usePagemove = (article_id: string) => {
   const dispatch = useDispatch();
-  const { loading, navigate } = useLoading('articles', '/');
+  const { loading, navigate } = useLoading('deletearticle', '/');
   const { data } = useSelector((state: rootState) => state.auth);
 
   const openEditor = () => navigate(`/post?article_id=${article_id}`);
@@ -44,10 +44,6 @@ const useArticle = (article_id: string) => {
 }
 const useViewer = (data: any) => {
   const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    
-    
-  }, []);
 
   useEffect(() => {
     if (!ref) return;

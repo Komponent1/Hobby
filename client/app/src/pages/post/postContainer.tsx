@@ -129,7 +129,7 @@ const useSubmit = (navigate: NavigateFunction, title: string, category_id: numbe
   }
 
   return { submit };
-}
+};
 
 const PostContainer: React.FC = () => {
   const navigate = useNavigate();

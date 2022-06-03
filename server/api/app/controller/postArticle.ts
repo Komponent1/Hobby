@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Readable } from 'stream';
-import { authorization, ERROR, file }from '../lib';
+import { authorization, ERROR, file, filenaming, splitpath }from '../lib';
 import { Article } from '../model';
 
 /*
@@ -34,13 +34,14 @@ const savingFile: tSavingFile = async (filename, user, buffer) => {
   const stream = Readable.from(buffer.toString());
   await file.send(user, filename, stream);
 };
-type tPathupload = (filename: string, user: string, category_id: string) => Promise<void>
-const pathupload: tPathupload = async (filename, user, category_id) => {
+type tPathupload = (originalname: string, user: string, category_id: string, path: string) => Promise<void>
+const pathupload: tPathupload = async (originalname, user, category_id, path) => {
   try {
-    return await Article.post(filename, category_id, user, `${user}/${filename}`);
+    return await Article.post(originalname, category_id, user, path);
   } catch(err) {
     console.log('ERROR LOG(DB)', err)
-    file.del(user, filename).catch(err => {
+    const [ dir, filename ] = splitpath(path);
+    file.del(dir, filename).catch(err => {
       console.log('ERROR LOG(FILE)', '관리자 호출을 요망함')
     });
     ERROR.dbError(err)
@@ -51,8 +52,9 @@ const postArticle = async (req: Request<{}, {}, {}, postArticleQuery>, res: Resp
   try {
     const { user, author, category_id, buffer, originalname } = parse(req);
     authorization(user, author);
-    await savingFile(originalname, user, buffer);
-    const article = await pathupload(originalname, user, category_id) as any;
+    const filename = filenaming(originalname);
+    await savingFile(filename, user, buffer);
+    const article = await pathupload(originalname, user, category_id, `${user}/${filename}`) as any;
 
     return res.status(200).json({
       article: {

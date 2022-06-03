@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Readable } from 'stream';
-import { authorization, ERROR, file }from '../lib';
+import { authorization, ERROR, file, filenaming, splitpath }from '../lib';
 import { Article } from '../model';
 /*
   AUTHORIZATION token
@@ -43,7 +43,7 @@ const savingFile: tSavingFile = async (filename, user, buffer) => {
   const stream = Readable.from(buffer.toString());
   await file.send(user, filename, stream);
 };
-type tPatchArticle = (article_id: string, category_id: string, originalname?: string, user?: string) => Promise<any>
+type tPatchArticle = (article_id: string, category_id: string, originalname: string, path: string) => Promise<any>
 const patchArticle: tPatchArticle = async (article_id, category_id, originalname, user) => {
   try {
     return await Article.patch(article_id, category_id, originalname, user);
@@ -56,23 +56,17 @@ const updateArticle = async (req: Request<{}, {}, {}, updateArticleQuery>, res: 
   try {
     const { author, user, article_id, category_id, buffer, originalname } = parse(req);
     authorization(user, author);
-    const { title, path } = await getFileInformation(article_id);
-    await savingFile(originalname, user, buffer);
+    const { path } = await getFileInformation(article_id);
+    const filename = filenaming(originalname);
+    await savingFile(filename, user, buffer);
     let article = null;
-    if (title !== originalname) {
-      article = await patchArticle(article_id, category_id, originalname, user);
-    } else {
-      /* TODO: when fail, file rollback? */
-      article = await patchArticle(article_id, category_id);
-    }
 
-    if (title !== originalname) {
-      const oldfilename = path.split('/')[1];
+    article = await patchArticle(article_id, category_id, originalname, `${user}/${filename}`);
+    const oldfilename = path.split('/')[1];
       
-      file.del(user, oldfilename).catch((err) => {
-        console.log('ERROR LOG(file del)', 'call adminisrator');
-      });
-    }
+    file.del(user, oldfilename).catch((err) => {
+      console.log('ERROR LOG(file del)', 'call adminisrator');
+    });
 
     return res.status(200).json({ 
       article: {

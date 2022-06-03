@@ -13,6 +13,10 @@ export const PATCH_ARTICLE = 'PATCH_ARTICLE/PENDING';
 export const PATCH_ARTICLE_SUCCESS = 'PATCH_ARTICLE/SUCCESS';
 export const PATCH_ARTICLE_FAILURE = 'PATCH_ARTICLE/FAILURE';
 
+export const DELETE_ARTICLE = 'DELETE_ARTICLE/PENDING';
+export const DELETE_ARTICLE_SUCCESS = 'DELETE_ARTICLE/SUCCESS';
+export const DELETE_ARTICLE_FAILURE = 'DELETE_ARTICLE/FAILURE';
+
 export const ARTICLE_CLREAR = 'ARTICLE/CLEAR';
 
 export const getArticle = (article_id: string, loading?: Function) => ({
@@ -53,7 +57,7 @@ export function* patchSaga(action: any) {
       payload: result.data,
     });
   } else {
-    put({
+    yield put({
       type: PATCH_ARTICLE_FAILURE,
       payload: result.code,
     });
@@ -81,10 +85,33 @@ export function* postSaga(action: any) {
     })
   }
 };
+export const deleteArticle = (article_id: string, token: string, email: string, loading?: Function) => ({
+  type: DELETE_ARTICLE,
+  payload: { article_id, token, email, loading }
+});
+export function* deleteSaga(action: any) {
+  const { article_id, token, email, loading }:
+  { article_id: string, token: string, email: string, loading?: Function } = action.payload;
+  if (loading) loading('/')
+
+  const result: { code: number } = yield call(api.deleteArticle, token, email, article_id);
+  if (result.code === 204) {
+    yield put({
+      type: DELETE_ARTICLE_SUCCESS,
+      payload: article_id
+    })
+  } else {
+    yield put({
+      type: DELETE_ARTICLE_FAILURE,
+      payload: result.code
+    })
+  }
+};
 export function* articleSaga() {
   yield takeLatest(GET_ARTICLE, getSaga);
   yield takeLatest(PATCH_ARTICLE, patchSaga);
   yield takeLatest(POST_ARTICLE, postSaga);
+  yield takeLatest(DELETE_ARTICLE, deleteSaga);
 };
 export type tGetArticle = {
   loading: boolean,
@@ -153,7 +180,24 @@ const reducer = (state = initialState, action: any) => {
         loading: false,
         error: action.payload
       };
-    
+    case DELETE_ARTICLE:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_ARTICLE_SUCCESS:
+      return {
+        loading: false,
+        data: null,
+        error: null,
+      };
+    case DELETE_ARTICLE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      }
+
     case ARTICLE_CLREAR:
       return initialState;
     default:
