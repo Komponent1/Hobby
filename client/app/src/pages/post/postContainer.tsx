@@ -11,7 +11,10 @@ import queryString from 'query-string';
 import { getArticle, patchArticle } from '../../store/article';
 import { useLoading } from '../../hooks';
 import { Loading } from '../../components';
-import { category } from '../../mockserver/data';
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import Prism from 'prismjs';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 const useEditor = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -22,7 +25,8 @@ const useEditor = () => {
       el: ref.current as HTMLElement,
       previewStyle: 'vertical',
       height: '700px',
-      initialValue: ''
+      initialValue: '',
+      plugins: [[ codeSyntaxHighlight, { highlighter: Prism } ]]
     });
 
     setEditor(html);

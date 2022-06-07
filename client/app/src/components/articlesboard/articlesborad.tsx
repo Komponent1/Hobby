@@ -7,7 +7,6 @@ import { Articlelist } from '..';
 import * as style from './style';
 import { EMAIL } from '../../env';
 import queryString from 'query-string';
-import { category } from '../../mockserver/data';
 
 const NUM = 6;
 

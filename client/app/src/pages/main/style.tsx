@@ -12,6 +12,7 @@ export const section = styled.section`
 `;
 export const article = styled.div<{ width: number }>`
   max-width: ${({ width }) => Math.floor(width / 2)}px;
+  padding: 2rem;
   margin: auto;
 `;
 export const menu = styled.div<{ open: boolean }>`

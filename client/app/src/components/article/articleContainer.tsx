@@ -10,6 +10,10 @@ import { EMAIL } from '../../env';
 import { useLoading } from '../../hooks';
 import { Loading } from '../../components';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import Prism from 'prismjs';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 const usePagemove = (article_id: string) => {
   const dispatch = useDispatch();
@@ -51,7 +55,8 @@ const useViewer = (data: any) => {
 
     new Viewer({
       el: ref.current as HTMLElement,
-      initialValue: data ? data.article.content : ''
+      initialValue: data ? data.article.content : '',
+      plugins: [[ codeSyntaxHighlight, { highlighter: Prism } ]]
     });
   }, [ data ]);
 

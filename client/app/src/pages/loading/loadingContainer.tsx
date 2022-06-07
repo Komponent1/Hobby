@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { articles } from '../../mockserver/data';
 import { rootState } from '../../store';
 import LoadingPresenter from './loadingPresenter';
 
