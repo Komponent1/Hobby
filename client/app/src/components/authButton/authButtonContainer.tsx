@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { refresh, logout as logoutAction } from '../../store/auth';
 import { SimpleButton } from '..';
 import { useLoading } from '../../hooks';
+import * as style from './style';
 
 type Prop = {
   label: string
@@ -33,7 +34,7 @@ const AuthButtonContainer: React.FC<Prop> = ({ label }) => {
     <SimpleButton
       label={label}
       onClick={() => label === 'login' ? login():logout()}
-      sx={{ height: '2rem', margin: 'auto' }}
+      sx={style.button}
     />
   )
 };

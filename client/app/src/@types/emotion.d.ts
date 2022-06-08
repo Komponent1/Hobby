@@ -8,6 +8,14 @@ declare module '@mui/material/styles' {
       mobile: string,
       tablet: string,
       pc: string,
+      wide: string,
+    },
+    background: (color: string) => string,
+    modal: {
+      width: string,
+      margin: string,
+      padding: string,
+      marginTop: string
     }
   }
   // allow configuration using `createTheme`
@@ -17,6 +25,14 @@ declare module '@mui/material/styles' {
       mobile?: string,
       tablet?: string,
       pc?: string,
+      wide?: string
+    },
+    background?: (color: string) => string,
+    modal?: {
+      width?: string,
+      margin?: string,
+      padding?: string,
+      marginTop?: string
     }
   }
 }
@@ -28,6 +44,14 @@ declare module '@emotion/react' {
       mobile: string,
       tablet: string,
       pc: string,
+      wide: string
+    }
+    background: (color: string) => string,
+    modal: {
+      width: string,
+      margin: string,
+      padding: string,
+      marginTop: string
     }
   }
 }

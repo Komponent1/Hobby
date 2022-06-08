@@ -25,17 +25,17 @@ const Header: React.FC = () => {
     <style.header>
       <style.logo>
         <Avatar
-          sx={{ width: '2rem', height: '2rem', margin: 'auto' }}
+          sx={style.icon}
           alt={BASENAME} src='logo64.png' />
         <Typography
-          sx={{ margin: 'auto', marginLeft: '1rem' }}
+          sx={style.text}
           onClick={() => navigate('/')} variant='h6' component='p'>{BASENAME}</Typography>
       </style.logo>
       <style.buttonDiv>
         {data && data.email === EMAIL?
           <>
-            <SimpleButton sx={{ height: '2rem', margin: 'auto', marginRight: '1rem'}} label='POST' onClick={() => navigate('/post')}/>
-            <SimpleButton sx={{ height: '2rem', margin: 'auto', marginRight: '1rem'}} label='My Page' onClick={() => navigate('/mypage')}/>
+            <SimpleButton sx={style.button} label='POST' onClick={() => navigate('/post')}/>
+            <SimpleButton sx={style.button} label='My Page' onClick={() => navigate('/mypage')}/>
           </>
           :null
         }

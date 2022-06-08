@@ -7,6 +7,7 @@ import queryString from 'query-string';
 import { rootState } from '../../store';
 import { EMAIL } from '../../env';
 import { deleteCategory } from '../../store/category';
+import { useTheme } from '@emotion/react';
 import { useLoading } from '../../hooks';
 
 type Prop = {
@@ -18,6 +19,9 @@ const DeleteCategoryModal = React.forwardRef<HTMLDivElement, Prop>((prop, ref) =
   const category_id = queryString.parse(search).category_id as string;
   const { data } = useSelector((state: rootState) => state.auth);
   const { loading, navigate } = useLoading('category', '/mypage');
+  const theme = useTheme();
+
+  console.log(theme)
 
   const click = () => {
     if (!data) {
@@ -28,7 +32,7 @@ const DeleteCategoryModal = React.forwardRef<HTMLDivElement, Prop>((prop, ref) =
   }
 
   return (
-    <Card ref={ref} sx={{ width: '40rem', margin: 'auto', padding: '3rem', marginTop: 'calc(50vh - 10rem)' }}>
+    <Card ref={ref} sx={theme.modal}>
       <Typography variant='h5' component='h5'>정말 삭제하시겠습니까?</Typography>
       <SimpleButton label={'삭제'} onClick={() => click()} />
     </Card>

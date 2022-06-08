@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const div = styled.div`
-  padding: 1rem 4rem;
+  padding: 3rem 4rem;
 `;
 export const sub = styled.div`
   display: flex;

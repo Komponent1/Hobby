@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ListItem, Avatar, ListItemText, ListItemAvatar } from '@mui/material'
+import * as style from './style';
 import { LOGO } from '../../env';
+
 
 const date2string = (datestring: string) => {
   const date = new Date(datestring);
@@ -19,11 +21,12 @@ const ArticleCard: React.FC<Prop> = ({ article, onClick }) => {
     <ListItem
         onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
-        onClick={onClick} sx={{ cursor: 'pointer', borderBottom: '1px solid black', padding: '1.5rem 0' }}>
+        onClick={onClick} sx={style.item}>
       <ListItemText
         primary={article.title}
         primaryTypographyProps={{
-          variant: 'h4', sx: { textDecoration: hover ? 'underline' : 'none', marginBottom: '4rem' }
+          variant: 'h4',
+          sx: style.itemText(hover)
         }}
         secondary={date2string(article.publish_date)}
       />

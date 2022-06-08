@@ -27,13 +27,7 @@ const Main: React.FC<Prop> = ({ open, setOpen, pathname }) => {
             <Category/>
           </style.menu>
           <style.menuOpen open={open} onClick={() => setOpen(!open)}>
-            <Avatar sx={{
-              borderRadius: '4rem 0 0 4rem',
-              width: '1.5rem',
-              height: '3rem',
-              background: 'white',
-              color: 'black',
-              boxShadow: '-2px 0 2px 1px grey'}}>
+            <Avatar sx={style.logo}>
               <ArrowBackIcon />
             </Avatar>
           </style.menuOpen>

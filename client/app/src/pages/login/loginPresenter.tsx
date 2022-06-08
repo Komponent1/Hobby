@@ -20,7 +20,7 @@ const LoginPresenter: React.FC<Prop> =
       <FormBox width={20} height={20} label={'LOG IN'} submit={submit}>
         <Input label='email' value={email} onChange={e => setEmail(e.target.value)} />
         <Input label='password' type='Password' value={password} onChange={e => setPassword(e.target.value)} />
-        <Link sx={{ textAlign: 'center' }} onClick={signupLinker}>create account</Link>
+        <Link sx={style.link} onClick={signupLinker}>create account</Link>
       </FormBox>
     </style.div>
   )

@@ -34,18 +34,8 @@ const useArticles = (data: any) => {
 }
 
 const Category: React.FC = () => {
-  const { data, category_id, article_id } = useCategory();
+  const { data, category_id } = useCategory();
   const { onClick } = useArticles(data);
-
-  const chooseSelect = () => {
-    if (category_id) {
-      return data ? data.categories.findIndex((e: any) => e.id === parseInt(category_id)) : -1
-    } else if (article_id) {
-      return
-    } else {
-      return -1;
-    }
-  }
 
   /* click to category */
   return (  

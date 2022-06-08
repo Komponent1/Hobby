@@ -18,3 +18,17 @@ export const logo = styled.div`
   display: flex;
   flex-direction: row;
 `;
+export const icon = {
+  width: '2rem',
+  height:'2rem',
+  margin: 'auto'
+}
+export const text = {
+  margin: 'auto',
+  marginLeft: '1rem'
+};
+export const button = {
+  height: '2rem',
+  margin: 'auto',
+  marginRight: '1rem'
+}

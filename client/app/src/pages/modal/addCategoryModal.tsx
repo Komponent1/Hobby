@@ -9,6 +9,7 @@ import { rootState } from '../../store';
 import { EMAIL } from '../../env';
 import { patchCategory } from '../../store/category';
 import { useLoading } from '../../hooks';
+import { useTheme } from '@emotion/react';
 
 const useCategory = (background: string) => {
   const [name, setName] = useState<string>('');
@@ -42,9 +43,11 @@ const AddCategoryModal = React.forwardRef<HTMLDivElement, Prop>(({ background },
   const { search } = useLocation();
   const { type, category_id } = queryString.parse(search) as { type: string, category_id?: string };
   const { name, setName, updateCategory, addCategory } = useCategory(background);
+  const theme = useTheme();
   
+
   return (
-    <Card ref={ref} sx={{ width: '40rem', margin: 'auto', padding: '3rem', marginTop: 'calc(50vh - 10rem)' }}>
+    <Card ref={ref} sx={theme.modal}>
       <Typography variant='h5' component='h5'>카테고리 {type === 'post' ? '추가' : '수정'}</Typography>
       <Input label='category name' value={name} onChange={(e: any) => setName(e.target.value) }/>
       <SimpleButton label={type === 'post' ? '추가' : '수정'} onClick={() => type === 'post' ? addCategory() : updateCategory(category_id as string)}/>

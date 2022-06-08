@@ -25,19 +25,28 @@ export const menu = styled.div<{ open: boolean }>`
   height: calc(100vh - 18rem);
   
   border-left: 1px solid black;
+  transform: scaleX(${({ open }) => open ? '1' : '0'});
 
-  @media screen and (max-width: 1200px) {
-    transform: scaleX(${({ open }) => open ? '1' : '0'});
+  @media ${({ theme }) => theme.device.wide} {
+    transform: none;
   }
 `;
 export const menuOpen = styled.div<{ open: boolean }>`
-  display: none;
+  display: block;
+  position: absolute;
+  top: 5rem;
+  right: ${({ open }) => open ? '13.5rem' : '0'};
+  transform: rotate(${({ open }) => open ? '180deg' : 0});
 
-  @media screen and (max-width: 1200px) {
-    display: block;
-    position: absolute;
-    top: 5rem;
-    right: ${({ open }) => open ? '13.5rem' : '0'};
-    transform: rotate(${({ open }) => open ? '180deg' : 0});
+  @media ${({ theme }) => theme.device.wide} {
+    display: none;
   }
 `;
+export const logo = {
+  borderRadius: '4rem 0 0 4rem',
+  width: '1.5rem',
+  height: '3rem',
+  background: 'white',
+  color: 'black',
+  boxShadow: '-2px 0 2px 1px grey' 
+};
