@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const div = styled.div`
   border-bottom: 1px solid grey;
 `;
-export const textbox = styled.div<{ width: number }>`
+export const textbox = styled.div`
   ${({ theme }) => theme.width}
 
   margin: auto;
@@ -22,4 +22,7 @@ export const img = {
   ['@media (min-width: 720px)']: {
     display: 'block',
   }
+};
+export const title = {
+  fontWeight: 'bold'
 };

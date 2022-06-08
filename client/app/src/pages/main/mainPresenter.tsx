@@ -1,15 +1,11 @@
 import React from 'react';
-import { Category,  Banner, ArticlesBoard, Article } from '../../components';
+import { Category,  Banner, ArticlesBoard, Article, Sidemenu } from '../../components';
 import * as style from './style';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { Avatar } from '@mui/material';
 
 type Prop = {
-  open: boolean;
-  setOpen: (open: boolean) => void
   pathname: string
 }
-const Main: React.FC<Prop> = ({ open, setOpen, pathname }) => {
+const Main: React.FC<Prop> = ({ pathname }) => {
   return (
     <>
       <style.head>
@@ -17,20 +13,15 @@ const Main: React.FC<Prop> = ({ open, setOpen, pathname }) => {
       </style.head>
       <style.div>
         <style.section>
-          <style.article width={window.screen.width}>
+          <style.article>
             {
               pathname === '/article' ?
-                <Article /> :<ArticlesBoard/>
+                <Article />:<ArticlesBoard/>
             }
           </style.article>
-          <style.menu open={open}>
+          <Sidemenu>
             <Category/>
-          </style.menu>
-          <style.menuOpen open={open} onClick={() => setOpen(!open)}>
-            <Avatar sx={style.logo}>
-              <ArrowBackIcon />
-            </Avatar>
-          </style.menuOpen>
+          </Sidemenu>
         </style.section>
       </style.div>
     </>

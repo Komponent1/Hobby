@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { rootState } from '../../store';
@@ -16,8 +16,20 @@ const useCategory = () => {
   useEffect(() => {
     dispatch(getCategory(EMAIL));
   }, [ category_id, article_id ]);
+
+  const select = () => {
+    if (category_id) {
+      if (category.data) {
+        return category.data.categories.findIndex((e: any) => e.id === parseInt(category_id))
+      } else {
+        return -1;
+      }
+    } else {
+      return -1;
+    }
+  }
   
-  return { data: category.data, category_id, article_id }
+  return { data: category.data, select }
 };
 const useArticles = (data: any) => {
   const navigate = useNavigate();
@@ -34,17 +46,25 @@ const useArticles = (data: any) => {
 }
 
 const Category: React.FC = () => {
-  const { data, category_id } = useCategory();
+  const { data, select } = useCategory();
   const { onClick } = useArticles(data);
+  
+  const items = () => {
+    if (data) {
+      return data.categories.map((e: any, i: number) => ({
+        text: e.name, onClick: (e: React.MouseEvent) => onClick(i)
+      }))
+    } else {
+      return undefined;
+    }
+  }
 
   /* click to category */
   return (  
     <TextMenuList
       onClick={onClick}
-      select={category_id ? data?.categories.findIndex((e: any) => e.id === parseInt(category_id)) : -1}
-      items={data?.categories.map((e: any, i: number) => ({
-      text: e.name, onClick: (e: React.MouseEvent) => onClick(i)
-    }))} />
+      select={select()}
+      items={items()} />
   );
 };
 
