@@ -10,8 +10,7 @@ import createSagaMiddleware from 'redux-saga';
 import categoryReducer, { categorySaga } from '../store/category';
 import articlesReducer, { getArticlesSaga } from '../store/articles';
 import { BrowserRouter } from 'react-router-dom';
-import Main from '../pages/main/main';
-import { Category, ArticlesBoard } from '../components';
+import { Main } from '../pages';
 import rootReducer from '../store';
 
 const server = setupServer(...handlers());

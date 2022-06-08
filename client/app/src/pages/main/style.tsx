@@ -11,7 +11,7 @@ export const section = styled.section`
   position: relative;
 `;
 export const article = styled.div<{ width: number }>`
-  max-width: ${({ width }) => Math.floor(width / 2)}px;
+  ${({ theme }) => theme.width}
   padding: 2rem;
   margin: auto;
 `;
