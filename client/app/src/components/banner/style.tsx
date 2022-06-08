@@ -23,5 +23,3 @@ export const img = {
     display: 'block',
   }
 };
-
-console.log(textbox.toString());

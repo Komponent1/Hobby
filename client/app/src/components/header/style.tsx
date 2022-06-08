@@ -9,7 +9,9 @@ export const header = styled.header`
   padding: 0.5rem 2rem;
   display: flex;
   justify-content: space-between;
-  
+  z-index: 2000;
+
+  background: white;
 `;
 export const buttonDiv = styled.div`
   display: flex;

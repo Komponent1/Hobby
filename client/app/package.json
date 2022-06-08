@@ -67,6 +67,5 @@
   },
   "msw": {
     "workerDirectory": "public"
-  },
-  "proxy": "http://gateway:80"
+  }
 }

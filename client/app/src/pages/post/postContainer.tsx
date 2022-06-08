@@ -15,15 +15,19 @@ import 'prismjs/themes/prism.css';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import Prism from 'prismjs';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import { useTheme } from '@emotion/react';
 
 const useEditor = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [ editor, setEditor ] = useState<any>(null);
+  const theme = useTheme();
 
   useEffect(() => {
-    let html = new Editor({
+    const mql = window.matchMedia(theme.device.tablet);
+
+    const html = new Editor({
       el: ref.current as HTMLElement,
-      previewStyle: 'vertical',
+      previewStyle: mql.matches ? 'vertical' : 'tab',
       height: '700px',
       initialValue: '',
       plugins: [[ codeSyntaxHighlight, { highlighter: Prism } ]]
@@ -33,12 +37,11 @@ const useEditor = () => {
 
     const changetViewStyle = (e: any) => {
       if (e.matches) {
-        html.changePreviewStyle('tab');
-      } else {
         html.changePreviewStyle('vertical');
+      } else {
+        html.changePreviewStyle('tab');
       }
     };
-    let mql = window.matchMedia('screen and (max-width: 768px)');
     mql.addEventListener('change', changetViewStyle);
 
     return () => mql.removeEventListener('change', changetViewStyle);
