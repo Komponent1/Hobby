@@ -30,6 +30,18 @@ const useEditor = () => {
     });
 
     setEditor(html);
+
+    const changetViewStyle = (e: any) => {
+      if (e.matches) {
+        html.changePreviewStyle('tab');
+      } else {
+        html.changePreviewStyle('vertical');
+      }
+    };
+    let mql = window.matchMedia('screen and (max-width: 768px)');
+    mql.addEventListener('change', changetViewStyle);
+
+    return () => mql.removeEventListener('change', changetViewStyle);
   }, []);
 
   return { ref, editor };
