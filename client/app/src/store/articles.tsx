@@ -54,11 +54,14 @@ const reducer = (state = initialState, action: any) => {
         loading: false,
         data: action.payload.idx !== 0 ? {
           count: action.payload.count,
-          articles: [
+          articles: state.data ? [
             ...state.data.articles,
             ...action.payload.articles,
-          ] 
-        } : action.payload,
+          ] : [...action.payload.articles]
+        } : {
+          count: action.payload.count,
+          articles: [...action.payload.articles]
+        },
         error: null,
       };
     case ARTICLES_FAILURE:

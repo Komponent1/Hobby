@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
+import AuthButtonPresenter from './authButtonPresenter';
 import { Cookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { refresh, logout as logoutAction } from '../../store/auth';
-import { SimpleButton } from '..';
 import { useLoading } from '../../hooks';
-import * as style from './style';
 
 type Prop = {
   label: string
@@ -31,10 +30,9 @@ const AuthButtonContainer: React.FC<Prop> = ({ label }) => {
   }, []);
 
   return (
-    <SimpleButton
+    <AuthButtonPresenter
       label={label}
       onClick={() => label === 'login' ? login():logout()}
-      sx={style.button}
     />
   )
 };

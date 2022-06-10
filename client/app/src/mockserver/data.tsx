@@ -15,42 +15,42 @@ export const users = [
 
 export const category = [
   {
-    ID: 1,
+    id: 1,
     name: 'test_category_1',
     user_email: 'seo2im6492@gmail.com',
   },
   {
-    ID: 2,
+    id: 2,
     name: 'test_category_2',
     user_email: 'seo2im6492@gmail.com',
   },
   {
-    ID: 3,
+    id: 3,
     name: 'test_category_3',
     user_email: 'seo2im6492@gmail.com',
   },
   {
-    ID: 4,
+    id: 4,
     name: 'test_category_4',
     user_email: 'seo2im6492@gmail.com',
   },
   {
-    ID: 5,
+    id: 5,
     name: 'test_category_5',
     user_email: 'seo2im6492@gmail.com',
   },
 ]
 const nums = Array.from({ length: 50 }).map((_, i) => i);
 export const articles = nums.map(e => ({
-  ID: e,
+  id: e,
   title: `test_article_${e}`,
-  publish_date: `2022-01-${Math.floor(e / 30)}`,
+  publish_date: (new Date()).toString(),
   category_id: Math.floor(e / 10),
   path: `test_path_${e}`
 }));
 
 export const article = {
-  ID: 0,
+  id: 0,
   title: 'test_article',
   content: `
   # Title 
@@ -61,7 +61,14 @@ export const article = {
   `
 }
 export const newCatetgory = {
-  ID: 6,
+  id: 6,
   name: 'new_category_6',
   user_email: 'seo2im6492@gmail.com'
+}
+export const token = {
+  email: 'seo2im6492@gmail.com',
+  access_token: '124',
+  token_type: 'Bearer',
+  expires_in: 1800,
+  scope: 'create'
 }

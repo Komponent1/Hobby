@@ -151,7 +151,9 @@ const reducer = (state = initialState, action: any) => {
       return {
         loading: false,
         data: {
-          categories: [...state.data.categories, action.payload.category]
+          categories: state.data?
+          [...state.data.categories, action.payload.category]
+          : [action.payload.category]
         },
         error: null,
       }

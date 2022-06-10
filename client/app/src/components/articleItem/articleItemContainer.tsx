@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import ArticleItemPresenter from './articleItemPresenter';
-
-const date2string = (datestring: string) => {
-  const date = new Date(datestring);
-
-  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
-}
+import { date2string } from '../../lib';
 
 type Prop = {
   article: any,

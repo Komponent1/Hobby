@@ -66,7 +66,7 @@ export type tLogin = {
   data: any,
   error: any
 }
-const initialState: tLogin = {
+export const initialState: tLogin = {
   loading: false,
   data: null,
   error: null

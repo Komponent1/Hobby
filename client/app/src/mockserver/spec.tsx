@@ -1,10 +1,12 @@
 import { rest } from 'msw';
-import { users, category, articles, article, newCatetgory } from './data';
+import { users, category, articles, article, newCatetgory, token } from './data';
+import login from './login';
+import { getCategory, postCategory, patchCategory, deleteCategory } from './category';
 
 export function handlers() {
   return [
     getUsers,
-    getCategory,
+    getCategory, postCategory, patchCategory, deleteCategory,
     getArticles,
     addUser,
     login,
@@ -12,10 +14,10 @@ export function handlers() {
     postArticle,
     getArticle,
     getArticles,
-    postCategory
+    patchArticle,
+    deleteArticle
   ];
 }
-
 const getUsers = rest.get('/api/users', (req, res, ctx) => {
   const user = req.url.searchParams.get('user');
   if (!user || user === '') {
@@ -26,9 +28,7 @@ const getUsers = rest.get('/api/users', (req, res, ctx) => {
       })
     );
   }
-  
-  
-  
+
   if (user === 'error') return res(
     ctx.status(500),
     ctx.json({
@@ -71,79 +71,41 @@ const addUser = rest.post<userReq>('/sign/users', (req, res, ctx) => {
     ctx.status(204)
   );
 });
-const login = rest.post<userReq>('/sign/login', async (req, res, ctx) => {
-  const { email } = req.body;
 
-  if (email === 'nouser') {
-    return res(
-      ctx.status(401),
-      ctx.json({
-        msg: 'No User in DB',
-      })
-    );
-  }
-
-  if (email === 'nopassword') {
-    return res(
-      ctx.status(401),
-      ctx.json({
-        msg: 'Not Matched Password'
-      })
-    )
-  }
-  return res(
-    ctx.status(200),
-    ctx.cookie('blog_refresh_token', '1234', {
-      maxAge: 60 * 60 * 24 * 30
-    }),
-    ctx.json({
-      email: 'seo2im6492@gmail.com',
-      accessToken: '124',
-      token_type: 'Bearer',
-      expires_in: 1800,
-      scope: 'create'
-    })
-  )
-});
 const refresh = rest.get('/sign/refresh', async (req, res, ctx) => {
   return res(
     ctx.status(200),
-    ctx.json({
-      email: 'seo2im6492@gmail.com',
-      accessToken: '124',
-      token_type: 'Bearer',
-      expires_in: 1800,
-      scope: 'create'
-    })
+    ctx.json(token)
   )
 });
 const postArticle = rest.post('/author/article', (req, res, ctx) => {
+  const user = req.url.searchParams.get('user');
+
+  if (user === 'no token') {
+    return res(
+      ctx.status(401),
+      ctx.json({ msg: '' })
+    )
+  } else if (user === 'no owner') {
+    return res(
+      ctx.status(403),
+      ctx.json({ msg: '' })
+    )
+  } else if (user === 'internal') {
+    return res(
+      ctx.status(500),
+      ctx.json({ msg: '' })
+    )
+  }
+  
   return res(
     ctx.status(200),
     ctx.json({
-      article_id: 0
+      article
     })
   )
 });
-const getCategory = rest.get('/api/category', (req, res, ctx) => {
-  const user = req.url.searchParams.get('user');
 
-  if (user === 'error') {
-    return res(
-      ctx.status(500),
-      ctx.json({
-        msg: 'Error in DB'
-      })
-    )
-  }
-
-  return res(
-    ctx.status(200),
-    ctx.json({
-      categories: category
-    })
-  )
-})
 const getArticles = rest.get('/api/articles', (req, res, ctx) => {
   const user = req.url.searchParams.get('user');
 
@@ -165,11 +127,22 @@ const getArticles = rest.get('/api/articles', (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({
+      count: articles.length,
       articles: data.slice(idx * num, (idx + 1) * num)
     })
   );
 });
 const getArticle = rest.get('/api/article', (req, res, ctx) => {
+  const article_id = req.url.searchParams.get('article_id');
+
+  if(article_id === 'error') {
+    return res(
+      ctx.status(500),
+      ctx.json({
+        msg: ''
+      })
+    )
+  }
   return res(
     ctx.status(200),
     ctx.json({
@@ -177,11 +150,55 @@ const getArticle = rest.get('/api/article', (req, res, ctx) => {
     })
   )
 });
-const postCategory = rest.post('/author/category', (req, res, ctx) => {
+
+const patchArticle = rest.patch('/author/article', (req, res, ctx) => {
+  const user = req.url.searchParams.get('user');
+
+  if (user === 'no token') {
+    return res(
+      ctx.status(401),
+      ctx.json({ msg: '' })
+    )
+  } else if (user === 'no owner') {
+    return res(
+      ctx.status(403),
+      ctx.json({ msg: '' })
+    )
+  } else if (user === 'internal') {
+    return res(
+      ctx.status(500),
+      ctx.json({ msg: '' })
+    )
+  }
+
   return res(
     ctx.status(200),
     ctx.json({
-      category: newCatetgory
+      article
     })
-  );
+  )
 });
+const deleteArticle = rest.delete('/author/article', (req, res, ctx) => {
+  const user = req.url.searchParams.get('user');
+
+  if (user === 'no token') {
+    return res(
+      ctx.status(401),
+      ctx.json({ msg: '' })
+    )
+  } else if (user === 'no owner') {
+    return res(
+      ctx.status(403),
+      ctx.json({ msg: '' })
+    )
+  } else if (user === 'internal') {
+    return res(
+      ctx.status(500),
+      ctx.json({ msg: '' })
+    )
+  }
+
+  return res(
+    ctx.status(204),
+  )
+})

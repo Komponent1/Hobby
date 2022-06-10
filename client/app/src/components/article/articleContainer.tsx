@@ -62,7 +62,7 @@ const useViewer = (data: any) => {
 
   return { ref };
 }
-const ArticleContainer = () => {
+const ArticleContainer: React.FC = () => {
   const mediaMatch = window.matchMedia('(max-width: 1200px)');
   const location = useLocation();
   const matches = useRef<boolean>(mediaMatch.matches);
