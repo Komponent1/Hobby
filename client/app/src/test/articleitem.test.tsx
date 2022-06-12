@@ -35,19 +35,21 @@ describe('ArticleItem', () => {
     expect(click).toBeCalledTimes(1);
   });
 
-  test('Container', () => {
-    const article = data.articles[0];
-    const click = jest.fn();
-
-    const { getByText } = render(
-      <ArticleItem
-        article={article} onClick={click} />
-    );
-
-    const item = getByText(data.articles[0].title);
-    expect(item).toBeInTheDocument();
-
-    fireEvent.click(item);
-    expect(click).toBeCalledTimes(1);
+  describe('Container', () => {
+    test('Route, login -> loading, create account -> signup', () => {
+      const article = data.articles[0];
+      const click = jest.fn();
+      
+      const { getByText } = render(
+        <ArticleItem
+          article={article} onClick={click} />
+      );
+      
+      const item = getByText(data.articles[0].title);
+      expect(item).toBeInTheDocument();
+      
+      fireEvent.click(item);
+      expect(click).toBeCalledTimes(1);
+    });
   });
 });

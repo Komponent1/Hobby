@@ -44,7 +44,6 @@ const AddCategoryModal = React.forwardRef<HTMLDivElement, Prop>(({ background },
   const { type, category_id } = queryString.parse(search) as { type: string, category_id?: string };
   const { name, setName, updateCategory, addCategory } = useCategory(background);
   const theme = useTheme();
-  
 
   return (
     <Card ref={ref} sx={theme.modal}>

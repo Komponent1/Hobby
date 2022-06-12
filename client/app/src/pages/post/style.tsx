@@ -8,11 +8,11 @@ export const sub = styled.div`
   flex-direction: row;
   padding: 2rem 0;
 
-  &>:nth-child(1) {
+  &>div:nth-of-type(1) {
     flex-shrink: 1;
     
   }
-  &>:nth-child(2) {
+  &>div:nth-of-type(2) {
     flex-shrink: 2;
     margin-left: 2rem;
   }

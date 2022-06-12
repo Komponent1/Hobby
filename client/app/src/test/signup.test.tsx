@@ -1,115 +1,100 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { expectSaga } from 'redux-saga-test-plan';
+import { render, fireEvent, screen } from '@testing-library/react';
+import SignupPresenter from '../pages/signup/signupPresenter';
+import { Signup } from '../pages';
+
 import { setupServer } from 'msw/node';
 import { handlers } from '../mockserver/spec';
-import { postUser as api } from '../api';
-import signupReducer, { signupSaga } from '../store/signup';
-import SignupPresenter from '../pages/signup/signupPresenter';
+
+import { Provider as ReduxProvider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import rootReducer, { rootSaga } from '../store';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  rootReducer, 
+  applyMiddleware(sagaMiddleware)
+);
+sagaMiddleware.run(rootSaga);
 
 const server = setupServer(...handlers());
-
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe('Signup Test', () => {
-  test('test', () => {})
-  // describe('Api Test', () => {
-  //   test('Success Response', async () => {
-  //     const email = 'test@test.com';
-  //     const password = 'test';
-
-  //     const response = await api(email, password);
-  //     expect(response).toHaveProperty('result', true);
-  //   });
-
-  //   test('Fail Test', async () => {
-  //     const email = 'error';
-  //     const password = '1234';
-      
-  //     const response = await api(email, password);
-  //     expect(response).toHaveProperty('result', false);
-  //   });
-  // });
-
-  // describe('Saga Test', () => {
-  //   test('Success', () => {
-  //     const email = 'test';
-  //     const password = '1234';
-  //     const param = {
-  //       email, password, navigate: jest.fn(), location: {}, dep: '', signupLinker: jest.fn(),
-  //     };
-
-  //     return expectSaga(signupSaga)
-  //       .withReducer(signupReducer)
-  //       .dispatch({ type: 'LOADER/PENDING', payload: param })
-  //       .hasFinalState({
-  //         loading: false,
-  //         data: true,
-  //         error: null,
-  //       })
-  //       .silentRun();
-  //   });
-
-  //   test('Failure', () => {
-  //     const email = 'error';
-  //     const password = '123'
-  //     const param = {
-  //       email, password, navigate: jest.fn(), location: {}, dep: '',
-  //       signupLinker: jest.fn(),
-  //     };
-
-      
-  //     return expectSaga(signupSaga)
-  //       .withReducer(signupReducer)
-  //       .dispatch({ type: 'LOADER/PENDING', payload: param })
-  //       .hasFinalState({
-  //         loading: false,
-  //         data: null,
-  //         error: true,
-  //       })
-  //       .silentRun();
-  //   });
-  // });
-
-  // describe('Presenter Test', () => {
-  //   const props = {
-  //     email: 'test', setEmail: jest.fn((email: string) => null),
-  //     password: 'test', setPassword: jest.fn((password: string) => null),
-  //     confirmPw: 'test', setConfirmPw: jest.fn((confirmPw: string) => null),
-  //     submit: jest.fn((e: React.MouseEvent) => null),
-  //     signupLinker: jest.fn(),
-  //   };
+  describe('Presenter Test', () => {
+    const props = {
+      email: 'test', setEmail: jest.fn((email: string) => null),
+      password: 'test', setPassword: jest.fn((password: string) => null),
+      confirmPw: 'test', setConfirmPw: jest.fn((confirmPw: string) => null),
+      submit: jest.fn((e: React.MouseEvent) => null),
+      signupLinker: jest.fn(),
+    };
     
 
-  //   test('Have correct Props', () => {
-  //     const component = render(<SignupPresenter {...props}/>);      
-  //   });
+    test('button Test', () => {
+      render(<SignupPresenter {...props}/>);
+      const button = screen.getAllByText('SIGN UP')[1];
+      fireEvent.click(button);
+      expect(props.submit.mock.calls.length).toBe(1);
+    });
 
-  //   test('button Test', () => {
-  //     const component = render(<SignupPresenter {...props}/>);
-  //     const button = component.getByText('signup');
-  //     fireEvent.click(button);
-  //     expect(props.submit.mock.calls.length).toBe(1);
-  //   });
+    test('change Test', () => {
+      const component = render(<SignupPresenter {...props}/>);
+      const email = component.getByLabelText('email');
+      const password = component.getByLabelText('password');
+      const confirmPw = component.getByLabelText('check password');
 
-  //   test('change Test', () => {
-  //     const component = render(<SignupPresenter {...props}/>);
-  //     const email = component.getByLabelText('email');
-  //     const password = component.getByLabelText('password');
-  //     const confirmPw = component.getByLabelText('confirmpassword')
+      /* Login과 동일한 문제 */
+      fireEvent.change(email, { target: { value: '1234' } });
+      // fireEvent.change(password, { target: { value: '4567' } });
+      // fireEvent.change(confirmPw, { target: { value: '9000' } });
+      expect(props.setEmail.mock.calls.length).toBe(1);
+      // expect(props.setPassword.mock.calls.length).toBe(1);
+      // expect(props.setConfirmPw.mock.calls.length).toBe(1);
+    })
+  });
 
-  //     fireEvent.change(email, { target: { value: '1234' } });
-  //     fireEvent.change(password, { target: { value: '4567' } });
-  //     fireEvent.change(confirmPw, { target: { value: '9000' } });
-  //     expect(props.setEmail.mock.calls.length).toBe(1);
-  //     expect(props.setPassword.mock.calls.length).toBe(1);
-  //     expect(props.setConfirmPw.mock.calls.length).toBe(1);
-  //   })
-  // });
+  describe('Container Test', () => {
+    test('Route test', () => {
+      const history = createMemoryHistory();
+      render(
+        <ReduxProvider store={store}>
+          <Router location={history.location} navigator={history}>
+            <Signup />
+          </Router>
+        </ReduxProvider>  
+      );
 
-  // describe('Container Test', () => {
-  //   /* not yet */
-  // })
+      const button = screen.getAllByText('SIGN UP')[1];
+      fireEvent.click(button);
+      expect(history.location.pathname).toBe('/loading')
+    });
+
+    test('Not correct alert', () => {
+      const history = createMemoryHistory();
+      render(
+        <ReduxProvider store={store}>
+          <Router location={history.location} navigator={history}>
+            <Signup />
+          </Router>
+        </ReduxProvider>  
+      );
+
+      /* 지금 라벨을 가져오는게 이상하므로 다른거 찾을 수 있도록 해보자 */
+      // const password = screen.getAllByLabelText('password');
+      // console.log(password)
+      // fireEvent.change(password, { target: { value: '4567' } });
+
+      // const button = screen.getAllByText('SIGN UP')[1];
+      // window.alert = jest.fn();
+      // fireEvent.click(button);
+
+      // expect(window.alert).toBeCalledTimes(1);
+    });
+  })
 });

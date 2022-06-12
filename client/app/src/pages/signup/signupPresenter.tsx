@@ -17,7 +17,7 @@ const SignupPresenter: React.FC<Prop> = ({
 }) => {
   return (
     <style.div>
-      <FormBox width={20} height={25} label={'SIGN IN'} submit={submit}>
+      <FormBox width={20} height={25} label={'SIGN UP'} submit={submit}>
         <Input label='email' value={email} onChange={e => setEmail(e.target.value)}/>
         <Input label='password' type='Password' value={password} onChange={e => setPassword(e.target.value)} />
         <Input label='check password' type='Password' value={confirmPw} onChange={e => setConfirmPw(e.target.value)} />

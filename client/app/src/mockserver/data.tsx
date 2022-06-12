@@ -15,27 +15,27 @@ export const users = [
 
 export const category = [
   {
-    id: 1,
+    id: 0,
     name: 'test_category_1',
     user_email: 'seo2im6492@gmail.com',
   },
   {
-    id: 2,
+    id: 1,
     name: 'test_category_2',
     user_email: 'seo2im6492@gmail.com',
   },
   {
-    id: 3,
+    id: 2,
     name: 'test_category_3',
     user_email: 'seo2im6492@gmail.com',
   },
   {
-    id: 4,
+    id: 3,
     name: 'test_category_4',
     user_email: 'seo2im6492@gmail.com',
   },
   {
-    id: 5,
+    id: 4,
     name: 'test_category_5',
     user_email: 'seo2im6492@gmail.com',
   },

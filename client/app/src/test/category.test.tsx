@@ -71,7 +71,7 @@ describe('Category TEST', () => {
     fireEvent.click(button);
     
     await waitFor(() => {
-      expect(history.location.search).toBe('?category_id=1');
+      expect(history.location.search).toBe('?category_id=0');
     });
   });
 });

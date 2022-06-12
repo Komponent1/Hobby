@@ -21,8 +21,6 @@ const DeleteCategoryModal = React.forwardRef<HTMLDivElement, Prop>((prop, ref) =
   const { loading, navigate } = useLoading('category', '/mypage');
   const theme = useTheme();
 
-  console.log(theme)
-
   const click = () => {
     if (!data) {
       alert('로그인 다시 해야함');
