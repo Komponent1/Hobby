@@ -35,7 +35,7 @@ beforeAll(() => {
 });
 beforeEach(async () => {
   const cookie = new Cookies();
-  cookie.set('blog_refresh_token');
+  cookie.set('blog_refresh_token', 'some_token');
 
   render(
     <CookiesProvider cookies={cookie}>

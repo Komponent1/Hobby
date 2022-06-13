@@ -49,36 +49,42 @@ describe('Articleboard', () => {
   });
 
   describe('Container TEST', () => {
-    window.IntersectionObserver = class IntersectionObserver {
-      entries: { isIntersecting: boolean, target: HTMLElement }[]
-      
-      constructor(callback: Function, options: any) {
-        this.entries = [];
-        
-        window.addEventListener('scroll', () => {
-          this.entries.map(e => {
-            e.isIntersecting = true;
-          });
-          callback(this.entries, this);
-        });
+    function setupIntersectionObserverMock({
+      root = null,
+      rootMargin = '',
+      thresholds = [],
+      disconnect = () => null,
+      observe = () => null,
+      takeRecords = () => [],
+      unobserve = () => null,
+    } = {}) {
+      class MockIntersectionObserver {
+        root: any;
+        rootMargin: any;
+        thresholds: any;
+        disconnect: any;
+        observe: any;
+        takeRecords: any;
+        unobserve: any;
+
+        constructor() {
+          this.root = root;
+          this.rootMargin = rootMargin;
+          this.thresholds = thresholds;
+          this.disconnect = disconnect;
+          this.observe = observe;
+          this.takeRecords = takeRecords;
+          this.unobserve = unobserve;
+        }
       }
     
-      disconnect() {
-        this.entries = [];
-      }
-    
-      observe(target: HTMLElement) {
-        this.entries.push({ isIntersecting: false, target });
-      }
-    
-      takeRecords() {
-        return null;
-      }
-    
-      unobserve() {
-        this.entries = [];
-      }
-    };
+      Object.defineProperty(window, 'IntersectionObserver', {
+        writable: true,
+        configurable: true,
+        value: MockIntersectionObserver
+      });
+    }
+    setupIntersectionObserverMock();
     const articles = data.articles;
 
     test('loading initial data, click to article page', async () => {

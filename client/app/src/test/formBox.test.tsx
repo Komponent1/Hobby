@@ -22,7 +22,7 @@ describe('FormBox TEST', () => {
     fireEvent.click(button);
     expect(submit).toBeCalledTimes(1);
 
-    const style = window.getComputedStyle(title.parentNode);
+    const style = window.getComputedStyle(title.parentNode as HTMLElement);
     expect(style.getPropertyValue('width')).toBe('1rem');
     expect(style.getPropertyValue('height')).toBe('1rem');
   });
