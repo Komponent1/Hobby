@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
@@ -42,7 +42,7 @@ const useArticle = (article_id: string) => {
   
   useEffect(() => {
     dispatch(getArticle(article_id));
-  }, [ article_id ]);
+  }, [ article_id, dispatch ]);
 
   return { loading, data, error };
 }
@@ -67,7 +67,7 @@ const ArticleContainer: React.FC = () => {
   const location = useLocation();
   const matches = useRef<boolean>(mediaMatch.matches);
   const { article_id } = queryString.parse(location.search) as { article_id: string };
-  const { loading, data, error } = useArticle(article_id);
+  const { loading, data } = useArticle(article_id);
   const { openEditor, openDel } = usePagemove(article_id);
   const { ref } = useViewer(data);
 

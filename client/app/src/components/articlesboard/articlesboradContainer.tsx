@@ -24,7 +24,7 @@ const useArticles = () => {
     } else {
       dispatch(getArticles(EMAIL, idx, NUM, undefined));
     }
-  }, [ category_id ]);
+  }, [ category_id, dispatch ]);
   
   useEffect(() => {
     if (!data) return;
@@ -38,7 +38,7 @@ const useArticles = () => {
         observer.disconnect();
       }
     }, { threshold: 0.5 }));
-  }, [ data ])
+  }, [ data, loadArticles ])
   useEffect(() => {
     if (!observer) return;
     if(!ref?.current) return;
@@ -47,7 +47,7 @@ const useArticles = () => {
   useEffect(() => {
     if (observer) observer.disconnect();
     loadArticles(0);
-  }, [ category_id ]);
+  }, [ category_id, loadArticles ]);
 
   return { data, ref };
 }

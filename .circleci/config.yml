@@ -28,10 +28,8 @@ jobs:
       
       - run:
           name: npm build
-          command:
-            - unset CI
-            - cd client/app;npm run build
-      
+          command: unset CI;cd client/app;npm run build
+            
       - run:
           name: deploy
           command: bash circleci.client_deploy.sh
