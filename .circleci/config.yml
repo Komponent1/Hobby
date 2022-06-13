@@ -9,19 +9,19 @@ jobs:
       - checkout
       
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
 
       - run:
-        name: install node_modules
-        command: npm install
+          name: install node_modules
+          command: npm install
       
       - save_cache:
-        paths:
-          - node_modules
-        key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
       
       - run:
-        name: testing
-        command: npm test --watchAll=false
+          name: testing
+          command: npm test --watchAll=false
