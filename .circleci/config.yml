@@ -32,7 +32,7 @@ jobs:
       
       - run:
           name: npm build
-          command: cd client/app;npm build
+          command: cd client/app;npm run build
       
       - run:
           name: deploy
