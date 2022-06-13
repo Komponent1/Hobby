@@ -9,9 +9,7 @@ jobs:
       - checkout
       
       - run:
-          name: install node_modules
-          command: client/app/npm install
+          name: check directory
+          command: ls
+
       
-      - run:
-          name: testing
-          command: client/app/npm test --watchAll=false
