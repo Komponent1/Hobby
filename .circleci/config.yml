@@ -7,14 +7,25 @@ jobs:
 
     steps:
       - checkout
-      
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "client/app/package.json" }}
+            - v1-dependencies
+
       - run:
           name: check directory
           command: ls
+      
       - run:
           name: install node_modules
           command: cd client/app;npm install;
       
+      - save_cache:
+          paths:
+            - client/app/node_modules
+          key: v1-dependencies-{{ "client/app/package.json" }}
+
       - run:
           name: testing
           command: cd client/app;npm test --watchAll=false
