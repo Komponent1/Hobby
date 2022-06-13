@@ -17,4 +17,12 @@ jobs:
       
       - run:
           name: testing
-          command: npm test --watchAll=false
+          command: cd client/app;npm test --watchAll=false
+      
+      - run:
+          name: npm build
+          command: cd client/app;npm build
+      
+      - run:
+          name: deploy
+          command: bash client_deploy.sh
