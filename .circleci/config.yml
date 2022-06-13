@@ -4,7 +4,9 @@ jobs:
   build:
     docker:
       - image: cimg/node:16.15.1
-    working_directory: client/app
+    
+    working_directory: ~/repo/client/app
+    
     steps:
       - checkout
       
@@ -13,9 +15,7 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      - run:
-          name: add git token
-          command: echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} > ~/.npmrc
+      
 
       - run:
           name: install node_modules
