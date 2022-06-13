@@ -4,6 +4,8 @@ jobs:
   build:
     docker:
       - image: cimg/node:16.15.1
+    
+    working_directory: ~/client/app
 
     steps:
       - checkout
@@ -13,8 +15,8 @@ jobs:
           command: ls
       - run:
           name: install node_modules
-          command: client/app/npm install
+          command: npm install
       
       - run:
           name: testing
-          command: client/app/npm test --watchAll=false
+          command: npm test --watchAll=false
