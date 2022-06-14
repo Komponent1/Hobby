@@ -35,13 +35,13 @@ describe('store TEST', () => {
       let email = 'email';
       let password = 'password'
 
-      test('login Success return OAuth data', () => {
-        return sagaTest(authSaga, authReducer, login(email, password), {
-          loading: false,
-          data: data.token,
-          error: null
-        });
-      });
+      // test('login Success return OAuth data', () => {
+      //   return sagaTest(authSaga, authReducer, login(email, password), {
+      //     loading: false,
+      //     data: data.token,
+      //     error: null
+      //   });
+      // });
       test('login db no user return 412', () => {
         email = 'nouser';
   

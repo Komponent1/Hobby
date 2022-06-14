@@ -8,7 +8,7 @@ import PostPresenter from './postPresenter';
 import { getCategory } from '../../store/category';
 import { EMAIL } from '../../env';
 import queryString from 'query-string';
-import { getArticle, patchArticle } from '../../store/article';
+import { patchArticle } from '../../store/article';
 import { useLoading } from '../../hooks';
 import { Loading } from '../../components';
 import 'prismjs/themes/prism.css';
