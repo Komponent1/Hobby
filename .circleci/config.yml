@@ -37,3 +37,12 @@ jobs:
       - run:
           name: deploy
           command: bash circleci.client_deploy.sh
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: frontend
