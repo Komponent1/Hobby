@@ -32,6 +32,8 @@ jobs:
       
       - run:
           name: npm build
+          environment:
+            NODE_ENV: product
           command: unset CI;cd client/app;npm run build
             
       - run:
