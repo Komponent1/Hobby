@@ -4,4 +4,5 @@ export const BLOGNAME = '개발 스토리'
 export const BLOGEXPLAIN = '개발은 재미있나';
 export const LOGO = 'https://avatars.githubusercontent.com/u/73334068?s=400&u=950ed73aba0ea7dac49c153f79ba150bfee700d4&v=4'
 // export const BASEURL = 'https://gitblogserver.cf';
+console.log('node env setting correct: ', process.env.NODE_ENV);
 export const BASEURL = (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') ? '' : 'https://gitblogserver.cf';
