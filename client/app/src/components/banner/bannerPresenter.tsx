@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Avatar } from '@mui/material';
-import { BLOGEXPLAIN, LOGO } from '../../env';
+import { LOGO } from '../../env';
 import * as style from './style';
 
 type Prop = {
