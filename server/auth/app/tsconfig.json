@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "target": "es5",
-    "typeRoots": ["./node_modules/@types", "./types.d"]
-  }
-}
