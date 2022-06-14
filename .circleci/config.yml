@@ -38,7 +38,7 @@ jobs:
             
       - run:
           name: deploy
-          command: bash circleci.client_deploy.sh
+          command: ls client/app;bash circleci.client_deploy.sh
 
 workflows:
   version: 2
