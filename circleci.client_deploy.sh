@@ -4,4 +4,4 @@ git add .
 git commit -m "deploy"
 
 git subtree push --prefix client/app/build origin gh-pages
-git push origin master
+git push origin frontend
