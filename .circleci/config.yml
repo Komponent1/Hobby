@@ -34,7 +34,7 @@ jobs:
           name: npm build
           environment:
             NODE_ENV: product
-          command: unset CI;cd client/app;npm run build
+          command: git branch;unset CI;cd client/app;npm run build
             
       - run:
           name: deploy

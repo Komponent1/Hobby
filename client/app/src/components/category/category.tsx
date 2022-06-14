@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import { EMAIL } from '../../env';
 
 const useCategory = () => {
-  const { category, article } = useSelector((state: rootState) => state);
+  const { category } = useSelector((state: rootState) => state);
   const location = useLocation();
   const dispatch = useDispatch();
   const { category_id, article_id } = queryString.parse(location.search) as { category_id?: string, article_id?: string }
