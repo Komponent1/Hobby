@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MainPresenter from './mainPresenter';
 import { useLocation } from 'react-router-dom';
 
