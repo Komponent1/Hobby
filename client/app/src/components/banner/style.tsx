@@ -19,7 +19,7 @@ export const img = {
   width: '6rem',
   height: '6rem',
   border: '1px solid grey',
-  ['@media (min-width: 720px)']: {
+  '@media (min-width: 720px)': {
     display: 'block',
   }
 };

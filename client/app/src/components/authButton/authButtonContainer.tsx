@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import AuthButtonPresenter from './authButtonPresenter';
 import { Cookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -14,20 +14,20 @@ const AuthButtonContainer: React.FC<Prop> = ({ label }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading } = useLoading('refresh');
-  const login = useCallback(async () => {
+  const login = async () => {
     const refresh_token = cookie.get('blog_refresh_token');
     if (refresh_token) {
       dispatch(refresh(loading));
     } else {
       navigate('/login');
     }
-  }, []);
-  const logout = useCallback(() => {
+  };
+  const logout = () => {
     cookie.remove('blog_refresh_token', { path: '/' });
     dispatch(logoutAction());
     alert('logout 되었습니다');
     navigate('/');
-  }, []);
+  };
 
   return (
     <AuthButtonPresenter

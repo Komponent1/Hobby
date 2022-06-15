@@ -19,13 +19,8 @@ const useArticles = () => {
 
   /* For redirect(새로고침) */
   const loadArticles = useCallback((idx: number) => {
-    if (category_id) {
-      dispatch(getArticles(EMAIL, idx, NUM, category_id));
-    } else {
-      dispatch(getArticles(EMAIL, idx, NUM, undefined));
-    }
+    dispatch(getArticles(EMAIL, idx, NUM, category_id));
   }, [ category_id, dispatch ]);
-  
   useEffect(() => {
     if (!data) return;
     if (data && data.count === data.articles.length) return;
@@ -45,6 +40,7 @@ const useArticles = () => {
     observer.observe(ref.current);
   }, [ observer ])
   useEffect(() => {
+    /* 카테고리가 변경되는 경우에 대한 처리 */
     if (observer) observer.disconnect();
     loadArticles(0);
   }, [ category_id, loadArticles ]);

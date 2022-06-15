@@ -7,17 +7,15 @@ import { refresh } from '../../store/auth';
 import HeaderPresenter from './headerPresenter';
 import { EMAIL } from '../../env';
 
-const Header: React.FC = () => {
+const HeaderContainer: React.FC = () => {
   const { data } = useSelector((state: rootState) => state.auth);
-  const cookie = new Cookies();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const refresh_token = cookie.get('blog_refresh_token');
-
+  useEffect(() => {    
+    const refresh_token = new Cookies().get('blog_refresh_token');
     if (!data && refresh_token) dispatch(refresh());
-  }, [ data ]);
+  }, [ dispatch, data ]);
 
   const label = data?.access_token ? 'logout' : 'login';
   const click = (url: string) => () => navigate(url);
@@ -32,4 +30,4 @@ const Header: React.FC = () => {
   )
 };
 
-export default Header;
+export default HeaderContainer;

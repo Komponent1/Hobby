@@ -15,7 +15,7 @@ const useCategory = () => {
 
   useEffect(() => {
     dispatch(getCategory(EMAIL));
-  }, [ category_id, article_id ]);
+  }, [ category_id, article_id, dispatch ]);
 
   const select = () => {
     if (category_id) {
