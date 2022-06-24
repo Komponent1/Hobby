@@ -1,3 +1,4 @@
+import { ApiFunc } from "Api";
 import { fetcher } from "./fetcher";
 /*
   BODY: email, password
@@ -8,7 +9,7 @@ import { fetcher } from "./fetcher";
     412, ref (already email)
     500, logic or db
 */
-const postUser = async (email: string, password: string) => {
+const postUser: ApiFunc<null> = async (email: string, password: string) => {
   const res = await fetcher('/sign/users', {
       'Content-Type': 'application/json'
     }, {

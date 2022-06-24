@@ -1,3 +1,5 @@
+import { ApiFunc } from "Api";
+import { Articles } from "Data";
 import { fetcher } from "./fetcher";
 /*
   QUERY: user, category_id?, pagination, num
@@ -7,7 +9,7 @@ import { fetcher } from "./fetcher";
     400, paramter
     500, db error
 */
-const getArticles = async (email: string, idx: number, num: number, category_id?: string) => {
+const getArticles: ApiFunc<Articles> = async (email: string, idx: number, num: number, category_id?: string) => {
   let url = `/api/articles?user=${email}`
     + (category_id ? `&category_id=${category_id}` : '')
     + `&pagination=${idx}&num=${num}`;

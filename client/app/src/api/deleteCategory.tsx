@@ -1,4 +1,5 @@
 import { fetcher } from "./fetcher";
+import { ApiFunc } from "Api";
 /*
   AUTHORIZATION token
   QUERY: user, category_id
@@ -11,7 +12,8 @@ import { fetcher } from "./fetcher";
     412, category have articles
     500, DB
 */
-const deleteCategory = async (token: string, email: string, category_id: string) => {
+const deleteCategory: ApiFunc<null>
+= async (token: string, email: string, category_id: string) => {
   const res = await fetcher(`/author/category?user=${email}&category_id=${category_id}`, {
     'Authorization': `Bearer ${token}`
   }, {

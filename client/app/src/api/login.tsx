@@ -1,3 +1,5 @@
+import { ApiFunc } from "Api";
+import { Token } from "prismjs";
 import { fetcher } from "./fetcher";
 /*
   BODY: email, password
@@ -9,7 +11,7 @@ import { fetcher } from "./fetcher";
     412, ref error(no email)
     500, logic or db
 */
-const login = async (email: string, password: string) => {
+const login: ApiFunc<Token> = async (email: string, password: string) => {
   const res = await fetcher('/sign/login', {
     'Content-Type': 'application/json'
   }, {

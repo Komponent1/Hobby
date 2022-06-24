@@ -1,3 +1,5 @@
+import { ApiFunc } from "Api";
+import { Category } from "Data";
 import { fetcher } from "./fetcher";
 /*
   QUERY: user
@@ -9,7 +11,7 @@ import { fetcher } from "./fetcher";
     403, authorization
     500, db error
 */
-const getCategory = async (email: string) => {
+const getCategory: ApiFunc<Category[]> = async (email: string) => {
   const res = await fetcher(`/api/category?user=${email}`, {
     'Content-Type': 'application/json'
   }, {});

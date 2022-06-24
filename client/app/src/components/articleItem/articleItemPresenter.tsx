@@ -5,27 +5,27 @@ import { LOGO } from '../../env';
 
 type Prop = {
   hover: boolean
-  setHover: {
+  checkHover: {
     onMouseOver: () => void
     onMouseOut: () => void
   },
-  onClick: (e: React.MouseEvent) => void
+  move2Article: () => void
   title: string
   date: string
 }
-const ArticleItemPresenter: React.FC<Prop> = ({ hover, setHover, onClick, title, date }) => {
+const ArticleItemPresenter: React.FC<Prop> = ({ hover, checkHover, move2Article, title, date }) => {
   return (
     <ListItem
-        {...setHover}
-        onClick={onClick} sx={style.item}>
+        sx={style.item}
+        {...checkHover}
+        onClick={move2Article}>
       <ListItemText
         primary={title}
         primaryTypographyProps={{
           variant: 'h4',
           sx: style.itemText(hover)
         }}
-        secondary={date}
-      />
+        secondary={date}/>
       <ListItemAvatar>
         <Avatar alt='logo' src={LOGO}/>
       </ListItemAvatar>

@@ -1,112 +1,65 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { Article } from 'Data';
+import { takeLatest } from 'redux-saga/effects';
 import * as api from '../api';
-
-export const GET_ARTICLE = 'GET_ARTICLE/PENDING';
-export const GET_ARTICLE_SUCCESS = 'GET_ARTICLE/SUCCESS';
-export const GET_ARTICLE_FAILURE = 'GET_ARTICLE/FAILURE';
-
-export const POST_ARTICLE = 'POST_ARTICLE/PENDING';
-export const POST_ARTICLE_SUCCESS = 'POST_ARTICLE/SUCCESS';
-export const POST_ARTICLE_FAILURE = 'POST_ARTICLE/FAILURE';
-
-export const PATCH_ARTICLE = 'PATCH_ARTICLE/PENDING';
-export const PATCH_ARTICLE_SUCCESS = 'PATCH_ARTICLE/SUCCESS';
-export const PATCH_ARTICLE_FAILURE = 'PATCH_ARTICLE/FAILURE';
-
-export const DELETE_ARTICLE = 'DELETE_ARTICLE/PENDING';
-export const DELETE_ARTICLE_SUCCESS = 'DELETE_ARTICLE/SUCCESS';
-export const DELETE_ARTICLE_FAILURE = 'DELETE_ARTICLE/FAILURE';
+import { asyncActionCreator, createSaga } from '../lib/reduxLib';
 
 export const ARTICLE_CLREAR = 'ARTICLE/CLEAR';
-
-export const getArticle = (article_id: string, loading?: Function) => ({
-  type: GET_ARTICLE,
-  payload: { article_id, loading }
-});
-export function *getSaga(action: any) {
-  const { article_id, loading }:
-  { article_id: string, loading?: Function } = action.payload;
-  if (loading) loading(`/article?article_id=${article_id}`);
-
-  const result: { code: number, data: any } = yield call(api.getArticle, article_id);
-  if (result.code === 200) {
-    yield put({
-      type: GET_ARTICLE_SUCCESS,
-      payload: result.data
-    })
-  } else {
-    yield put({
-      type: GET_ARTICLE_FAILURE,
-      payload: result.code
-    })
-  }
-};
-export const patchArticle = (article_id: string, category_id: number, token: string, email: string, file: FormData, loading?: Function) => ({
-  type: PATCH_ARTICLE,
-  payload: { article_id, category_id, token, email, file, loading }
-});
-export function* patchSaga(action: any) {
-  const { article_id, token, email, file, loading, category_id }:
-  { article_id: string, category_id: number, token: string, email: string, file: FormData, loading: Function } = action.payload;
-  if (loading) loading(`/article?article_id=${article_id}`);
-
-  const result: { code: number, data: any } = yield call(api.patchArticle, token, email, article_id, category_id, file);
-  if (result.code === 200) {
-    yield put({
-      type: PATCH_ARTICLE_SUCCESS,
-      payload: result.data,
-    });
-  } else {
-    yield put({
-      type: PATCH_ARTICLE_FAILURE,
-      payload: result.code,
-    });
-  }
-}
-export const postArticle = (token: string, email: string, category_id: number, file: FormData, loading?: Function) => ({
-  type: POST_ARTICLE,
-  payload: { token, email, category_id, file, loading }
-});
-export function* postSaga(action: any) {
-  const { token, email, category_id, file, loading }:
-  { token: string, email: string, category_id: number, file: FormData, loading?: Function } = action.payload;
-  if (loading) loading('/');
-
-  const result: { code: number, data: any } = yield call(api.postArticle, token, email, category_id, file);
-  if (result.code === 200) {
-    yield put({
-      type: POST_ARTICLE_SUCCESS,
-      payload: result.data
-    });
-  } else if (result){
-    yield put({
-      type: POST_ARTICLE_FAILURE,
-      payload: result.code
-    })
-  }
-};
-export const deleteArticle = (article_id: string, token: string, email: string, loading?: Function) => ({
-  type: DELETE_ARTICLE,
-  payload: { article_id, token, email, loading }
-});
-export function* deleteSaga(action: any) {
-  const { article_id, token, email, loading }:
-  { article_id: string, token: string, email: string, loading?: Function } = action.payload;
-  if (loading) loading('/')
-
-  const result: { code: number } = yield call(api.deleteArticle, token, email, article_id);
-  if (result.code === 204) {
-    yield put({
-      type: DELETE_ARTICLE_SUCCESS,
-      payload: article_id
-    })
-  } else {
-    yield put({
-      type: DELETE_ARTICLE_FAILURE,
-      payload: result.code
-    })
-  }
-};
+type GetParam = { article_id: string, loading?: Function }
+const [
+  GET_ARTICLE, GET_ARTICLE_SUCCESS, GET_ARTICLE_FAILURE,
+  getArticleActionCreateor,
+  getArticleSuccessActionCreator,
+  getArticleFailureActionCreator,
+] = asyncActionCreator('GET_ARTICLE');
+export const getArticle =
+(article_id: string, loading?: Function) =>
+getArticleActionCreateor<GetParam>({ article_id, loading })
+export const getSaga = createSaga<GetParam, Article>(
+  getArticleSuccessActionCreator, getArticleFailureActionCreator,
+  api.getArticle
+);
+type PostParam = { token: string, email: string, category_id: number, file: FormData, loading?: Function }
+const [
+  POST_ARTICLE, POST_ARTICLE_SUCCESS, POST_ARTICLE_FAILURE,
+  postArticleActionCreator,
+  postArticleSuccessActionCreator,
+  postArticleFailureActionCreator
+] = asyncActionCreator('POST_ARTICLE');
+export const postArticle =
+(token: string, email: string, category_id: number, file: FormData) =>
+postArticleActionCreator<PostParam>({ token, email, category_id, file });
+export const postSaga = createSaga<PostParam, Article>(
+  postArticleSuccessActionCreator, postArticleFailureActionCreator,
+  api.postArticle
+);
+type PatchParam = { article_id: string, category_id: number, token: string, email: string, file: FormData, loading?: Function }
+const [
+  PATCH_ARTICLE, PATCH_ARTICLE_SUCCESS, PATCH_ARTICLE_FAILURE,
+  patchArticleActionCreator,
+  patchArticleSuccessActionCreator,
+  patchArticleFailureActionCreator
+] = asyncActionCreator('PATCH_ARTICLE');
+export const patchArticle =
+(article_id: string, category_id: number, token: string, email: string, file: FormData, loading?: Function) =>
+patchArticleActionCreator<PatchParam>({ article_id, category_id, token, email, file, loading });
+export const patchSaga = createSaga<PatchParam, Article>(
+  patchArticleSuccessActionCreator, patchArticleFailureActionCreator,
+  api.patchArticle
+)
+type DeleteParam = { article_id: string, token: string, email: string, loading?: Function }
+const [
+  DELETE_ARTICLE, DELETE_ARTICLE_SUCCESS, DELETE_ARTICLE_FAILURE,
+  deleteArticleActionCreator,
+  deleteArticleSuccessActionCreator,
+  deleteArticleFailureActionCreator
+] = asyncActionCreator('DELETE_ARTICLE');
+export const deleteArticle =
+(article_id: string, token: string, email: string, loading?: Function) =>
+deleteArticleActionCreator<DeleteParam>({ article_id, token, email, loading });
+export const deleteSaga = createSaga<DeleteParam, { article_id: number }>(
+  deleteArticleSuccessActionCreator, deleteArticleFailureActionCreator,
+  api.deleteArticle
+)
 export function* articleSaga() {
   yield takeLatest(GET_ARTICLE, getSaga);
   yield takeLatest(PATCH_ARTICLE, patchSaga);

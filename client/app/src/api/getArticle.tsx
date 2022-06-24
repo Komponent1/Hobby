@@ -1,4 +1,6 @@
 import { fetcher } from './fetcher';
+import { Article } from 'Data';
+import { ApiFunc } from 'Api';
 /*
   QUERY: article_id
   RES:
@@ -7,7 +9,7 @@ import { fetcher } from './fetcher';
     400, paramter
     500, DB or File
 */
-const getArticle = async (article_id: string) => {
+const getArticle: ApiFunc<{ article_id: string }, Article> = async ({ article_id }) => {
   const res = await fetcher(`/api/article?article_id=${article_id}`, {
     'Content-Type': 'application/json'
   }, {});

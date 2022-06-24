@@ -1,3 +1,4 @@
+import { ApiFunc } from "Api";
 import { fetcher } from "./fetcher";
 /*
   header have refresh_token
@@ -8,7 +9,7 @@ import { fetcher } from "./fetcher";
     403, authentication
     500, logic
 */
-const login = async () => {
+const refresh: ApiFunc<null> = async () => {
   const res = await fetcher('/sign/refresh', {}, {});
   if (
     res.status === 400 ||
@@ -20,4 +21,4 @@ const login = async () => {
     return ({ code: res.status, data: result });
 };
 
-export default login;
+export default refresh;

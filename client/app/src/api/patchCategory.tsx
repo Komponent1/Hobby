@@ -1,3 +1,5 @@
+import { ApiFunc } from "Api";
+import { Category } from "Data";
 import { fetcher } from "./fetcher";
 /*
   AUTHORIZATION token
@@ -11,7 +13,7 @@ import { fetcher } from "./fetcher";
     412, category name already in db
     500, DB
 */
-const patchCategory = async (token: string, email: string, category_id: string, category_name: string) => {
+const patchCategory: ApiFunc<Category> = async (token: string, email: string, category_id: string, category_name: string) => {
   const res = await fetcher(`/author/category`, {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`

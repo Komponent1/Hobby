@@ -7,18 +7,18 @@ import * as data from '../mockserver/data';
 describe('ArticleItem', () => {
   test('Presentation', () => {
     const hover = false;
-    const setHover = {
+    const checkHover = {
       onMouseOver: jest.fn(),
       onMouseOut: jest.fn(),
     }
-    const click = jest.fn();
+    const move2Article = jest.fn();
     const title = 'TEST TITLE';
     const date = 'TEST DATE';
 
     const { getByText } = render(
       <ArticleItemPresenter
-        hover={hover} setHover={setHover}
-        onClick={click} title={title} date={date}/>
+        hover={hover} checkHover={checkHover}
+        move2Article={move2Article} title={title} date={date}/>
     );
 
     const itemText = getByText('TEST TITLE');
@@ -26,13 +26,13 @@ describe('ArticleItem', () => {
     expect(getByText('TEST DATE')).toBeInTheDocument();
 
     fireEvent.mouseOver(itemText);
-    expect(setHover.onMouseOver).toBeCalledTimes(1);
+    expect(checkHover.onMouseOver).toBeCalledTimes(1);
 
     fireEvent.mouseOut(itemText);
-    expect(setHover.onMouseOut).toBeCalledTimes(1);
+    expect(checkHover.onMouseOut).toBeCalledTimes(1);
 
     fireEvent.click(itemText);
-    expect(click).toBeCalledTimes(1);
+    expect(move2Article).toBeCalledTimes(1);
   });
 
   describe('Container', () => {

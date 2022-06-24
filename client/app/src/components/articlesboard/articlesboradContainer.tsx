@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { rootState } from '../../store';
@@ -15,30 +15,30 @@ const useArticles = () => {
   const category_id = queryString.parse(location.search).category_id as string|undefined;
   const { data } = useSelector((state: rootState) => state.articles);
   const dispatch = useDispatch();
-  const [observer, setObserver] = useState<any>(null);
-
-  /* For redirect(새로고침) */
+  const observer = new IntersectionObserver(async ([entry], observer) => {
+    if (entry.isIntersecting) {
+      const idx = !data ? 0 : (
+        data.articles.length / NUM < 1 ? Math.floor(data.articles.length / NUM) + 1 : Math.floor(data.articles.length / NUM)
+      );
+      loadArticles(idx);
+      observer.disconnect();
+    }
+  }, { threshold: 0.5 });
+  useEffect(() => {
+    if (ref?.current) {
+      observer.observe(ref.current);
+    }
+  }, [ ref ]);
   const loadArticles = useCallback((idx: number) => {
     dispatch(getArticles(EMAIL, idx, NUM, category_id));
   }, [ category_id, dispatch ]);
   useEffect(() => {
+    if (!ref.current) return;
     if (!data) return;
     if (data && data.count === data.articles.length) return;
-    setObserver(new IntersectionObserver(async ([entry], observer) => {
-      if (entry.isIntersecting) {
-        const idx = !data ? 0 : (
-          data.articles.length / NUM < 1 ? Math.floor(data.articles.length / NUM) + 1 : Math.floor(data.articles.length / NUM)
-        );
-        loadArticles(idx);
-        observer.disconnect();
-      }
-    }, { threshold: 0.5 }));
+    observer.observe(ref.current)
+    
   }, [ data, loadArticles ])
-  useEffect(() => {
-    if (!observer) return;
-    if(!ref?.current) return;
-    observer.observe(ref.current);
-  }, [ observer ])
   useEffect(() => {
     /* 카테고리가 변경되는 경우에 대한 처리 */
     if (observer) observer.disconnect();

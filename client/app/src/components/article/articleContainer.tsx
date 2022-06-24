@@ -63,9 +63,8 @@ const useViewer = (data: any) => {
   return { ref };
 }
 const ArticleContainer: React.FC = () => {
-  const mediaMatch = window.matchMedia('(max-width: 1200px)');
+  const matches = useRef<boolean>(window.matchMedia('(max-width: 1200px)').matches);
   const location = useLocation();
-  const matches = useRef<boolean>(mediaMatch.matches);
   const { article_id } = queryString.parse(location.search) as { article_id: string };
   const { loading, data } = useArticle(article_id);
   const { openEditor, openDel } = usePagemove(article_id);

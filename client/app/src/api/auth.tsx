@@ -1,4 +1,5 @@
 import { fetcher } from './fetcher';
+import { ApiFunc } from 'Api';
 /*
   AUTHORIZATION token
   RES:
@@ -7,7 +8,7 @@ import { fetcher } from './fetcher';
     400, no auth header
     403, authentication 
 */
-const auth = async (token: string) => {
+const auth = async (token: string): Promise<number> => {
   const res = await fetcher('/auth', {
     'Authorization': `Bearer ${token}`
   }, {});

@@ -1,3 +1,4 @@
+import { ApiFunc } from "Api";
 import { fetcher } from "./fetcher";
 /*
   AUTHORIZATION token
@@ -10,14 +11,15 @@ import { fetcher } from "./fetcher";
     403, authorization
     500, DB or File
 */
-const deleteArticle = async (token: string, email: string, article_id: string) => {
+
+const deleteArticle: ApiFunc<{ token: string, email: string, article_id: string }, {article_id: string}> = async ({ token, email, article_id }) => {
   const res = await fetcher(`/author/article?user=${email}&article_id=${article_id}`, {
     'Authorization': `Bearer ${token}`
   }, {
     method: 'DELETE'
   });
 
-  return ({ code: res.status });
+  return ({ code: res.status, data: article_id });
 };
 
 export default deleteArticle;

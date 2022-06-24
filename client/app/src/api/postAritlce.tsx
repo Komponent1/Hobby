@@ -1,3 +1,5 @@
+import { ApiFunc } from "Api";
+import { Article } from "Data";
 import { fetcher } from "./fetcher";
 /*
   AUTHORIZATION token
@@ -11,7 +13,7 @@ import { fetcher } from "./fetcher";
     403, authorization
     500, DB or File
 */
-const postArticle = async (token: string, email: string, category_id: number, file: FormData) => {
+const postArticle: ApiFunc<{ token: string, email: string, category_id: number, file: FormData }, Article> = async ({ token, email, category_id, file }) => {
   const res = await fetcher(`/author/article?user=${email}&category_id=${category_id}`, {
       'Authorization': `Bearer ${token}`
     },{
