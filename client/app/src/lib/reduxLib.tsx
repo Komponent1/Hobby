@@ -17,7 +17,6 @@ export const asyncActionCreator = (api: string):
 
   return [
     PENDING, SUCCESS, FAILURE,
-
     actionCreator(PENDING),
     actionCreator(SUCCESS),
     actionCreator(FAILURE)

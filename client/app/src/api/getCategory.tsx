@@ -11,7 +11,9 @@ import { fetcher } from "./fetcher";
     403, authorization
     500, db error
 */
-const getCategory: ApiFunc<Category[]> = async (email: string) => {
+const getCategory: ApiFunc<{ email: string }, Category[]> =
+async ({ email}) =>
+{
   const res = await fetcher(`/api/category?user=${email}`, {
     'Content-Type': 'application/json'
   }, {});

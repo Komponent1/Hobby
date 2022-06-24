@@ -26,8 +26,8 @@ const [
   postArticleFailureActionCreator
 ] = asyncActionCreator('POST_ARTICLE');
 export const postArticle =
-(token: string, email: string, category_id: number, file: FormData) =>
-postArticleActionCreator<PostParam>({ token, email, category_id, file });
+(token: string, email: string, category_id: number, file: FormData, loading?: Function) =>
+postArticleActionCreator<PostParam>({ token, email, category_id, file, loading });
 export const postSaga = createSaga<PostParam, Article>(
   postArticleSuccessActionCreator, postArticleFailureActionCreator,
   api.postArticle

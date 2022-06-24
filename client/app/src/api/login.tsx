@@ -11,7 +11,9 @@ import { fetcher } from "./fetcher";
     412, ref error(no email)
     500, logic or db
 */
-const login: ApiFunc<Token> = async (email: string, password: string) => {
+const login: ApiFunc<{ email: string, password: string }, Token> =
+async ({ email, password }) =>
+{
   const res = await fetcher('/sign/login', {
     'Content-Type': 'application/json'
   }, {

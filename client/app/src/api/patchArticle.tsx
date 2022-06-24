@@ -15,7 +15,9 @@ import { fetcher } from "./fetcher";
   ETC:
     파일 삭제에 실패한 경우 관리자를 호출, 직접 삭제요망
 */
-const patchArticle: ApiFunc<{ token: string, email: string, article_id: string, category_id: number, file: FormData }, Article> = async ({ token, email, article_id, category_id, file}) => {
+const patchArticle: ApiFunc<{ token: string, email: string, article_id: string, category_id: number, file: FormData }, Article> =
+async ({ token, email, article_id, category_id, file}) =>
+{
   const res = await fetcher(`/author/article?user=${email}&article_id=${article_id}&category_id=${category_id}`, {
     'Authorization': `Bearer ${token}`
   }, {

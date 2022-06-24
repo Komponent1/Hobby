@@ -13,13 +13,15 @@ import { fetcher } from "./fetcher";
     412, category name already in db
     500, DB
 */
-const postCategory: ApiFunc<Category> = async (token: string, user: string, category_name: string) => {
+const postCategory: ApiFunc<{ token: string, email: string, category_name: string }, Category> =
+async ({ token, email, category_name }) =>
+{
   const res = await fetcher('/author/category', {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     }, {
       method: 'POST',
-      body: JSON.stringify({ user, category_name })
+      body: JSON.stringify({ user: email, category_name })
   });
   if (
     res.status === 400 ||

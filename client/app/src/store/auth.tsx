@@ -1,61 +1,36 @@
+import { Token } from 'prismjs';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as api from '../api';
+import { actionCreator, asyncActionCreator, createSaga } from '../lib/reduxLib';
 
-export const LOGIN = 'AUTH/LOGIN';
-export const REFRESH = 'AUTH/REFRESH';
-export const AUTH_FAILURE = 'AUTH/FAILURE';
-export const AUTH_SUCCESS = 'AUTH/SUCCESS';
 export const LOGOUT = 'AUTH/LOGOUT';
 
-export const login = (email: string, password: string, loading?: Function) => ({
-  type: LOGIN,
-  payload: { email, password, loading }
-});
-export function* loginSaga(action: any) {
-  const { email, password, loading }:
-  { email: string, password: string, loading?: Function } = action.payload;
-  if (loading) loading('/');
-  
-  const result: { code: number, data?: any } = yield call(api.login as any, email, password);
-  if (result.code === 200) {
-    yield put({
-      type: AUTH_SUCCESS,
-      payload: result.data,
-    });
-  } else {
-    yield put({
-      type: AUTH_FAILURE,
-      err: true,
-      payload: result.code
-    })
-  }
-};
-export const refresh = (loading?: Function) => ({
-  type: REFRESH,
-  payload: { loading }
-});
-export function* refreshSaga(action: any) {
-  const { loading }: { loading: Function } = action.payload;
-  if (loading) loading('/')
-  
-  const result: { code: number, data?: any } = yield call(api.refresh as any);
-  if (result.code === 200) {
-    yield put({
-      type: AUTH_SUCCESS,
-      payload: result.data
-    })
-  } else {
-    yield put({
-      type: AUTH_FAILURE,
-      err: true,
-      payload: result.code
-    })
-  }
-}
+type AuthParam = { email: string, password: string, loading?: Function }
+const [
+  LOGIN, AUTH_SUCCESS, AUTH_FAILURE,
+  authActionCreator,
+  authSuccessActionCreator,
+  authFailureActionCreator
+] = asyncActionCreator('AUTH');
+export const login =
+(email: string, password: string, loading?: Function) =>
+authActionCreator<AuthParam>({ email, password, loading });
+export const loginSaga = createSaga<AuthParam, Token>(
+  authSuccessActionCreator, authFailureActionCreator,
+  api.login
+);
+
+type RefreshParam = { loading?: Function };
+export const REFRESH = 'AUTH/REFRESH';
+const refreshActionCreator = actionCreator('AUTH/REFRESH');
+export const refresh = (loading?: Function) => refreshActionCreator<RefreshParam>({ loading });
+export const refreshSaga = createSaga<RefreshParam, Token>(
+  authSuccessActionCreator, authFailureActionCreator,
+  api.refresh
+);
 export const logout = () => ({
   type: LOGOUT
 })
-
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
   yield takeLatest(REFRESH, refreshSaga);

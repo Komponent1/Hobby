@@ -1,36 +1,26 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as api from '../api';
+import { asyncActionCreator, createSaga } from '../lib/reduxLib';
 
-export const SIGNUP = 'SIGNUP/PENDING';
-export const SIGNUP_SUCCESS = 'SIGNUP/SUCCESS';
-export const SIGNUP_FAILURE = 'SIGNUP/FAILURE';
 export const SIGNUP_CLEAR = 'SIGNUP/CLEAR';
 
-export const signup = (email: string, password: string, loading?: Function) => ({
-  type: SIGNUP,
-  payload: { email, password, loading }
-});
+type SignupParam = { email: string, password: string, loading?: Function };
+const [
+  SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE,
+  signupActionCreator,
+  signupSuccessActionCreator,
+  signupFailureActionCreator
+] = asyncActionCreator('SIGNUP');
+export const signup =
+(email: string, password: string, loading?: Function) =>
+signupActionCreator<SignupParam>({ email, password, loading });
+export const Saga = createSaga<SignupParam, {}>(
+  signupSuccessActionCreator, signupFailureActionCreator,
+  api.postUser
+);
 export const loadClear = () => ({
   type: SIGNUP_CLEAR
 });
-export function* Saga(action: any) {
-  const { email, password, loading }:
-  { email: string, password: string, loading?: Function } = action.payload;
-  if (loading) loading('/login');
-
-  const result: { code: number } = yield call(api.postUser, email, password);
-  if (result.code === 204) {
-    yield put({
-      type: SIGNUP_SUCCESS,
-      payload: result.code,
-    });
-  } else {
-    yield put({
-      type: SIGNUP_FAILURE,
-      payload: result.code,
-    });
-  };
-}
 export function* signupSaga() {
   yield takeLatest(SIGNUP, Saga);
 };

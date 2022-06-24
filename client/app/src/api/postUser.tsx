@@ -9,7 +9,9 @@ import { fetcher } from "./fetcher";
     412, ref (already email)
     500, logic or db
 */
-const postUser: ApiFunc<null> = async (email: string, password: string) => {
+const postUser: ApiFunc<{ email: string, password: string }, null> =
+async ({ email, password }) =>
+{
   const res = await fetcher('/sign/users', {
       'Content-Type': 'application/json'
     }, {

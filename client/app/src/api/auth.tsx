@@ -8,12 +8,12 @@ import { ApiFunc } from 'Api';
     400, no auth header
     403, authentication 
 */
-const auth = async (token: string): Promise<number> => {
+const auth: ApiFunc<{ token: string }, null> = async ({ token }) => {
   const res = await fetcher('/auth', {
     'Authorization': `Bearer ${token}`
   }, {});
 
-  return res.status;
+  return { code: res.status, data: null };
 };
 
 export default auth;

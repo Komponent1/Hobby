@@ -12,7 +12,9 @@ import { fetcher } from "./fetcher";
     500, DB or File
 */
 
-const deleteArticle: ApiFunc<{ token: string, email: string, article_id: string }, {article_id: string}> = async ({ token, email, article_id }) => {
+const deleteArticle: ApiFunc<{ token: string, email: string, article_id: string }, {article_id: string}> =
+async ({ token, email, article_id }) =>
+{
   const res = await fetcher(`/author/article?user=${email}&article_id=${article_id}`, {
     'Authorization': `Bearer ${token}`
   }, {

@@ -12,15 +12,15 @@ import { ApiFunc } from "Api";
     412, category have articles
     500, DB
 */
-const deleteCategory: ApiFunc<null>
-= async (token: string, email: string, category_id: string) => {
+const deleteCategory: ApiFunc<{ token: string, email: string, category_id: string }, string> =
+async ({ token, email, category_id }) => {
   const res = await fetcher(`/author/category?user=${email}&category_id=${category_id}`, {
     'Authorization': `Bearer ${token}`
   }, {
     method: 'DELETE'
   });
 
-  return ({ code: res.status });
+  return ({ code: res.status, data: category_id });
 };
 
 export default deleteCategory;

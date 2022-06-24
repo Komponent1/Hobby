@@ -1,109 +1,64 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { Category } from 'Data';
+import { takeLatest } from 'redux-saga/effects';
 import * as api from '../api';
+import { asyncActionCreator, createSaga } from '../lib/reduxLib';
 
-export const GET_CATEGORY = 'GET_CATEGORY/PENDING';
-export const GET_CATEGORY_SUCCESS = 'GET_CATEGORY/SUCCESS';
-export const GET_CATEGORY_FAILURE = 'GET_CATEGORY/FAILURE';
-
-export const POST_CATEGORY = 'POST_CATEGORY/PENDING';
-export const POST_CATEGORY_SUCCESS = 'POST_CATEGORY/SUCCESS';
-export const POST_CATEGORY_FAILURE = 'POST_CATEGORY/FAILURE';
-
-export const PATCH_CATEGORY = 'PATCH_CATEGORY/PENDING';
-export const PATCH_CATEGORY_SUCCESS = 'PATCH_CATEGORY/SUCCESS';
-export const PATCH_CATEGORY_FAILURE = 'PATCH_CATEGORY/FALIURE';
-
-export const DELETE_CATEGORY = 'DELETE_CATEGORY/PENDING';
-export const DELETE_CATEGORY_SUCCESS = 'DELETE_CATEGORY/SUCCESS';
-export const DELETE_CATEGORY_FAILURE = 'DELETE_CATEGORY/FAILURE';
-
-export const getCategory = (email: string, loading?: Function) => ({
-  type: GET_CATEGORY,
-  payload: { email, loading }
-});
-export function* getSaga(action: any) {
-  const { email, loading }: { email: string, loading?: Function } = action.payload;
-  if (loading) loading('prev url');
-
-  const result: { code: number, data?: any } = yield call(api.getCategory, email);
-  if (result.code === 200) {
-    yield put({
-      type: GET_CATEGORY_SUCCESS,
-      payload: result.data
-    })
-  } else {
-    yield put({
-      type: GET_CATEGORY_FAILURE,
-      payload: result.code
-    })
-  }
-};
-export const postCategory = (token: string, email: string, category_name: string, loading?: Function) => ({
-  type: POST_CATEGORY,
-  payload: { token, email, category_name, loading }
-});
-export function* postSaga(action: any) {
-  const  { token, email, category_name, loading }:
-  { token: string, email: string, category_name: string, loading?: Function } = action.payload;
-  if (loading) loading('prev url');
-
-  const result: { code: number, data: any } = yield call(api.postCategory, token, email, category_name);
-  if (result.code === 200) {
-    yield put({
-      type: POST_CATEGORY_SUCCESS,
-      payload: result.data
-    });
-  } else {
-    yield put({
-      type: POST_CATEGORY_FAILURE,
-      payload: result.code
-    });
-  }
-}
-export const patchCategory = (token: string, email: string, category_id: string, category_name: string, loading?: Function) => ({
-  type: PATCH_CATEGORY,
-  payload: { token, email, category_id, category_name, loading }
-});
-export function* patchSaga(action: any) {
-  const { token, email, category_id, category_name, loading }:
-  { token: string, email: string, category_id: string, category_name: string, loading?: Function } = action.payload
-  if (loading) loading('/');
-
-  const result: { code: number, data: any } = yield call(api.patchCategory, token, email, category_id, category_name);
-  if (result.code === 200) {
-    yield put({
-      type: PATCH_CATEGORY_SUCCESS,
-      payload: result.data
-    });
-  } else {
-    yield put({
-      type: PATCH_CATEGORY_FAILURE,
-      payload: result.code
-    });
-  }
-};
-export const deleteCategory = (token: string, email: string, category_id: string, loading?: Function) => ({
-  type: DELETE_CATEGORY,
-  payload: { token, email, category_id, loading }
-});
-export function* deleteSaga(action: any) {
-  const { token, email, category_id, loading }:
-  { token: string, email: string, category_id: string, loading?: Function } = action.payload;
-  if (loading) loading('prev url');
-
-  const result: { code: number } = yield call(api.deleteCategory, token, email, category_id);
-  if (result.code === 204) {
-    yield put({
-      type: DELETE_CATEGORY_SUCCESS,
-      payload: category_id 
-    })
-  } else {
-    yield put ({
-      type: DELETE_CATEGORY_FAILURE,
-      payload: result.code
-    })
-  }
-};
+type GetParam = { email: string, loading?: Function }
+const [
+  GET_CATEGORY, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILURE,
+  getCategoryActionCreator,
+  getCategorySuccessActionCreator,
+  getCategoryFailureActionCreator
+] = asyncActionCreator('GET_CATEGORY');
+export const getCategory =
+(email: string, loading?: Function) =>
+getCategoryActionCreator<GetParam>({ email, loading });
+export const getSaga = createSaga<GetParam, Category[]>(
+  getCategorySuccessActionCreator, getCategoryFailureActionCreator,
+  api.getCategory
+);
+type PostParam = { token: string, email: string, category_name: string, loading?: Function };
+const [
+  POST_CATEGORY, POST_CATEGORY_SUCCESS, POST_CATEGORY_FAILURE,
+  postCategoryActionCreator,
+  postCategorySuccessActionCreator,
+  postCategoryFailureActionCreator
+] = asyncActionCreator('POST_CATEGORY');
+export const postCategory =
+(token: string, email: string, category_name: string, loading?: Function) =>
+postCategoryActionCreator<PostParam>({ token, email, category_name, loading });
+export const postSaga = createSaga<PostParam, Category[]>(
+  postCategorySuccessActionCreator, postCategoryFailureActionCreator,
+  api.postCategory
+);
+type PatchParam = { token: string, email: string, category_id: string, category_name: string, loading?: Function };
+const [
+  PATCH_CATEGORY, PATCH_CATEGORY_SUCCESS, PATCH_CATEGORY_FAILURE,
+  patchCategoryActionCreator,
+  patchCategorySuccessActionCreator,
+  patchCategoryFailureActionCreator
+] = asyncActionCreator('PATCH_CATEGORY');
+export const patchCategory =
+(token: string, email: string, category_id: string, category_name: string, loading?: Function) =>
+patchCategoryActionCreator<PatchParam>({ token, email, category_id, category_name, loading });
+export const patchSaga = createSaga<GetParam, Category>(
+  patchCategorySuccessActionCreator, patchCategoryFailureActionCreator,
+  api.patchCategory
+);
+type DeleteParam = { token: string, email: string, category_id: string, loading?: Function };
+const [
+  DELETE_CATEGORY, DELETE_CATEGORY_SUCCESS, DELETE_CATEGORY_FAILURE,
+  deleteCategoryActionCreator,
+  deleteCategorySuccessActionCreator,
+  deleteCategoryFailureActionCreator
+] = asyncActionCreator('DELETE_CATEGORY');
+export const deleteCategory =
+(token: string, email: string, category_id: string, loading?: Function) =>
+deleteCategoryActionCreator<DeleteParam>({ token, email, category_id, loading });
+export const deleteSaga = createSaga<GetParam, Category>(
+  deleteCategorySuccessActionCreator, deleteCategoryFailureActionCreator,
+  api.deleteCategory
+);
 
 export function *categorySaga() {
   yield takeLatest(GET_CATEGORY, getSaga);

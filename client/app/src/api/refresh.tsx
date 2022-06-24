@@ -9,7 +9,7 @@ import { fetcher } from "./fetcher";
     403, authentication
     500, logic
 */
-const refresh: ApiFunc<null> = async () => {
+const refresh: ApiFunc<undefined, null> = async () => {
   const res = await fetcher('/sign/refresh', {}, {});
   if (
     res.status === 400 ||
