@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['gateway']
+    domains: ['gitblogserver.cf']
   },
   async rewrites() {
     return [
