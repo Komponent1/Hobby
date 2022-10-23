@@ -57,7 +57,7 @@ const uploadArticle = async (title, user, path, src) => {
   try {
     return await db.one(
       `INSERT INTO article(title, publish_date, update_date, user_id, path, src) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [title, new Date().toString(), new Date().toString(), user, path, `${process.env.BASEURL}/${src}`]
+      [title, new Date().toString(), new Date().toString(), user, path, `https://gitblogserver.cf/${src}`]
     );
   } catch(err) {
     console.log('ERROR LOG(DB)', err)
