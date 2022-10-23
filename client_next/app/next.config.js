@@ -8,15 +8,15 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        destination: 'http://gateway:80/api/:path*',
+        destination: 'https://gitblogserver.cf/api/:path*',
         source: '/api/:path*',
       },
       {
-        destination: 'http://gateway:80/author/:path*',
+        destination: 'https://gitblogserver.cf/author/:path*',
         source: '/author/:path*',
       },
       {
-        destination: 'http://gateway:80/sign/:path*',
+        destination: 'https://gitblogserver.cf/sign/:path*',
         source: '/sign/:path*',
       }
     ]

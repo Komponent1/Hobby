@@ -34,7 +34,7 @@ function ArticleCard({
         ))}
       </CardContent>
       <CardContent>
-        {article.user_email}
+        {article.id}
       </CardContent>
     </Card>
   );

@@ -36,7 +36,7 @@ function Main({
       <AutoChipsInput
         design="underline"
         control={control}
-        controlValue={tags.map((tag) => tag.name)}
+        controlValue={tags.map((tag: any) => tag.name)}
         placeholder="태그로 검색해주세요"
       />
       <Grid
@@ -58,8 +58,8 @@ function Main({
  */
 export async function getServerSideProps() {
   try {
-    const { articles } = await fetch('http://gateway:80/api/articles?email=seo2im6492@gmail.com').then((res) => res.json());
-    const { tags } = await fetch('http://gateway:80/api/tags').then((res) => res.json());
+    const { articles } = await fetch('https://gitblogserver.cf/api/articles').then((res) => res.json());
+    const { tags } = await fetch('https://gitblogserver.cf/api/tags').then((res) => res.json());
 
     return ({
       props: {

@@ -21,7 +21,7 @@ function Preview({
         children={mdString}
         components={{
           code({
-            node, inline, className, children, ...props
+            node, inline, className, children, style, ...props
           }) {
             const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (

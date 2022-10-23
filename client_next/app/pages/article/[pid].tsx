@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { Skeleton } from '@seolim/react-ui/loading';
 import { Chip } from '@seolim/react-ui/chips';
 import { Avatar } from '@seolim/react-ui';
 import { Article as tArticle, User } from 'Data';

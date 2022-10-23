@@ -24,7 +24,7 @@ function Post({
         raw={article ? ({
           id: article.article.id,
           title: article.article.title,
-          tag: article.article.tag.map((tag) => tag.name),
+          tag: article.article.tag.map((tag: any) => tag.name),
           content: article.content,
         }) : undefined}
       />
@@ -74,7 +74,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       props: { tags },
     });
   } catch (err) {
-    console.log(err);
     return ({
       redirect: {
         destination: '/error',
