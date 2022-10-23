@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { Article } from "../model";
 import { Writable } from 'stream';
+import { Article } from "../model";
 import { ERROR, file } from '../lib';
+import db from '../model/connect';
 /*
   QUERY: article_id
   RES:
@@ -21,9 +22,13 @@ const parse = (req: Request<{}, {}, {}, getArticleQuery>) => {
 };
 const dataFromDB = async (article_id: string): Promise<any> => {
   try {
-    const article = (await Article.get({ article_id }))[0];
-
-    return article;
+    const raw = await db.many(
+      'SELECT article.id, path, title, update_date, src, user_id, tag.id AS tag_id, tag.name AS name, tag.color AS tag_color FROM article INNER JOIN article_tag ON article.ID = article_tag.article_id INNER JOIN tag ON article_tag.tag_id = tag.id WHERE article.id = $1' ,
+      [article_id]
+    )
+    const article = { ...raw[0], tag: raw.map((r) => ({ id: r.tag_id, name: r.name, color: r.tag_color })) };
+    const user = await db.one('SELECT src FROM users WHERE id = $1', [article.user_id]);
+    return ({ article, user });
   } catch(err) {
     ERROR.dbError(err);
   };
@@ -43,14 +48,10 @@ const getFile = async (path: string): Promise<any> => {
 const getArticle = async (req: Request<{}, {}, {}, getArticleQuery>, res: Response, next: NextFunction) => {
   try {
     const { article_id } = parse(req);
-    const article = await dataFromDB(article_id) as any;
+    const { article, user } = await dataFromDB(article_id) as any;
     const content = await getFile(article.path);
     
-    return res.status(200).json({ 
-      article: { 
-        title: article.title, category_id: article.category_id, id: article_id, content
-      }
-    });
+    return res.status(200).json({ article, user, content });
   } catch (err) {
     return next(err);
   }

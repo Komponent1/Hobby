@@ -2,24 +2,36 @@ GRANT ALL PRIVILEGES ON DATABASE test TO seo2im;
 
 \c test;
 
-CREATE TABLE Users(
-  email     varchar(100)  not null  primary key,
-  password  varchar(100)  not null,
-  salt      varchar(100)  not null
+CREATE TABLE users(
+  id        VARCHAR(100)  NOT NULL  PRIMARY KEY,
+  src       TEXT          NOT NULL,
+  github    VARCHAR(100)  NOT NULL
 );
 
-CREATE TABLE Category(
-  ID          SERIAL        not null  primary key,
-  name        varchar(100)  not null,
-  user_email  varchar(100)  not null  REFERENCES Users(email)
+CREATE TABLE article(
+  ID            SERIAL        NOT NULL  PRIMARY KEY,
+  title         TEXT          NOT NULL,
+  publish_date  VARCHAR(100)  NOT NULL,
+  update_date   VARCHAR(100)  NOT NULL,
+  user_id       VARCHAR(100)  NOT NULL  REFERENCES users(id),
+  path          TEXT          NOT NULL,
+  next_id       INTEGER,
+  prev_id       INTEGER,
+  src           TEXT
 );
 
-CREATE TABLE Article(
-  ID            SERIAL        not null  primary key,
-  title         text          not null,
-  publish_date  varchar(100)  not null,
-  update_date   varchar(100)  not null,
-  category_id   int           not null  REFERENCES Category(ID),
-  user_email    varchar(100)  not null  REFERENCES Users(email),
-  path          text          not null
+CREATE TABLE tag
+(
+	id    SERIAL        PRIMARY KEY,
+	name  VARCHAR(100)  NOT NULL,
+  color VARCHAR(20)   NOT NULL
+);
+
+CREATE TABLE article_tag
+(
+	article_id  INTEGER NOT NULL,
+	tag_id      INTEGER NOT NULL,
+	PRIMARY KEY (article_id, tag_id),
+	CONSTRAINT  fk_article_id FOREIGN KEY (article_id)  REFERENCES article (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+	CONSTRAINT  fk_tag_id     FOREIGN KEY (tag_id)      REFERENCES tag (id)     MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );

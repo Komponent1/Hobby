@@ -1,0 +1,77 @@
+{
+  "users": [
+    {
+      "email": "seo2im6492@gmail.com",
+      "password": "aljb3gc0i7tXU6CL5m3s86UrEQDqvnUb/L26ruMVR2YHENeZHILp+hj+lTUJHMX5qCN0fvXtqazlZj/APduBJw==",
+      "salt": "N0e3vsjaLt3/Ar7PqToWUJSTET0LVONlWOYs+QHgox8tufPGKtqnzLb3AEiMKlFwyY0zSd7oHxrzYAuyz9CBdQ=="
+    }
+  ],
+  "tag": [
+    {
+      "id": 1,
+      "name": "컴포넌트"
+    },
+    {
+      "id": 2,
+      "name": "알고리즘"
+    },
+    {
+      "id": 3,
+      "name": "리엑트"
+    },
+    {
+      "id": 4,
+      "name": "원론"
+    }
+  ],
+  "article": [
+    {
+      "id": 1,
+      "next_id": 2,
+      "path": "",
+      "src": "",
+      "title": "리액트 폼",
+      "publish_date": "Mon Oct 17 2022 14:08:59 GMT+0900 (일본 표준시)",
+      "update_date": "Mon Oct 17 2022 14:08:59 GMT+0900 (일본 표준시)",
+      "user_email": "seo2im6492@gmail.com"
+    },
+    {
+      "id": 2,
+      "prev_id": 1,
+      "next_id": 3,
+      "path": "",
+      "src": "",
+      "title": "리엑트 원리",
+      "publish_date": "Mon Oct 17 2022 14:09:59 GMT+0900 (일본 표준시)",
+      "update_date": "Mon Oct 17 2022 14:09:59 GMT+0900 (일본 표준시)",
+      "user_email": "seo2im6492@gmail.com"
+    },
+    {
+      "id": 3,
+      "prev_id": 2,
+      "next_id": 4,
+      "path": "",
+      "src": "",
+      "title": "리엑트 알고리즘",
+      "publish_date": "Mon Oct 17 2022 14:10:59 GMT+0900 (일본 표준시)",
+      "update_date": "Mon Oct 17 2022 14:10:59 GMT+0900 (일본 표준시)",
+      "user_email": "seo2im6492@gmail.com"
+    },
+    {
+      "id": 4,
+      "prev_id": 3,
+      "path": "",
+      "src": "",
+      "title": "컴포넌트 원리",
+      "publish_date": "Mon Oct 17 2022 14:11:59 GMT+0900 (일본 표준시)",
+      "update_date": "Mon Oct 17 2022 14:11:59 GMT+0900 (일본 표준시)",
+      "user_email": "seo2im6492@gmail.com"
+    }
+  ],
+  "article_tag": [
+    { "article_id": 1, "tag_id": 1 }, { "article_id": 1, "tag_id": 3 }, { "article_id": 1, "tag_id": 4 },
+    { "article_id": 2, "tag_id": 3 }, { "article_id": 2, "tag_id": 4 },
+    { "article_id": 3, "tag_id": 2 }, { "article_id": 3, "tag_id": 3 },
+    { "article_id": 4, "tag_id": 1 }, { "article_id": 4, "tag_id": 4 }
+  ]
+}

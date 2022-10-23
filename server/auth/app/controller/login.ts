@@ -5,7 +5,7 @@ import { ERROR, makeJwt } from '../lib';
 /*
   BODY: email, password
   RES:
-    200, { OAuth 표준 }
+    204, success
   ERROR:
     400, parameter
     403, authentication
@@ -48,6 +48,7 @@ const dataFromDB = async (email: string) => {
   };
 }
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.body);
   try {
     const { email, originpassword } = parse(req);
     const { password, salt } = await dataFromDB(email) as any;
@@ -55,16 +56,14 @@ const postLogin = async (req: Request, res: Response, next: NextFunction) => {
     
     const jwt = makeJwt(email);
     
-    res.cookie('blog_refresh_token', jwt.refreshToken, {
+    res.cookie('seolim_blog_access_token', jwt.accessToken, {
       maxAge: 60 * 60 * 24 * 30
     });
-    return res.status(200).json({
-      email,
-      access_token: jwt.accessToken,
-      token_type: 'Bearer',
-      expires_in: 1800,
-      scope: 'create'
+    res.cookie('seolim_blog_refresh_token', jwt.refreshToken, {
+      maxAge: 60 * 60 * 24 * 30
     });
+
+    return res.status(204).end();
   } catch (err) {
     next(err);
   }

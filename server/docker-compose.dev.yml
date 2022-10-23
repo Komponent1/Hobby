@@ -48,7 +48,6 @@ services:
       FILE_PASSWORD: "${FILE_PASSWORD}"
     volumes:
       - ./api/app:/usr/app
-      - /usr/app/node_modules
     command: 'npm start'
 
   authserver:
@@ -65,7 +64,6 @@ services:
       DB_HOST: 'db'
     volumes:
       - ./auth/app:/usr/app
-      - /usr/app/node_modules
     command: 'npm start'
 
   fileserver:
@@ -82,4 +80,13 @@ services:
       - 21:21
       - 21100-21110:21100-21110
     volumes:
-      - ./file/backup:/home/test
+      - ./file/backup:/home
+  
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: "${DB_PASSWORD}"
+    ports:
+      - 5050:80

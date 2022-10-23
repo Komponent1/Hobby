@@ -1,16 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import router from './router/router'
 import authorRouter from './router/authorRouter';
 import logger from 'morgan';
 import { errorHandler } from './middleware';
 import cors from 'cors';
 
-
-
 const app = express();
 app.use('/public', express.static(`${__dirname}/public`));
 process.env.NODE_ENV === 'development' ? null : app.use(cors({ origin: 'https://komponent1.github.io' }));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(logger());

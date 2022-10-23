@@ -1,5 +1,14 @@
 import db from './connect';
 
+export type Article = {
+  email: string;
+  password: string;
+  salt: string;
+};
+type GetParams = {
+
+};
+
 type tCount = (user?: string, category_id?: string) => Promise<any>
 export const count: tCount = (user, category_id) => {
   let query = 'SELECT COUNT(*) as cnt FROM Article WHERE ';

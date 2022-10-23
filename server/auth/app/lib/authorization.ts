@@ -2,13 +2,13 @@ import * as jwt from 'jsonwebtoken';
 import { devHashKey, ERROR } from '.';
 
 type tToken = {
-  email: string
+  id: string
 }
 const EXPIRE = 'expire';
 const INVALID = 'invalid';
 const decode = (token: string): string => {
   try {
-    return (jwt.verify(token, devHashKey.secret) as tToken).email;
+    return (jwt.verify(token, devHashKey.secret) as tToken).id;
   } catch (err: any) {
     if (err.message === 'jwt expired') {
       return EXPIRE;

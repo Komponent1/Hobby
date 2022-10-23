@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ERROR } from '../lib';
+import db from '../model/connect';
 import { Article } from "../model";
 
 /*
@@ -10,29 +11,17 @@ import { Article } from "../model";
     400, paramter
     500, db error
 */
-type getArticlesQuery = { user: string, category_id?: string, pagination: string, num: string }
-const parse = (req: Request<{}, {}, {}, getArticlesQuery>) => {
+const dataFromDB = async (): Promise<any> => {
   try {
-    const { user, category_id, pagination, num } = req.query;
-
-    return { user, category_id, pagination, num };
-  } catch (err) {
-    ERROR.paramError(err);
-  };
-};
-const getCount = async (user: string, category_id?: string): Promise<{ cnt: string }> => {
-  try {
-    const count = category_id ? await Article.count(undefined, category_id) : await Article.count(user);
-
-    return count;
-  } catch (err) {
-    ERROR.dbError(err);
-  };
-};
-const dataFromDB = async (user: string, category_id: string, pagination: string, num: string): Promise<any> => {
-  try {
-    const articles = await Article.get({ user, category_id }, { id: pagination, num: num });
-
+    const raw = await db.many(
+      'SELECT article.id, title, update_date, src, user_id, tag.id AS tag_id, tag.name AS name, tag.color AS tag_color FROM article INNER JOIN article_tag ON article.ID = article_tag.article_id INNER JOIN tag ON article_tag.tag_id = tag.id ORDER BY article.id',
+    )
+    const keySet = new Set(raw.map(e => e.id));
+    const articles = [...keySet].map((key) => {
+      const values = raw.filter(r => r.id === key);
+      return { ...values[0], tag: values.map(r => ({ id: r.tag_id, name: r.name, color: r.tag_color})) }
+    })
+    
     return articles;
   } catch(err) {
     if (err.code === 0) return [];
@@ -40,14 +29,13 @@ const dataFromDB = async (user: string, category_id: string, pagination: string,
   }
 };
 
-const getArticles = async (req: Request<{}, {}, {}, getArticlesQuery>, res: Response, next: NextFunction) => {
-  let count = null;
+type Query = { email: string; };
+const getArticles = async (req: Request<{}, {}, {}, Query>, res: Response, next: NextFunction) => {
+  console.log(req.cookies);
   try {
-    const { user, category_id, pagination, num } = parse(req);
-    count = await getCount(user, category_id);
-    const articles = await dataFromDB(user, category_id, pagination, num);
-    
-    return res.status(200).json({ count: parseInt(count.cnt), articles });
+    const articles = await dataFromDB();
+
+    return res.status(200).json({ articles });
   } catch(err) {
     return next(err);
   }

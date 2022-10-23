@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { Readable } from 'stream';
-import { authorization, ERROR, file, filenaming, splitpath }from '../lib';
-import { Article } from '../model';
+import fs from 'fs';
+import { ERROR, file, filenaming, splitpath }from '../lib';
+import db from '../model/connect';
 
 /*
   AUTHORIZATION token
@@ -17,16 +18,34 @@ import { Article } from '../model';
   ETC:
     파일 삭제에 실패한 경우 관리자를 호출, 직접 삭제요망
 */
-type postArticleQuery = { user: string, category_id: string }
-const parse = (req: Request<{}, {}, {}, postArticleQuery>) => {
+const parse = (req: Request<{}, {}, {}, {}>) => {
   try {
-    const { user, category_id } = req.query;
+    const md = req.files['md'][0];
+    const { title, tag } = JSON.parse(req.files['article'][0].buffer.toString() as string);
+    const banner = req.files['banner'][0];
     const author = req.headers['x-user'] as string;
-    const { buffer, originalname } = req.file;
 
-    return { user, category_id, author, buffer, originalname };
+    return { author, title, tag, banner, md };
   } catch(err) {
     ERROR.paramError(err);
+  }
+}
+const uploadBanner = (banner: any) => {
+  fs.writeFile(`public/${banner.originalname}`, banner.buffer, (err) => {});
+}
+const uploadTag = async (tags: { name: string, color: string }[]) => {
+  try {
+    const inDB = await db.many(`SELECT * FROM tag WHERE ${tags.map(({ name }) => `name = '${name}'`).join(' OR ')}`);
+    const outer = tags.filter(({ name }) => !inDB.map((r) => r.name).includes(name));
+    if (outer.length === 0) return inDB;
+    const outDB = await db.many(`INSERT INTO tag(name, color) VALUES ${outer.map(({ name, color }) => `('${name}', '${color}')`).join(', ')} RETURNING *`);
+    return [...inDB, ...outDB];
+  } catch (err) {
+    if (err.code === 0) {
+      const outDB = await db.many(`INSERT INTO tag (name, color) VALUES ${tags.map(({ name, color }) => `('${name}', '${color}')`).join(', ')} RETURNING *`);
+      return outDB;
+    }
+    ERROR.dbError(err);
   }
 }
 type tSavingFile = (filename: string, user: string, buffer: any) => Promise<void>
@@ -34,10 +53,12 @@ const savingFile: tSavingFile = async (filename, user, buffer) => {
   const stream = Readable.from(buffer.toString());
   await file.send(user, filename, stream);
 };
-type tPathupload = (originalname: string, user: string, category_id: string, path: string) => Promise<void>
-const pathupload: tPathupload = async (originalname, user, category_id, path) => {
+const uploadArticle = async (title, user, path, src) => {
   try {
-    return await Article.post(originalname, category_id, user, path);
+    return await db.one(
+      `INSERT INTO article(title, publish_date, update_date, user_id, path, src) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+      [title, new Date().toString(), new Date().toString(), user, path, `http://gateway:80/${src}`]
+    );
   } catch(err) {
     console.log('ERROR LOG(DB)', err)
     const [ dir, filename ] = splitpath(path);
@@ -47,23 +68,25 @@ const pathupload: tPathupload = async (originalname, user, category_id, path) =>
     ERROR.dbError(err)
   };
 };
-
-const postArticle = async (req: Request<{}, {}, {}, postArticleQuery>, res: Response, next: NextFunction) => {
+const uploadRelation = async (tag, article) => {
   try {
-    const { user, author, category_id, buffer, originalname } = parse(req);
-    authorization(user, author);
-    const filename = filenaming(originalname);
-    await savingFile(filename, user, buffer);
-    const article = await pathupload(originalname, user, category_id, `${user}/${filename}`) as any;
-
-    return res.status(200).json({
-      article: {
-        title: article.title,
-        id: article.id,
-        category_id: article.category_id,
-        content: buffer.toString(),
-      }
-    });
+    await db.none(`INSERT INTO article_tag(article_id, tag_id) VALUES ${tag.map(({ id }) => `(${article.id}, ${id})`).join(', ')}`)
+  } catch(err) {
+    console.log('ERROR LOG(DB)', err)
+    ERROR.dbError(err)
+  }
+};
+const postArticle = async (req: Request<{}, {}, {}, {}>, res: Response, next: NextFunction) => {  
+  try {
+    const { author, md, tag, banner, title } = parse(req);
+    uploadBanner(banner);
+    const tags = await uploadTag(tag);
+    const filename = filenaming(title);
+    await savingFile(filename, author, md.buffer);
+    const article = await uploadArticle(title, author, `${author}/${filename}`, `public/${banner.originalname}`) as any;
+    await uploadRelation(tags, article);
+    
+    return res.status(200).json({ id: article.id });
   } catch (err) {
     return next(err);
   }

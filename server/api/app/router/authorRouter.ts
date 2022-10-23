@@ -8,10 +8,18 @@ router.use((req, res, next) => {
   next();
 });
 router.post('/category', postCategory);
-router.post('/article', fileStream.single('file') ,postArticle);
+router.post('/article', fileStream.fields([
+  { name: 'md', maxCount: 1 },
+  { name: 'banner', maxCount: 1 },
+  { name: 'article', maxCount: 1 },
+]) ,postArticle);
 router.delete('/category', deleteCategory);
 router.delete('/article', deleteArticle);
 router.patch('/category', updateCategory);
-router.patch('/article', fileStream.single('file'), updateArticle);
+router.patch('/article', fileStream.fields([
+  { name: 'md', maxCount: 1 },
+  { name: 'banner', maxCount: 1 },
+  { name: 'article', maxCount: 1 },
+]), updateArticle);
 
 export default router;
