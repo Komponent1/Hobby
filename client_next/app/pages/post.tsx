@@ -62,8 +62,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
   try {
     let article;
-    if (article_id) article = await fetch(`http://gateway:80/api/article?article_id=${article_id}`).then((res) => res.json());
-    const { tags } = await fetch('http://gateway:80/api/tags').then((res) => res.json());
+    if (article_id) article = await fetch(`${process.env.BASEURL}/api/article?article_id=${article_id}`).then((res) => res.json());
+    const { tags } = await fetch(`${process.env.BASEURL}/api/tags`).then((res) => res.json());
 
     if (article) {
       return ({

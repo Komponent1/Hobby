@@ -67,7 +67,7 @@ const patchArticle = async (article_id: string, src: string, title: string) => {
   try {
     await db.none(
       'UPDATE article SET src = $1, title = $2, update_date = $3 WHERE id = $4',
-      [`http://gateway:80/${src}`, title, new Date().toString(), parseInt(article_id)],
+      [`${process.env.BASEURL}/${src}`, title, new Date().toString(), parseInt(article_id)],
     )
   } catch (err) {
     ERROR.dbError(err);

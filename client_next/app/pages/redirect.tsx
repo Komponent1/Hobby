@@ -27,7 +27,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }).then((res) => res.json());
 
   try {
-    await fetch('http://gateway:80/sign/git', {
+    await fetch(`${process.env.BASEURL}/sign/git`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
