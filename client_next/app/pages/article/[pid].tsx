@@ -53,7 +53,7 @@ function Article({
 }
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { pid } = context.query;
-  const { article, content, user } = await fetch(`http://gateway:80/api/article?article_id=${pid}`).then((res) => res.json());
+  const { article, content, user } = await fetch(`${process.env.BASEURL}/api/article?article_id=${pid}`).then((res) => res.json());
 
   return ({
     props: {

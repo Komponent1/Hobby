@@ -58,8 +58,8 @@ function Main({
  */
 export async function getServerSideProps() {
   try {
-    const { articles } = await fetch('https://gitblogserver.cf/api/articles').then((res) => res.json());
-    const { tags } = await fetch('https://gitblogserver.cf/api/tags').then((res) => res.json());
+    const { articles } = await fetch(`${process.env.BASEURL}/api/articles`).then((res) => res.json());
+    const { tags } = await fetch(`${process.env.BASEURL}/api/tags`).then((res) => res.json());
 
     return ({
       props: {
