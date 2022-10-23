@@ -2664,7 +2664,7 @@
     "parchment" "^1.1.4"
     "quill-delta" "^3.6.2"
 
-"react-bootstrap-icons@^1.8.4":
+"react-bootstrap-icons@^1.8.4", "react-bootstrap-icons@^1.9.1":
   "integrity" "sha512-EOxEkiKt/ucn17cXHzUcxbVmH7YCFjV5ifrIB+aGkfxjXnGGJyBDfG5kRChoCDs1Y7vLRtgSauOq+whF751Yzg=="
   "resolved" "https://registry.npmjs.org/react-bootstrap-icons/-/react-bootstrap-icons-1.9.1.tgz"
   "version" "1.9.1"
