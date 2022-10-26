@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Header as RuiHeader } from '@seolim/react-ui/layout';
 import { Avatar, Button } from '@seolim/react-ui';
-import { Skeleton } from '@seolim/react-ui/loading';
 import { Cookies } from 'react-cookie';
 import * as S from './style';
 
@@ -32,7 +31,7 @@ function Header() {
           <Avatar
             color="rgba(0,0,0,0)"
             src=""
-            alt={<Skeleton type="avatar" />}
+            alt=""
             onClick={() => router.push('/')}
           />
           <S.title>모두의 개발</S.title>

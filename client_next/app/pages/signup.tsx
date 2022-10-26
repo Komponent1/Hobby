@@ -2,7 +2,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { Avatar, Button } from '@seolim/react-ui';
-import { Skeleton } from '@seolim/react-ui/loading';
 import { useLayout } from '@seolim/react-ui/layout';
 import { useHttpClient } from '@seolim/react-ui/http';
 import { useForm, Form, TextInput } from '@seolim/react-ui/form';
@@ -37,7 +36,7 @@ function Signup() {
           scale="large"
           color="rgba(0,0,0,0)"
           src=""
-          alt={<Skeleton type="avatar" />}
+          alt=""
         />
         회원가입
       </S.Paragraph>

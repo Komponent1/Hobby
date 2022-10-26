@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { Button, Avatar } from '@seolim/react-ui';
 import { useLayout } from '@seolim/react-ui/layout';
 import { Card, CardContent } from '@seolim/react-ui/card';
-import { Skeleton } from '@seolim/react-ui/loading';
 import * as S from '../styles/login.style';
 
 function Login() {
@@ -22,7 +21,7 @@ function Login() {
           scale="large"
           color="rgba(0,0,0,0)"
           src=""
-          alt={<Skeleton type="avatar" />}
+          alt=""
         />
         로그인
       </S.Paragraph>

@@ -4,7 +4,6 @@ import { GetServerSidePropsContext } from 'next';
 import { Chip } from '@seolim/react-ui/chips';
 import { Avatar, Button } from '@seolim/react-ui';
 import { useRouter } from 'next/router';
-import { Skeleton } from '@seolim/react-ui/loading';
 import { Article as tArticle, User } from 'Data';
 import Image from 'next/image';
 import { useLayout } from '@seolim/react-ui/layout';
@@ -40,6 +39,7 @@ function Article({
           <S.userBox>
             <Avatar
               src={user.src}
+              alt=""
               color="rgba(0,0,0,0)"
             />
             <S.box>
