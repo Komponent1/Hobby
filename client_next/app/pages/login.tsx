@@ -12,7 +12,7 @@ function Login() {
   const router = useRouter();
   useLayout(true, false);
   const gitSignup = () => {
-    router.push('https://github.com/login/oauth/authorize?client_id=4371f4a9ece8a27b4c1c');
+    router.push(`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GIT_CLIENT}`);
   };
 
   return (

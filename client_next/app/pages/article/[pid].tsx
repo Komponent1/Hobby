@@ -1,9 +1,13 @@
 import React from 'react';
+import Head from 'next/head';
 import { GetServerSidePropsContext } from 'next';
 import { Chip } from '@seolim/react-ui/chips';
-import { Avatar } from '@seolim/react-ui';
+import { Avatar, Button } from '@seolim/react-ui';
+import { useRouter } from 'next/router';
+import { Skeleton } from '@seolim/react-ui/loading';
 import { Article as tArticle, User } from 'Data';
 import Image from 'next/image';
+import { useLayout } from '@seolim/react-ui/layout';
 import { Markdown } from '../../srcs';
 import * as S from '../../styles/article.style';
 
@@ -16,19 +20,43 @@ type ArticleProps = {
   article: tArticle;
   content: string;
   user: User;
+  login: string;
+  date: string;
 };
 function Article({
-  article, content, user,
+  article, content, user, login, date,
 }: ArticleProps) {
+  useLayout(true, true);
+  const router = useRouter();
+
   return (
     <S.main>
+      <Head>
+        <meta name="description" content={content.substring(0, 20)} />
+        <meta name="keyword" content={article.tag.map((t) => t.name).join(', ')} />
+      </Head>
       <S.Content>
         <S.wrapper>
-          <Avatar src={user.src} alt="" />
-          <S.box>
-            <S.p>{article.user_id}</S.p>
-            <S.p>{date2string(article.update_date)}</S.p>
-          </S.box>
+          <S.userBox>
+            <Avatar
+              src={user.src}
+              color="rgba(0,0,0,0)"
+            />
+            <S.box>
+              <S.p>{article.user_id}</S.p>
+              <S.p>{date}</S.p>
+            </S.box>
+          </S.userBox>
+          {login === article.user_id
+            ? (
+              <Button
+                design="outline"
+                corner="round"
+                onClick={() => router.push(`/post?article_id=${article.id}`)}
+              >
+                수정하기
+              </Button>
+            ) : null}
         </S.wrapper>
       </S.Content>
       <br />
@@ -52,12 +80,14 @@ function Article({
   );
 }
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const login = context.req.cookies.seolim_blog_user || '';
   const { pid } = context.query;
   const { article, content, user } = await fetch(`${process.env.BASEURL}/api/article?article_id=${pid}`).then((res) => res.json());
+  const date = date2string(article.update_date);
 
   return ({
     props: {
-      article, content, user,
+      article, content, user, login, date,
     },
   });
 }

@@ -28,13 +28,11 @@ function ArticleCard({
             key={article.title + tag.name}
             color={tag.color}
             scale="small"
+            style={{ marginRight: '8px' }}
           >
             {tag.name}
           </Chip>
         ))}
-      </CardContent>
-      <CardContent>
-        {article.id}
       </CardContent>
     </Card>
   );

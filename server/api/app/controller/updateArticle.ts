@@ -21,7 +21,6 @@ type Query = { article_id: string }
 const parse = (req: Request<{}, {}, {}, Query>) => {
   try {
     const author = req.headers['x-user'] as string;
-    console.log(req.headers)
     const { article_id } = req.query;
     const md = req.files['md'][0];
     const { title, tag } = JSON.parse(req.files['article'][0].buffer.toString() as string);
@@ -41,7 +40,14 @@ const dataFromDB = async (article_id: string) => {
   }
 };
 const uploadBanner = (banner: any) => {
-  fs.writeFile(`public/${banner.originalname}`, banner.buffer, (err) => {});
+  try {
+    const filename = `public/${Date.now()}-${banner.originalname}`;
+    fs.writeFileSync(filename, banner.buffer);
+
+    return filename;
+  } catch (err) {
+    ERROR.fileError(err);
+  }
 };
 const uploadTag = async (tags: { name: string, color: string }[]) => {
   try {
@@ -67,7 +73,7 @@ const patchArticle = async (article_id: string, src: string, title: string) => {
   try {
     await db.none(
       'UPDATE article SET src = $1, title = $2, update_date = $3 WHERE id = $4',
-      [`https://gitblogserver.cf/${src}`, title, new Date().toString(), parseInt(article_id)],
+      [`${process.env.BASEURL}/${src}`, title, new Date().toString(), parseInt(article_id)],
     )
   } catch (err) {
     ERROR.dbError(err);
@@ -85,13 +91,17 @@ const updateRelation = async (tag, article_id) => {
 const updateArticle = async (req: Request<{}, {}, {}, Query>, res: Response, next: NextFunction) => {
   try {
     const { author, md, article_id, tag, banner, title } = parse(req);
-    uploadBanner(banner);
+    const banner_src = (
+      banner.mimetype === 'text/plain'
+      ? `public/${banner.buffer.toString()}`
+      : uploadBanner(banner)
+    );
     const { user_id, path } = await dataFromDB(article_id);
     if (author !== user_id) ERROR.authError('INVALID PERMIT');
     const tags = await uploadTag(tag);
     const [dir, filename] = path.split('/');
     await savingFile(filename, dir, md.buffer);
-    await patchArticle(article_id, `public/${banner.originalname}`, title);
+    await patchArticle(article_id, banner_src, title);
     await updateRelation(tags, article_id);
 
     return res.status(200).json({ id: article_id });

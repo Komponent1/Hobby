@@ -542,10 +542,10 @@
   "resolved" "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz"
   "version" "1.2.0"
 
-"@seolim/react-ui@^0.2.5":
-  "integrity" "sha512-tVvvK8zi6MBUh6MJK1NBhI0yJjNVKtPMdWKAE2ayoG1BIdB7R4vYMAfRylqTeeFrUnclWmkF9AmQN/xLIuwsmw=="
-  "resolved" "https://registry.npmjs.org/@seolim/react-ui/-/react-ui-0.2.5.tgz"
-  "version" "0.2.5"
+"@seolim/react-ui@^0.2.6":
+  "integrity" "sha512-M71rHp6tTZ1nv9Hy/0GavLoQglaV9URFuCiglpXc1+wLT1kXy1Gv6V3mImYPAJJRPvZUq7eabt/12D5haNqs7g=="
+  "resolved" "https://registry.npmjs.org/@seolim/react-ui/-/react-ui-0.2.6.tgz"
+  "version" "0.2.6"
 
 "@swc/helpers@0.4.11":
   "integrity" "sha512-rEUrBSGIoSFuYxwBYtlUFMlE2CwGhmW+w9355/5oduSw8e5h2+Tj4UrAGNNgP9915++wj5vkQo0UuOBqOAq4nw=="

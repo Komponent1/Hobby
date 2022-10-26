@@ -31,7 +31,14 @@ const parse = (req: Request<{}, {}, {}, {}>) => {
   }
 }
 const uploadBanner = (banner: any) => {
-  fs.writeFile(`public/${banner.originalname}`, banner.buffer, (err) => {});
+  try {
+    const filename = `public/${Date.now()}-${banner.originalname}`;
+    fs.writeFileSync(filename, banner.buffer);
+
+    return filename;
+  } catch (err) {
+    ERROR.fileError(err);
+  }
 }
 const uploadTag = async (tags: { name: string, color: string }[]) => {
   try {
@@ -57,7 +64,7 @@ const uploadArticle = async (title, user, path, src) => {
   try {
     return await db.one(
       `INSERT INTO article(title, publish_date, update_date, user_id, path, src) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [title, new Date().toString(), new Date().toString(), user, path, `https://gitblogserver.cf/${src}`]
+      [title, new Date().toString(), new Date().toString(), user, path, `${process.env.BASEURL}/${src}`]
     );
   } catch(err) {
     console.log('ERROR LOG(DB)', err)
@@ -79,11 +86,16 @@ const uploadRelation = async (tag, article) => {
 const postArticle = async (req: Request<{}, {}, {}, {}>, res: Response, next: NextFunction) => {  
   try {
     const { author, md, tag, banner, title } = parse(req);
-    uploadBanner(banner);
+    
+    const banner_src = (
+      banner.mimetype === 'text/plain'
+      ? `public/${banner.buffer.toString()}`
+      : uploadBanner(banner)
+    );
     const tags = await uploadTag(tag);
     const filename = filenaming(title);
     await savingFile(filename, author, md.buffer);
-    const article = await uploadArticle(title, author, `${author}/${filename}`, `public/${banner.originalname}`) as any;
+    const article = await uploadArticle(title, author, `${author}/${filename}`, banner_src) as any;
     await uploadRelation(tags, article);
     
     return res.status(200).json({ id: article.id });

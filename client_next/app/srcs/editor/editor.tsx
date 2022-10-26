@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 import { Spinner } from '@seolim/react-ui/loading';
@@ -9,8 +9,9 @@ import {
 import { Button } from '@seolim/react-ui';
 import { useHttpClient } from '@seolim/react-ui/http';
 import { useRouter } from 'next/router';
+import UploadModal from '../uploadModal/uploadModal';
 import * as S from './style';
-import { UploadModal } from '..';
+import { banner } from '../../styles/article.style';
 
 const LoadingWraper = () => (
   <S.div>
@@ -40,9 +41,11 @@ function Editor({
     { id: 'tag', type: 'multi-text-input', controlOption: { initValue: raw ? [...raw.tag] : [] } },
     { id: 'content', type: 'text-input', controlOption: { initValue: raw ? raw.content : '' } },
     { id: 'banner', type: 'img-input', controlOption: {} },
+    { id: 'bannerSrc', type: 'text-input', controlOption: { initValue: '' } },
   ], (data: { [key: string]: any }) => {
     const formData = new FormData();
-    formData.append('banner', data.banner);
+    if (data.bannerSrc !== '') formData.append('banner', new Blob([data.bannerSrc], { type: 'text/plain' }));
+    else formData.append('banner', data.banner);
     formData.append('md', new Blob([data.content], { type: 'text/plain' }));
     formData.append('article', new Blob([JSON.stringify({
       title: data.title, tag: data.tag.map((s: string) => ({ name: s, color: 'grey' })), content: data.content,
@@ -73,6 +76,36 @@ function Editor({
     }
   });
 
+  const imageHandler = useCallback(() => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.addEventListener('change', () => {
+      const formData = new FormData();
+      formData.append('file', (input.files as FileList)[0]);
+
+      httpClient.post<string>(
+        'author/image',
+        { body: formData },
+        async (res: Response) => (await res.json()).url,
+      ).then((url) => setValue((v) => `${v}\n![img](${url})`));
+    });
+  }, [httpClient]);
+  const modules = useMemo(() => ({
+    toolbar: {
+      container: [
+        ['image'],
+        [{ header: [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ],
+      handlers: {
+        image: imageHandler,
+      },
+    },
+  }), [imageHandler]);
+
   return (
     <S.section>
       <Form submit={submit}>
@@ -98,6 +131,7 @@ function Editor({
             controls.content.onChange({ v: editor.getText() });
             onChange(editor.getText());
           }}
+          modules={modules}
         />
         <Button
           size="big"
@@ -120,8 +154,12 @@ function Editor({
           header="배너 선택"
           onAction={submit}
           closeModal={() => setOpen(false)}
+          width="800px"
         >
-          <UploadModal control={controls.banner} />
+          <UploadModal
+            controlImg={controls.banner}
+            controlSrc={controls.bannerSrc}
+          />
         </ModalPortal>
       ) : null}
     </S.section>

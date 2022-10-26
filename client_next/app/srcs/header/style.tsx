@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import theme from '@seolim/react-ui/styles/theme';
 import global from '../../styles/theme';
 
 export const headlayout = styled.div`
@@ -17,4 +18,8 @@ export const buttonGroup = styled.div`
   &>.srui-button {
     margin-right: 16px;
   }
+`;
+export const title = styled.div`
+  ${theme.typography.title};
+  margin-left: 8px;  
 `;

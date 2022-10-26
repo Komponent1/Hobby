@@ -3,20 +3,20 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['gitblogserver.cf']
+    domains: [process.env.NEXT_PUBLIC_IMAGE]
   },
   async rewrites() {
     return [
       {
-        destination: 'https://gitblogserver.cf/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_BASEURL}/api/:path*`,
         source: '/api/:path*',
       },
       {
-        destination: 'https://gitblogserver.cf/author/:path*',
+        destination: `${process.env.NEXT_PUBLIC_BASEURL}/author/:path*`,
         source: '/author/:path*',
       },
       {
-        destination: 'https://gitblogserver.cf/sign/:path*',
+        destination: `${process.env.NEXT_PUBLIC_BASEURL}/sign/:path*`,
         source: '/sign/:path*',
       }
     ]

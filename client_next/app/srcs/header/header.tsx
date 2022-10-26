@@ -23,9 +23,20 @@ function Header() {
   }, [cookie]);
 
   return (
-    <RuiHeader design="scroll">
+    <RuiHeader
+      design="scroll"
+      style={{ zIndex: 999 }}
+    >
       <S.headlayout>
-        <Avatar color="rgba(0,0,0,0)" src="" alt={<Skeleton type="avatar" />} />
+        <S.buttonGroup>
+          <Avatar
+            color="rgba(0,0,0,0)"
+            src=""
+            alt={<Skeleton type="avatar" />}
+            onClick={() => router.push('/')}
+          />
+          <S.title>모두의 개발</S.title>
+        </S.buttonGroup>
         {!info ? (
           <Button
             design="outline"

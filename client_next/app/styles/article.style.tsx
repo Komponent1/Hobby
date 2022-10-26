@@ -31,7 +31,16 @@ export const chips = styled.div`
     margin-right: 5px;
   }
 `;
+export const Content = styled.section`
+  margin: 24px 0;
+`;
 export const wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+export const userBox = styled.div`
   display: flex;
   flex-direction: row;
 `;
@@ -46,6 +55,4 @@ export const p = styled.div`
   display: inline-block;
   font-size: 14px;
 `;
-export const Content = styled.section`
-  margin: 24px 0;
-`;
+

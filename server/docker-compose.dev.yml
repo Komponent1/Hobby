@@ -46,6 +46,7 @@ services:
       DB_HOST: 'db'
       FILE_USER: "${FILE_USER}"
       FILE_PASSWORD: "${FILE_PASSWORD}"
+      BASEURL: "${BASEURL}"
     volumes:
       - ./api/app:/usr/app
     command: 'npm start'

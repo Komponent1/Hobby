@@ -28,7 +28,6 @@ function Preview({
               <SyntaxHighlighter
                 children={String(children).replace(/\n$/, '')}
                 language={match[1]}
-                // TODO: cjs problem??
                 style={coy}
                 PreTag="div"
                 {...props}

@@ -1,3 +1,6 @@
 .env
 api/app/node_modules
 auth/app/node_modules
+api/app/public
+file/backup
+db/data
