@@ -11,7 +11,6 @@ import { useHttpClient } from '@seolim/react-ui/http';
 import { useRouter } from 'next/router';
 import UploadModal from '../uploadModal/uploadModal';
 import * as S from './style';
-import { banner } from '../../styles/article.style';
 
 const LoadingWraper = () => (
   <S.div>
@@ -27,15 +26,23 @@ type EditorProps = {
   onChange: (value: string) => void;
   raw?: any;
 };
+function markdown2Html(markdownText: string) {
+  return markdownText.split('\n').reduce((acc, str) => {
+    if (str === '') return `${acc}<p><br></p>`;
+    return `${acc}<p>${str}</p>`;
+  }, '');
+}
 function Editor({
   tags,
   onChange,
   raw,
 }: EditorProps) {
+  // console.log(raw.content);
+  // console.log(markdown2Html(raw.content));
   const { httpClient } = useHttpClient([]);
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const [value, setValue] = useState<string>(raw ? raw.content : '');
+  const [value, setValue] = useState<string>(raw ? markdown2Html(raw.content) : '');
   const { controls, submit } = useForm([
     { id: 'title', type: 'text-input', controlOption: { initValue: raw ? raw.title : '' } },
     { id: 'tag', type: 'multi-text-input', controlOption: { initValue: raw ? [...raw.tag] : [] } },
@@ -127,6 +134,7 @@ function Editor({
           theme="snow"
           value={value}
           onChange={(content, _, __, editor) => {
+            console.log(content);
             setValue(content);
             controls.content.onChange({ v: editor.getText() });
             onChange(editor.getText());
