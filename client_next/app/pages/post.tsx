@@ -37,7 +37,7 @@ Post.defaultProps = {
 };
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const cookie = context.req.cookies;
-  if (!cookie.seolim_blog_access_token) {
+  if (!cookie.seolim_blog_user) {
     return ({
       redirect: {
         destination: '/login',

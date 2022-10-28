@@ -38,7 +38,8 @@ export const postGit = async (req: Request, res: Response, next: NextFunction) =
 
     const jwt = makeJwt(login);
     res.cookie('seolim_blog_access_token', jwt.accessToken, {
-      maxAge: 60 * 60 * 24 * 30
+      maxAge: 60 * 60 * 24 * 30,
+      httpOnly: true,
     });
     res.cookie('seolim_blog_user', login, {
       maxAge: 60 * 60 * 24 * 30

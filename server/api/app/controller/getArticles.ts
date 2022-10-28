@@ -14,7 +14,7 @@ import { Article } from "../model";
 const dataFromDB = async (): Promise<any> => {
   try {
     const raw = await db.many(
-      'SELECT article.id, title, update_date, src, user_id, tag.id AS tag_id, tag.name AS name, tag.color AS tag_color FROM article INNER JOIN article_tag ON article.ID = article_tag.article_id INNER JOIN tag ON article_tag.tag_id = tag.id ORDER BY article.id',
+      'SELECT article.id, title, publish_date, update_date, src, user_id, tag.id AS tag_id, tag.name AS name, tag.color AS tag_color FROM article INNER JOIN article_tag ON article.ID = article_tag.article_id INNER JOIN tag ON article_tag.tag_id = tag.id ORDER BY article.id',
     )
     const keySet = new Set(raw.map(e => e.id));
     const articles = [...keySet].map((key) => {

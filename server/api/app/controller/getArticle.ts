@@ -50,8 +50,6 @@ const getArticle = async (req: Request<{}, {}, {}, getArticleQuery>, res: Respon
     const { article_id } = parse(req);
     const { article, user } = await dataFromDB(article_id) as any;
     const content = await getFile(article.path);
-
-    console.log(content);
     
     return res.status(200).json({ article, user, content });
   } catch (err) {

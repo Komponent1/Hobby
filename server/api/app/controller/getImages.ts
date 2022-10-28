@@ -8,7 +8,7 @@ const getList = () => {
   } catch (err) {
     ERROR.fileError(err);
   }
-};
+}
 const getRandom = (fileList: string[], count: number) => {
   const images = [];
   let reduce = fileList;

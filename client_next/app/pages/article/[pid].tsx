@@ -33,6 +33,11 @@ function Article({
       <Head>
         <meta name="description" content={content.substring(0, 20)} />
         <meta name="keyword" content={article.tag.map((t) => t.name).join(', ')} />
+        <meta name="og:type" content="article" />
+        <meta name="og:title" content={article.title} />
+        <meta name="og:url" content={`https://blog-seolim.vercel.app/article/${article.id}`} />
+        <meta name="og:image" content={article.src} />
+        <meta name="og:description" content={`${content.substring(0, 30)}...`} />
       </Head>
       <S.Content>
         <S.wrapper>
@@ -74,7 +79,7 @@ function Article({
       </S.Content>
       <br />
       <S.Content>
-        <Markdown mdString={content} />
+        <Markdown mdString={content} renderBookmark />
       </S.Content>
     </S.main>
   );
@@ -82,14 +87,24 @@ function Article({
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const login = context.req.cookies.seolim_blog_user || '';
   const { pid } = context.query;
-  const { article, content, user } = await fetch(`${process.env.BASEURL}/api/article?article_id=${pid}`).then((res) => res.json());
-  const date = date2string(article.update_date);
+  try {
+    const { article, content, user } = await fetch(`${process.env.BASEURL}/api/article?article_id=${pid}`).then((res) => res.json());
 
-  return ({
-    props: {
-      article, content, user, login, date,
-    },
-  });
+    const date = date2string(article.update_date);
+
+    return ({
+      props: {
+        article, content, user, login, date,
+      },
+    });
+  } catch (err) {
+    return ({
+      redirect: {
+        destination: '/error',
+        permanent: false,
+      },
+    });
+  }
 }
 
 export default Article;

@@ -9,3 +9,4 @@ export { default as updateCategory } from './updateCategory';
 export { default as updateArticle } from './updateArticle';
 export { default as uploadImage } from './uploadImage';
 export { default as getImages } from './getImages';
+export { default as getOgTable } from './getOgtable';

@@ -20,7 +20,8 @@ function Login() {
         <Avatar
           scale="large"
           color="rgba(0,0,0,0)"
-          src=""
+          src="/logo.png"
+          design="square"
           alt=""
         />
         로그인

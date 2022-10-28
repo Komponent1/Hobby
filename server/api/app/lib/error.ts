@@ -1,3 +1,10 @@
+const unknnownError = (err: any, keyword: string) => {
+  console.log('ERROR LOG(unknown)', err);
+  throw({
+    code: 503,
+    msg: keyword,
+  })
+}
 const paramError = (err: any) => {
   console.log('ERROR LOG(PARAM)', err);
   throw ({
@@ -35,5 +42,5 @@ const fileError = (err: any) => {
 };
 
 export default {
-  paramError, dbError, authError, refError, fileError
+  paramError, dbError, authError, refError, fileError, unknnownError
 };

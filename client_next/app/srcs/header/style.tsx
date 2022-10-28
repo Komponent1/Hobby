@@ -15,6 +15,8 @@ export const buttonGroup = styled.div`
   flex-direction: row;
   align-items: center;
 
+  cursor: pointer;
+
   &>.srui-button {
     margin-right: 16px;
   }

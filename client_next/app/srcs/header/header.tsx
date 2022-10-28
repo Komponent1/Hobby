@@ -27,12 +27,15 @@ function Header() {
       style={{ zIndex: 999 }}
     >
       <S.headlayout>
-        <S.buttonGroup>
+        <S.buttonGroup
+          onClick={() => router.push('/')}
+        >
           <Avatar
             color="rgba(0,0,0,0)"
-            src=""
+            src="/logo.png"
+            scale="small"
+            design="square"
             alt=""
-            onClick={() => router.push('/')}
           />
           <S.title>모두의 개발</S.title>
         </S.buttonGroup>

@@ -37,8 +37,6 @@ function Editor({
   onChange,
   raw,
 }: EditorProps) {
-  // console.log(raw.content);
-  // console.log(markdown2Html(raw.content));
   const { httpClient } = useHttpClient([]);
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
@@ -134,7 +132,6 @@ function Editor({
           theme="snow"
           value={value}
           onChange={(content, _, __, editor) => {
-            console.log(content);
             setValue(content);
             controls.content.onChange({ v: editor.getText() });
             onChange(editor.getText());

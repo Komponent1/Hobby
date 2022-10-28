@@ -22,15 +22,16 @@ function Main({
   const [filterArticle, setFilterArticle] = useState<any[]>(articles);
 
   useEffect(() => {
-    if (!control.value || control.value.length === 0) return;
-    const changes = articles.filter(
-      (article) => {
-        const item = article.tag.filter(
-          (tag) => (control.value as string[]).includes(tag.name),
-        );
-        return item.length !== 0;
-      },
-    );
+    if (!control.value) return;
+    const changes = control.value.length !== 0
+      ? articles.filter(
+        (article) => {
+          const item = article.tag.filter(
+            (tag) => (control.value as string[]).includes(tag.name),
+          );
+          return item.length !== 0;
+        },
+      ) : articles;
     setFilterArticle(changes);
   }, [control.value, articles]);
 
@@ -39,6 +40,11 @@ function Main({
       <Head>
         <meta name="description" content="blog article list" />
         <meta name="keyword" content={`blog, ${articles.map((article) => article.title).join(', ')}`} />
+        <meta name="og:type" content="website" />
+        <meta name="og:title" content="모두의 개발" />
+        <meta name="og:url" content="https://blog-seolim.vercel.app" />
+        <meta name="og:description" content="모두의 개발은 개발자의 블로그입니다." />
+        <meta name="og:image" content="https://blog-seolim.vercel.app/logo.png" />
       </Head>
       <AutoChipsInput
         design="underline"
@@ -65,8 +71,14 @@ function Main({
  */
 export async function getServerSideProps() {
   try {
-    const { articles } = await fetch(`${process.env.BASEURL}/api/articles`).then((res) => res.json());
+    const { articles } = await fetch(`${process.env.BASEURL}/api/articles`).then((res) => res.json()) as { articles: Article[] };
     const { tags } = await fetch(`${process.env.BASEURL}/api/tags`).then((res) => res.json());
+    articles.sort(
+      (a, b) => (
+        new Date(b.publish_date).getTime()
+        - new Date(a.publish_date).getTime()
+      ),
+    );
 
     return ({
       props: {

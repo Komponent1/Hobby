@@ -17,6 +17,7 @@ function ArticleCard({
 
   return (
     <Card
+      style={{ cursor: 'pointer' }}
       action={() => router.push(`/article/${article.id}`)}
       design="shadow"
     >
