@@ -16,6 +16,9 @@ function Post({
   const [md, setMd] = useState<string>(
     article ? article.content : '',
   );
+  const onChange = (text: string) => {
+    setMd(text);
+  };
 
   return (
     <S.postboard>
@@ -23,7 +26,7 @@ function Post({
         <meta name="robots" content="noindex" />
       </Head>
       <Editor
-        onChange={setMd}
+        onChange={onChange}
         tags={tags}
         raw={article ? ({
           id: article.article.id,

@@ -19,7 +19,6 @@ function ArticleCard({
     <Card
       style={{ cursor: 'pointer' }}
       action={() => router.push(`/article/${article.id}`)}
-      design="shadow"
     >
       <Image src={article.src} alt="" width="100%" layout="responsive" objectFit="contain" height="100%" />
       <CardHeader title={article.title} />
@@ -29,7 +28,7 @@ function ArticleCard({
             key={article.title + tag.name}
             color={tag.color}
             scale="small"
-            style={{ marginRight: '8px' }}
+            style={{ marginRight: '8px', marginBottom: '8px' }}
           >
             {tag.name}
           </Chip>

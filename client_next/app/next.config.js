@@ -20,7 +20,7 @@ const nextConfig = {
         source: '/sign/:path*',
       }
     ]
-  }
+  },
 }
 
 module.exports = nextConfig

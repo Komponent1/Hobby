@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import theme from '@seolim/react-ui/styles/theme';
+import { device } from './theme';
 
 export const main = styled.main`
   padding: 60px 0;
@@ -25,10 +26,15 @@ export const title = styled.div`
   ${theme.typography.display3};
   word-break: keep-all;
   margin: 24px 0;
+
+  @media ${device.tablet} {
+    ${theme.typography.display1};
+  }
 `;
 export const chips = styled.div`
   &>div {
-    margin-right: 5px;
+    margin-right: 8px;
+    margin-bottom: 8px;
   }
 `;
 export const Content = styled.section`
@@ -55,4 +61,16 @@ export const p = styled.div`
   display: inline-block;
   font-size: 14px;
 `;
-
+export const imageWrapper = styled.div`
+  width: 100%;
+  
+  &>span {
+    position: unset !important;
+    
+    &>.autoImage {
+      object-fit: contain !important;
+      position: relative !important;
+      height: auto !important;
+    }
+  }
+`;

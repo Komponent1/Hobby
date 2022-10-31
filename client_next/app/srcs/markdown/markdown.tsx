@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/no-unstable-nested-components */
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import MarkDown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -28,9 +28,24 @@ function Preview({
 }: PreviewProps) {
   const router = useRouter();
   const { httpClient } = useHttpClient([]);
+  const ref = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    if (!ref.current) return () => {};
+    const scrolling = () => {
+      ref.current?.scrollTo(0, ref.current?.scrollHeight || 0);
+    };
+    ref.current.addEventListener('DOMNodeInserted', scrolling);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => ref.current?.removeEventListener('DOMNodeInserted', scrolling);
+  }, [ref]);
 
   return (
-    <S.md className="markdown-body" scroll={!!scroll}>
+    <S.md
+      className="markdown-body"
+      scroll={!!scroll}
+      ref={ref}
+    >
       <MarkDown
         children={mdString}
         components={{

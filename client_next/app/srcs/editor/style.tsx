@@ -5,16 +5,20 @@ export const div = styled.div`
   align-items: center;
 `;
 export const section = styled.section`
-  flex: 1 1 50%;
   height: 100%;
+  font-size: 16px;
   
   &>form {
     height: 100%;
     display: flex;
     flex-direction: column;
-  }
 
-  &>form>.quill {
-    height: calc(100% - 144px);
+    &>.quill {
+      height: calc(100% - 144px);
+
+      &>.ql-container {
+        font-size: 16px !important;
+      }
+    }
   }
 `;

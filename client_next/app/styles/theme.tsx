@@ -1,8 +1,8 @@
 export const device = {
-  mobile: 'screen and (min-width: 375px)',
-  tablet: 'screen and (min-width: 768px)',
-  pc: 'screen and (min-width: 1024px)',
-  wide: 'screen and (min-width: 1440px)',
+  mobile: 'screen and (max-width: 375px)',
+  tablet: 'screen and (max-width: 768px)',
+  pc: 'screen and (max-width: 1024px)',
+  wide: 'screen and (max-width: 1440px)',
 };
 export const width = `
   padding: 2rem;

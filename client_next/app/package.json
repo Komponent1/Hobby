@@ -13,7 +13,7 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.5",
-    "@seolim/react-ui": "^0.2.9",
+    "@seolim/react-ui": "^0.2.11",
     "github-markdown-css": "^5.1.0",
     "next": "12.3.0",
     "next-sitemap": "^3.1.29",

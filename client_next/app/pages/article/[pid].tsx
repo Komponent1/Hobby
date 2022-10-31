@@ -69,13 +69,26 @@ function Article({
       <S.Content>
         <S.chips>
           {article.tag.map(({ name, color }) => (
-            <Chip key={name} color={color}>{name}</Chip>
+            <Chip
+              key={name}
+              color={color}
+              style={{}}
+            >
+              {name}
+            </Chip>
           ))}
         </S.chips>
       </S.Content>
       <br />
       <S.Content>
-        <Image src={article.src} alt="" width="100%" height="100%" layout="responsive" objectFit="contain" />
+        <S.imageWrapper>
+          <Image
+            className="autoImage"
+            src={article.src}
+            layout="fill"
+            alt=""
+          />
+        </S.imageWrapper>
       </S.Content>
       <br />
       <S.Content>
