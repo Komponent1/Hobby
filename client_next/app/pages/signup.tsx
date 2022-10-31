@@ -5,6 +5,7 @@ import { Avatar, Button } from '@seolim/react-ui';
 import { useLayout } from '@seolim/react-ui/layout';
 import { useHttpClient } from '@seolim/react-ui/http';
 import { useForm, Form, TextInput } from '@seolim/react-ui/form';
+import Head from 'next/head';
 import { Card, CardContent } from '@seolim/react-ui/card';
 import { useRouter } from 'next/router';
 import * as S from '../styles/signup.style';
@@ -31,6 +32,9 @@ function Signup() {
 
   return (
     <S.main>
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
       <S.Paragraph>
         <Avatar
           scale="large"

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
+import Head from 'next/head';
 import { useLayout } from '@seolim/react-ui/layout';
 import { Markdown, Editor } from '../srcs';
 import * as S from '../styles/post.style';
@@ -18,6 +19,9 @@ function Post({
 
   return (
     <S.postboard>
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
       <Editor
         onChange={setMd}
         tags={tags}

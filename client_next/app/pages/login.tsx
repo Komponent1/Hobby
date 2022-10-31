@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Button, Avatar } from '@seolim/react-ui';
 import { useLayout } from '@seolim/react-ui/layout';
+import Head from 'next/head';
 import { Card, CardContent } from '@seolim/react-ui/card';
 import * as S from '../styles/login.style';
 
@@ -16,6 +17,9 @@ function Login() {
 
   return (
     <S.main>
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
       <S.Paragraph>
         <Avatar
           scale="large"

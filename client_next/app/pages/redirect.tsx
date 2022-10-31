@@ -1,9 +1,17 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react';
 import { GetServerSidePropsContext } from 'next';
+import Head from 'next/head';
 
 function Redirect() {
-  return (<div />);
+  return (
+    <>
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
+      <div />
+    </>
+  );
 }
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const code = context.query.code as string;
