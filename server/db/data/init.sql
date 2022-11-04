@@ -35,3 +35,13 @@ CREATE TABLE article_tag
 	CONSTRAINT  fk_article_id FOREIGN KEY (article_id)  REFERENCES article (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
 	CONSTRAINT  fk_tag_id     FOREIGN KEY (tag_id)      REFERENCES tag (id)     MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE comment(
+  ID            uuid          NOT NULL  PRIMARY KEY DEFAULT uuid_generate_v4 (),
+  content       TEXT		  NOT NULL,
+  date			VARCHAR(100)  NOT NULL,
+  artice_id   	INTEGER  	  NOT NULL  REFERENCES article(id),
+  user_id       VARCHAR(100)  NOT NULL  REFERENCES users(id)
+);

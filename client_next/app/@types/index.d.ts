@@ -26,6 +26,13 @@ declare module 'Data' {
   export interface User {
     src: string;
   }
+  export interface Comment {
+    id: string;
+    user_id: string;
+    user_src: string;
+    content: string;
+    date: string;
+  }
   export interface ArticleContent {
     id: number;
     title: string;

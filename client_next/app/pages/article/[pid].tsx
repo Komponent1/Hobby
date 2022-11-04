@@ -7,14 +7,10 @@ import { useRouter } from 'next/router';
 import { Article as tArticle, User } from 'Data';
 import Image from 'next/image';
 import { useLayout } from '@seolim/react-ui/layout';
-import { Markdown } from '../../srcs';
+import { Markdown, Comment } from '../../srcs';
+import { date2string } from '../../lib';
 import * as S from '../../styles/article.style';
 
-const date2string = (datestring: string) => {
-  const date = new Date(datestring);
-
-  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-};
 type ArticleProps = {
   article: tArticle;
   content: string;
@@ -31,6 +27,7 @@ function Article({
   return (
     <S.main>
       <Head>
+        <title>{article.title}</title>
         <meta name="description" content={content.substring(0, 20)} />
         <meta name="keyword" content={article.tag.map((t) => t.name).join(', ')} />
         <meta name="og:type" content="article" />
@@ -94,6 +91,7 @@ function Article({
       <S.Content>
         <Markdown mdString={content} renderBookmark />
       </S.Content>
+      <Comment id={article.id} />
     </S.main>
   );
 }
@@ -102,7 +100,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { pid } = context.query;
   try {
     const { article, content, user } = await fetch(`${process.env.BASEURL}/api/article?article_id=${pid}`).then((res) => res.json());
-
     const date = date2string(article.update_date);
 
     return ({

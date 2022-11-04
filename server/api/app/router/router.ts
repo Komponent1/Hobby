@@ -1,6 +1,6 @@
 import express from 'express';
 import { fileStream } from '../middleware';
-import {  postArticle, getArticle, getCategory, getArticles, getImages, getOgTable } from '../controller'
+import {  postArticle, getArticle, getCategory, getArticles, getImages, getOgTable, getComments } from '../controller'
 import getTags from '../controller/getTags';
 
 const router = express.Router();
@@ -15,5 +15,6 @@ router.get('/category', getCategory);
 router.get('/tags', getTags);
 router.get('/images', getImages);
 router.get('/bookmark', getOgTable);
+router.get('/comment', getComments);
 
 export default router;

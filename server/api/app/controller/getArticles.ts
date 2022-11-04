@@ -31,7 +31,6 @@ const dataFromDB = async (): Promise<any> => {
 
 type Query = { email: string; };
 const getArticles = async (req: Request<{}, {}, {}, Query>, res: Response, next: NextFunction) => {
-  console.log(req.cookies);
   try {
     const articles = await dataFromDB();
 

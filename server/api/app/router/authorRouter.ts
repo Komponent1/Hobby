@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteCategory, postArticle, postCategory, updateArticle, updateCategory, uploadImage } from '../controller';
+import { deleteCategory, getComments, postArticle, postCategory, postComment, updateArticle, updateCategory, uploadImage } from '../controller';
 import deleteArticle from '../controller/deleteArticle';
 import { fileStream } from '../middleware';
 
@@ -34,5 +34,6 @@ router.post(
   fileStream.single('file'),
   uploadImage,
 );
+router.post('/comment', postComment);
 
 export default router;
