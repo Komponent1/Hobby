@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://blog-seolim.vercel.app/',
+  siteUrl: process.env.SITE_URL || 'https://blog-sage-pi.vercel.app/',
   generateRobotsTxt: true, // (optional)
   sitemapSize: 7000,
   exclude: ['/server-sitemap-index.xml'], // <= exclude here

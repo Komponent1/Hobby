@@ -42,9 +42,9 @@ function Main({
         <meta name="keyword" content={`blog, ${articles.map((article) => article.title).join(', ')}`} />
         <meta name="og:type" content="website" />
         <meta name="og:title" content="모두의 개발" />
-        <meta name="og:url" content="https://blog-seolim.vercel.app" />
+        <meta name="og:url" content="https://blog-sage-pi.vercel.app" />
         <meta name="og:description" content="모두의 개발은 개발자의 블로그입니다." />
-        <meta name="og:image" content="https://blog-seolim.vercel.app/logo.png" />
+        <meta name="og:image" content="https://blog-sage-pi.vercel.app/logo.png" />
       </Head>
       <AutoChipsInput
         design="underline"

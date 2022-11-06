@@ -41,7 +41,7 @@ function Article({
         <meta name="keyword" content={article.tag.map((t) => t.name).join(', ')} />
         <meta name="og:type" content="article" />
         <meta name="og:title" content={article.title} />
-        <meta name="og:url" content={`https://blog-seolim.vercel.app/article/${article.id}`} />
+        <meta name="og:url" content={`https://blog-sage-pi.vercel.app/article/${article.id}`} />
         <meta name="og:image" content={article.src} />
         <meta name="og:description" content={`${content.substring(0, 30)}...`} />
       </Head>
