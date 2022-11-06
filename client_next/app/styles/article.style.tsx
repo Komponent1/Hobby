@@ -74,3 +74,11 @@ export const imageWrapper = styled.div`
     }
   }
 `;
+export const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  &>button:nth-of-type(2) {
+    margin-left: 12px;
+  }
+`;

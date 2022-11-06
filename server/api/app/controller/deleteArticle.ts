@@ -1,65 +1,47 @@
 import { Request, Response, NextFunction } from 'express';
-import { file, authorization, ERROR } from '../lib';
-import { Article } from '../model';
+import { ERROR, file } from '../lib';
+import db from '../model/connect';
 
-/*
-  AUTHORIZATION token
-  QUERY: user, article_id
-  RES:
-    204, success
-  ERROR:
-    400, paramter
-    401, authentication (in auth)
-    403, authorization
-    500, DB or File
-  ETC:
-    파일 삭제에 실패한 경우 관리자를 호출, 직접 삭제요망
-*/
-type deleteArticleQuery = { user: string, article_id: string }
-type tParse = (req: Request<{}, {}, {}, deleteArticleQuery>) => ({ user: string, author: string, article_id: string });
-const parse: tParse = (req) => {
+type Query = { article_id: string }
+const parse = (req: Request<{}, {}, {}, Query>) => {
   try {
-    const author = req.headers['x-user'] as string;
-    const { user, article_id } = req.query;
-
-    return { user, author, article_id }
-  } catch (err) {
+    const { article_id } = req.query;
+    const user_id = req.headers['x-user'] as string;
+    return { article_id, user_id };
+  } catch(err) {
     ERROR.paramError(err);
+  };
+}
+const deleteDataFromDB = async (article_id: string, user_id: string) => {
+  console.log(article_id, user_id);
+  try {
+    await db.none(
+      'DELETE FROM article_tag WHERE article_id = $1',
+      [parseInt(article_id)],
+    )
+    const { path } = await db.one(
+      'DELETE FROM article WHERE id = $1 AND user_id = $2 RETURNING path',
+      [parseInt(article_id), user_id],
+    );
+
+    return path;
+  } catch(err) {
+    ERROR.dbError(err);
   }
 }
-type tGetPath = (article_id: string) => Promise<string>
-const deleteDB: tGetPath = async (article_id) => {
-  try {
-    const { path } = await Article.del(article_id) as any;
-
-    return path as string;
-  } catch (err) {
-    ERROR.dbError(err);
-  };
+const deleteFile = async (path) => {
+  const [ user, filename ] = path.split('/')
+  await file.del(user, filename);
 };
-type tDeleteFile = (path: string) => Promise<void>
-const deleteFile: tDeleteFile = async (path) => {
+const deleteArticle = async (req: Request<{}, {}, {}, Query>, res: Response, next: NextFunction) => {
   try {
-    const [ user, filename ] = path.split('/')
-    await file.del(user, filename);
-  } catch(err) {
-    throw(err);
-  }
-};
-const deleteArticle = async (req: Request<{}, {}, {}, deleteArticleQuery>, res: Response, next: NextFunction) => {
-  try {
-    const { user, author, article_id } = parse(req);
-    authorization(user, author);
-
-    const path = await deleteDB(article_id);
-    /* File의 삭제는 별도로 관리 */
-    deleteFile(path).catch(err => {
-      console.log('ERROR LOG(file del)', 'call adminisrator');
-    });
+    const { article_id, user_id } = parse(req);
+    const path = await deleteDataFromDB(article_id, user_id);
+    await deleteFile(path);
 
     return res.status(204).end();
-  } catch (err) {
-    return next(err);
+  } catch(err) {
+    next(err);
   }
 };
 

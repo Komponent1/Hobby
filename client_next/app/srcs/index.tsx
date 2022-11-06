@@ -4,4 +4,6 @@ export { default as Markdown } from './markdown/markdown';
 export { default as Footer } from './footer/footer';
 export { default as ArticleCard } from './articleCard/articleCard';
 export { default as UploadModal } from './uploadModal/uploadModal';
+export { default as CommentBox } from './comment/commentBox/commentBox';
+export { default as CommentInput } from './comment/commentInput/commentInput';
 export { default as Comment } from './comment/comment';

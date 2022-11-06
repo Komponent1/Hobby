@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { Writable } from 'stream';
-import { Article } from "../model";
 import { ERROR, file } from '../lib';
 import db from '../model/connect';
 /*

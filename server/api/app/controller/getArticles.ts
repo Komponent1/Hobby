@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ERROR } from '../lib';
 import db from '../model/connect';
-import { Article } from "../model";
 
 /*
   QUERY: user, category_id?, pagination, num

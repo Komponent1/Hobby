@@ -4,22 +4,22 @@ import db from '../model/connect';
 
 const parse = (req: Request) => {
   try {
-    const { comment, article_id } = req.body;
+    const { content, article_id } = req.body;
     const user_id = req.headers['x-user'] as string;
 
     return {
-      comment, user_id, article_id
+      content, user_id, article_id
     }
   } catch (err) {
     ERROR.paramError(err);
   }
 }
-const insertDB = async (comment: string, user_id: string, article_id: string) => {
+const insertDB = async (content: string, user_id: string, article_id: string) => {
   try {
     const { id, date } = await db.one(
       `INSERT INTO comment (content, user_id, article_id, date) VALUES ($1, $2, $3, $4)
       RETURNING id, date`,
-      [comment, user_id, parseInt(article_id), new Date().toString()]
+      [content, user_id, parseInt(article_id), new Date().toString()]
     );
 
     return { id, date };
@@ -38,13 +38,13 @@ const getDataFromDB = async (user_id) => {
 }
 const postComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { comment, user_id, article_id } = parse(req);
-    console.log(comment, user_id, article_id);
-    const { id, date } = await insertDB(comment, user_id, article_id);
+    const { content, user_id, article_id } = parse(req);
+    console.log(content, user_id, article_id);
+    const { id, date } = await insertDB(content, user_id, article_id);
     const user_src = await getDataFromDB(user_id);
 
     return res.status(200).json({
-      id, comment, date, user_id, user_src
+      id, content, date, user_id, user_src
     });
   } catch(err) {
     next(err);

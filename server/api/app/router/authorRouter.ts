@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteCategory, getComments, postArticle, postCategory, postComment, updateArticle, updateCategory, uploadImage } from '../controller';
+import { deleteComment, getComments, postArticle, postComment, updateArticle, updateComment, uploadImage } from '../controller';
 import deleteArticle from '../controller/deleteArticle';
 import { fileStream } from '../middleware';
 
@@ -7,7 +7,6 @@ const router = express.Router();
 router.use((req, res, next) => {
   next();
 });
-router.post('/category', postCategory);
 router.post(
   '/article',
   fileStream.fields([
@@ -17,9 +16,7 @@ router.post(
   ]),
   postArticle,
 );
-router.delete('/category', deleteCategory);
 router.delete('/article', deleteArticle);
-router.patch('/category', updateCategory);
 router.patch(
   '/article',
   fileStream.fields([
@@ -35,5 +32,7 @@ router.post(
   uploadImage,
 );
 router.post('/comment', postComment);
+router.delete('/comment', deleteComment);
+router.patch('/comment', updateComment);
 
 export default router;

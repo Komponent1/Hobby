@@ -1,14 +1,12 @@
 export { default as postArticle } from './postArticle';
-export { default as getCategory } from './getCatgory'; 
-export { default as postCategory } from './postCategory';
 export { default as getArticles } from './getArticles';
 export { default as getArticle } from './getArticle';
-export { default as deleteCategory } from './deleteCategory';
-export { default as deleteArticle } from './deleteArticle';
-export { default as updateCategory } from './updateCategory';
 export { default as updateArticle } from './updateArticle';
 export { default as uploadImage } from './uploadImage';
 export { default as getImages } from './getImages';
 export { default as getOgTable } from './getOgtable';
 export { default as getComments } from './getComments';
 export { default as postComment } from './postComment';
+export { default as updateComment } from './updateComment';
+export { default as deleteArticle } from './deleteArticle';
+export { default as deleteComment } from './deleteComment';

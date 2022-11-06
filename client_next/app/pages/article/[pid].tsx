@@ -6,7 +6,9 @@ import { Avatar, Button } from '@seolim/react-ui';
 import { useRouter } from 'next/router';
 import { Article as tArticle, User } from 'Data';
 import Image from 'next/image';
+import { useModal } from '@seolim/react-ui/modal';
 import { useLayout } from '@seolim/react-ui/layout';
+import { useHttpClient } from '@seolim/react-ui/http';
 import { Markdown, Comment } from '../../srcs';
 import { date2string } from '../../lib';
 import * as S from '../../styles/article.style';
@@ -23,6 +25,13 @@ function Article({
 }: ArticleProps) {
   useLayout(true, true);
   const router = useRouter();
+  const { httpClient } = useHttpClient([]);
+  const { openModal } = useModal('정말로 삭제하시겠습니까?', {
+    header: '경고!',
+    onAction: () => httpClient.delete(
+      `author/article?article_id=${article.id}`,
+    ).then(() => router.push('/')),
+  });
 
   return (
     <S.main>
@@ -51,13 +60,23 @@ function Article({
           </S.userBox>
           {login === article.user_id
             ? (
-              <Button
-                design="outline"
-                corner="round"
-                onClick={() => router.push(`/post?article_id=${article.id}`)}
-              >
-                수정하기
-              </Button>
+              <S.ButtonGroup>
+                <Button
+                  design="outline"
+                  corner="round"
+                  onClick={() => router.push(`/post?article_id=${article.id}`)}
+                >
+                  수정하기
+                </Button>
+                <Button
+                  design="outline"
+                  corner="round"
+                  onClick={() => openModal()}
+                >
+                  삭제하기
+                </Button>
+              </S.ButtonGroup>
+
             ) : null}
         </S.wrapper>
       </S.Content>
