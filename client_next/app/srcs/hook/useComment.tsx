@@ -34,7 +34,7 @@ const useComment: UseComment = (id, init) => {
         return Promise.reject(error);
       },
     },
-    true,
+    process.env.NODE_ENV === 'development',
   ), [router]);
 
   const getAll: GetComment = useCallback(async () => {

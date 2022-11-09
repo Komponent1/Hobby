@@ -59,7 +59,7 @@ function Editor({
     input.click();
 
     input.addEventListener('change', () => {
-      const imageAPI = new ImageAPI(undefined, undefined, true);
+      const imageAPI = new ImageAPI(undefined, undefined, process.env.NODE_ENV === 'development');
       imageAPI.post((input.files as FileList)[0])
         .then((url) => setValue((v) => `${v}\n![img](${url})`));
     });

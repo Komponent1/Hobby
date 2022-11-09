@@ -39,7 +39,6 @@ const getDataFromDB = async (user_id) => {
 const postComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { content, user_id, article_id } = parse(req);
-    console.log(content, user_id, article_id);
     const { id, date } = await insertDB(content, user_id, article_id);
     const user_src = await getDataFromDB(user_id);
 

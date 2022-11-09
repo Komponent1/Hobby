@@ -45,7 +45,6 @@ class HttpClient {
 
   async post<T = any>(api: string, data: {}, args?: AxiosRequestConfig<any>) {
     const response = await this.http.post<T>(api, data, args);
-    console.log(response);
     return response;
   }
 

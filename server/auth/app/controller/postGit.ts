@@ -4,7 +4,6 @@ import db from '../model/connect';
 
 const parse = (req: Request): { login: string, src: string, github: string } => {
   try {
-    console.log(req.body);
     const { login, avatar_url, html_url } = req.body;
 
     return { login, src: avatar_url, github: html_url }

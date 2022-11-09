@@ -16,7 +16,7 @@ const useArticle = () => {
   const service = useMemo(() => new ArticleService(
     undefined,
     undefined,
-    true,
+    process.env.NODE_ENV === 'development',
   ), []);
 
   const post: PostArticle = useCallback(async (data) => {

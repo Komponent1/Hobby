@@ -8,7 +8,6 @@ type Query = {
 const parse = (req: Request<{}, {}, {}, Query>) => {
   try {
     const { url } = req.query;
-    console.log(url);
 
     return url;
   } catch (err) {

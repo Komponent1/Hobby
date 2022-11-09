@@ -22,7 +22,11 @@ function Preview({
 }: PreviewProps) {
   const router = useRouter();
   const ref = useRef<HTMLElement | null>(null);
-  const bookmarkAPI = useMemo(() => new BookmarkAPI(undefined, undefined, true), []);
+  const bookmarkAPI = useMemo(() => new BookmarkAPI(
+    undefined,
+    undefined,
+    process.env.NODE_ENV === 'development',
+  ), []);
   useEffect(() => {
     if (!ref.current) return () => {};
     const scrolling = () => {

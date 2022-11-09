@@ -48,7 +48,6 @@ const dataFromDB = async (email: string) => {
   };
 }
 const postLogin = async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.body);
   try {
     const { email, originpassword } = parse(req);
     const { password, salt } = await dataFromDB(email) as any;

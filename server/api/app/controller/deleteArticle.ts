@@ -13,7 +13,6 @@ const parse = (req: Request<{}, {}, {}, Query>) => {
   };
 }
 const deleteDataFromDB = async (article_id: string, user_id: string) => {
-  console.log(article_id, user_id);
   try {
     await db.none(
       'DELETE FROM comment WHERE article_id = $1',
