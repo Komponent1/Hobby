@@ -7,6 +7,7 @@ import {
   TextInput, useForm, Form, AutoChipsInput,
 } from '@seolim/react-ui/form';
 import { Button } from '@seolim/react-ui';
+import { Cookies } from 'react-cookie';
 import UploadModal from '../uploadModal/uploadModal';
 import * as S from './style';
 import { useArticle } from '../../hook';
@@ -40,6 +41,7 @@ function Editor({
 }: EditorProps) {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>(raw ? markdown2Html(raw.content) : '');
+  const cookie = useMemo(() => new Cookies(), []);
   const { post, patch, loading } = useArticle();
   const { controls, submit } = useForm([
     { id: 'title', type: 'text-input', controlOption: { initValue: raw ? raw.title : '' } },
@@ -60,10 +62,10 @@ function Editor({
 
     input.addEventListener('change', () => {
       const imageAPI = new ImageAPI(undefined, undefined, process.env.NODE_ENV === 'development');
-      imageAPI.post((input.files as FileList)[0])
+      imageAPI.post((input.files as FileList)[0], cookie.getAll({ doNotParse: true }))
         .then((url) => setValue((v) => `${v}\n![img](${url})`));
     });
-  }, []);
+  }, [cookie]);
   const modules = useMemo(() => ({
     toolbar: {
       container: [

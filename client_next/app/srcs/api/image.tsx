@@ -8,12 +8,13 @@ class ImageAPI {
     this.http = new HttpClient(config, interceptor, dev);
   }
 
-  public async post(file: File) {
+  public async post(file: File, Cookie: string) {
     const formData = new FormData();
     formData.append('file', file);
     const { url } = await this.http.post<{ url: string }>(
       'author/image',
       formData,
+      { headers: { Cookie } },
     ).then((res) => res.data);
     return url;
   }

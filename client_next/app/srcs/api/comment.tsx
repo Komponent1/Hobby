@@ -27,13 +27,14 @@ class CommentAPI {
     return comments;
   }
 
-  public async post(data: { article_id: number, content: string }) {
+  public async post(data: { article_id: number, content: string }, Cookie: string) {
     const code = await this.http.post(
       'author/comment',
       data,
       {
         headers: {
           'Content-Type': 'application/json',
+          Cookie,
         },
       },
     ).then((res) => res.status);
@@ -43,6 +44,7 @@ class CommentAPI {
   public async patch(
     id: string,
     data: { article_id: number, content: string },
+    Cookie: string,
   ) {
     const code = await this.http.patch(
       `author/comment?comment_id=${id}`,
@@ -50,15 +52,17 @@ class CommentAPI {
       {
         headers: {
           'Content-Type': 'application/json',
+          Cookie,
         },
       },
     ).then((res) => res.status);
     return code;
   }
 
-  public async delete(id: string) {
+  public async delete(id: string, Cookie: string) {
     const code = await this.http.delete(
       `author/comment?comment_id=${id}`,
+      { headers: { Cookie } },
     ).then((res) => res.status);
     return code;
   }
