@@ -3,7 +3,6 @@ import {
   useMemo, useCallback, useState, useEffect,
 } from 'react';
 import { Comment } from 'Data';
-import { Cookies } from 'react-cookie';
 import { useAlert } from '@seolim/react-ui/alert';
 import CommentService from '../api/comment';
 
@@ -20,7 +19,6 @@ export type UseComment = (id: number, init?: boolean) => ({
   del: DeleteComment;
 });
 const useComment: UseComment = (id, init) => {
-  const cookie = useMemo(() => new Cookies(), []);
   const [loading, setLoading] = useState<boolean>(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const { alert } = useAlert('lb');
@@ -48,33 +46,33 @@ const useComment: UseComment = (id, init) => {
     data: { article_id: number, content: string },
   ) => {
     try {
-      await service.post(data, cookie.getAll({ doNotParse: true }));
+      await service.post(data);
       getAll();
     } catch (error) {
       alert('댓글올리기에 실패했습니다. 나중에 다시 해주세요', { scale: 'large' });
     }
-  }, [service, getAll, alert, cookie]);
+  }, [service, getAll, alert]);
 
   const patch: PatchComment = useCallback(async (
     commentId: string,
     data: { article_id: number, content: string },
   ) => {
     try {
-      await service.patch(commentId, data, cookie.getAll({ doNotParse: true }));
+      await service.patch(commentId, data);
       getAll();
     } catch (error) {
       alert('댓글올리기에 실패했습니다. 나중에 다시 해주세요', { scale: 'large' });
     }
-  }, [service, getAll, alert, cookie]);
+  }, [service, getAll, alert]);
 
   const del: DeleteComment = useCallback(async (commentId: string) => {
     try {
-      await service.delete(commentId, cookie.getAll({ doNotParse: true }));
+      await service.delete(commentId);
       getAll();
     } catch (error) {
       alert('댓글 삭제에 실패했습니다. 나중에 다시 해주세요', { scale: 'large' });
     }
-  }, [service, getAll, alert, cookie]);
+  }, [service, getAll, alert]);
 
   useEffect(() => {
     setLoading(true);

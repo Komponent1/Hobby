@@ -41,28 +41,28 @@ class ArticleAPI {
     return { article, user, content };
   }
 
-  public async post(data: { [key: string]: any }, Cookie: string) {
+  public async post(data: { [key: string]: any }) {
     const { id } = await this.http.post<{ id: number }>(
       'author/article',
       makeFormData(data),
-      { headers: { Cookie } },
+      { withCredentials: true },
     ).then((res) => res.data);
     return id;
   }
 
-  public async patch(articleId: number, data: { [key: string]: any }, Cookie: string) {
+  public async patch(articleId: number, data: { [key: string]: any }) {
     const { id } = await this.http.post<{ id: number }>(
       `author/article?article_id=${articleId}`,
       makeFormData(data),
-      { headers: { Cookie } },
+      { withCredentials: true },
     ).then((res) => res.data);
     return id;
   }
 
-  public async delete(articleId: number, Cookie: string) {
+  public async delete(articleId: number) {
     const code = await this.http.delete<{ id: number }>(
       `author/article?article_id=${articleId}`,
-      { headers: { Cookie } },
+      { withCredentials: true },
     ).then((res) => res.status);
     return code;
   }
