@@ -2,8 +2,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import '../styles/global.css';
 import { LayoutProvider } from '@seolim/react-ui/layout';
-import { HttpProvider } from '@seolim/react-ui/http';
-import { Header, Footer } from '../srcs';
+import { Header, Footer } from '../srcs/components';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,13 +13,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-site-verification" content="mr23KVn0BRrTbtugcOFIlxqeCtz0vhO03sTWfwrcln8" />
       </Head>
-      <HttpProvider baseurl="">
-        <LayoutProvider>
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
-        </LayoutProvider>
-      </HttpProvider>
+      <LayoutProvider>
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
+      </LayoutProvider>
     </>
   );
 }

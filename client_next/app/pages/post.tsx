@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useLayout } from '@seolim/react-ui/layout';
-import { Markdown, Editor } from '../srcs';
+import { Markdown, Editor } from '../srcs/components';
 import * as S from '../styles/post.style';
+import { ArticleAPI, TagAPI } from '../srcs/api';
 
 type PostProps = {
   tags: any[];
@@ -52,25 +53,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     });
   }
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const { article_id } = context.query;
 
   try {
-    /** next서버에서 보내는 값은 어자피 처리 불가 */
-    // if (article_id) await fetch(`http://gateway:80/auth?article_id=${article_id}`);
-    // else await fetch('http://gateway:80/auth');
-  } catch (err) {
-    return ({
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    });
-  }
-  try {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { article_id } = context.query;
+    const articleAPI = new ArticleAPI();
+    const tagAPI = new TagAPI();
     let article;
-    if (article_id) article = await fetch(`${process.env.BASEURL}/api/article?article_id=${article_id}`).then((res) => res.json());
-    const { tags } = await fetch(`${process.env.BASEURL}/api/tags`).then((res) => res.json());
+    if (article_id) article = await articleAPI.get(parseInt(article_id as string, 10));
+    const tags = await tagAPI.getAll();
 
     if (article) {
       return ({

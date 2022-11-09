@@ -5,7 +5,8 @@ import { Grid } from '@seolim/react-ui';
 import { useLayout } from '@seolim/react-ui/layout';
 import { Article, Tag } from 'Data';
 import * as S from '../styles/main.style';
-import { ArticleCard } from '../srcs';
+import { ArticleCard } from '../srcs/components';
+import { ArticleAPI, TagAPI } from '../srcs/api';
 
 type MainProps = {
   tags: Tag[];
@@ -65,20 +66,12 @@ function Main({
     </S.main>
   );
 }
-/**
- * 최초 데이터 가져오기
- * 1. 모든 게시글 파일 가져오기
- */
 export async function getServerSideProps() {
   try {
-    const { articles } = await fetch(`${process.env.BASEURL}/api/articles`).then((res) => res.json()) as { articles: Article[] };
-    const { tags } = await fetch(`${process.env.BASEURL}/api/tags`).then((res) => res.json());
-    articles.sort(
-      (a, b) => (
-        new Date(b.publish_date).getTime()
-        - new Date(a.publish_date).getTime()
-      ),
-    );
+    const articleAPI = new ArticleAPI();
+    const tagAPI = new TagAPI();
+    const articles = await articleAPI.getAll();
+    const tags = await tagAPI.getAll();
 
     return ({
       props: {

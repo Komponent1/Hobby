@@ -16,12 +16,17 @@ const deleteDataFromDB = async (article_id: string, user_id: string) => {
   console.log(article_id, user_id);
   try {
     await db.none(
+      'DELETE FROM comment WHERE article_id = $1',
+      [parseInt(article_id, 10)],
+    )
+
+    await db.none(
       'DELETE FROM article_tag WHERE article_id = $1',
-      [parseInt(article_id)],
+      [parseInt(article_id, 10)],
     )
     const { path } = await db.one(
       'DELETE FROM article WHERE id = $1 AND user_id = $2 RETURNING path',
-      [parseInt(article_id), user_id],
+      [parseInt(article_id, 10), user_id],
     );
 
     return path;

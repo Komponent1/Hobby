@@ -1,20 +1,13 @@
 declare module 'Data' {
-  export interface Token {
-    email: string;
-    access_token: string;
-    token_type: string;
-    expires_in: number;
-    scope: string;
-  }
   export interface Tag {
     id: number;
     name: string;
-    color: 'grey'; // TODO
+    color: string;
   }
   export interface Article {
     id: number;
     publish_date: string;
-    update_date: string;
+    update_date?: string;
     src: string;
     path: string;
     title: string;
@@ -24,7 +17,9 @@ declare module 'Data' {
     tag: Tag[];
   }
   export interface User {
-    src: string;
+    id?: string;
+    src?: string;
+    github?: string;
   }
   export interface Comment {
     id: string;
@@ -34,9 +29,8 @@ declare module 'Data' {
     date: string;
   }
   export interface ArticleContent {
-    id: number;
-    title: string;
-    category_id: number;
+    article: Article;
+    user: User;
     content: string;
   }
   export interface Category {

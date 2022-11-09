@@ -8,10 +8,11 @@ import { Article as tArticle, User } from 'Data';
 import Image from 'next/image';
 import { useModal } from '@seolim/react-ui/modal';
 import { useLayout } from '@seolim/react-ui/layout';
-import { useHttpClient } from '@seolim/react-ui/http';
-import { Markdown, Comment } from '../../srcs';
+import { Markdown, Comment } from '../../srcs/components';
 import { date2string } from '../../lib';
 import * as S from '../../styles/article.style';
+import { ArticleAPI } from '../../srcs/api';
+import { useArticle } from '../../srcs/hook';
 
 type ArticleProps = {
   article: tArticle;
@@ -25,12 +26,10 @@ function Article({
 }: ArticleProps) {
   useLayout(true, true);
   const router = useRouter();
-  const { httpClient } = useHttpClient([]);
+  const { del } = useArticle();
   const { openModal } = useModal('정말로 삭제하시겠습니까?', {
     header: '경고!',
-    onAction: () => httpClient.delete(
-      `author/article?article_id=${article.id}`,
-    ).then(() => router.push('/')),
+    onAction: () => del(article.id),
   });
 
   return (
@@ -84,10 +83,9 @@ function Article({
       <S.title>{article.title}</S.title>
       <S.Content>
         <S.chips>
-          {article.tag.map(({ name, color }) => (
+          {article.tag.map(({ name }) => (
             <Chip
               key={name}
-              color={color}
               style={{}}
             >
               {name}
@@ -118,8 +116,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const login = context.req.cookies.seolim_blog_user || '';
   const { pid } = context.query;
   try {
-    const { article, content, user } = await fetch(`${process.env.BASEURL}/api/article?article_id=${pid}`).then((res) => res.json());
-    const date = date2string(article.update_date);
+    const articleAPI = new ArticleAPI();
+    const { article, content, user } = await articleAPI.get(parseInt(pid as string, 10));
+    const date = date2string(article.update_date as string);
 
     return ({
       props: {
