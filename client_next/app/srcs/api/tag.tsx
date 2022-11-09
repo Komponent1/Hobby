@@ -5,8 +5,13 @@ import HttpClient, { Interceptor } from './http';
 class TagAPI {
   private http;
 
-  constructor(config?: CreateAxiosDefaults<any>, interceptor?: Interceptor) {
-    this.http = new HttpClient(config, interceptor);
+  constructor(
+    config?: CreateAxiosDefaults<any>,
+    interceptor?: Interceptor,
+    isServer?: boolean,
+    dev?: boolean,
+  ) {
+    this.http = new HttpClient(config, interceptor, isServer, dev);
   }
 
   public async getAll() {

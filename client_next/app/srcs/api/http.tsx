@@ -19,10 +19,12 @@ class HttpClient {
   constructor(
     config?: CreateAxiosDefaults<any>,
     interceptor?: Interceptor,
-    dev?: boolean,
+    isServer: boolean = true,
+    dev: boolean = false,
   ) {
     this.http = axios.create({
-      baseURL: !dev ? process.env.NEXT_PUBLIC_BASEURL as string : 'http://localhost:4000/',
+      // eslint-disable-next-line no-nested-ternary
+      baseURL: isServer ? (dev ? 'http://localhost:4000' : process.env.NEXT_PUBLIC_BASEURL) : '/',
       timeout: 2000,
       ...config,
     });

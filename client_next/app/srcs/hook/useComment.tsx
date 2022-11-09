@@ -34,6 +34,7 @@ const useComment: UseComment = (id, init) => {
         return Promise.reject(error);
       },
     },
+    false,
     process.env.NODE_ENV === 'development',
   ), [router]);
 

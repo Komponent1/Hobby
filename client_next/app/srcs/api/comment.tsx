@@ -8,9 +8,10 @@ class CommentAPI {
   constructor(
     config?: CreateAxiosDefaults<any>,
     interceptor?: Interceptor,
+    isServer?: boolean,
     dev?: boolean,
   ) {
-    this.http = new HttpClient(config, interceptor, dev);
+    this.http = new HttpClient(config, interceptor, isServer, dev);
   }
 
   public async getAll(id: number) {

@@ -17,8 +17,13 @@ const makeFormData = (data: { [key: string]: any }) => {
 class ArticleAPI {
   private http;
 
-  constructor(config?: CreateAxiosDefaults<any>, interceptor?: Interceptor, dev?: boolean) {
-    this.http = new HttpClient(config, interceptor, dev);
+  constructor(
+    config?: CreateAxiosDefaults<any>,
+    interceptor?: Interceptor,
+    isServer?: boolean,
+    dev?: boolean,
+  ) {
+    this.http = new HttpClient(config, interceptor, isServer, dev);
   }
 
   public async getAll() {

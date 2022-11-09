@@ -7,9 +7,10 @@ class BookmarkAPI {
   constructor(
     config?: CreateAxiosDefaults<any>,
     interceptor?: Interceptor,
+    isServer?: boolean,
     dev?: boolean,
   ) {
-    this.http = new HttpClient(config, interceptor, dev);
+    this.http = new HttpClient(config, interceptor, dev, isServer);
   }
 
   public async get(href: string) {

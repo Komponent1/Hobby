@@ -39,19 +39,15 @@ export const postGit = async (req: Request, res: Response, next: NextFunction) =
     res.cookie('seolim_blog_access_token', jwt.accessToken, {
       expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
       httpOnly: true,
-      domain: process.env.BASEURL,
     });
     res.cookie('seolim_blog_user', login, {
       expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
-      domain: process.env.BASEURL,
     });
     res.cookie('seolim_blog_user_src', src, {
       expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
-      domain: process.env.BASEURL,
     });
     res.cookie('seolim_blog_user_github', src, {
       expires: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000),
-      domain: process.env.BASEURL,
     })
     
     return res.status(204).end();

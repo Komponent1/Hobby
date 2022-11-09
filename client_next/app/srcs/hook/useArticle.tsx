@@ -16,6 +16,7 @@ const useArticle = () => {
   const service = useMemo(() => new ArticleService(
     undefined,
     undefined,
+    false,
     process.env.NODE_ENV === 'development',
   ), []);
 

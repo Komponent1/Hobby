@@ -18,7 +18,7 @@ function UploadModal({
   const [selected, setSelected] = useState<number>(-1);
 
   useEffect(() => {
-    const imageAPI = new ImageAPI(undefined, undefined, process.env.NODE_ENV === 'development');
+    const imageAPI = new ImageAPI(undefined, undefined, false, process.env.NODE_ENV === 'development');
     imageAPI.getAll().then((imageList) => {
       setImages(imageList);
     });
