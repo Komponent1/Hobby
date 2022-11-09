@@ -10,7 +10,10 @@ import cors from 'cors';
 const app = express();
 
 app.use('/public', express.static(`${__dirname}/public`));
-process.env.NODE_ENV === 'development' ? null : app.use(cors({ origin: 'https://blog-sage-pi.vercel.app' }));
+process.env.NODE_ENV === 'development' ? null : app.use(cors({
+  origin: 'https://blog-sage-pi.vercel.app',
+  credentials: true,
+}));
 app.use(cookieParser());
 app.use(logger());
 app.use(bodyParser.json());
