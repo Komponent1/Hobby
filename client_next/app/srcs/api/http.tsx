@@ -24,6 +24,7 @@ class HttpClient {
     this.http = axios.create({
       baseURL: !dev ? process.env.NEXT_PUBLIC_BASEURL as string : 'http://localhost:4000/',
       timeout: 2000,
+      withCredentials: true,
       ...config,
     });
     if (interceptor) {
