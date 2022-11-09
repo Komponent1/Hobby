@@ -9,7 +9,7 @@ import cors from 'cors';
 
 const app = express();
 app.use('/public', express.static(`${__dirname}/public`));
-process.env.NODE_ENV === 'development' ? null : app.use(cors({ origin: 'https://komponent1.github.io' }));
+process.env.NODE_ENV === 'development' ? null : app.use(cors({ origin: 'https://blog-sage-pi.vercel.app' }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
