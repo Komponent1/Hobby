@@ -6,7 +6,7 @@ import { useLayout } from '@seolim/react-ui/layout';
 import { Article, Tag } from 'Data';
 import * as S from '../styles/main.style';
 import { ArticleCard } from '../srcs/components';
-import { ArticleAPI, TagAPI } from '../srcs/api';
+import {getMainPropsFromLocal} from '../srcs/props/main.local.props';
 
 type MainProps = {
   tags: Tag[];
@@ -67,25 +67,7 @@ function Main({
   );
 }
 export async function getServerSideProps() {
-  try {
-    const articleAPI = new ArticleAPI();
-    const tagAPI = new TagAPI();
-    const articles = await articleAPI.getAll();
-    const tags = await tagAPI.getAll();
-
-    return ({
-      props: {
-        articles, tags,
-      },
-    });
-  } catch (err) {
-    return ({
-      redirect: {
-        destination: '/error',
-        permanent: false,
-      },
-    });
-  }
+  return getMainPropsFromLocal();
 }
 
 export default Main;

@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import { GetServerSidePropsContext } from 'next';
 import { Chip } from '@seolim/react-ui/chips';
 import { Avatar, Button } from '@seolim/react-ui';
 import { useRouter } from 'next/router';
@@ -9,10 +8,9 @@ import Image from 'next/image';
 import { useModal } from '@seolim/react-ui/modal';
 import { useLayout } from '@seolim/react-ui/layout';
 import { Markdown, Comment } from '../../srcs/components';
-import { date2string } from '../../lib';
 import * as S from '../../styles/article.style';
-import { ArticleAPI } from '../../srcs/api';
 import { useArticle } from '../../srcs/hook';
+import {getArticlePropsFromLocal} from '../../srcs/props/article.local.props';
 
 type ArticleProps = {
   article: tArticle;
@@ -112,27 +110,8 @@ function Article({
     </S.main>
   );
 }
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const login = context.req.cookies.seolim_blog_user || '';
-  const { pid } = context.query;
-  try {
-    const articleAPI = new ArticleAPI();
-    const { article, content, user } = await articleAPI.get(parseInt(pid as string, 10));
-    const date = date2string(article.update_date as string);
-
-    return ({
-      props: {
-        article, content, user, login, date,
-      },
-    });
-  } catch (err) {
-    return ({
-      redirect: {
-        destination: '/error',
-        permanent: false,
-      },
-    });
-  }
+export async function getServerSideProps() {
+  return getArticlePropsFromLocal();
 }
 
 export default Article;
