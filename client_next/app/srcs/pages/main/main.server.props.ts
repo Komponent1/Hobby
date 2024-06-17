@@ -1,4 +1,4 @@
-import {ArticleAPI, TagAPI} from '../api';
+import {ArticleAPI, TagAPI} from '../../../legacy/api';
 
 export async function getMainPropsFromServer() {
   try {

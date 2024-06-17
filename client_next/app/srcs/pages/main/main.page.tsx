@@ -1,6 +1,6 @@
 import React from 'react';
 import {Div} from './main.style';
 
-const Main: React.FC = () => <Div />;
+const MainPage = () => <Div />;
 
-export default Main;
+export default MainPage;

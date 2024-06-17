@@ -1,6 +1,6 @@
 import {GetServerSidePropsContext} from 'next';
-import {date2string} from '../../lib';
-import {ArticleAPI} from '../api';
+import {date2string} from '../../../lib';
+import {ArticleAPI} from '../../../legacy/api';
 
 export async function getArticlePropsFromServer(context: GetServerSidePropsContext) {
   const login = context.req.cookies.seolim_blog_user || '';

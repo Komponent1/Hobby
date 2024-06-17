@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 import theme from '@seolim/react-ui/styles/theme';
 import global from '../../../styles/theme';
 
-export const footerlayout = styled.div`
+export const FooterLayout = styled.div`
   ${global.main};
   padding: 20px;
   width: calc(100% - 40px);
 `;
-export const borderBox = styled.div`
+export const BorderBox = styled.div`
   border-top: 1px solid ${theme.color.white400};
   margin: 0 32px;
   padding: 16px 0;
@@ -17,7 +17,7 @@ export const borderBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
-export const marginWrapper = styled.div`
+export const MarginWrapper = styled.div`
   margin-right: 16px;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@ export const marginWrapper = styled.div`
 export const IconGroup = styled.section`
   display: flex;
 `;
-export const paragraph = styled.section`
+export const Paragraph = styled.section`
   display: flex;
   flex-direction: column;
   margin-right: 128px;
@@ -36,11 +36,11 @@ export const paragraph = styled.section`
   color: ${theme.color.black500};
   font-size: 14px;
 `;
-export const keyword = styled.span`
+export const Keyword = styled.span`
   color: ${theme.color.black700};
   font-weight: 800;
 `;
-export const description = styled.span`
+export const Description = styled.span`
   color: ${theme.color.black500};
   font-size: 14px;
 `;

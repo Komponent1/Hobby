@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import { useAlert } from '@seolim/react-ui/alert';
-import ArticleService from '../api/article';
+import ArticleService from '../../legacy/api/article';
 
 export type GetArticle = (id: number) => Promise<void>;
 export type GetArticles = () => Promise<void>;

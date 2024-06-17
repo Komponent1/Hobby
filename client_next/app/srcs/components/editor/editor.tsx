@@ -10,7 +10,7 @@ import { Button } from '@seolim/react-ui';
 import UploadModal from '../uploadModal/uploadModal';
 import * as S from './style';
 import { useArticle } from '../../hook';
-import { ImageAPI } from '../../api';
+import { ImageAPI } from '../../../legacy/api';
 import LoadingPortal from '../loading/loading';
 
 const LoadingWraper = () => (

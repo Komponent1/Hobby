@@ -1,4 +1,4 @@
-import {date2string} from '../../lib';
+import {date2string} from '../../../lib';
 
 export function getArticlePropsFromLocal() {
   const article = {

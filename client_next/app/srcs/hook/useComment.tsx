@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { Comment } from 'Data';
 import { useAlert } from '@seolim/react-ui/alert';
-import CommentService from '../api/comment';
+import CommentService from '../../legacy/api/comment';
 
 export type CommentBody = { article_id: number, content: string };
 export type PostComment = (data: CommentBody) => Promise<void>;

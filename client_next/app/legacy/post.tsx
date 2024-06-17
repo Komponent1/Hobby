@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useLayout } from '@seolim/react-ui/layout';
 import { Markdown, Editor } from '../srcs/components';
 import * as S from '../styles/post.style';
-import { ArticleAPI, TagAPI } from '../srcs/api';
+import { ArticleAPI, TagAPI } from './api';
 
 type PostProps = {
   tags: any[];

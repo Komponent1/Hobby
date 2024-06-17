@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import theme from '@seolim/react-ui/styles/theme';
 import global from '../../../styles/theme';
 
-export const headlayout = styled.div`
+export const HeaderLayout = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -10,7 +10,7 @@ export const headlayout = styled.div`
   padding: 4px 16px;
   ${global.main};
 `;
-export const buttonGroup = styled.div`
+export const ButtonGroup = styled.div`
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -21,7 +21,7 @@ export const buttonGroup = styled.div`
     margin-right: 16px;
   }
 `;
-export const title = styled.div`
+export const Title = styled.div`
   ${theme.typography.title};
   margin-left: 8px;  
 `;

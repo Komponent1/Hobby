@@ -8,7 +8,7 @@ import { coy } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { OgBookmark } from '@seolim/react-ui/bookmark';
 import 'github-markdown-css/github-markdown.css';
 import * as S from './style';
-import BookmarkAPI from '../../api/bookmark';
+import BookmarkAPI from '../../../legacy/api/bookmark';
 
 type PreviewProps = {
   mdString: string;

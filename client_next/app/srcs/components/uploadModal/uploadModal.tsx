@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { FormControl } from '@seolim/react-ui/form/useFormControl';
 import { Grid } from '@seolim/react-ui';
 import * as S from './style';
-import { ImageAPI } from '../../api';
+import { ImageAPI } from '../../../legacy/api';
 
 type UploadModalProps = {
   controlImg: FormControl<File, HTMLInputElement>;
