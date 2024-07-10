@@ -6,15 +6,13 @@ declare module 'Data' {
   }
   export interface Article {
     id: number;
-    publish_date: string;
-    update_date?: string;
-    src: string;
-    path: string;
     title: string;
-    user_id: string;
-    next_id?: number;
-    prev_id?: number;
-    tag: Tag[];
+    path: string;
+  }
+  export interface Information {
+    id: number;
+    title: string;
+    path: string;
   }
   export interface User {
     id?: string;

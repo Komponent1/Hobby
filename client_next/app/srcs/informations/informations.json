@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Information 1",
+    "path": "information1 path"
+  },
+  {
+    "id": 2,
+    "title": "Information 2",
+    "path": "information2 path"
+  },
+  {
+    "id": 3,
+    "title": "Information 3",
+    "path": "information3 path"
+  }
+]

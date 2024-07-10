@@ -8,7 +8,7 @@ import {useLayout} from '@seolim/react-ui/layout';
 import {Comment, Markdown} from '../../components';
 import {
   Box, Chips, Content, ImageWrapper, Main, Paragraph, Title, UserBox, Wrapper,
-} from './article.style';
+} from './articles.style';
 
 type Props = {
   article: Article;

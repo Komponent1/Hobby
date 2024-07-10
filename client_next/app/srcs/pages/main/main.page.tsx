@@ -1,6 +1,16 @@
 import React from 'react';
+import Link from 'next/link';
 import {Div} from './main.style';
 
-const MainPage = () => <Div />;
+const MainPage = () => (
+  <Div>
+    <Link href="/articles">
+      articles
+    </Link>
+    <Link href="/informations">
+      informations
+    </Link>
+  </Div>
+);
 
 export default MainPage;
