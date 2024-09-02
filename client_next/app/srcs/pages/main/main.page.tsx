@@ -10,6 +10,9 @@ const MainPage = () => (
     <Link href="/informations">
       informations
     </Link>
+    <Link href="/game">
+      game
+    </Link>
   </Div>
 );
 

@@ -1,8 +1,8 @@
 [
   {
-    "id": 1,
-    "title": "Information 1",
-    "path": "information1 path"
+    "id": "info1",
+    "title": "next static page",
+    "path": "info1"
   },
   {
     "id": 2,
