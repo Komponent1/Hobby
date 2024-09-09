@@ -1,14 +1,14 @@
 import React from 'react';
-import { getInformationsListPath, getInformationsProps } from '../../srcs/pages/informations/informations.pid.local.props';
+import { getInformationsListPath, getInformationsProps } from '../../srcs/informations/informations.pid.local.props';
+import { Information } from '../../srcs/informations/dto/informations';
+import InformationsPidPage from '../../srcs/informations/informations.pid.page';
 
 type Props = {
-  information: string;
+  information: Information;
+  content: string;
 };
-const Informations: React.FC<Props> = ({information}) => (
-  <div>
-    <h1>Informations</h1>
-    <div dangerouslySetInnerHTML={{__html: information}} />
-  </div>
+const Informations: React.FC<Props> = ({information, content}) => (
+  <InformationsPidPage information={information} content={content} />
 );
 
 export function getStaticPaths() {

@@ -1,20 +1,13 @@
 import React from 'react';
-import { Article } from 'Data';
-import Link from 'next/link';
-import { getArticlePropsFromLocal } from '../../srcs/pages/articles/articles.local.props';
+import { getArticlePropsFromLocal } from '../../srcs/articles/article.props';
+import ArticlesPage from '../../srcs/articles/articles.page';
+import { Article } from '../../srcs/articles/dto/article';
 
 type Props = {
   articles: Article[];
 };
 const Articles: React.FC<Props> = ({articles}) => (
-  <div>
-    <h1>Articles</h1>
-    {articles.map((article) => (
-      <div key={article.id}>
-        <Link href={`/articles/${article.id}`}>{article.title}</Link>
-      </div>
-    ))}
-  </div>
+  <ArticlesPage articles={articles} />
 );
 
 export default Articles;

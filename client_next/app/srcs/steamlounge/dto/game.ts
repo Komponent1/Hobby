@@ -4,4 +4,6 @@ export type GameData = {
   name: string;
   photoUrl: string;
 };
-export type GameDataList = GameData[];
+export type GameAnalysticData = GameData & {
+  tagVector: number[];
+};

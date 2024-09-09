@@ -1,11 +1,12 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import { GameData } from '../dto/game';
+import { GameAnalysticData, GameData } from '../dto/game';
 import {
   getAppName, getAppPhoto, getGameHtmlDOM, getTags,
-} from '../steam.api/steam.crawler';
+} from './steam.crawler';
 import { TagParsingException } from '../steam.api/steam.exception';
+import { consineSimilarity } from './clustering';
 
 /**
  * 유저 게임 가져오기 -> 게임 카테고리 추출 및 데이터 생성
@@ -30,7 +31,6 @@ export const makeGameSet = (gamesList: {appid: string}[]) => {
 
   return gameSet;
 };
-export const sleep = async (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const crawlingDataFromAppid = async (appid: string): Promise<GameData | undefined> => {
   try {
@@ -76,4 +76,28 @@ export const makeVectorSet = (gameinfos: RawGameCategory) => {
     vectorSet.push(vector);
   });
   return vectorSet;
+};
+export const makeNode = (gameinfos: GameAnalysticData[]) => {
+  const elements: any[] = gameinfos.map((game) => ({ id: game.name, label: game.name }));
+  const gameNames = gameinfos.map((game) => game.name);
+
+  for (let i = 0; i < gameNames.length; i += 1) {
+    for (let j = i + 1; j < gameNames.length; j += 1) {
+      const game1 = gameNames[i];
+      const game2 = gameNames[j];
+      const similarity = consineSimilarity(gameinfos[i].tagVector, gameinfos[j].tagVector);
+      if (similarity > 0.1) {
+        elements.push({
+          data: {
+            id: `${game1}-${game2}`,
+            source: game1,
+            target: game2,
+            weight: similarity,
+          },
+        });
+      }
+    }
+  }
+
+  return elements;
 };

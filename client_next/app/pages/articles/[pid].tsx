@@ -1,14 +1,14 @@
 import React from 'react';
-import { getArticleProps, getArticlesListPath } from '../../srcs/pages/articles/articles.pid.local..props';
+import { getArticleProps, getArticlesListPath } from '../../legacy/articles/articles.pid.local..props';
+import ArticlesPidPage from '../../srcs/articles/articles.pid.page';
+import { Article } from '../../srcs/articles/dto/article';
 
 type Props = {
-  article: string;
+  article: Article;
+  content: string;
 };
-const Article: React.FC<Props> = ({article}) => (
-  <div>
-    <h1>Article</h1>
-    <div dangerouslySetInnerHTML={{__html: article}} />
-  </div>
+const ArticlesPid: React.FC<Props> = ({article, content}) => (
+  <ArticlesPidPage article={article} content={content} />
 );
 
 export function getStaticPaths() {
@@ -20,4 +20,4 @@ export async function getStaticProps({params}: {params: {pid: string}}) {
   return props;
 }
 
-export default Article;
+export default ArticlesPid;

@@ -1,8 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
 import {Article} from 'Data';
-import {getMainPropsFromLocal} from '../srcs/pages/main/main.local.props';
-import MainPage from '../srcs/pages/main/main.page';
+import {getMainPropsFromLocal} from '../srcs/main/main.local.props';
+import MainPage from '../srcs/main/main.page';
 
 type MainProps = {
   articles: Article[];

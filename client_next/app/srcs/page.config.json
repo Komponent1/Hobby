@@ -1,0 +1,25 @@
+{
+  "main": {
+    "title": "Main",
+    "path": "/"
+  },
+  "articles": {
+    "title": "Articles",
+    "path": "/articles",
+    "children": {
+      "path": "/articles/:id"
+    }
+  },
+  "steamlounge": {
+    "title": "Steam Lounge",
+    "path": "/steamlounge"
+  },
+  "information": {
+    "title": "Information",
+    "path": "/information"
+  },
+  "game": {
+    "title": "Game",
+    "path": "/game"
+  }
+}
