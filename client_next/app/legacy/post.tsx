@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useLayout } from '@seolim/react-ui/layout';
-import { Markdown, Editor } from '../srcs/components';
+import { Markdown, Editor } from './components';
 import * as S from '../styles/post.style';
 import { ArticleAPI, TagAPI } from './api';
 

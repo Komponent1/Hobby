@@ -5,7 +5,7 @@ import fs from 'fs';
 import { getGameData } from './analystic/getGameData';
 import { getOwnedGames } from './steam.api/steam.api.user';
 
-const steamids: string[] = [process.env.STEAM_ID as string];
+const steamids: string[] = ['76561199008462834'];
 
 export const saveJsonInCrawling = async (steamid: string, gameinfos: any) => {
   fs.writeFileSync(`${steamid}.json`, JSON.stringify(gameinfos, null, 2));

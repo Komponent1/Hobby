@@ -12,12 +12,12 @@ type PageConfig = {
 const MainPage = () => (
   <div>
     {Object.keys(pages as PageConfig).map((page) => (
-      <>
-        <Link key={page} href={pages[page].path}>
+      <div key={page}>
+        <Link href={pages[page].path}>
           {pages[page].title}
         </Link>
         <br />
-      </>
+      </div>
     ))}
   </div>
 );

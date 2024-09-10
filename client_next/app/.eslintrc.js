@@ -16,5 +16,5 @@ module.exports = {
     "@typescript-eslint/object-curly-spacing": 0,
   },
   "overrides": [],
-  "ignorePatterns": ['.eslintrc.js', 'node_modules/**']
+  "ignorePatterns": ['.eslintrc.js', 'node_modules/**', 'legacy/**']
 };
