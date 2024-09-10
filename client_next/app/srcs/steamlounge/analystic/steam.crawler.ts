@@ -2,7 +2,11 @@ import axios from 'axios';
 import { parse } from 'node-html-parser';
 import { GetStoreHtmlException, TagParsingException } from '../steam.api/steam.exception';
 
-export const getTags = (dom: HTMLElement) => {
+export const getTags = (categories: any) => {
+  const tags = categories.map((category: any) => category.name);
+  return tags;
+};
+export const getCategories = (dom: HTMLElement) => {
   try {
     const div = dom.querySelector('#responsive_page_template_content');
     const scripts = div?.querySelectorAll('script');
@@ -12,8 +16,8 @@ export const getTags = (dom: HTMLElement) => {
     const tagsText = tagScript?.rawText.match(/\[[^\]]+\]/g);
     if (tagScript === undefined || tagsText === null) throw new Error();
 
-    const tags = JSON.parse(tagsText[0]);
-    return tags;
+    const categories = JSON.parse(tagsText[0]);
+    return categories;
   } catch (err) {
     throw new TagParsingException();
   }

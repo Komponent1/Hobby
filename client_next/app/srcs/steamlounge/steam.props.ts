@@ -4,6 +4,7 @@
 import fs from 'fs';
 import { getGameData } from './analystic/getGameData';
 import { getOwnedGames } from './steam.api/steam.api.user';
+import { makeTagVector } from './analystic/clustering';
 
 const steamids: string[] = ['76561199008462834'];
 
@@ -28,13 +29,14 @@ export async function getSteamLoungeProps() {
 
     const games = await getOwnedGames(process.env.STEAM_ID as string);
     const gameinfos = await getGameData(games.response.games);
+    const gameAnalysticData = makeTagVector(gameinfos);
 
-    saveJsonInCrawling(process.env.STEAM_ID as string, gameinfos);
+    saveJsonInCrawling(process.env.STEAM_ID as string, gameAnalysticData);
 
     return ({
       props: {
         games: games.response,
-        gameinfos,
+        gameAnalysticData,
       },
     });
   } catch (err) {

@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 import { GameAnalysticData, GameData } from '../dto/game';
 import {
-  getAppName, getAppPhoto, getGameHtmlDOM, getTags,
+  getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getTags,
 } from './steam.crawler';
 import { TagParsingException } from '../steam.api/steam.exception';
 import { consineSimilarity } from './clustering';
@@ -35,11 +35,12 @@ export const makeGameSet = (gamesList: {appid: string}[]) => {
 export const crawlingDataFromAppid = async (appid: string): Promise<GameData | undefined> => {
   try {
     const dom = await getGameHtmlDOM(appid);
-    const tags = getTags(dom);
+    const categories = getCategories(dom);
+    const tags = getTags(categories);
     const name = getAppName(dom) as string;
     const photoUrl = getAppPhoto(dom) as string;
     return {
-      appid, tags, name, photoUrl,
+      appid, categories, tags, name, photoUrl,
     };
   } catch (err) {
     if (err instanceof TagParsingException) {
@@ -50,15 +51,16 @@ export const crawlingDataFromAppid = async (appid: string): Promise<GameData | u
   }
 };
 export const getGameData = async (games: any) => {
+  /** 10개씩 분리 -> load 배분 */
   const dataSet = makeGameSet(games);
 
   const gameinfos = [];
 
   for (const gameSet of dataSet) {
-    const tagsSet = await Promise.all(
+    const gameDataWithTags = await Promise.all(
       gameSet.map((appid) => crawlingDataFromAppid(appid)),
     );
-    gameinfos.push(...tagsSet.flat().filter((e) => e !== undefined));
+    gameinfos.push(...gameDataWithTags.flat().filter((e) => e !== undefined));
   }
   return gameinfos;
 };
@@ -78,7 +80,7 @@ export const makeVectorSet = (gameinfos: RawGameCategory) => {
   return vectorSet;
 };
 export const makeNode = (gameinfos: GameAnalysticData[]) => {
-  const elements: any[] = gameinfos.map((game) => ({ id: game.name, label: game.name }));
+  const elements: any[] = gameinfos.map((game) => ({data: { id: game.name, label: game.name }}));
   const gameNames = gameinfos.map((game) => game.name);
 
   for (let i = 0; i < gameNames.length; i += 1) {
