@@ -27,11 +27,7 @@ export const getAppName = (dom: HTMLElement) => {
   const name = div?.textContent;
   return name;
 };
-export const getAppPhoto = (dom: HTMLElement) => {
-  const img = dom.querySelector('.game_header_image_full');
-  const photoUrl = img?.getAttribute('src');
-  return photoUrl;
-};
+export const getAppPhoto = (appid: string) => `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
 export const getGameHtmlDOM = async (appid: string) => {
   try {
     const html = await axios.get(`https://store.steampowered.com/app/${appid}`);

@@ -38,7 +38,7 @@ export const crawlingDataFromAppid = async (appid: string): Promise<GameData | u
     const categories = getCategories(dom);
     const tags = getTags(categories);
     const name = getAppName(dom) as string;
-    const photoUrl = getAppPhoto(dom) as string;
+    const photoUrl = getAppPhoto(appid) as string;
     return {
       appid, categories, tags, name, photoUrl,
     };
@@ -80,7 +80,13 @@ export const makeVectorSet = (gameinfos: RawGameCategory) => {
   return vectorSet;
 };
 export const makeNode = (gameinfos: GameAnalysticData[]) => {
-  const elements: any[] = gameinfos.map((game) => ({data: { id: game.name, label: game.name }}));
+  const elements: any[] = gameinfos.map((game) => ({
+    data: {
+      id: game.name,
+      label: game.name,
+      photoUrl: game.photoUrl,
+    },
+  }));
   const gameNames = gameinfos.map((game) => game.name);
 
   for (let i = 0; i < gameNames.length; i += 1) {
@@ -88,7 +94,7 @@ export const makeNode = (gameinfos: GameAnalysticData[]) => {
       const game1 = gameNames[i];
       const game2 = gameNames[j];
       const similarity = consineSimilarity(gameinfos[i].tagVector, gameinfos[j].tagVector);
-      if (similarity > 0.1) {
+      if (similarity > 0.4) {
         elements.push({
           data: {
             id: `${game1}-${game2}`,
