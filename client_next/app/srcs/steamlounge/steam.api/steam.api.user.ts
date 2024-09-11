@@ -3,6 +3,7 @@ import {
   BASE_URL, I_PLAYER_SERVICE, I_STEAM_USER, VERSION_1, VERSION_2,
 } from './steam.api.constant';
 import { GetOwnedGamesException, GetPlayerSummariesException } from './steam.exception';
+import { GetOwnedGamesResponse } from '../dto/steam.api..dto';
 /**
  * 유저 정보 요약
  * @param steamids 스팀 계정 아이디
@@ -29,7 +30,7 @@ export const getPlayerSummaries = async (steamids: string) => {
  * @param steamid 스팀 계정 아이디
  * @returns
  */
-export const getOwnedGames = async (steamid: string) => {
+export const getOwnedGames = async (steamid: string): Promise<GetOwnedGamesResponse> => {
   try {
     const res = await axios.get(
       `${BASE_URL}/${I_PLAYER_SERVICE}/GetOwnedGames/${VERSION_1}`,

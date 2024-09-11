@@ -7,6 +7,7 @@ import {
 } from './steam.crawler';
 import { TagParsingException } from '../steam.api/steam.exception';
 import { consineSimilarity } from './clustering';
+import { OwnedGames } from '../dto/steam.api..dto';
 
 /**
  * 유저 게임 가져오기 -> 게임 카테고리 추출 및 데이터 생성
@@ -17,40 +18,41 @@ export type RawGameCategory = {
   name: string;
   categories: string[];
 }[];
-export const makeGameSet = (gamesList: {appid: string}[]) => {
-  const gameSet: string[][] = [];
+export const makeGameSet = (gamesList: OwnedGames[]) => {
+  const gameSet: OwnedGames[][] = [];
   const len = gamesList.length;
 
   if (len === 0) return gameSet;
 
   let i = 0;
   while (i * 10 < len) {
-    gameSet.push(gamesList.map((e) => e.appid).slice(i * 10, (i + 1) * 10));
+    gameSet.push(gamesList.slice(i * 10, (i + 1) * 10));
     i += 1;
   }
 
   return gameSet;
 };
 
-export const crawlingDataFromAppid = async (appid: string): Promise<GameData | undefined> => {
+export const crawlingDataFromAppid = async (game: OwnedGames): Promise<GameData | undefined> => {
   try {
+    const { appid, playtime_forever: playtime } = game;
     const dom = await getGameHtmlDOM(appid);
     const categories = getCategories(dom);
     const tags = getTags(categories);
     const name = getAppName(dom) as string;
     const photoUrl = getAppPhoto(appid) as string;
     return {
-      appid, categories, tags, name, photoUrl,
+      appid, categories, tags, name, photoUrl, playtime,
     };
   } catch (err) {
     if (err instanceof TagParsingException) {
-      console.log('TagParsingException: ', appid);
+      console.log('TagParsingException: ', game.appid);
       return undefined;
     }
-    console.log('other err: ', appid, err.name);
+    console.log('Other Exception: ', game.appid, err.name);
   }
 };
-export const getGameData = async (games: any) => {
+export const getGameData = async (games: OwnedGames[]) => {
   /** 10개씩 분리 -> load 배분 */
   const dataSet = makeGameSet(games);
 
@@ -94,13 +96,13 @@ export const makeNode = (gameinfos: GameAnalysticData[]) => {
       const game1 = gameNames[i];
       const game2 = gameNames[j];
       const similarity = consineSimilarity(gameinfos[i].tagVector, gameinfos[j].tagVector);
-      if (similarity > 0.4) {
+      if (similarity > 0.55) {
         elements.push({
           data: {
             id: `${game1}-${game2}`,
             source: game1,
             target: game2,
-            weight: similarity,
+            weight: similarity * 5,
           },
         });
       }

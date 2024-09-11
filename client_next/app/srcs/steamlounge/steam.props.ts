@@ -6,7 +6,7 @@ import { getGameData } from './analystic/getGameData';
 import { getOwnedGames } from './steam.api/steam.api.user';
 import { makeTagVector } from './analystic/clustering';
 
-const steamids: string[] = ['76561199008462834'];
+const steamids: string[] = [];
 
 export const saveJsonInCrawling = async (steamid: string, gameinfos: any) => {
   fs.writeFileSync(`${steamid}.json`, JSON.stringify(gameinfos, null, 2));

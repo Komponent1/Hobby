@@ -1,9 +1,10 @@
 export type GameData = {
-  appid: string;
+  appid: number;
   categories: Category[];
   tags: string[];
   name: string;
   photoUrl: string;
+  playtime: number;
 };
 export type GameAnalysticData = GameData & {
   tagVector: number[];

@@ -27,8 +27,8 @@ export const getAppName = (dom: HTMLElement) => {
   const name = div?.textContent;
   return name;
 };
-export const getAppPhoto = (appid: string) => `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
-export const getGameHtmlDOM = async (appid: string) => {
+export const getAppPhoto = (appid: number) => `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
+export const getGameHtmlDOM = async (appid: number) => {
   try {
     const html = await axios.get(`https://store.steampowered.com/app/${appid}`);
     return parse(html.data);
