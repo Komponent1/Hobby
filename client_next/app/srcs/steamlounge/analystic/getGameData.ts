@@ -2,9 +2,6 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import { GameAnalysticData, GameData } from '../dto/game';
-import {
-  getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getTags,
-} from './steam.crawler';
 import { TagParsingException } from '../steam.api/steam.exception';
 import { consineSimilarity } from './clustering';
 import { OwnedGames } from '../dto/steam.api..dto';

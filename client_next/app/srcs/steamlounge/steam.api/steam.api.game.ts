@@ -24,7 +24,6 @@ export const getAppInformations = async (appids: string[]) => {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
     throw new GetAppInformationsException();
   }
 };

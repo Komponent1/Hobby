@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { parse } from 'node-html-parser';
+import parse from 'node-html-parser';
 import { GetStoreHtmlException, TagParsingException } from '../steam.api/steam.exception';
 
 export const getTags = (categories: any) => {

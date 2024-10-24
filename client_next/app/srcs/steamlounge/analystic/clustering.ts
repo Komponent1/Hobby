@@ -26,10 +26,3 @@ export const makeTagVector = (gameDatas: GameData[]) => {
   });
   return gameDataWithTagVector;
 };
-
-export const consineSimilarity = (vector1: number[], vector2: number[]) => {
-  const dotProduct = vector1.reduce((acc, curr, idx) => acc + curr * vector2[idx], 0);
-  const magnitude1 = Math.sqrt(vector1.reduce((acc, curr) => acc + curr ** 2, 0));
-  const magnitude2 = Math.sqrt(vector2.reduce((acc, curr) => acc + curr ** 2, 0));
-  return dotProduct / (magnitude1 * magnitude2);
-};

@@ -14,6 +14,7 @@ module.exports = {
     "react/function-component-definition": 0,
     "react/jsx-props-no-spreading": 0,
     "@typescript-eslint/object-curly-spacing": 0,
+    "@typescript-eslint/lines-between-class-members": 0,
   },
   "overrides": [],
   "ignorePatterns": ['.eslintrc.js', 'node_modules/**', 'legacy/**']
