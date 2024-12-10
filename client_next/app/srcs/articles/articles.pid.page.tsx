@@ -10,7 +10,6 @@ type Props = {
 const ArticlesPidPage: React.FC<Props> = ({article, content}) => (
   <div style={s.layout}>
     <h1 style={s.title}>{article.title}</h1>
-    <p style={s.p}>{article.date}</p>
     <div dangerouslySetInnerHTML={{ __html: content }} />
   </div>
 );

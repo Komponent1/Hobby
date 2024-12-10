@@ -17,5 +17,5 @@ module.exports = {
     "@typescript-eslint/lines-between-class-members": 0,
   },
   "overrides": [],
-  "ignorePatterns": ['.eslintrc.js', 'node_modules/**', 'legacy/**']
+  "ignorePatterns": ['.eslintrc.js', 'node_modules/**', 'legacy/**', "tailwind.config.js"]
 };

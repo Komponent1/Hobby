@@ -1,7 +1,7 @@
 import React from 'react';
-import { getArticleProps, getArticlesListPath } from '../../legacy/articles/articles.pid.local..props';
 import ArticlesPidPage from '../../srcs/articles/articles.pid.page';
 import { Article } from '../../srcs/articles/dto/article';
+import { getArticleProps, getArticlesListPath } from '../../srcs/articles/article.pid.props';
 
 type Props = {
   article: Article;

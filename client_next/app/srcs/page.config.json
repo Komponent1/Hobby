@@ -10,16 +10,16 @@
       "path": "/articles/:id"
     }
   },
-  "steamlounge": {
-    "title": "Steam Lounge",
-    "path": "/steamlounge"
-  },
   "information": {
-    "title": "Information",
-    "path": "/information"
+    "title": "Informations",
+    "path": "/informations"
   },
   "game": {
     "title": "Game",
     "path": "/game"
+  },
+  "steamlounge": {
+    "title": "SteamLounge",
+    "path": "/steamlounge"
   }
 }

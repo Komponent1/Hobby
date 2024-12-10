@@ -20,7 +20,7 @@ type Property = {
   pid: string;
 };
 export async function getArticleProps({pid}: Property) {
-  const filePath = path.join(process.cwd(), 'srcs/articles', `article${pid}.md`);
+  const filePath = path.join(process.cwd(), 'srcs/articles/posts', `article${pid}.md`);
   const file = fs.readFileSync(filePath, 'utf-8');
 
   const result = await remark().use(html).process(file);
@@ -28,7 +28,8 @@ export async function getArticleProps({pid}: Property) {
 
   return {
     props: {
-      article: paredHtml,
+      article: {title: `Article ${pid}`, id: pid, path: `/articles/${pid}`},
+      content: paredHtml,
     },
   };
 }
