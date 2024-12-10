@@ -18,26 +18,23 @@ export const loadJsonGameData = async (steamid: string) => {
 
 export async function getSteamLoungeProps() {
   try {
-    if (steamids.find((e) => e === process.env.STEAM_ID)) {
-      const gameinfos = await loadJsonGameData(process.env.STEAM_ID as string);
-      return ({
-        props: {
-          gameinfos,
-        },
-      });
-    }
+    // if (steamids.find((e) => e === process.env.STEAM_ID)) {
+    //   const gameinfos = await loadJsonGameData(process.env.STEAM_ID as string);
+    //   return ({
+    //     props: {
+    //       gameinfos,
+    //     },
+    //   });
+    // }
 
-    const games = await getOwnedGames(process.env.STEAM_ID as string);
-    const gameinfos = await getGameData(games.response.games);
-    const gameAnalysticData = makeTagVector(gameinfos);
+    // const games = await getOwnedGames(process.env.STEAM_ID as string);
+    // const gameinfos = await getGameData(games.response.games);
+    // const gameAnalysticData = makeTagVector(gameinfos);
 
-    saveJsonInCrawling(process.env.STEAM_ID as string, gameAnalysticData);
+    // saveJsonInCrawling(process.env.STEAM_ID as string, gameAnalysticData);
 
     return ({
-      props: {
-        games: games.response,
-        gameAnalysticData,
-      },
+      props: {},
     });
   } catch (err) {
     return ({
