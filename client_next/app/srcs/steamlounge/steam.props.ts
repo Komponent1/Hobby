@@ -1,12 +1,4 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable prefer-destructuring */
 import fs from 'fs';
-import { getGameData } from './analystic/getGameData';
-import { getOwnedGames } from './steam.api/steam.api.user';
-import { makeTagVector } from './analystic/clustering';
-
-const steamids: string[] = [];
 
 export const saveJsonInCrawling = async (steamid: string, gameinfos: any) => {
   fs.writeFileSync(`${steamid}.json`, JSON.stringify(gameinfos, null, 2));
@@ -18,21 +10,6 @@ export const loadJsonGameData = async (steamid: string) => {
 
 export async function getSteamLoungeProps() {
   try {
-    // if (steamids.find((e) => e === process.env.STEAM_ID)) {
-    //   const gameinfos = await loadJsonGameData(process.env.STEAM_ID as string);
-    //   return ({
-    //     props: {
-    //       gameinfos,
-    //     },
-    //   });
-    // }
-
-    // const games = await getOwnedGames(process.env.STEAM_ID as string);
-    // const gameinfos = await getGameData(games.response.games);
-    // const gameAnalysticData = makeTagVector(gameinfos);
-
-    // saveJsonInCrawling(process.env.STEAM_ID as string, gameAnalysticData);
-
     return ({
       props: {},
     });

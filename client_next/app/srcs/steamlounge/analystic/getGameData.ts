@@ -5,6 +5,7 @@ import { GameAnalysticData, GameData } from '../dto/game';
 import { TagParsingException } from '../steam.api/steam.exception';
 import { consineSimilarity } from './clustering';
 import { OwnedGames } from '../dto/steam.api..dto';
+import { getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getTags } from '../utils/steam.util.crawling';
 
 /**
  * 유저 게임 가져오기 -> 게임 카테고리 추출 및 데이터 생성
@@ -55,12 +56,16 @@ export const getGameData = async (games: OwnedGames[]) => {
 
   const gameinfos = [];
 
-  for (const gameSet of dataSet) {
-    const gameDataWithTags = await Promise.all(
-      gameSet.map((appid) => crawlingDataFromAppid(appid)),
-    );
-    gameinfos.push(...gameDataWithTags.flat().filter((e) => e !== undefined));
-  }
+  // for (const gameSet of dataSet) {
+  //   const gameDataWithTags = await Promise.all(
+  //     gameSet.map((appid) => crawlingDataFromAppid(appid)),
+  //   );
+  //   gameinfos.push(...gameDataWithTags.flat().filter((e) => e !== undefined));
+  // }
+
+  /** FOR TEST */
+  const data2 = await Promise.all(dataSet[0].map((appid) => crawlingDataFromAppid(appid)));
+  gameinfos.push(...data2.flat().filter((e) => e !== undefined));
   return gameinfos;
 };
 export const makeVectorSet = (gameinfos: RawGameCategory) => {

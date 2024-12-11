@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 
-const CodeInput: React.FC = () => {
-  const [code, setCode] = useState<string>('');
+type Props = {
+  onSubmit: (code: string) => void;
+};
+const CodeInput: React.FC<Props> = ({onSubmit}) => {
+  const [code, setCode] = useState<string>('76561199008462834');
 
   return (
     <div>
@@ -9,7 +12,7 @@ const CodeInput: React.FC = () => {
         스팀 코드를 넣어주세요
       </p>
       <input type="text" className="form-control" value={code} onChange={(e) => setCode(e.target.value)} />
-      <button className="btn btn-primary" onClick={() => console.log(code)}>검색</button>
+      <button type="submit" className="btn btn-primary" onClick={() => onSubmit(code)}>검색</button>
     </div>
   );
 };

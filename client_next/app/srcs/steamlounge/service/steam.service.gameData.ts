@@ -73,9 +73,6 @@ class GameDataService {
       tags,
     };
   }
-  private generateTagVector() {
-    
-  }
 }
 
 export default new GameDataService();
