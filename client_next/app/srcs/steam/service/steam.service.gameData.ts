@@ -37,6 +37,7 @@ class GameDataService {
         crawlingData.push(...gameDataWihtTags.flat().filter((e) => e !== undefined));
       }
     } catch (err) {
+      
     }
   }
 

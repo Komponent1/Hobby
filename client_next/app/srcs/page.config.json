@@ -18,8 +18,8 @@
     "title": "Game",
     "path": "/game"
   },
-  "steamlounge": {
-    "title": "SteamLounge",
-    "path": "/steamlounge"
+  "steam": {
+    "title": "Steam",
+    "path": "/steam"
   }
 }

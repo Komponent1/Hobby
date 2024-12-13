@@ -1,6 +1,10 @@
+import {makeGameSet} from '../analystic/getGameData';
 import { GameData } from '../dto/game';
 import { OwnedGames } from '../dto/steam.api..dto';
 import { TagParsingException } from '../steam.api/steam.exception';
+import {
+  getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getTags,
+} from './steam.util.crawling';
 
 export const splitDataSet = (gamesList: OwnedGames[]) => {
   const gameSet: OwnedGames[][] = [];
@@ -34,6 +38,7 @@ const crawlingDataFromAppid = async (game: OwnedGames): Promise<GameData | undef
       return undefined;
     }
     console.log('Other Exception: ', game.appid, err.name);
+    return undefined;
   }
 };
 

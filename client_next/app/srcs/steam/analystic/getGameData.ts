@@ -1,11 +1,9 @@
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-restricted-syntax */
-import { GameAnalysticData, GameData } from '../dto/game';
+import { GameData } from '../dto/game';
 import { TagParsingException } from '../steam.api/steam.exception';
-import { consineSimilarity } from './clustering';
 import { OwnedGames } from '../dto/steam.api..dto';
-import { getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getTags } from '../utils/steam.util.crawling';
+import {
+  getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getTags,
+} from '../utils/steam.util.crawling';
 
 /**
  * 유저 게임 가져오기 -> 게임 카테고리 추출 및 데이터 생성
@@ -56,16 +54,13 @@ export const getGameData = async (games: OwnedGames[]) => {
 
   const gameinfos = [];
 
-  // for (const gameSet of dataSet) {
-  //   const gameDataWithTags = await Promise.all(
-  //     gameSet.map((appid) => crawlingDataFromAppid(appid)),
-  //   );
-  //   gameinfos.push(...gameDataWithTags.flat().filter((e) => e !== undefined));
-  // }
+  for (const gameSet of dataSet) {
+    const gameDataWithTags = await Promise.all(
+      gameSet.map((appid) => crawlingDataFromAppid(appid)),
+    );
+    gameinfos.push(...gameDataWithTags.flat().filter((e) => e !== undefined));
+  }
 
-  /** FOR TEST */
-  const data2 = await Promise.all(dataSet[0].map((appid) => crawlingDataFromAppid(appid)));
-  gameinfos.push(...data2.flat().filter((e) => e !== undefined));
   return gameinfos;
 };
 export const makeVectorSet = (gameinfos: RawGameCategory) => {
@@ -83,33 +78,33 @@ export const makeVectorSet = (gameinfos: RawGameCategory) => {
   });
   return vectorSet;
 };
-export const makeNode = (gameinfos: GameAnalysticData[]) => {
-  const elements: any[] = gameinfos.map((game) => ({
-    data: {
-      id: game.name,
-      label: game.name,
-      photoUrl: game.photoUrl,
-    },
-  }));
-  const gameNames = gameinfos.map((game) => game.name);
+// export const makeNode = (gameinfos: GameAnalysticData[]) => {
+//   const elements: any[] = gameinfos.map((game) => ({
+//     data: {
+//       id: game.name,
+//       label: game.name,
+//       photoUrl: game.photoUrl,
+//     },
+//   }));
+//   const gameNames = gameinfos.map((game) => game.name);
 
-  for (let i = 0; i < gameNames.length; i += 1) {
-    for (let j = i + 1; j < gameNames.length; j += 1) {
-      const game1 = gameNames[i];
-      const game2 = gameNames[j];
-      const similarity = consineSimilarity(gameinfos[i].tagVector, gameinfos[j].tagVector);
-      if (similarity > 0.55) {
-        elements.push({
-          data: {
-            id: `${game1}-${game2}`,
-            source: game1,
-            target: game2,
-            weight: similarity * 5,
-          },
-        });
-      }
-    }
-  }
+//   for (let i = 0; i < gameNames.length; i += 1) {
+//     for (let j = i + 1; j < gameNames.length; j += 1) {
+//       const game1 = gameNames[i];
+//       const game2 = gameNames[j];
+//       const similarity = consineSimilarity(gameinfos[i].tagVector, gameinfos[j].tagVector);
+//       if (similarity > 0.55) {
+//         elements.push({
+//           data: {
+//             id: `${game1}-${game2}`,
+//             source: game1,
+//             target: game2,
+//             weight: similarity * 5,
+//           },
+//         });
+//       }
+//     }
+//   }
 
-  return elements;
-};
+//   return elements;
+// };

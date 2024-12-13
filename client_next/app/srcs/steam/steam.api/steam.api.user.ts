@@ -4,6 +4,7 @@ import {
 } from './steam.api.constant';
 import { GetOwnedGamesException, GetPlayerSummariesException } from './steam.exception';
 import { GetOwnedGamesResponse } from '../dto/steam.api..dto';
+import {queryString} from '../../common/common.utils/url';
 /**
  * 유저 정보 요약
  * @param steamids 스팀 계정 아이디
@@ -32,17 +33,13 @@ export const getPlayerSummaries = async (steamids: string) => {
  */
 export const getOwnedGames = async (steamid: string): Promise<GetOwnedGamesResponse> => {
   try {
-    const res = await axios.get(
-      `${BASE_URL}/${I_PLAYER_SERVICE}/GetOwnedGames/${VERSION_1}`,
-      {
-        params: {
-          key: process.env.STEAM_API_KEY,
-          steamid,
-          format: 'json',
-        },
-      },
-    );
-    return res.data;
+    const res = await fetch(queryString(`${BASE_URL}/${I_PLAYER_SERVICE}/GetOwnedGames/${VERSION_1}`, {
+      key: process.env.STEAM_API_KEY as string,
+      steamid,
+      format: 'json',
+    }));
+    const result = await res.json();
+    return result.response;
   } catch (err) {
     throw new GetOwnedGamesException();
   }

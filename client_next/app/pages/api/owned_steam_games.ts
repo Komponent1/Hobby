@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import * as steamapi from '../../srcs/steamlounge/steam.api/steam.api.user';
+import * as steamapi from '../../srcs/steam/steam.api/steam.api.user';
 
 const ownedGames = async (req: NextApiRequest, res: NextApiResponse) => {
   const {steamid} = req.query;

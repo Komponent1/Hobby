@@ -30,8 +30,11 @@ export const getAppName = (dom: HTMLElement) => {
 export const getAppPhoto = (appid: number) => `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
 export const getGameHtmlDOM = async (appid: number) => {
   try {
-    const html = await axios.get(`/app/${appid}`);
-    return parse(html.data);
+    const html = await fetch(`/app/${appid}`, {
+      cache: 'force-cache',
+    });
+    const text = await html.text();
+    return parse(text);
   } catch (err) {
     throw new GetStoreHtmlException();
   }

@@ -8,7 +8,7 @@ export const loadJsonGameData = async (steamid: string) => {
   return JSON.parse(data);
 };
 
-export async function getSteamLoungeProps() {
+export async function getSteamProps() {
   try {
     return ({
       props: {},
