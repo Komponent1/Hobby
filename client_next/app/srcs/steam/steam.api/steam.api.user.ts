@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   BASE_URL, I_PLAYER_SERVICE, I_STEAM_USER, VERSION_1, VERSION_2,
 } from './steam.api.constant';
@@ -12,16 +11,15 @@ import {queryString} from '../../common/common.utils/url';
  */
 export const getPlayerSummaries = async (steamids: string) => {
   try {
-    const res = await axios.get(
+    const res = await fetch(queryString(
       `${BASE_URL}/${I_STEAM_USER}/GetPlayerSummaries/${VERSION_2}`,
       {
-        params: {
-          key: process.env.STEAM_API_KEY,
-          steamids,
-        },
+        key: process.env.STEAM_API_KEY as string,
+        steamids,
       },
-    );
-    return res.data;
+    ));
+    const result = await res.json();
+    return result.response;
   } catch (err) {
     throw new GetPlayerSummariesException();
   }

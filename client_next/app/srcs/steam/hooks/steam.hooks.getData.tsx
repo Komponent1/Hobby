@@ -1,15 +1,14 @@
-import {useState} from 'react';
-import {getGameData} from '../analystic/getGameData';
-import { GameData } from '../dto/game';
+import gameDataService from '../service/steam.service.userGame';
+import { useStores } from '../store/store.root';
 
 export const useGetData = () => {
-  const [games, setGames] = useState<(GameData | undefined)[]>([]);
-  const getDataWithSteamCode = async (code: string) => {
-    const raw = await fetch(`/api/owned_steam_games?steamid=${code}`);
-    const ownedGamesRaw = await raw.json();
-    const ownedGamesInfosRaw = await getGameData(ownedGamesRaw.games);
-    setGames(ownedGamesInfosRaw);
+  const {gameStore} = useStores();
+  const {ownedGames, ownedGameDatas} = gameStore;
+
+  const getDataWithSteamCode = async (steamid: string) => {
+    await gameDataService.load(steamid);
+    await gameDataService.loadGameDataFromWebPage();
   };
 
-  return {games, getDataWithSteamCode};
+  return {ownedGames, ownedGameDatas, getDataWithSteamCode};
 };

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import parse from 'node-html-parser';
+import parse, { HTMLElement } from 'node-html-parser';
 import { GetStoreHtmlException, TagParsingException } from '../steam.api/steam.exception';
 
 export const getTags = (categories: any) => {
@@ -28,7 +27,7 @@ export const getAppName = (dom: HTMLElement) => {
   return name;
 };
 export const getAppPhoto = (appid: number) => `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
-export const getGameHtmlDOM = async (appid: number) => {
+export const getGameHtmlDOM = async (appid: number): Promise<HTMLElement> => {
   try {
     const html = await fetch(`/app/${appid}`, {
       cache: 'force-cache',

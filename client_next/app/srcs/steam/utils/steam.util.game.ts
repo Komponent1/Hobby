@@ -1,12 +1,22 @@
-import {makeGameSet} from '../analystic/getGameData';
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-await-in-loop */
 import { GameData } from '../dto/game';
-import { OwnedGames } from '../dto/steam.api..dto';
 import { TagParsingException } from '../steam.api/steam.exception';
+import { OwnedGames } from '../dto/steam.api..dto';
 import {
   getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getTags,
 } from './steam.util.crawling';
 
-export const splitDataSet = (gamesList: OwnedGames[]) => {
+/**
+ * 유저 게임 가져오기 -> 게임 카테고리 추출 및 데이터 생성
+ * @param steamid 스팀 계정 아이디
+ */
+export type RawGameCategory = {
+  appid: string;
+  name: string;
+  categories: string[];
+}[];
+export const makeGameSet = (gamesList: OwnedGames[]) => {
   const gameSet: OwnedGames[][] = [];
   const len = gamesList.length;
 
@@ -21,7 +31,7 @@ export const splitDataSet = (gamesList: OwnedGames[]) => {
   return gameSet;
 };
 
-const crawlingDataFromAppid = async (game: OwnedGames): Promise<GameData | undefined> => {
+export const crawlingDataFromAppid = async (game: OwnedGames): Promise<GameData | undefined> => {
   try {
     const { appid, playtime_forever: playtime } = game;
     const dom = await getGameHtmlDOM(appid);
@@ -37,12 +47,11 @@ const crawlingDataFromAppid = async (game: OwnedGames): Promise<GameData | undef
       console.log('TagParsingException: ', game.appid);
       return undefined;
     }
-    console.log('Other Exception: ', game.appid, err.name);
+    console.log('Other Exception: ', game.appid, (err as any).name);
     return undefined;
   }
 };
-
-export const getGameData = async (games: OwnedGames[]) => {
+export const getGameData = async (games: OwnedGames[]): Promise<GameData[]> => {
   /** 10개씩 분리 -> load 배분 */
   const dataSet = makeGameSet(games);
 
@@ -54,5 +63,21 @@ export const getGameData = async (games: OwnedGames[]) => {
     );
     gameinfos.push(...gameDataWithTags.flat().filter((e) => e !== undefined));
   }
+
   return gameinfos;
+};
+export const makeVectorSet = (gameinfos: RawGameCategory) => {
+  const categories = new Set<string>();
+  gameinfos.forEach((game) => {
+    game.categories.forEach((category) => {
+      categories.add(category);
+    });
+  });
+  const vectorSet: any[] = [];
+  gameinfos.forEach((game) => {
+    const vector = Array.from(categories)
+      .map((category) => (game.categories.includes(category) ? 1 : 0));
+    vectorSet.push(vector);
+  });
+  return vectorSet;
 };
