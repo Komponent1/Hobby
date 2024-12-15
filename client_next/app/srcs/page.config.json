@@ -4,10 +4,10 @@
     "path": "/"
   },
   "articles": {
-    "title": "Articles",
-    "path": "/articles",
+    "title": "Article",
+    "path": "/article",
     "children": {
-      "path": "/articles/:id"
+      "path": "/article/:id"
     }
   },
   "information": {

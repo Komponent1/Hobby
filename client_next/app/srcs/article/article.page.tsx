@@ -5,15 +5,15 @@ import { Article } from './dto/article';
 type Props = {
   articles: Article[];
 };
-const ArticlesPage: React.FC<Props> = ({ articles }) => (
+const ArticlePage: React.FC<Props> = ({ articles }) => (
   <div>
     <h1>Articles</h1>
     {articles.map((article) => (
       <div key={article.id}>
-        <Link href={`/articles/${article.id}`}>{article.title}</Link>
+        <Link href={`/article/${article.id}`}>{article.title}</Link>
       </div>
     ))}
   </div>
 );
 
-export default ArticlesPage;
+export default ArticlePage;

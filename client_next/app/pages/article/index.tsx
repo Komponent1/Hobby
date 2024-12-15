@@ -1,7 +1,7 @@
 import React from 'react';
-import { getArticlePropsFromLocal } from '../../srcs/articles/article.props';
-import ArticlesPage from '../../srcs/articles/articles.page';
-import { Article } from '../../srcs/articles/dto/article';
+import { getArticlePropsFromLocal } from '../../srcs/article/article.props';
+import ArticlesPage from '../../srcs/article/article.page';
+import { Article } from '../../srcs/article/dto/article';
 
 type Props = {
   articles: Article[];
