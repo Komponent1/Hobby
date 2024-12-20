@@ -15,6 +15,7 @@ module.exports = {
     "react/jsx-props-no-spreading": 0,
     "@typescript-eslint/object-curly-spacing": 0,
     "@typescript-eslint/lines-between-class-members": 0,
+    "no-underscore-dangle": 0,
   },
   "overrides": [],
   "ignorePatterns": ['.eslintrc.js', 'node_modules/**', 'legacy/**', "tailwind.config.js"]

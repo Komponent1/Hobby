@@ -1,23 +1,15 @@
+/* eslint-disable no-param-reassign */
 import Phaser from 'phaser';
 import { forwardRef, useLayoutEffect, useRef } from 'react';
-import { RefPhaserGame } from './dto/ref';
-import { Example } from './scenes/example';
-
-const config = {
-  type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  parent: 'game-container',
-  backgroundColor: '#028af8',
-  scene: Example,
-};
+import { RefPhaserGame } from './dto/game.dto.ref';
+import {gameConfig} from './config/game.config';
 
 const Game = forwardRef<RefPhaserGame, {}>((_, ref) => {
   const game = useRef<Phaser.Game | null>(null);
 
   useLayoutEffect(() => {
     if (game.current === null) {
-      game.current = new Phaser.Game({...config, parent: 'game-container'});
+      game.current = new Phaser.Game(gameConfig);
     }
 
     return () => {
