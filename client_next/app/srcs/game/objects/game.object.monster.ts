@@ -1,5 +1,7 @@
-import {Vector} from 'matter';
 import {Charactor} from './game.objects.charator';
+import type {Main} from '../scenes/game.scene.main';
+import {MONSTER_SPEED} from '../constant/game.constant.monster';
+import {Vector} from '../utils/vector';
 
 export class Monster extends Charactor {
   constructor(
@@ -12,12 +14,30 @@ export class Monster extends Charactor {
     super(sprite, name, hp, attack);
   }
 
-  move(dir: Vector) {
-    this._sprite.x += dir.x * this._speed;
-    this._sprite.y += dir.y * this._speed;
+  move(dir: Vector, speed: number = this._speed) {
+    this._sprite.x += dir.x * speed;
+    this._sprite.y += dir.y * speed;
   }
 
-  static create(scene: Phaser.Scene, x: number, y: number) {
+  checkHp() {
+    if (this.hp <= 0) {
+      this.sprite.destroy();
+    }
+  }
+
+  attackTo(target: Charactor): boolean {
+    if (!super.attackTo(target)) {
+      return false;
+    }
+    const dir = new Vector(
+      this.position.x - target.position.x,
+      this.position.y - target.position.y,
+    ).normalize();
+    this.move(dir, this.sprite.width);
+    return true;
+  }
+
+  static create(scene: Main, x: number, y: number) {
     const idle = {
       key: 'idle',
       frames: scene.anims.generateFrameNumbers('monster', {start: 0, end: 3}),
@@ -26,8 +46,10 @@ export class Monster extends Charactor {
     };
 
     scene.anims.create(idle);
-    const monster = scene.add.sprite(x, y, 'monster').play('idle');
+    const sprite = scene.physics.add.sprite(x, y, 'monster').play('idle');
 
-    return new Monster(monster, 'monster', 100, 10, 1);
+    const monster = new Monster(sprite, 'monster', 100, 10, MONSTER_SPEED);
+
+    return monster;
   }
 }

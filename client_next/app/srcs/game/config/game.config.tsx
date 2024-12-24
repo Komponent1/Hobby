@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import {Example} from '../scenes/game.scene.main';
+import {Main} from '../scenes/game.scene.main';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
@@ -12,7 +12,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   physics: {
     default: 'arcade',
     arcade: {
-      debug: false,
+      debug: true,
     },
   },
   input: {
@@ -23,5 +23,5 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     createContainer: true,
   },
   backgroundColor: '#028af8',
-  scene: Example,
+  scene: Main,
 };
