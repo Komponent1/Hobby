@@ -4,8 +4,7 @@ import {Monster} from '../objects/game.object.monster';
 import {Vector} from '../utils/vector';
 import {Keyboard} from '../control/keyboard';
 
-/** https://craftpix.net/freebies/free-fields-tileset-pixel-art-for-tower-defense/ */
-/** https://craftpix.net/freebies/free-tiny-pixel-hero-sprites-with-bow-attacks/ */
+/** https://bdragon1727.itch.io/pixel-character-part-5 */
 
 export class Main extends Scene {
   constructor() {
@@ -18,8 +17,15 @@ export class Main extends Scene {
 
   preload() {
     this.load.image('tile_38', 'assets/tiles/FieldTile_38png');
-    this.load.spritesheet('charator', 'assets/charator/Idle.png', {frameWidth: 42, frameHeight: 42});
-    this.load.spritesheet('monster', 'assets/charator/Idle.png', {frameWidth: 42, frameHeight: 42});
+    this.load.spritesheet('player', 'assets/charator/player.png', {
+      frameWidth: 32, frameHeight: 32, margin: 16, spacing: 32,
+    });
+    this.load.spritesheet('monster1', 'assets/charator/monster1.png', {
+      frameWidth: 32, frameHeight: 32, margin: 16, spacing: 32,
+    });
+    this.load.spritesheet('monster2', 'assets/charator/monster2.png', {
+      frameWidth: 32, frameHeight: 32, margin: 16, spacing: 32,
+    });
   }
 
   create() {

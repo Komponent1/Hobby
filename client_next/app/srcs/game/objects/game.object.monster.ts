@@ -39,16 +39,16 @@ export class Monster extends Charactor {
 
   static create(scene: Main, x: number, y: number) {
     const idle = {
-      key: 'idle',
-      frames: scene.anims.generateFrameNumbers('monster', {start: 0, end: 3}),
+      key: 'idle_monster1',
+      frames: scene.anims.generateFrameNumbers('monster1', {start: 0, end: 3}),
       frameRate: 10,
       repeat: -1,
     };
 
     scene.anims.create(idle);
-    const sprite = scene.physics.add.sprite(x, y, 'monster').play('idle');
+    const sprite = scene.physics.add.sprite(x, y, 'monster1').play('idle_monster1');
 
-    const monster = new Monster(sprite, 'monster', 100, 10, MONSTER_SPEED);
+    const monster = new Monster(sprite, 'monster1', 100, 10, MONSTER_SPEED);
 
     return monster;
   }
