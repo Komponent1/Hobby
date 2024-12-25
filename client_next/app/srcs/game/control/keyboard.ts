@@ -1,4 +1,4 @@
-import {MoveDirection} from '../objects/game.object.enum';
+import {MoveDirection} from '../object/game.object.enum';
 import type {Main} from '../scenes/game.scene.main';
 
 export class Keyboard {

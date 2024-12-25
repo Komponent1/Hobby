@@ -1,7 +1,10 @@
-import {Charactor} from './game.objects.charator';
+import {Charactor} from './game.object.charator';
 import type {Main} from '../scenes/game.scene.main';
-import {MONSTER_SPEED} from '../constant/game.constant.monster';
+import {
+  MONSTER_ATTACK, MONSTER_HP, MONSTER_IDLE_FRAME, MONSTER_SPEED,
+} from '../constant/game.constant.monster';
 import {Vector} from '../utils/vector';
+import {CharactorStatus} from './game.object.enum';
 
 export class Monster extends Charactor {
   constructor(
@@ -15,13 +18,17 @@ export class Monster extends Charactor {
   }
 
   move(dir: Vector, speed: number = this._speed) {
+    if (this._status === CharactorStatus.DEAD) return;
     this._sprite.x += dir.x * speed;
     this._sprite.y += dir.y * speed;
   }
 
   checkHp() {
     if (this.hp <= 0) {
-      this.sprite.destroy();
+      this._hp = MONSTER_HP;
+      this._status = CharactorStatus.DEAD;
+      this._sprite.x = -100;
+      this._sprite.y = -100;
     }
   }
 
@@ -37,10 +44,16 @@ export class Monster extends Charactor {
     return true;
   }
 
+  spawn(x: number, y: number) {
+    this._sprite.x = x;
+    this._sprite.y = y;
+    this._status = CharactorStatus.ALIVE;
+  }
+
   static create(scene: Main, x: number, y: number) {
     const idle = {
       key: 'idle_monster1',
-      frames: scene.anims.generateFrameNumbers('monster1', {start: 0, end: 3}),
+      frames: scene.anims.generateFrameNumbers('monster1', {start: MONSTER_IDLE_FRAME[0], end: MONSTER_IDLE_FRAME[1]}),
       frameRate: 10,
       repeat: -1,
     };
@@ -48,7 +61,8 @@ export class Monster extends Charactor {
     scene.anims.create(idle);
     const sprite = scene.physics.add.sprite(x, y, 'monster1').play('idle_monster1');
 
-    const monster = new Monster(sprite, 'monster1', 100, 10, MONSTER_SPEED);
+    const monster = new Monster(sprite, 'monster1', MONSTER_HP, MONSTER_ATTACK, MONSTER_SPEED);
+    monster._status = CharactorStatus.DEAD;
 
     return monster;
   }

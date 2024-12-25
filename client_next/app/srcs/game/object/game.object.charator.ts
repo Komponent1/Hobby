@@ -20,6 +20,10 @@ export class Charactor {
     return {x: this._sprite.x, y: this._sprite.y};
   }
 
+  public setHp(hp: number) {
+    this._hp = hp;
+  }
+
   public attackTo(target: Charactor): boolean {
     if (target.status === CharactorStatus.DEAD) return false;
     if (

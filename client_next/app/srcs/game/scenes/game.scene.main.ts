@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
-import {Player} from '../objects/game.objects.player';
-import {Monster} from '../objects/game.object.monster';
+import {Player} from '../object/game.object.player';
+import {Monster} from '../object/game.object.monster';
 import {Vector} from '../utils/vector';
 import {Keyboard} from '../control/keyboard';
 
@@ -14,6 +14,9 @@ export class Main extends Scene {
   public player!: Player;
   public monsters: Monster[] = [];
   public keyboard = new Keyboard();
+
+  public genTime = 0;
+  public shootTime = 0;
 
   preload() {
     this.load.image('tile_38', 'assets/tiles/FieldTile_38png');
@@ -31,18 +34,42 @@ export class Main extends Scene {
   create() {
     this.keyboard.init(this);
     this.player = Player.create(this, 100, 100);
-    this.monsters.push(Monster.create(this, 200, 200));
+    for (let i = 0; i < 100; i += 1) {
+      this.monsters.push(Monster.create(this, -100, -100));
+    }
 
     this.monsters.forEach((monster) => {
       this.physics.add.overlap(this.player.sprite, monster.sprite, () => {
         this.player.bodyAttack(monster);
         monster.attackTo(this.player);
       });
+      this.player.bullets.forEach((bullet) => {
+        this.physics.add.overlap(bullet.sprite, monster.sprite, () => {
+          bullet.attackTo(monster);
+          bullet.destroy();
+        });
+      });
     });
   }
 
   update(): void {
+    if (Date.now() - this.genTime > 2000) {
+      this.genTime = Date.now();
+      const x = Math.random() * 800;
+      const y = Math.random() * 600;
+      this.monsters.find((monster) => monster.status === 'DEAD')?.spawn(x, y);
+    }
+
     this.keyboard.setControl(this);
+
+    if (Date.now() - this.shootTime > 2000) {
+      this.shootTime = Date.now();
+      this.player.shootAttack(this.monsters.find((monster) => monster.status === 'ALIVE') as Monster);
+    }
+
+    this.player.bullets.forEach((bullet) => {
+      bullet.move();
+    });
 
     this.monsters.forEach((monster) => {
       const dir = new Vector(
