@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Form from '../../common/common.components/common.components.form';
 
 type Props = {
   onSubmit: (code: string) => void;
@@ -8,11 +9,7 @@ const CodeInput: React.FC<Props> = ({onSubmit}) => {
 
   return (
     <div>
-      <p className="">
-        스팀 코드를 넣어주세요
-      </p>
-      <input type="text" className="form-control" value={code} onChange={(e) => setCode(e.target.value)} />
-      <button type="submit" className="btn btn-primary" onClick={() => onSubmit(code)}>검색</button>
+      <Form placeholder="스팀 코드를 넣어주세요" buttonText="검색" labelText="스팀 코드" value={code} setValue={setCode} onSubmit={onSubmit} labelId="steamCode" />
     </div>
   );
 };

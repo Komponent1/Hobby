@@ -7,9 +7,19 @@ class UserGameService {
     private gameStore: GameStore,
   ) {}
 
-  async load(steamid: string) {
+  async loadPlayerSummaries(steamid: string) {
     try {
-      const response = await fetch(`/api/owned_steam_games?steamid=${steamid}`);
+      const response = await fetch(`/api/steam/player_summarries?steamid=${steamid}`);
+      const rawData = await response.json();
+      this.gameStore.setPlayerSummaries(rawData);
+    } catch (err) {
+      /** TODO: Error 처리 */
+    }
+  }
+
+  async loadOwendGame(steamid: string) {
+    try {
+      const response = await fetch(`/api/steam/owned_steam_games?steamid=${steamid}`);
       const rawData = await response.json();
       this.gameStore.setOwnedGame(rawData.games);
     } catch (err) {

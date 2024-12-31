@@ -15,12 +15,12 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/IPlayerService/:path*',
-        destination: "https://api.steampowered.com/IPlayerService/:path*",
-      },
-      {
         source: '/app/:path*',
         destination: 'https://store.steampowered.com/app/:path*',
+      },
+      {
+        source: '/steam_api/:path*',
+        destination: 'https://store.steampowered.com/api/:path*',
       }
     ]
   }

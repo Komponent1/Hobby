@@ -1,13 +1,9 @@
 import React from 'react';
 import { getSteamProps } from '../../srcs/steam/steam.props';
-import { GameAnalysticData } from '../../srcs/steam/dto/game';
-import SteamPage from '../../srcs/steam/steam.page';
+import {SteamPageContainer} from '../../srcs/steam/steam.page.container';
 
-type Props = {
-  gameinfos: GameAnalysticData[];
-};
-const Steam: React.FC<Props> = ({gameinfos}) => (
-  <SteamPage gameDatas={gameinfos} />
+const Steam: React.FC = () => (
+  <SteamPageContainer />
 );
 
 export default Steam;

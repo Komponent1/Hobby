@@ -6,7 +6,11 @@ module.exports = {
     "./styles/**/*.{css,scss,sass}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'steam-logo': "url('/steam-logo.png')",
+      }
+    },
   },
   plugins: [],
 }

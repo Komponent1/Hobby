@@ -1,8 +1,9 @@
 import React from 'react';
 import rootStore, { StoreContext } from './store/store.root';
+import SteamPage from './steam.page';
 
-const SteamPageContainer: React.FC = () => (
+export const SteamPageContainer: React.FC = () => (
   <StoreContext.Provider value={rootStore}>
-    <SteamPageContainer />
+    <SteamPage />
   </StoreContext.Provider>
 );

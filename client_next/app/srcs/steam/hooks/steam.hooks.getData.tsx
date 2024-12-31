@@ -1,14 +1,32 @@
+import {useState} from 'react';
 import gameDataService from '../service/steam.service.userGame';
-import { useStores } from '../store/store.root';
+import {LoadingRange, PageKey} from '../steam.enum';
+import {useStores} from '../store/store.root';
 
-export const useGetData = () => {
+export const useGetData = (
+  setCurrentPage: (page: PageKey) => void,
+) => {
+  const [loadRange, setLoadRange] = useState<LoadingRange>(LoadingRange.PLAYER_SUMMARIES);
   const {gameStore} = useStores();
-  const {ownedGames, ownedGameDatas} = gameStore;
+  const {playerSummaries, ownedGames, ownedGameDatas} = gameStore;
 
   const getDataWithSteamCode = async (steamid: string) => {
-    await gameDataService.load(steamid);
+    setCurrentPage(PageKey.LOADING);
+    setLoadRange(LoadingRange.PLAYER_SUMMARIES);
+    await gameDataService.loadPlayerSummaries(steamid);
+    setLoadRange(LoadingRange.OWNED_GAMES);
+    await gameDataService.loadOwendGame(steamid);
+    setLoadRange(LoadingRange.GAME_DATA);
     await gameDataService.loadGameDataFromWebPage();
+    setLoadRange(LoadingRange.COMPLETE);
+    setCurrentPage(PageKey.BOARD);
   };
 
-  return {ownedGames, ownedGameDatas, getDataWithSteamCode};
+  return {
+    playerSummaries,
+    ownedGames,
+    ownedGameDatas,
+    getDataWithSteamCode,
+    loadRange,
+  };
 };

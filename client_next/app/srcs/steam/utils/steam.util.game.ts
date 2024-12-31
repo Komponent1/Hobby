@@ -59,7 +59,10 @@ export const getGameData = async (games: OwnedGames[]): Promise<GameData[]> => {
 
   for (const gameSet of dataSet) {
     const gameDataWithTags = await Promise.all(
-      gameSet.map((appid) => crawlingDataFromAppid(appid)),
+      gameSet.map((game) => crawlingDataFromAppid(game)),
+    );
+    const gameDataFromApi = await Promise.all(
+      gameSet.map((game) => fetch(`/steam_api/appdetails?appids=${game.appid}`).then((res) => res.json())),
     );
     gameinfos.push(...gameDataWithTags.flat().filter((e) => e !== undefined));
   }
