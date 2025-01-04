@@ -19,6 +19,7 @@
     "cytoscape": "^3.30.2",
     "github-markdown-css": "^5.1.0",
     "mobx": "^6.13.5",
+    "mobx-devtools-mst": "^0.9.46",
     "mobx-react": "^9.2.0",
     "next": "12.3.0",
     "next-sitemap": "^3.1.29",

@@ -3203,6 +3203,11 @@ minimist@^1.2.0, minimist@^1.2.6:
   resolved "https://registry.npmjs.org/minipass/-/minipass-7.1.2.tgz"
   integrity sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==
 
+mobx-devtools-mst@^0.9.46:
+  version "0.9.46"
+  resolved "https://registry.npmjs.org/mobx-devtools-mst/-/mobx-devtools-mst-0.9.46.tgz"
+  integrity sha512-MqY4JzUf1Pkyd6NrperRUoohCHSDrNGiqjg2ejpG8ZJPfBIDGCBvfdGsa2LbJnlkpf8lmaiO3ycFssVjdcu6Cw==
+
 mobx-react-lite@^4.1.0:
   version "4.1.0"
   resolved "https://registry.npmjs.org/mobx-react-lite/-/mobx-react-lite-4.1.0.tgz"
@@ -3217,7 +3222,12 @@ mobx-react@^9.2.0:
   dependencies:
     mobx-react-lite "^4.1.0"
 
-mobx@^6.13.5, mobx@^6.9.0:
+mobx-state-tree@*:
+  version "7.0.1"
+  resolved "https://registry.npmjs.org/mobx-state-tree/-/mobx-state-tree-7.0.1.tgz"
+  integrity sha512-qp8nJNueCCHfnhJAzu1LbrCB1cL/cRqb81dPa/jFF/E6KggzT4v1iOM8FwgDmugoShfalu/CHl6/Mq5YDhYKJQ==
+
+"mobx@^2.2.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0", mobx@^6.13.5, mobx@^6.3.0, mobx@^6.9.0:
   version "6.13.5"
   resolved "https://registry.npmjs.org/mobx/-/mobx-6.13.5.tgz"
   integrity sha512-/HTWzW2s8J1Gqt+WmUj5Y0mddZk+LInejADc79NJadrWla3rHzmRHki/mnEUH1AvOmbNTZ1BRbKxr8DSgfdjMA==
