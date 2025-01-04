@@ -1,17 +1,17 @@
 import rootStore from '../store/store.root';
-import { GameStore } from '../store/store.user';
+import { UserStore } from '../store/store.user';
 import { getGameData } from '../utils/steam.util.game';
 
 class UserGameService {
   constructor(
-    private gameStore: GameStore,
+    private userStore: UserStore,
   ) {}
 
   async loadPlayerSummaries(steamid: string) {
     try {
       const response = await fetch(`/api/steam/player_summarries?steamid=${steamid}`);
       const rawData = await response.json();
-      this.gameStore.setPlayerSummaries(rawData);
+      this.userStore.setPlayerSummaries(rawData);
     } catch (err) {
       /** TODO: Error 처리 */
     }
@@ -21,7 +21,7 @@ class UserGameService {
     try {
       const response = await fetch(`/api/steam/owned_steam_games?steamid=${steamid}`);
       const rawData = await response.json();
-      this.gameStore.setOwnedGame(rawData.games);
+      this.userStore.setOwnedGame(rawData.games);
     } catch (err) {
       /** TODO: Error 처리 */
     }
@@ -29,12 +29,12 @@ class UserGameService {
 
   async loadGameDataFromWebPage() {
     try {
-      const gameDatas = await getGameData(this.gameStore.ownedGames);
-      this.gameStore.setOwnedGameData(gameDatas);
+      const gameDatas = await getGameData(this.userStore.ownedGames);
+      this.userStore.setOwnedGameData(gameDatas);
     } catch (err) {
       /** TODO: Error 처리 */
     }
   }
 }
 
-export default new UserGameService(rootStore.gameStore);
+export default new UserGameService(rootStore.userStore);

@@ -1,9 +1,11 @@
-import { action, makeObservable, observable } from 'mobx';
-import { GameData } from '../dto/game';
-import { OwnedGames } from '../dto/steam.api..dto';
+import {
+  action, makeObservable, observable,
+} from 'mobx';
+import { GameData } from '../dto/steam.dto.game';
+import { OwnedGames, PlayerSummary } from '../dto/steam.dto.api';
 
-export class GameStore {
-  @observable playerSummaries: any = {};
+export class UserStore {
+  @observable playerSummaries!: PlayerSummary;
   @observable ownedGames: OwnedGames[] = [];
   @observable ownedGameDatas: GameData[] = [];
 
@@ -12,7 +14,7 @@ export class GameStore {
   }
 
   @action
-  setPlayerSummaries(playerSummaries: any) { this.playerSummaries = playerSummaries; }
+  setPlayerSummaries(playerSummaries: PlayerSummary) { this.playerSummaries = playerSummaries; }
 
   @action
   setOwnedGame(ownedGames: OwnedGames[]) { this.ownedGames = ownedGames; }

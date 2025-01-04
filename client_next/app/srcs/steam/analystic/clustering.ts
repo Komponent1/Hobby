@@ -1,24 +1,33 @@
-import { GameAnalysticData, GameData } from '../dto/game';
+import { GameAnalysticData, GameData } from '../dto/steam.dto.game';
 
-export const makeTagDimention = (gameDatas: GameData[]) => {
-  const tagSet = new Set<string>();
+export const getTagCounter = (gameDatas: GameData[]) => {
+  const tagCounter = new Map<string, number>();
   gameDatas.forEach((gameData) => {
-    gameData.tags.forEach((tag) => {
-      tagSet.add(tag);
-    });
+    if (gameData.crawling_data) {
+      gameData.crawling_data.tags.forEach((tag) => {
+        if (tagCounter.has(tag)) {
+          tagCounter.set(tag, tagCounter.get(tag) as number + 1);
+        } else {
+          tagCounter.set(tag, 1);
+        }
+      });
+    }
   });
-  const tagList = Array.from(tagSet);
-  return tagList;
-};
 
+  return tagCounter;
+};
+export const getTagList = (tagCounter: Map<string, number>) => Array.from(tagCounter.keys());
 export const makeTagVector = (gameDatas: GameData[]) => {
-  const tagList = makeTagDimention(gameDatas);
+  const tagCounter = getTagCounter(gameDatas);
+  const tagList = getTagList(tagCounter);
   const gameDataWithTagVector: GameAnalysticData[] = gameDatas.map((gameData) => {
     const vector = Array(tagList.length).fill(0);
-    gameData.tags.forEach((tag) => {
-      const idx = tagList.indexOf(tag);
-      vector[idx] = 1;
-    });
+    if (gameData.crawling_data) {
+      gameData.crawling_data.tags.forEach((tag) => {
+        const idx = tagList.indexOf(tag);
+        vector[idx] = 1;
+      });
+    }
     return {
       ...gameData,
       tagVector: vector,

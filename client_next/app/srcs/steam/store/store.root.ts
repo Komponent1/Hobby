@@ -1,11 +1,14 @@
 import { createContext, useContext } from 'react';
-import { GameStore } from './store.user';
+import { UserStore } from './store.user';
+import {AnalyticStore} from './store.analystic';
 
 class RootStore {
-  readonly gameStore: GameStore;
+  readonly userStore: UserStore;
+  readonly analyticStore: AnalyticStore;
 
   constructor() {
-    this.gameStore = new GameStore();
+    this.userStore = new UserStore();
+    this.analyticStore = new AnalyticStore();
   }
 }
 

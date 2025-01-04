@@ -1,16 +1,12 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-await-in-loop */
-import { GameData } from '../dto/game';
+import { CrawlingData, GameData } from '../dto/steam.dto.game';
 import { TagParsingException } from '../steam.api/steam.exception';
-import { OwnedGames } from '../dto/steam.api..dto';
+import { OwnedGames } from '../dto/steam.dto.api';
 import {
   getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getTags,
 } from './steam.util.crawling';
 
-/**
- * 유저 게임 가져오기 -> 게임 카테고리 추출 및 데이터 생성
- * @param steamid 스팀 계정 아이디
- */
 export type RawGameCategory = {
   appid: string;
   name: string;
@@ -30,8 +26,9 @@ export const makeGameSet = (gamesList: OwnedGames[]) => {
 
   return gameSet;
 };
-
-export const crawlingDataFromAppid = async (game: OwnedGames): Promise<GameData | undefined> => {
+export const crawlingDataFromAppid = async (
+  game: OwnedGames,
+): Promise<CrawlingData | undefined> => {
   try {
     const { appid, playtime_forever: playtime } = game;
     const dom = await getGameHtmlDOM(appid);
@@ -51,6 +48,29 @@ export const crawlingDataFromAppid = async (game: OwnedGames): Promise<GameData 
     return undefined;
   }
 };
+export const dataFetch = async (gameSet: OwnedGames[]) => {
+  const gameinfos: GameData[] = [];
+  const gameDataFromApi = await Promise.all(
+    gameSet.map((game) => fetch(`/steam_api/appdetails?appids=${game.appid}`).then((res) => res.json())),
+  );
+  const gameDataWithTags = (await Promise.all(
+    gameSet.map((game) => crawlingDataFromAppid(game)),
+  )).filter((game) => game !== undefined);
+  gameDataFromApi.forEach((game) => {
+    const appid = Object.keys(game)[0];
+    if (game[appid].success) {
+      const crawlingInfo = gameDataWithTags
+        .find((gameData) => (gameData as CrawlingData).appid === Number(appid));
+      gameinfos.push({
+        personal_data: gameSet.find((gameData) => gameData.appid === Number(appid)) as OwnedGames,
+        system_data: game[appid].data,
+        crawling_data: crawlingInfo,
+      });
+    }
+  });
+
+  return gameinfos;
+};
 export const getGameData = async (games: OwnedGames[]): Promise<GameData[]> => {
   /** 10개씩 분리 -> load 배분 */
   const dataSet = makeGameSet(games);
@@ -58,13 +78,8 @@ export const getGameData = async (games: OwnedGames[]): Promise<GameData[]> => {
   const gameinfos = [];
 
   for (const gameSet of dataSet) {
-    const gameDataWithTags = await Promise.all(
-      gameSet.map((game) => crawlingDataFromAppid(game)),
-    );
-    const gameDataFromApi = await Promise.all(
-      gameSet.map((game) => fetch(`/steam_api/appdetails?appids=${game.appid}`).then((res) => res.json())),
-    );
-    gameinfos.push(...gameDataWithTags.flat().filter((e) => e !== undefined));
+    const gameData = await dataFetch(gameSet);
+    gameinfos.push(...gameData);
   }
 
   return gameinfos;
