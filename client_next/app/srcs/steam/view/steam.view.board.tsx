@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { observer } from "mobx-react";
 import {GameData} from '../dto/steam.dto.game';
 import {useViewData} from '../hooks/steam.hooks.viewData';
 import {Typography} from '../../common/common.components';
@@ -7,7 +8,7 @@ import {Typography} from '../../common/common.components';
 type Props = {
   owedGameDatas: GameData[];
 };
-const SteamViewBoard: React.FC<Props> = ({
+const SteamViewBoard: React.FC<Props> = observer(({
   owedGameDatas,
 }) => {
   const {mostPlayedGame, allPlayTime, mostPlayedTag} = useViewData(owedGameDatas);
@@ -20,9 +21,11 @@ const SteamViewBoard: React.FC<Props> = ({
         <Typography type="h6" color="text-white">
           {`가장 많이 플레이한 게임: ${mostPlayedGame.system_data.name}(${Math.floor(mostPlayedGame.personal_data.playtime_forever / 60)}시간)`}
         </Typography>
-        <Typography type="h6" color="text-white">
-          {`가장 많이 플레이한 태그: ${mostPlayedTag[0].tag}`}
-        </Typography>
+        {mostPlayedTag[0] && (
+          <Typography type="h6" color="text-white">
+            {`가장 많이 플레이한 태그: ${mostPlayedTag[0].tag}`}
+          </Typography>
+        )}
         {owedGameDatas.map((game) => (
           <Image
             src={game.crawling_data?.photoUrl as string}
@@ -35,5 +38,5 @@ const SteamViewBoard: React.FC<Props> = ({
       </div>
     </div>
   );
-};
+});
 export default SteamViewBoard;

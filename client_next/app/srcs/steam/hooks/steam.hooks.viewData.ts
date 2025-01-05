@@ -11,6 +11,7 @@ export const useViewData = (gameDatas: GameData[]) => {
   const mostPlayedGame = useMemo(() => getMostPlayTimeGame(gameDatas), [gameDatas]);
   const allPlayTime = useMemo(() => getAllPlayTime(gameDatas), [gameDatas]);
   const mostPlayedTag = useMemo(() => {
+    if (tagCounter.size === 0) return [];
     const tagArray = Array.from(tagCounter, ([tag, count]) => ({ tag, count }));
     tagArray.sort((a, b) => b.count - a.count);
     return tagArray;
