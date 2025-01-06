@@ -1,25 +1,30 @@
 {
   "main": {
     "title": "Main",
-    "path": "/"
+    "path": "/",
+    "description": ""
   },
   "articles": {
     "title": "Article",
     "path": "/article",
+    "description": "게시글 저장소",
     "children": {
       "path": "/article/:id"
     }
   },
   "information": {
     "title": "Informations",
-    "path": "/informations"
+    "path": "/informations",
+    "description": "가벼운 로깅 문서 저장소"
   },
   "game": {
     "title": "Game",
-    "path": "/game"
+    "path": "/game",
+    "description": "웹 게임 저장소"
   },
   "steam": {
     "title": "Steam",
-    "path": "/steam"
+    "path": "/steam",
+    "description": "스팀 계정 대시보드"
   }
 }
