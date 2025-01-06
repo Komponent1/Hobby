@@ -1,8 +1,14 @@
-import {remark} from 'remark';
-import html from 'remark-html';
+import remarkParse from "remark-parse";
+import {unified} from "unified";
+import rehypeHighlight from "rehype-highlight";
+import rehypeDocument from "rehype-document";
+import rehypeFormat from "rehype-format";
+import rehypeStringify from "rehype-stringify";
+import remarkRehype from "remark-rehype";
 import fs from 'fs';
 import path from 'path';
 import articlesJson from './posts/articles.json';
+import { Article } from "./dto/article";
 
 export function getArticlesListPath() {
   const articlePaths = Object.keys(articlesJson).map((article) => ({
@@ -29,12 +35,19 @@ export async function getArticleProps({pid}: Property) {
 
   const filePath = path.join(process.cwd(), 'srcs/article/posts', (articlesJson as {[key: string]: any})[pid].path);
   const file = fs.readFileSync(filePath, 'utf-8');
-  const result = await remark().use(html).process(file);
-  const paredHtml = result.toString();
+  const parsed = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypeDocument)
+    .use(rehypeFormat)
+    .use(rehypeHighlight)
+    .use(rehypeStringify)
+    .process(file);
 
   return {
     props: {
-      content: paredHtml,
+      article: (articlesJson as {[key: string]: any})[pid] as Article,
+      content: parsed.toString(),
     },
   };
 }

@@ -11,7 +11,7 @@ const Card: React.FC<Props> = ({
   text,
   description,
 }) => (
-  <div className="block max-w-sm p-6 bg-slate-900 rounded-lg shadow hover:bg-gray-900 hover:scale-105">
+  <div className="block max-w-sm p-6 bg-slate-900 rounded-lg shadow hover:bg-gray-900 hover:transition-transform hover:transform hover:scale-105">
     <Link href={link}>
       <div>
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{text}</h5>

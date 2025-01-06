@@ -7,31 +7,34 @@ const rl = readline.createInterface({
 });
 
 rl.question('  Write Title : ', (title) => {
-  try {
-    const articleList = fs.readFileSync(`${__dirname}/client_next/app/srcs/article/posts/articles.json`, 'utf-8');
-    const articleListJson = JSON.parse(articleList);
-
-    const newArticleNumber = Object.keys(articleListJson).length;
-    const newArticleListJson = {
-      ...articleListJson,
-      [newArticleNumber]: {
-        id: newArticleNumber,
-        title,
-        path: `${title}.md`
-      },
-    }
-    fs.writeFileSync(`${__dirname}/client_next/app/srcs/article/posts/articles.json`, JSON.stringify(newArticleListJson, null, 2));
-    
-  } catch (err) {
-    console.log('Artice.json gen error');
-    rl.close(); 
-  }
+  rl.question('  Write Tags (with \',\') : ', (tags) => {
+    try {
+      const articleList = fs.readFileSync(`${__dirname}/client_next/app/srcs/article/posts/articles.json`, 'utf-8');
+      const articleListJson = JSON.parse(articleList);
   
-  try {
-    fs.writeFileSync(`${__dirname}/client_next/app/srcs/article/posts/${title}.md`, `# ${title}\n\n`);
-    rl.close();
-  } catch (err) {
-    console.log('Article.md gen error')
-    rl.close();
-  }
+      const newArticleNumber = Object.keys(articleListJson).length;
+      const newArticleListJson = {
+        ...articleListJson,
+        [newArticleNumber]: {
+          id: newArticleNumber,
+          title,
+          path: `${title}.md`,
+          tag: tags.split(','),
+        },
+      }
+      fs.writeFileSync(`${__dirname}/client_next/app/srcs/article/posts/articles.json`, JSON.stringify(newArticleListJson, null, 2));
+      
+    } catch (err) {
+      console.log('Artice.json gen error');
+      rl.close(); 
+    }
+    
+    try {
+      fs.writeFileSync(`${__dirname}/client_next/app/srcs/article/posts/${title}.md`, `# ${title}\n\n`);
+      rl.close();
+    } catch (err) {
+      console.log('Article.md gen error')
+      rl.close();
+    }
+  });
 });

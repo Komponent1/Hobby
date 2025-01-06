@@ -1,19 +1,29 @@
 import React from 'react';
-import Link from 'next/link';
 import { Article } from './dto/article';
+import Card from './components/article.components.card';
+import Navbar from "../common/common.components/common.components.navbar";
 
 type Props = {
   articles: Article[];
 };
 const ArticlePage: React.FC<Props> = ({ articles }) => (
   <div>
-    <h1>Articles</h1>
-    {articles.map((article) => (
-      <div key={article.id}>
-        <Link href={`/article/${article.id}`}>{article.title}</Link>
+    <Navbar />
+    <div className="max-w-5xl mx-auto mt-32">
+      <div className="grid grid-cols-3">
+        {articles.map((article) => (
+          <Card
+            key={article.id}
+            id={article.id}
+            title={article.title}
+            photo={article.photo}
+            description={article.title}
+          />
+        ))}
       </div>
-    ))}
+    </div>
   </div>
+
 );
 
 export default ArticlePage;
