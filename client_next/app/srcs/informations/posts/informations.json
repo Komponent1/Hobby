@@ -3,15 +3,5 @@
     "id": "info1",
     "title": "next static page",
     "path": "info1"
-  },
-  {
-    "id": 2,
-    "title": "Information 2",
-    "path": "information2 path"
-  },
-  {
-    "id": 3,
-    "title": "Information 3",
-    "path": "information3 path"
   }
 ]
