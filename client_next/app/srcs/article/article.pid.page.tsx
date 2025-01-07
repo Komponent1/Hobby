@@ -12,7 +12,7 @@ type Props = {
 const ArticlesPidPage: React.FC<Props> = ({content, article}) => (
   <div>
     <Navbar />
-    <main className="mx-7 lg:mx-6 mt-32 flex-grow">
+    <main className="mx-7 lg:mx-6 mt-32 mb-32 flex-grow">
       <div className="max-w-5xl mx-auto">
         <header className="mb-14 mt-28">
           <h1 className="text-3xl text-center font-bold leading-normal text-slate-900 mt-0 mb-3">
@@ -31,7 +31,7 @@ const ArticlesPidPage: React.FC<Props> = ({content, article}) => (
                 src={article.photo}
                 alt={article.title}
                 width={960}
-                height={500}
+                height={300}
                 objectFit="contain"
                 className="w-full max-w-2xl mx-auto"
               />
@@ -41,7 +41,7 @@ const ArticlesPidPage: React.FC<Props> = ({content, article}) => (
           </div>
         </header>
         <div className="prose text-slate-800 max-w-none">
-          <div dangerouslySetInnerHTML={{ __html: content }} />
+          <div dangerouslySetInnerHTML={{ __html: content }} className="markdown-body" />
         </div>
       </div>
     </main>
