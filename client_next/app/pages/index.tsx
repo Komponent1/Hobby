@@ -1,20 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
-import {Article} from 'Data';
 import {getMainPropsFromLocal} from '../srcs/main/main.local.props';
 import MainPage from '../srcs/main/main.page';
 
-type MainProps = {
-  articles: Article[];
-};
-function Main({
-  articles,
-}: MainProps) {
+function Main() {
   return (
     <div>
       <Head>
         <meta name="description" content="blog article list" />
-        <meta name="keyword" content={`blog, ${articles.map((article) => article.title).join(', ')}`} />
         <meta name="og:type" content="website" />
         <meta name="og:title" content="모두의 개발" />
         <meta name="og:url" content="https://blog-sage-pi.vercel.app" />

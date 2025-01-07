@@ -4,6 +4,5 @@ export type PageConfig = {
     path: string;
     children?: {path: string};
     description: string;
-    tags: string[];
   }
 };

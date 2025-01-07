@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Information } from 'Data';
 import { getInformationsPropsFromLoacl } from '../../srcs/informations/informations.local.props';
+import { Information } from "../../srcs/informations/dto/informations";
 
 type Props = {
   informations: Information[];

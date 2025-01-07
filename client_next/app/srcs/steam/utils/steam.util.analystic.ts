@@ -1,6 +1,7 @@
-export const generateVectorDimention = <T>(rawData: T[], key: string) => {
+/* eslint-disable max-len */
+export const generateVectorDimention = <T extends { [key: string]: string[] }>(rawData: T[], key: string) => {
   const tagSet = new Set<string>();
-  rawData.forEach((data) => {
+  rawData.forEach((data: { [key: string]: string[] }) => {
     data[key].forEach((tag: string) => {
       tagSet.add(tag);
     });
@@ -8,7 +9,7 @@ export const generateVectorDimention = <T>(rawData: T[], key: string) => {
   const vectorList = Array.from(tagSet);
   return vectorList;
 };
-export const generateVector = <T>(rawData: T[], key: string) => {
+export const generateVector = <T extends { [key: string]: string[] }>(rawData: T[], key: string) => {
   const vectorList = generateVectorDimention(rawData, key);
   const proessingData: (T & { vector: number[] })[] = rawData.map((data) => {
     const vector: number[] = Array(vectorList.length).fill(0);
