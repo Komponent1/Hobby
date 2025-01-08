@@ -1,29 +1,33 @@
 import React, {
-  createContext, ReactNode, useContext, useMemo, useState,
+  createContext, ReactNode, useCallback, useContext, useMemo, useState,
 } from "react";
 import { InformationList } from "../dto/informations";
 
 type InformationContext = {
   openId: number;
   informationList: InformationList[];
-  actions: {
-    init: (informations: InformationList[]) => void;
-    open: (id: number) => void;
-    close: () => void;
-  };
+  init: (informations: InformationList[]) => void;
+  open: (id: number) => void;
+  close: () => void;
 };
 const Context = createContext<InformationContext | undefined>(undefined);
 const InformationProvider: React.FC<{children: ReactNode}> = ({children}) => {
   const [openId, setOpenId] = useState<number>(-1);
   const [informationList, setInformationList] = useState<InformationList[]>([]);
-  const actions = useMemo(() => ({
-    init: (informations: InformationList[]) => setInformationList(informations),
-    open: (id: number) => setOpenId(id),
-    close: () => setOpenId(-1),
-  }), []);
+  const init = useCallback((informations: InformationList[]) => {
+    setInformationList(informations);
+  }, []);
+  const open = useCallback((id: number) => {
+    setOpenId(id);
+  }, []);
+  const close = useCallback(() => {
+    setOpenId(-1);
+  }, []);
   const value = useMemo(
-    () => ({openId, informationList, actions}),
-    [openId, informationList, actions],
+    () => ({
+      openId, informationList, init, open, close,
+    }),
+    [openId, informationList, init, open, close],
   );
 
   return (

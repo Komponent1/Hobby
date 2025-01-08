@@ -1,6 +1,6 @@
 import React from 'react';
-import InformationsPage from "./infomations.page";
-import ContextProvider from "./store/informtaions.store.information";
+import InformationsPage from "./informations.page";
+import ContextProvider from "./store/informations.store.root";
 import { InformationList } from "./dto/informations";
 
 type Props = {
