@@ -1,26 +1,29 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
   images: {
-    domains: [process.env.NEXT_PUBLIC_IMAGE]
-  },
-  async rewrites() {
-    return [
+    remotePatterns: [
       {
-        destination: `${process.env.NEXT_PUBLIC_BASEURL}/api/:path*`,
-        source: '/api/:path*',
-      },
-      {
-        destination: `${process.env.NEXT_PUBLIC_BASEURL}/author/:path*`,
-        source: '/author/:path*',
-      },
-      {
-        destination: `${process.env.NEXT_PUBLIC_BASEURL}/sign/:path*`,
-        source: '/sign/:path*',
+        protocol: 'https',
+        hostname: 'cdn.cloudflare.steamstatic.com',
+        port: '',
       }
     ]
   },
+  reactStrictMode: true,
+  swcMinify: true,
+
+  async rewrites() {
+    return [
+      {
+        source: '/app/:path*',
+        destination: 'https://store.steampowered.com/app/:path*',
+      },
+      {
+        source: '/steam_api/:path*',
+        destination: 'https://store.steampowered.com/api/:path*',
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig

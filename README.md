@@ -14,7 +14,7 @@
 
 ## 웹사이트 링크(web site link)
 
-<a href="https://https://blog-seolim.vercel.app">
+<a href="https://blog-sage-pi.vercel.app">
   <img src="https://blog-seolim.vercel.app/logo.png" width="24px" height="24px" />
   모두의 개발 블로그 사이트(blog site link)
 </a>
@@ -32,4 +32,4 @@
 
 관련 게시글
 
-[로그인과 인증(소셜 로그인, cookie)](https://blog-seolim.vercel.app/article/3)
+[로그인과 인증(소셜 로그인, cookie)](https://blog-sage-pi.vercel.app/article/3)

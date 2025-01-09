@@ -18,9 +18,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": [
-      "./@types"
-    ]
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules"
