@@ -1,20 +1,13 @@
 import React from 'react';
-import Link from 'next/link';
 import { getInformationsPropsFromLoacl } from '../../srcs/informations/informations.local.props';
-import { Information } from "../../srcs/informations/dto/informations";
+import { InformationList } from "../../srcs/informations/dto/informations";
+import InformationsContainer from "../../srcs/informations/informations.container";
 
 type Props = {
-  informations: Information[];
+  informations: InformationList[];
 };
 const Informations: React.FC<Props> = ({informations}) => (
-  <div>
-    <h1>Informations</h1>
-    {informations.map((information) => (
-      <div key={information.id}>
-        <Link href={`/informations/${information.id}`}>{information.title}</Link>
-      </div>
-    ))}
-  </div>
+  <InformationsContainer informations={informations} />
 );
 
 export default Informations;

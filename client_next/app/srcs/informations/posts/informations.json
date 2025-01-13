@@ -2,6 +2,20 @@
   "0": {
     "id": 0,
     "title": "next static page",
-    "path": "info1.md"
+    "path": "info1.md",
+    "tags": [
+      "next",
+      "static",
+      "page"
+    ]
+  },
+  "1": {
+    "id": 1,
+    "title": "test",
+    "path": "test.md",
+    "tags": [
+      "test",
+      "test2"
+    ]
   }
 }
