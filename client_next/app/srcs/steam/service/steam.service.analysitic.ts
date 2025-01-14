@@ -1,4 +1,5 @@
-import {getTagCounter, getTagList} from '../analystic/clustering';
+import {getGenres, getGenresCounter} from '../analystic/steam.analystic.genres';
+import {getTagList, getTagCounter} from '../analystic/steam.analystic.tag';
 import {AnalyticStore} from '../store/store.analystic';
 import rootStore from '../store/store.root';
 import {UserStore} from '../store/store.user';
@@ -21,6 +22,16 @@ class AnalyticService {
   setTagList() {
     this.analysticStore.setTagList(
       getTagList(this.analysticStore.tagCounter),
+    );
+  }
+  setGenresCounter() {
+    this.analysticStore.setGenresCounter(
+      getGenresCounter(this.userStore.ownedGameDatas),
+    );
+  }
+  setGenres() {
+    this.analysticStore.setGenres(
+      getGenres(this.userStore.ownedGameDatas),
     );
   }
 }

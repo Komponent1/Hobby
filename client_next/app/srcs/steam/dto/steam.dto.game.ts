@@ -22,3 +22,16 @@ export type Category = {
   count: number;
   browseable: boolean;
 };
+export type TagPercentage = {
+  tag: string;
+  count: number;
+  percent: number;
+};
+export type Genre = {
+  id: number;
+  description: string;
+};
+export type GenrePercentage = Genre & {
+  count: number;
+  percent: number;
+};

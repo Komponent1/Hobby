@@ -1,4 +1,4 @@
-import { GameAnalysticData, GameData } from '../dto/steam.dto.game';
+import { GameAnalysticData, GameData, TagPercentage } from "../dto/steam.dto.game";
 
 export const getTagCounter = (gameDatas: GameData[]) => {
   const tagCounter = new Map<string, number>();
@@ -15,6 +15,16 @@ export const getTagCounter = (gameDatas: GameData[]) => {
   });
 
   return tagCounter;
+};
+export const analyzeTagPercent = (tagCounter: Map<string, number>): TagPercentage[] => {
+  const percentage: TagPercentage[] = [];
+  const total = Array.from(tagCounter.values()).reduce((acc, cur) => acc + cur, 0);
+  tagCounter.forEach((count, tag) => {
+    percentage.push({tag, count, percent: count / total});
+  });
+  percentage.sort((a, b) => b.percent - a.percent);
+
+  return percentage;
 };
 export const getTagList = (tagCounter: Map<string, number>) => Array.from(tagCounter.keys());
 export const makeTagVector = (gameDatas: GameData[]) => {
