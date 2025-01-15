@@ -17,5 +17,15 @@
       "test",
       "test2"
     ]
+  },
+  "2": {
+    "id": 2,
+    "title": "react component generic",
+    "path": "react component generic.md",
+    "tags": [
+      "react",
+      "component",
+      "generic"
+    ]
   }
 }

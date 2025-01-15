@@ -63,6 +63,7 @@ export type GameDetail = {
     final: number;
     initial: number;
     discount_percent: number;
+    final_formatted: string;
   };
   publishers: string[];
   recommendations: {total: number};

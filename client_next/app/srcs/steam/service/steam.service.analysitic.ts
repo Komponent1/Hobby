@@ -1,5 +1,7 @@
 import {getGenres, getGenresCounter} from '../analystic/steam.analystic.genres';
+import { genTable } from "../analystic/steam.analystic.table";
 import {getTagList, getTagCounter} from '../analystic/steam.analystic.tag';
+import { GameData } from "../dto/steam.dto.game";
 import {AnalyticStore} from '../store/store.analystic';
 import rootStore from '../store/store.root';
 import {UserStore} from '../store/store.user';
@@ -32,6 +34,11 @@ class AnalyticService {
   setGenres() {
     this.analysticStore.setGenres(
       getGenres(this.userStore.ownedGameDatas),
+    );
+  }
+  genTable(gameDatas: GameData[]) {
+    this.analysticStore.setGameTable(
+      genTable(gameDatas),
     );
   }
 }

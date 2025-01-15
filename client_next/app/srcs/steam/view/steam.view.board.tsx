@@ -8,6 +8,8 @@ import { STEAM_LOGO_RATIO } from "../../common/common.constant/common.constant.i
 import { useAnalyzeTag } from "../hooks/steam.hooks.analyzeTag";
 import Dounutchart from "../components/steam.components.donetchart";
 import {useAnalyzeGenres} from '../hooks/steam.hooks.analyzeGenres';
+import { useGetTable } from "../hooks/steam.hooks.getTable";
+import Table from "../components/steam.components.table";
 
 type Props = {
   owedGameDatas: GameData[];
@@ -18,6 +20,8 @@ const SteamViewBoard: React.FC<Props> = observer(({
   const {mostPlayedGame, allPlayTime} = useViewData(owedGameDatas);
   const {tagPercentage} = useAnalyzeTag(owedGameDatas);
   const {genrePercentage} = useAnalyzeGenres(owedGameDatas);
+  const {gameTable} = useGetTable(owedGameDatas);
+
   return (
     <div className="bg-gradient-to-tr from-slate-600 to-slate-900 min-h-screen w-screen grid place-items-center">
       <div className="absolute top-2">
@@ -36,6 +40,9 @@ const SteamViewBoard: React.FC<Props> = observer(({
             )}
             {genrePercentage[0] && (
               <Dounutchart datas={genrePercentage} totalLabel="가장 많이 플레이한 장르" nameKey="description" />
+            )}
+            {gameTable.length > 0 && (
+              <Table datas={gameTable} />
             )}
           </div>
         </div>

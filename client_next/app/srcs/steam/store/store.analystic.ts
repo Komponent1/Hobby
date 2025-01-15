@@ -1,11 +1,12 @@
 import {action, makeObservable, observable} from 'mobx';
-import {Genre} from '../dto/steam.dto.game';
+import {GameTable, Genre} from '../dto/steam.dto.game';
 
 export class AnalyticStore {
   @observable tagList: string[] = [];
   @observable tagCounter: Map<string, number> = new Map();
   @observable genres: Genre[] = [];
   @observable genresCounter: Map<number, number> = new Map();
+  @observable gameTable: GameTable[] = [];
 
   constructor() {
     makeObservable(this);
@@ -26,5 +27,9 @@ export class AnalyticStore {
   @action
   setGenresCounter(genresCounter: Map<number, number>) {
     this.genresCounter = genresCounter;
+  }
+  @action
+  setGameTable(gameTable: GameTable[]) {
+    this.gameTable = gameTable;
   }
 }
