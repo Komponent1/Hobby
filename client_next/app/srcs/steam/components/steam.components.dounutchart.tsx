@@ -40,7 +40,7 @@ const Dounutchart = <T extends {count: number}>({datas, nameKey, totalLabel}: Pr
               show: true,
               label: totalLabel,
               fontFamily: "Inter, sans-serif",
-              color: "#fff",
+              color: "#000",
               formatter() {
                 return datas[0][nameKey] as string;
               },
@@ -49,7 +49,7 @@ const Dounutchart = <T extends {count: number}>({datas, nameKey, totalLabel}: Pr
               show: true,
               fontFamily: "Inter, sans-serif",
               offsetY: -20,
-              color: "#fff",
+              color: "#000",
               formatter(value: string) {
                 return `${value}`;
               },
@@ -72,14 +72,14 @@ const Dounutchart = <T extends {count: number}>({datas, nameKey, totalLabel}: Pr
       position: "bottom",
       fontFamily: "Inter, sans-serif",
       labels: {
-        colors: "#fff",
+        colors: "#000",
       },
     },
     yaxis: {
       labels: {
         style: {
           fontFamily: "Inter, sans-serif",
-          colors: "#fff",
+          colors: "#000",
         },
         formatter(value: number) {
           return `${value}`;
@@ -90,7 +90,7 @@ const Dounutchart = <T extends {count: number}>({datas, nameKey, totalLabel}: Pr
       labels: {
         style: {
           fontFamily: "Inter, sans-serif",
-          colors: "#fff",
+          colors: "#000",
         },
         formatter(value: string) {
           return `${value}`;
