@@ -1,11 +1,14 @@
 import {
+  PLAYER_HEIGHT,
   PLAYER_IDLE_FRAME, PLAYER_INIT_ATTACK, PLAYER_INIT_HP, PLAYER_INIT_SPEED,
+  PLAYER_WIDTH,
 } from '../constant/game.constant.player';
 import type {Main} from '../scenes/game.scene.main';
 import {MoveDirection} from './game.object.enum';
 import {Charactor} from './game.object.charator';
 import {Bullet} from './game.object.bullet';
 import {Vector} from '../utils/vector';
+import {Hpbar} from './game.object.hpbar';
 
 export class Player extends Charactor {
   public bullets: Bullet[] = [];
@@ -13,7 +16,7 @@ export class Player extends Charactor {
   constructor(
     sprite: Phaser.GameObjects.Sprite,
     name: string,
-    hp: number,
+    hp: Hpbar,
     attack: number,
     private _speed: number,
   ) {
@@ -22,13 +25,15 @@ export class Player extends Charactor {
 
   moveX(dir: MoveDirection.LEFT | MoveDirection.RIGHT) {
     this._sprite.x += this._speed * dir;
+    this.hp.move(this._sprite.x - PLAYER_WIDTH / 2, this._sprite.y - PLAYER_HEIGHT / 2);
   }
   moveY(dir: MoveDirection.UP | MoveDirection.DOWN) {
     this._sprite.y += this._speed * dir;
+    this.hp.move(this._sprite.x - PLAYER_WIDTH / 2, this._sprite.y - PLAYER_HEIGHT / 2);
   }
 
   checkHp() {
-    if (this.hp <= 0) {
+    if (this.hp.hp <= 0) {
       this.sprite.destroy();
     }
   }
@@ -61,7 +66,19 @@ export class Player extends Charactor {
     scene.anims.create(idle);
     const sprite = scene.physics.add.sprite(x, y, 'player').play('idle_player');
 
-    const player = new Player(sprite, 'player', PLAYER_INIT_HP, PLAYER_INIT_ATTACK, PLAYER_INIT_SPEED);
+    const player = new Player(
+      sprite,
+      'player',
+      new Hpbar(
+        scene,
+        sprite.x - PLAYER_WIDTH / 2,
+        sprite.y - PLAYER_HEIGHT / 2,
+        PLAYER_INIT_HP,
+        PLAYER_INIT_HP,
+      ),
+      PLAYER_INIT_ATTACK,
+      PLAYER_INIT_SPEED,
+    );
     player.bullets = Array.from({length: 100}, () => Bullet.create(scene, -200, -100));
 
     return player;

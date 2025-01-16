@@ -1,16 +1,18 @@
 import {Charactor} from './game.object.charator';
 import type {Main} from '../scenes/game.scene.main';
 import {
-  MONSTER_ATTACK, MONSTER_HP, MONSTER_IDLE_FRAME, MONSTER_SPEED,
+  MONSTER_ATTACK, MONSTER_HEIGHT, MONSTER_HP, MONSTER_IDLE_FRAME, MONSTER_SPEED,
+  MONSTER_WIDTH,
 } from '../constant/game.constant.monster';
 import {Vector} from '../utils/vector';
 import {CharactorStatus} from './game.object.enum';
+import {Hpbar} from './game.object.hpbar';
 
 export class Monster extends Charactor {
   constructor(
     sprite: Phaser.GameObjects.Sprite,
     name: string,
-    hp: number,
+    hp: Hpbar,
     attack: number,
     private _speed: number,
   ) {
@@ -21,14 +23,16 @@ export class Monster extends Charactor {
     if (this._status === CharactorStatus.DEAD) return;
     this._sprite.x += dir.x * speed;
     this._sprite.y += dir.y * speed;
+    this._hp.move(this._sprite.x - MONSTER_WIDTH / 2, this._sprite.y - MONSTER_HEIGHT / 2);
   }
 
   checkHp() {
-    if (this.hp <= 0) {
-      this._hp = MONSTER_HP;
+    if (this.hp.hp <= 0) {
+      this._hp.setHp(MONSTER_HP);
       this._status = CharactorStatus.DEAD;
       this._sprite.x = -100;
       this._sprite.y = -100;
+      this._hp.move(this._sprite.x - MONSTER_WIDTH / 2, this._sprite.y - MONSTER_HEIGHT / 2);
     }
   }
 
@@ -61,7 +65,19 @@ export class Monster extends Charactor {
     scene.anims.create(idle);
     const sprite = scene.physics.add.sprite(x, y, 'monster1').play('idle_monster1');
 
-    const monster = new Monster(sprite, 'monster1', MONSTER_HP, MONSTER_ATTACK, MONSTER_SPEED);
+    const monster = new Monster(
+      sprite,
+      'monster1',
+      new Hpbar(
+        scene,
+        sprite.x - MONSTER_WIDTH / 2,
+        sprite.y - MONSTER_HEIGHT / 2,
+        MONSTER_HP,
+        MONSTER_HP,
+      ),
+      MONSTER_ATTACK,
+      MONSTER_SPEED,
+    );
     monster._status = CharactorStatus.DEAD;
 
     return monster;

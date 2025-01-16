@@ -1,4 +1,5 @@
 import {CharactorStatus} from './game.object.enum';
+import {Hpbar} from './game.object.hpbar';
 
 export class Charactor {
   protected _status: CharactorStatus = CharactorStatus.ALIVE;
@@ -7,7 +8,7 @@ export class Charactor {
   constructor(
     protected _sprite: Phaser.GameObjects.Sprite,
     protected _name: string,
-    protected _hp: number,
+    protected _hp: Hpbar,
     protected _attack: number,
   ) {}
 
@@ -21,7 +22,7 @@ export class Charactor {
   }
 
   public setHp(hp: number) {
-    this._hp = hp;
+    this._hp.setHp(hp);
   }
 
   public attackTo(target: Charactor): boolean {
@@ -37,8 +38,8 @@ export class Charactor {
   }
 
   public decreaseHp(damage: number) {
-    this._hp -= damage;
-    if (this._hp <= 0) {
+    this._hp.decreaseHp(damage);
+    if (this._hp.hp <= 0) {
       this._status = CharactorStatus.DEAD;
     }
   }
