@@ -11,7 +11,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'shared.akamai.steamstatic.com',
         port: '',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.steamstatic.com',
+        port: '',
+      },
     ]
   },
   reactStrictMode: true,

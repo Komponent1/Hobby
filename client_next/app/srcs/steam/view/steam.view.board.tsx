@@ -10,12 +10,17 @@ import { STEAM_LOGO_RATIO } from "../../common/common.constant/common.constant.i
 import { useAnalyzeTag } from "../hooks/steam.hooks.analyzeTag";
 import {useAnalyzeGenres} from '../hooks/steam.hooks.analyzeGenres';
 import { TABLE_VIEW_NUM, useGetTable } from "../hooks/steam.hooks.getTable";
+import { PlayerSummary } from "../dto/steam.dto.api";
+import { Typography } from "../../common/common.components";
+import { num2wonComma } from "../utils/steam.util.won";
 
 type Props = {
   owedGameDatas: GameData[];
+  playerSummary: PlayerSummary;
 };
 const SteamViewBoard: React.FC<Props> = observer(({
   owedGameDatas,
+  playerSummary,
 }) => {
   const {mostPlayedGame, allPlayTime, totalPrice} = useViewData(owedGameDatas);
   const {tagPercentage} = useAnalyzeTag(owedGameDatas);
@@ -28,6 +33,23 @@ const SteamViewBoard: React.FC<Props> = observer(({
         <Image src="/steam-logo.png" alt="Steam Logo" layout="fixed" width={1000} height={1000 * STEAM_LOGO_RATIO} className="-rotate-12" />
       </div>
       <div className="absolute top-0 bg-gradient-to-t from-slate-600 to-slate-900 h-screen w-screen grid place-items-center opacity-90" />
+      <div className="mt-32 z-30 grid grid-cols-3 px-32">
+        <div className="col-span-2 text-white text-4xl font-bold content-center">
+          {`${playerSummary.personaname} 분석 결과`}
+          <Typography type="p" color="text-gray-200">19세 게임은 정상적인 정보를 확인하지 못할 수 있습니다</Typography>
+        </div>
+        <div>
+          <div className="bg-slate-300 h-[158px] w-[158px] ml-6 flex items-center justify-center">
+            <Image
+              src={playerSummary.avatarfull}
+              alt="Avatar Logo"
+              layout="fixed"
+              width={150}
+              height={150}
+            />
+          </div>
+        </div>
+      </div>
       <div className="z-30">
         <div className="w-screen flex flex-row flex-wrap">
           <div className="flex-1 p-6 md:mt-16 grid grid-cols-1 gap-6 xl:grid-cols-4 auto-rows-auto">
@@ -41,7 +63,7 @@ const SteamViewBoard: React.FC<Props> = observer(({
               <Infobox title="가장 많이 플레이한 게임" information={`${mostPlayedGame.system_data.name} (${Math.floor(mostPlayedGame.personal_data.playtime_forever / 60)} 시간)`} />
             </Card>
             <Card>
-              <Infobox title="총 게임 금액" information={`${totalPrice / 100} \u20A9`} />
+              <Infobox title="총 게임 금액" information={`${num2wonComma(totalPrice / 100)} \u20A9`} />
             </Card>
           </div>
         </div>

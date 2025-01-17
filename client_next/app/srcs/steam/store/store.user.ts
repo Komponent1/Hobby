@@ -5,7 +5,7 @@ import { GameData } from '../dto/steam.dto.game';
 import { OwnedGames, PlayerSummary } from '../dto/steam.dto.api';
 
 export class UserStore {
-  @observable playerSummaries!: PlayerSummary;
+  @observable playerSummary!: PlayerSummary;
   @observable ownedGames: OwnedGames[] = [];
   @observable ownedGameDatas: GameData[] = [];
 
@@ -14,7 +14,7 @@ export class UserStore {
   }
 
   @action
-  setPlayerSummaries(playerSummaries: PlayerSummary) { this.playerSummaries = playerSummaries; }
+  setPlayerSummaries(playerSummary: PlayerSummary) { this.playerSummary = playerSummary; }
 
   @action
   setOwnedGame(ownedGames: OwnedGames[]) { this.ownedGames = ownedGames; }

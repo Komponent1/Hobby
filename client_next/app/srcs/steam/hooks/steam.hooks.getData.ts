@@ -9,7 +9,7 @@ export const useGetData = (
   const [loadRange, setLoadRange] = useState<LoadingRange>(LoadingRange.PLAYER_SUMMARIES);
   const {userStore} = useStores();
   const {
-    playerSummaries, ownedGames, ownedGameDatas,
+    playerSummary, ownedGames, ownedGameDatas,
   } = userStore;
 
   const getDataWithSteamCode = async (steamid: string) => {
@@ -25,7 +25,7 @@ export const useGetData = (
   };
 
   return {
-    playerSummaries,
+    playerSummary,
     ownedGames,
     ownedGameDatas,
     getDataWithSteamCode,

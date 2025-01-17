@@ -13,7 +13,7 @@ class AnalyticService {
   ) {}
 
   getPlayerInformation() {
-    return this.userStore.playerSummaries;
+    return this.userStore.playerSummary;
   }
 
   setTagCounter() {
