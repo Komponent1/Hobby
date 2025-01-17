@@ -10,10 +10,10 @@ const Infobox: React.FC<Props> = ({
   information,
 }) => (
   <>
-    <Typography type="h5" color="text-black" customClass="mb-4">
+    <Typography type="h6" color="text-white" customClass="mb-4">
       {title}
     </Typography>
-    <Typography type="h3" color="text-black">
+    <Typography type="h2" color="text-white" customClass="mb-0 md:text-center text-center opacity-100">
       {information}
     </Typography>
   </>

@@ -3,7 +3,7 @@ import { GameData, GameTable } from "../dto/steam.dto.game";
 import { useStores } from "../store/store.root";
 import analysticService from "../service/steam.service.analysitic";
 
-export const TABLE_VIEW_NUM = 10;
+export const TABLE_VIEW_NUM = 5;
 export const useGetTable = (gameDatas: GameData[]) => {
   const {analyticStore} = useStores();
   const {gameTable} = analyticStore;

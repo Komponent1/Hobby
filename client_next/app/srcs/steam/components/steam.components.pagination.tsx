@@ -19,8 +19,8 @@ const Pagenation: React.FC<Props> = ({totalDatasNum, viewNum, setDataIndex}) => 
 
   const ablePrev = useMemo(() => current > PAGE_VIEW_COUNT, [current]);
   const ableNext = useMemo(
-    () => current + (PAGE_VIEW_COUNT * currentView) < totalPage,
-    [current, totalPage, currentView],
+    () => (currentView + 1) * PAGE_VIEW_COUNT < totalPage,
+    [totalPage, currentView],
   );
 
   const onClick = useCallback((index: number) => {
@@ -51,7 +51,7 @@ const Pagenation: React.FC<Props> = ({totalDatasNum, viewNum, setDataIndex}) => 
           >
             <span className="sr-only">Previous</span>
             <svg className="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4" />
             </svg>
           </button>
         </li>

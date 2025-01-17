@@ -27,5 +27,14 @@
       "component",
       "generic"
     ]
+  },
+  "3": {
+    "id": 3,
+    "title": "background image opacity",
+    "path": "background image opacity.md",
+    "tags": [
+      "css",
+      "background-image"
+    ]
   }
 }

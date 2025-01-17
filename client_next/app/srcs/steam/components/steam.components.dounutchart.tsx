@@ -5,10 +5,9 @@ import type { ApexOptions } from "apexcharts";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const COLOR_MAP = [
-  "#1C64F2", "#16BDCA", "#FDBA8C", "#E74694", "#1C64F2", "#16BDCA", "#FDBA8C", "#E74694",
-  "#1C64F2", "#16BDCA", "#FDBA8C", "#E74694", "#1C64F2", "#16BDCA", "#FDBA8C", "#E74694",
-];
-const MAX_VIEW_COUNT = 10;
+  "#b30000", "#7c1158", "#4421af", "#1a53ff", "#0d88e6", "#00b7c7", "#5ad45a", "#8be04e", "#ebdc78",
+].reverse();
+const MAX_VIEW_COUNT = 8;
 
 type Props<T> = {
   datas: T[];
@@ -40,7 +39,7 @@ const Dounutchart = <T extends {count: number}>({datas, nameKey, totalLabel}: Pr
               show: true,
               label: totalLabel,
               fontFamily: "Inter, sans-serif",
-              color: "#000",
+              color: "#fff",
               formatter() {
                 return datas[0][nameKey] as string;
               },
@@ -49,7 +48,7 @@ const Dounutchart = <T extends {count: number}>({datas, nameKey, totalLabel}: Pr
               show: true,
               fontFamily: "Inter, sans-serif",
               offsetY: -20,
-              color: "#000",
+              color: "#fff",
               formatter(value: string) {
                 return `${value}`;
               },
@@ -72,14 +71,14 @@ const Dounutchart = <T extends {count: number}>({datas, nameKey, totalLabel}: Pr
       position: "bottom",
       fontFamily: "Inter, sans-serif",
       labels: {
-        colors: "#000",
+        colors: "#fff",
       },
     },
     yaxis: {
       labels: {
         style: {
           fontFamily: "Inter, sans-serif",
-          colors: "#000",
+          colors: "#fff",
         },
         formatter(value: number) {
           return `${value}`;
@@ -90,7 +89,7 @@ const Dounutchart = <T extends {count: number}>({datas, nameKey, totalLabel}: Pr
       labels: {
         style: {
           fontFamily: "Inter, sans-serif",
-          colors: "#000",
+          colors: "#fff",
         },
         formatter(value: string) {
           return `${value}`;

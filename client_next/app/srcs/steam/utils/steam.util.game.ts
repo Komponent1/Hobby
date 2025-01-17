@@ -52,7 +52,7 @@ export const crawlingDataFromAppid = async (
 export const dataFetch = async (gameSet: OwnedGames[]) => {
   const gameinfos: GameData[] = [];
   const gameDataFromApi = await Promise.all(
-    gameSet.map((game) => fetch(`/steam_api/appdetails?appids=${game.appid}`).then((res) => res.json())),
+    gameSet.map((game) => fetch(`/steam_api/appdetails?appids=${game.appid}&cc=ko-kr`).then((res) => res.json())),
   );
   const gameDataWithTags = (await Promise.all(
     gameSet.map((game) => crawlingDataFromAppid(game)),
