@@ -33,19 +33,19 @@ const SteamViewBoard: React.FC<Props> = observer(({
         <Image src="/steam-logo.png" alt="Steam Logo" layout="fixed" width={1000} height={1000 * STEAM_LOGO_RATIO} className="-rotate-12" />
       </div>
       <div className="absolute top-0 bg-gradient-to-t from-slate-600 to-slate-900 h-screen w-screen grid place-items-center opacity-90" />
-      <div className="mt-32 z-30 grid grid-cols-3 px-32">
-        <div className="col-span-2 text-white text-4xl font-bold content-center">
+      <div className="mt-32 z-30 grid xl:grid-cols-3 grid-cols-1 px-32">
+        <div className="xl:col-span-2 text-center xl:text-left text-white text-4xl font-bold content-center">
           {`${playerSummary.personaname} 분석 결과`}
           <Typography type="p" color="text-gray-200">19세 게임은 정상적인 정보를 확인하지 못할 수 있습니다</Typography>
         </div>
         <div>
-          <div className="bg-slate-300 h-[158px] w-[158px] ml-6 flex items-center justify-center">
+          <div className="relative bg-slate-300 h-32 w-32 ml-6 flex items-center justify-center border-4 border-slate-600">
             <Image
               src={playerSummary.avatarfull}
               alt="Avatar Logo"
-              layout="fixed"
-              width={150}
-              height={150}
+              layout="fill"
+              objectFit="cover"
+              className="top-0 left-0 object-cover"
             />
           </div>
         </div>
@@ -80,7 +80,7 @@ const SteamViewBoard: React.FC<Props> = observer(({
             </Card>
             )}
           </div>
-          <div className="col-span-2">
+          <div className="xl:col-span-2">
             <Table datas={viewData} />
             <div className="flex justify-center mt-2">
               <Pagination
