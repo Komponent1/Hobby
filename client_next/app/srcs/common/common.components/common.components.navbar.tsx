@@ -5,7 +5,7 @@ import pages from '../../page.config.json';
 import {PageConfig} from '../common.dto';
 
 const Navbar: React.FC = () => (
-  <nav className="bg-slate-800 dark:bg-gray-900 fixed w-full z-50 top-0 start-0 shadow-md">
+  <nav className="bg-slate-900 dark:bg-gray-900 fixed w-full z-50 top-0 start-0 shadow-md">
     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <div className="flex items-center space-x-3 rtl:space-x-reverse">
         <Image src="/logo.png" className="h-8" alt="Flowbite Logo" width={32} height={32} />

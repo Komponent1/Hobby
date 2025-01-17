@@ -4,7 +4,7 @@ import { CrawlingData, GameData } from '../dto/steam.dto.game';
 import { TagParsingException } from '../steam.api/steam.exception';
 import { OwnedGames } from '../dto/steam.dto.api';
 import {
-  getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getTags,
+  getAppName, getAppPhoto, getCategories, getGameHtmlDOM, getRating, getTags,
 } from './steam.util.crawling';
 
 export type RawGameCategory = {
@@ -36,8 +36,9 @@ export const crawlingDataFromAppid = async (
     const tags = getTags(categories);
     const name = getAppName(dom) as string;
     const photoUrl = getAppPhoto(appid) as string;
+    const rating = getRating(dom) as string;
     return {
-      appid, categories, tags, name, photoUrl, playtime,
+      appid, categories, tags, name, photoUrl, playtime, rating,
     };
   } catch (err) {
     if (err instanceof TagParsingException) {
@@ -51,7 +52,7 @@ export const crawlingDataFromAppid = async (
 export const dataFetch = async (gameSet: OwnedGames[]) => {
   const gameinfos: GameData[] = [];
   const gameDataFromApi = await Promise.all(
-    gameSet.map((game) => fetch(`/steam_api/appdetails?appids=${game.appid}`).then((res) => res.json())),
+    gameSet.map((game) => fetch(`/steam_api/appdetails?appids=${game.appid}&cc=ko-kr`).then((res) => res.json())),
   );
   const gameDataWithTags = (await Promise.all(
     gameSet.map((game) => crawlingDataFromAppid(game)),

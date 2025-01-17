@@ -43,7 +43,7 @@ export const getOwnedGames = async (steamid: string): Promise<GetOwnedGamesRespo
   }
 };
 export const getGameDetail = async (appid: string): Promise<GameDetailResponse> => {
-  const res = await fetch(`${STORE_URL}/appdetails?appids=${appid}`);
+  const res = await fetch(`${STORE_URL}/appdetails?appids=${appid}&l=ko-kr&cc=ko-kr`);
   const result = await res.json();
   return result;
 };

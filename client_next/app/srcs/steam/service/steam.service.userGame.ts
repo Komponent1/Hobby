@@ -11,7 +11,7 @@ class UserGameService {
     try {
       const response = await fetch(`/api/steam/player_summarries?steamid=${steamid}`);
       const rawData = await response.json();
-      this.userStore.setPlayerSummaries(rawData);
+      this.userStore.setPlayerSummaries(rawData.players[0]);
     } catch (err) {
       /** TODO: Error 처리 */
     }

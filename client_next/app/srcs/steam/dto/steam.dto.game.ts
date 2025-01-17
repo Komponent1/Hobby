@@ -7,6 +7,7 @@ export type CrawlingData = {
   name: string;
   photoUrl: string;
   playtime: number;
+  rating: string;
 };
 export type GameData = {
   personal_data: OwnedGames;
@@ -21,4 +22,25 @@ export type Category = {
   name: string;
   count: number;
   browseable: boolean;
+};
+export type TagPercentage = {
+  tag: string;
+  count: number;
+  percent: number;
+};
+export type Genre = {
+  id: number;
+  description: string;
+};
+export type GenrePercentage = Genre & {
+  count: number;
+  percent: number;
+};
+export type GameTable = {
+  photoUrl: {type: 'image'; value: string};
+  name: {type: 'text'; value: string};
+  playtime: {type: 'text'; value: string; sort: number};
+  price: {type: 'text'; value: string; sort: number};
+  releaseDate: {type: 'text'; value: string; sort: number};
+  rating: {type: 'text'; value: string;};
 };

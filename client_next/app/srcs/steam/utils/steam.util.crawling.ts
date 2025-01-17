@@ -21,6 +21,14 @@ export const getCategories = (dom: HTMLElement) => {
     throw new TagParsingException();
   }
 };
+export const getRating = (dom: HTMLElement) => {
+  const div = dom.querySelector('#review_histogram_rollup_section');
+  if (div === null) return '';
+  const rating = div.querySelector('.game_review_summary');
+  if (rating === null) return '';
+  const ratingText = rating.textContent;
+  return ratingText || '';
+};
 export const getAppName = (dom: HTMLElement) => {
   const div = dom.querySelector('#appHubAppName');
   const name = div?.textContent;

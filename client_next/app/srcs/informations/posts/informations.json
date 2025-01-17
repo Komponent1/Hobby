@@ -17,5 +17,24 @@
       "test",
       "test2"
     ]
+  },
+  "2": {
+    "id": 2,
+    "title": "react component generic",
+    "path": "react component generic.md",
+    "tags": [
+      "react",
+      "component",
+      "generic"
+    ]
+  },
+  "3": {
+    "id": 3,
+    "title": "background image opacity",
+    "path": "background image opacity.md",
+    "tags": [
+      "css",
+      "background-image"
+    ]
   }
 }

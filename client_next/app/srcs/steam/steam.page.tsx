@@ -9,7 +9,9 @@ import Navbar from '../common/common.components/common.components.navbar';
 
 const SteamPage: React.FC = observer(() => {
   const [currentPage, setCurrentPage] = useState<PageKey>(PageKey.MAIN);
-  const {ownedGameDatas, getDataWithSteamCode, loadRange} = useGetData(setCurrentPage);
+  const {
+    playerSummary, ownedGameDatas, getDataWithSteamCode, loadRange,
+  } = useGetData(setCurrentPage);
 
   return (
     <div>
@@ -17,7 +19,7 @@ const SteamPage: React.FC = observer(() => {
       {currentPage === PageKey.MAIN
         && <SteamViewMain getDataWithSteamCode={getDataWithSteamCode} />}
       {currentPage === PageKey.BOARD
-        && <SteamViewBoard owedGameDatas={ownedGameDatas} />}
+        && <SteamViewBoard owedGameDatas={ownedGameDatas} playerSummary={playerSummary} />}
       {currentPage === PageKey.LOADING
         && <SteamViewLoading loadRange={loadRange} />}
     </div>
