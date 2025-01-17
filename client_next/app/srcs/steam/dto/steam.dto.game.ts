@@ -39,7 +39,8 @@ export type GenrePercentage = Genre & {
 export type GameTable = {
   photoUrl: {type: 'image'; value: string};
   name: {type: 'text'; value: string};
-  playtime: {type: 'text'; value: string};
-  price: {type: 'text'; value: string};
-  rating: {type: 'text'; value: string};
+  playtime: {type: 'text'; value: string; sort: number};
+  price: {type: 'text'; value: string; sort: number};
+  releaseDate: {type: 'text'; value: string; sort: number};
+  rating: {type: 'text'; value: string;};
 };

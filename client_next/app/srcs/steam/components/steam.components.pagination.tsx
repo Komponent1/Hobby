@@ -1,5 +1,8 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
+import { SortOrder } from "../hooks/steam.hooks.getTable";
 
 /**
  * totalDatasNum: 총 데이터 수
@@ -11,8 +14,11 @@ type Props = {
   totalDatasNum: number;
   viewNum: number;
   setDataIndex: (index: number) => void;
+  sortOrder: SortOrder;
 };
-const Pagenation: React.FC<Props> = ({totalDatasNum, viewNum, setDataIndex}) => {
+const Pagenation: React.FC<Props> = ({
+  totalDatasNum, viewNum, setDataIndex, sortOrder,
+}) => {
   const [current, setCurrent] = useState<number>(1);
   const [currentView, setCurrentView] = useState<number>(0);
   const totalPage = useMemo(() => Math.ceil(totalDatasNum / viewNum), [totalDatasNum, viewNum]);
@@ -22,6 +28,11 @@ const Pagenation: React.FC<Props> = ({totalDatasNum, viewNum, setDataIndex}) => 
     () => (currentView + 1) * PAGE_VIEW_COUNT < totalPage,
     [totalPage, currentView],
   );
+
+  useEffect(() => {
+    setCurrentView(0);
+    setCurrent(1);
+  }, [sortOrder]);
 
   const onClick = useCallback((index: number) => {
     setCurrent(index);

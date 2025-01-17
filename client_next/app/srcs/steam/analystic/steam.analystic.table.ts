@@ -1,14 +1,15 @@
 import { GameData, GameTable } from "../dto/steam.dto.game";
 import { RATING_TEXT } from "../steam.constant";
+import { hourCut, num2wonComma } from "../utils/steam.util.string";
 import { dateWithZero } from "../utils/steam.util.time";
 
 const priceCut = (price: number | undefined) => {
   if (!price) return 'Free';
-  return `${price / 100} \u20A9`;
+  return num2wonComma(price / 100);
 };
 const timeToHour = (min: number | undefined) => {
-  if (!min || min === 0) return `-`;
-  return `${(min / 60).toFixed(1)}H`;
+  if (!min || min === 0) return '-';
+  return hourCut(min / 60);
 };
 const dateToText = (release_date: {coming_soon: boolean; date: string} | undefined) => {
   if (!release_date) return '-';
@@ -46,8 +47,8 @@ const ratingText = (rating: string | undefined) => {
 export const genTable = (gameDatas: GameData[]): GameTable[] => gameDatas.map((data) => ({
   photoUrl: { type: 'image', value: data.system_data.capsule_image || '' },
   name: { type: 'text', value: data.system_data.name },
-  playtime: { type: 'text', value: timeToHour(data.personal_data.playtime_forever) },
-  price: { type: 'text', value: data.system_data.price_overview?.final_formatted || priceCut(data.system_data.price_overview?.final) },
-  releaseDate: { type: 'text', value: dateToText(data.system_data.release_date)},
+  playtime: { type: 'text', value: timeToHour(data.personal_data.playtime_forever), sort: data.personal_data.playtime_forever ? data.personal_data.playtime_forever : 0 },
+  price: { type: 'text', value: priceCut(data.system_data.price_overview?.final), sort: data.system_data.price_overview?.final ? data.system_data.price_overview?.final : 0 },
+  releaseDate: { type: 'text', value: dateToText(data.system_data.release_date), sort: data.system_data.release_date?.date ? new Date(data.system_data.release_date.date).getTime() : 0 },
   rating: { type: 'text', value: ratingText(data.crawling_data?.rating)},
 }));

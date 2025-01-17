@@ -12,7 +12,7 @@ import {useAnalyzeGenres} from '../hooks/steam.hooks.analyzeGenres';
 import { TABLE_VIEW_NUM, useGetTable } from "../hooks/steam.hooks.getTable";
 import { PlayerSummary } from "../dto/steam.dto.api";
 import { Typography } from "../../common/common.components";
-import { num2wonComma } from "../utils/steam.util.won";
+import { num2wonComma } from "../utils/steam.util.string";
 
 type Props = {
   owedGameDatas: GameData[];
@@ -25,7 +25,9 @@ const SteamViewBoard: React.FC<Props> = observer(({
   const {mostPlayedGame, allPlayTime, totalPrice} = useViewData(owedGameDatas);
   const {tagPercentage} = useAnalyzeTag(owedGameDatas);
   const {genrePercentage} = useAnalyzeGenres(owedGameDatas);
-  const {gameTable, viewData, setDataIndex} = useGetTable(owedGameDatas);
+  const {
+    gameTable, viewData, setDataIndex, sortOrder, sortData,
+  } = useGetTable(owedGameDatas);
 
   return (
     <div className="min-h-screen w-screen grid place-items-center bg-slate-600">
@@ -81,9 +83,10 @@ const SteamViewBoard: React.FC<Props> = observer(({
             )}
           </div>
           <div className="xl:col-span-2">
-            <Table datas={viewData} />
+            <Table datas={viewData} sortData={sortData} />
             <div className="flex justify-center mt-2">
               <Pagination
+                sortOrder={sortOrder}
                 totalDatasNum={gameTable.length}
                 viewNum={TABLE_VIEW_NUM}
                 setDataIndex={setDataIndex}

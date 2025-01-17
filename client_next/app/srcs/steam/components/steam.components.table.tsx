@@ -4,8 +4,9 @@ import React, { useMemo } from 'react';
 
 type Props<T> = {
   datas: T[];
+  sortData: (key: keyof T) => void;
 };
-const Table = <T extends {[key: string]: {type: 'image' | 'text', value: string | number}}>({datas}: Props<T>) => {
+const Table = <T extends {[key: string]: {type: 'image' | 'text', value: string, sort?: number}}>({datas, sortData}: Props<T>) => {
   const categories = useMemo(() => {
     if (datas.length === 0) return [];
     return Object.keys(datas[0]);
@@ -16,8 +17,18 @@ const Table = <T extends {[key: string]: {type: 'image' | 'text', value: string 
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             {categories.map((category) => (
-              <th key={`${category}`} scope="col" className="px-6 py-3">
-                {category}
+              <th key={`${category}`} scope="col">
+                <button
+                  type="button"
+                  className="w-full h-full px-6 py-3 text-left"
+                  disabled={datas[0][category].sort === undefined}
+                  onClick={
+                    () => datas[0][category].sort !== undefined && sortData(category as keyof T)
+                  }
+                >
+                  {category}
+                  <span className="text-[8px]">{datas[0][category].sort !== undefined ? ' ▼' : ''}</span>
+                </button>
               </th>
             ))}
           </tr>
