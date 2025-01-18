@@ -5,8 +5,8 @@ import {GameData} from '../dto/steam.dto.game';
 import {useViewData} from '../hooks/steam.hooks.viewData';
 import {
   Infobox, Dounutchart, Table, Card, Pagination,
+  BgBlurImage,
 } from '../components';
-import { STEAM_LOGO_RATIO } from "../../common/common.constant/common.constant.imageRatio";
 import { useAnalyzeTag } from "../hooks/steam.hooks.analyzeTag";
 import {useAnalyzeGenres} from '../hooks/steam.hooks.analyzeGenres';
 import { TABLE_VIEW_NUM, useGetTable } from "../hooks/steam.hooks.getTable";
@@ -31,10 +31,7 @@ const SteamViewBoard: React.FC<Props> = observer(({
 
   return (
     <div className="min-h-screen w-screen grid place-items-center bg-slate-600">
-      <div className="absolute top-2">
-        <Image src="/steam-logo.png" alt="Steam Logo" layout="fixed" width={1000} height={1000 * STEAM_LOGO_RATIO} className="-rotate-12" />
-      </div>
-      <div className="absolute top-0 bg-gradient-to-t from-slate-600 to-slate-900 h-screen w-screen grid place-items-center opacity-90" />
+      <BgBlurImage />
       <div className="mt-32 z-30 grid xl:grid-cols-3 grid-cols-1 px-32">
         <div className="xl:col-span-2 text-center xl:text-left text-white text-4xl font-bold content-center">
           {`${playerSummary.personaname} 분석 결과`}

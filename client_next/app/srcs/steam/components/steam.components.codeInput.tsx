@@ -5,7 +5,7 @@ type Props = {
   onSubmit: (code: string) => void;
 };
 const CodeInput: React.FC<Props> = ({onSubmit}) => {
-  const [code, setCode] = useState<string>('76561199008462834');
+  const [code, setCode] = useState<string>('');
 
   return (
     <div>

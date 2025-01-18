@@ -4,6 +4,7 @@ import Card from './steam.components.card';
 import Dounutchart from './steam.components.dounutchart';
 import Table from './steam.components.table';
 import Pagination from './steam.components.pagination';
+import BgBlurImage from "./steam.components.bgBlurImage";
 
 export {
   CodeInput,
@@ -12,4 +13,5 @@ export {
   Dounutchart,
   Table,
   Pagination,
+  BgBlurImage,
 };
