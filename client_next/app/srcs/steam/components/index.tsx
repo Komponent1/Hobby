@@ -5,6 +5,7 @@ import Dounutchart from './steam.components.dounutchart';
 import Table from './steam.components.table';
 import Pagination from './steam.components.pagination';
 import BgBlurImage from "./steam.components.bgBlurImage";
+import Tooltip from "./steam.components.tooltip";
 
 export {
   CodeInput,
@@ -14,4 +15,5 @@ export {
   Table,
   Pagination,
   BgBlurImage,
+  Tooltip,
 };
