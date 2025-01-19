@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Tooltip from "../../steam/components/steam.components.tooltip";
 /**
  * design copy below
  * https://github.com/tailwindtoolbox/Rainblur-Landing-Page/blob/main/index.html
@@ -18,9 +18,12 @@ const Form: React.FC<Props> = ({
 }) => (
   <form className="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
     <div className="mb-4">
-      <label className="block text-blue-300 py-2 font-bold mb-2" htmlFor={labelId}>
-        {labelText}
-      </label>
+      <div className="flex align-center items-center mb-2">
+        <label className="block text-blue-300 py-2 font-bold mr-2" htmlFor={labelId}>
+          {labelText}
+        </label>
+        <Tooltip tooltipText="스팀 > 우측 상단 계정 > 계정정보 > 좌 상단 ID 확인" />
+      </div>
       <input
         className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
         id={labelId}
@@ -28,6 +31,12 @@ const Form: React.FC<Props> = ({
         value={value}
         placeholder={placeholder}
         onChange={(e) => setValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            if (onSubmit) onSubmit(value);
+          }
+        }}
       />
     </div>
 
