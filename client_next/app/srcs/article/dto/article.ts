@@ -4,5 +4,5 @@ export type Article = {
   path: string;
   photo?: string;
   description?: string;
-  tag: string[];
+  tags: string[];
 };

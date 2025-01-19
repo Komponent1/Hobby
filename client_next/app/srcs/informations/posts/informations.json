@@ -36,5 +36,15 @@
       "css",
       "background-image"
     ]
+  },
+  "4": {
+    "id": 4,
+    "title": "search text without case",
+    "path": "search text without case.md",
+    "tags": [
+      "regex",
+      "string",
+      "search"
+    ]
   }
 }

@@ -19,7 +19,7 @@ const ArticlesPidPage: React.FC<Props> = ({content, article}) => (
             {article.title}
           </h1>
           <div className="mt-3 text-center">
-            {article.tag.map((tag) => (
+            {article.tags.map((tag) => (
               <p key={tag} className="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-medium text-slate-700 m-0.5">
                 {tag}
               </p>

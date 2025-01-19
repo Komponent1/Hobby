@@ -4,36 +4,36 @@
     "title": "idea",
     "path": "idea.md",
     "photo": "/github.png",
-    "tag": ["idea", "simple"]
+    "tags": ["idea", "simple"]
   },
   "1": {
     "id": 1,
     "title": "Nest Template",
     "path": "nest_template.md",
-    "tag": []
+    "tags": []
   },
   "2": {
     "id": 2,
     "title": "NextJs",
     "path": "nextjs.md",
-    "tag": []
+    "tags": []
   },
   "3": {
     "id": 3,
     "title": "TypeORM",
     "path": "typeorm.md",
-    "tag": []
+    "tags": []
   },
   "4": {
     "id": 4,
     "title": "Mobx",
     "path": "Mobx.md",
-    "tag": []
+    "tags": []
   },
   "5": {
     "id": 5,
     "title": "Phaser",
     "path": "Phaser.md",
-    "tag": []
+    "tags": []
   }
 }
