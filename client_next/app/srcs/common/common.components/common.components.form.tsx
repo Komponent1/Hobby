@@ -31,6 +31,12 @@ const Form: React.FC<Props> = ({
         value={value}
         placeholder={placeholder}
         onChange={(e) => setValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            if (onSubmit) onSubmit(value);
+          }
+        }}
       />
     </div>
 

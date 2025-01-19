@@ -62,7 +62,7 @@ const SteamViewBoard: React.FC<Props> = observer(({
               <Infobox title="가장 많이 플레이한 게임" information={`${mostPlayedGame.system_data.name} (${Math.floor(mostPlayedGame.personal_data.playtime_forever / 60)} 시간)`} />
             </Card>
             <Card>
-              <Infobox title="총 게임 금액" information={`${num2wonComma(totalPrice / 100)} \u20A9`} />
+              <Infobox title="총 게임 금액" information={`${num2wonComma(totalPrice / 100)}`} />
             </Card>
           </div>
         </div>
