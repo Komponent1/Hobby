@@ -6,7 +6,7 @@ export class Charactor {
   public attackedTime = 0;
 
   constructor(
-    protected _sprite: Phaser.GameObjects.Sprite,
+    protected _sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
     protected _name: string,
     protected _hp: Hpbar,
     protected _attack: number,

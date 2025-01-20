@@ -14,7 +14,7 @@ export class Player extends Charactor {
   public bullets: Bullet[] = [];
 
   constructor(
-    sprite: Phaser.GameObjects.Sprite,
+    sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
     name: string,
     hp: Hpbar,
     attack: number,
@@ -80,6 +80,7 @@ export class Player extends Charactor {
       PLAYER_INIT_SPEED,
     );
     player.bullets = Array.from({length: 100}, () => Bullet.create(scene, -200, -100));
+    player.sprite.setCollideWorldBounds(true);
 
     return player;
   }

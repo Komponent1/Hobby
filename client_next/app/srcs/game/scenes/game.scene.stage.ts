@@ -48,11 +48,17 @@ export class Stage extends Scene {
   }
 
   create() {
+    this.cameras.main.setBounds(0, 0, 1920 * 1.5, 1080 * 1.5);
+    this.physics.world.setBounds(0, 0, 1920 * 1.5, 1080 * 1.5);
+
     this.keyboard.init(this);
     this.player = Player.create(this, 100, 100);
     for (let i = 0; i < 100; i += 1) {
       this.monster1s.push(Monster.create(this, -100, -100));
     }
+
+    this.cameras.main.startFollow(this.player.sprite);
+    this.cameras.main.followOffset.set(0, 0);
 
     this.monster1s.forEach((monster) => {
       this.physics.add.overlap(this.player.sprite, monster.sprite, () => {

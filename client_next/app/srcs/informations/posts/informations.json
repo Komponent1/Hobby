@@ -74,5 +74,14 @@
       "phaser3",
       "button"
     ]
+  },
+  "8": {
+    "id": 8,
+    "title": "Phaser 카메라 따라다니기",
+    "path": "Phaser 카메라 따라다니기.md",
+    "tags": [
+      "phaser3",
+      "camera"
+    ]
   }
 }
