@@ -1,16 +1,26 @@
 import {CharactorStatus} from './game.object.enum';
-import {Hpbar} from './game.object.hpbar';
+import {Hpbar} from './base/game.object.hpbar';
 
 export class Charactor {
   protected _status: CharactorStatus = CharactorStatus.ALIVE;
+  protected _hp: Hpbar;
+  protected _sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  protected _attack: number;
+  protected _name: string;
+
   public attackedTime = 0;
 
   constructor(
-    protected _sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
-    protected _name: string,
-    protected _hp: Hpbar,
-    protected _attack: number,
-  ) {}
+    sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
+    name: string,
+    hp: Hpbar,
+    attack: number,
+  ) {
+    this._sprite = sprite;
+    this._hp = hp;
+    this._attack = attack;
+    this._name = name;
+  }
 
   public get attack() { return this._attack; }
   public get hp() { return this._hp; }

@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import {Player} from '../object/game.object.player';
-import {Monster} from '../object/game.object.monster';
+import {Monster} from '../object/monster/game.object.monster';
 import {Vector} from '../utils/vector';
 import {Keyboard} from '../control/keyboard';
 import {
@@ -9,6 +9,7 @@ import {
 import {
   MONSTER_HEIGHT, MONSTER_MARGIN, MONSTER_SPACING, MONSTER_WIDTH,
 } from '../constant/game.constant.monster';
+import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/game.constant.config";
 
 /** https://bdragon1727.itch.io/pixel-character-part-5 */
 
@@ -17,10 +18,15 @@ export class Stage extends Scene {
     super('Stage');
   }
 
+  public keyboard = new Keyboard();
+
+  public uiLayer!: Phaser.GameObjects.Layer;
+  public mapLayer!: Phaser.GameObjects.Layer;
+  public uiCamera!: Phaser.Cameras.Scene2D.Camera;
+
   public player!: Player;
   public monster1s: Monster[] = [];
   public monster2s: Monster[] = [];
-  public keyboard = new Keyboard();
 
   public genTime = 0;
   public shootTime = 0;
@@ -48,11 +54,24 @@ export class Stage extends Scene {
   }
 
   create() {
-    this.cameras.main.setBounds(0, 0, 1920 * 1.5, 1080 * 1.5);
-    this.physics.world.setBounds(0, 0, 1920 * 1.5, 1080 * 1.5);
+    this.uiLayer = this.add.layer();
+    this.mapLayer = this.add.layer();
+    this.uiCamera = this.cameras.add(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    this.uiCamera.ignore(this.mapLayer);
+
+    this.cameras.main.setBounds(0, 0, SCREEN_WIDTH * MAP_RATIO, SCREEN_HEIGHT * MAP_RATIO);
+    this.physics.world.setBounds(0, 0, SCREEN_WIDTH * MAP_RATIO, SCREEN_HEIGHT * MAP_RATIO);
+
+    this.cameras.main.ignore(this.uiLayer);
+    this.uiCamera.ignore(this.mapLayer);
+    this.uiCamera.ignore(this.physics.world.debugGraphic);
 
     this.keyboard.init(this);
-    this.player = Player.create(this, 100, 100);
+    this.player = Player.create(
+      this,
+      (SCREEN_WIDTH * MAP_RATIO) / 2,
+      (SCREEN_HEIGHT * MAP_RATIO) / 2,
+    );
     for (let i = 0; i < 100; i += 1) {
       this.monster1s.push(Monster.create(this, -100, -100));
     }
@@ -64,12 +83,6 @@ export class Stage extends Scene {
       this.physics.add.overlap(this.player.sprite, monster.sprite, () => {
         this.player.bodyAttack(monster);
         monster.attackTo(this.player);
-      });
-      this.player.bullets.forEach((bullet) => {
-        this.physics.add.overlap(bullet.sprite, monster.sprite, () => {
-          bullet.attackTo(monster);
-          bullet.destroy();
-        });
       });
     });
   }
@@ -86,7 +99,6 @@ export class Stage extends Scene {
 
     if (Date.now() - this.shootTime > 2000) {
       this.shootTime = Date.now();
-      this.player.shootAttack(this.monster1s.find((monster) => monster.status === 'ALIVE') as Monster);
     }
 
     this.player.bullets.forEach((bullet) => {

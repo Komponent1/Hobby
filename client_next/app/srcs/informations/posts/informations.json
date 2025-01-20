@@ -83,5 +83,15 @@
       "phaser3",
       "camera"
     ]
+  },
+  "9": {
+    "id": 9,
+    "title": "Phaser 카메라와 관계없이 그려지는 object",
+    "path": "Phaser 카메라와 관계없이 그려지는 object.md",
+    "tags": [
+      "phaser3",
+      "camera",
+      "ui"
+    ]
   }
 }

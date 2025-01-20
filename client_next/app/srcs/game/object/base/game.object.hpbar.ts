@@ -1,13 +1,13 @@
 /* eslint-disable function-paren-newline */
 export class Hpbar {
-  private _hp: number;
-  private _maxHp: number;
-  private _hpbar: Phaser.GameObjects.Graphics;
-  private _hpbarBg: Phaser.GameObjects.Graphics;
-  private _hpbarWidth: number;
-  private _hpbarHeight: number;
-  private _hpbarX: number;
-  private _hpbarY: number;
+  protected _hp: number;
+  protected _maxHp: number;
+  protected _hpbar: Phaser.GameObjects.Graphics;
+  protected _hpbarBg: Phaser.GameObjects.Graphics;
+  protected _hpbarWidth: number;
+  protected _hpbarHeight: number;
+  protected _hpbarX: number;
+  protected _hpbarY: number;
 
   constructor(scene: Phaser.Scene, x: number, y: number, hp: number, maxHp: number) {
     this._hp = hp;
@@ -23,12 +23,6 @@ export class Hpbar {
 
   public get hp() { return this._hp; }
 
-  public move(x: number, y: number) {
-    this._hpbarX = x;
-    this._hpbarY = y;
-    this.draw();
-  }
-
   public setHp(hp: number) {
     this._hp = hp;
     this.draw();
@@ -43,7 +37,7 @@ export class Hpbar {
     this.draw();
   }
 
-  private draw() {
+  protected draw() {
     const hpW = this._hpbarWidth * (this._hp / this._maxHp);
     const hpBgW = this._hpbarWidth - hpW;
     this._hpbar.clear();

@@ -1,14 +1,14 @@
 import {MoveDirection} from '../object/game.object.enum';
-import type {Main} from '../scenes/game.scene.stage';
+import type {Stage} from '../scenes/game.scene.stage';
 
 export class Keyboard {
   public cursor: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
 
-  init(scene: Main) {
+  init(scene: Stage) {
     this.cursor = scene.input.keyboard?.createCursorKeys();
   }
 
-  setControl(scene: Main) {
+  setControl(scene: Stage) {
     if (!this.cursor || !scene.player) return;
 
     if (this.cursor.left?.isDown) {

@@ -1,35 +1,34 @@
 import {
-  PLAYER_HEIGHT,
   PLAYER_IDLE_FRAME, PLAYER_INIT_ATTACK, PLAYER_INIT_HP, PLAYER_INIT_SPEED,
-  PLAYER_WIDTH,
 } from '../constant/game.constant.player';
 import type {Stage} from '../scenes/game.scene.stage';
 import {MoveDirection} from './game.object.enum';
 import {Charactor} from './game.object.charator';
 import {Bullet} from './game.object.bullet';
 import {Vector} from '../utils/vector';
-import {Hpbar} from './game.object.hpbar';
+import { PlayerHpbar } from "./ui/game.object.playerHpbar";
 
 export class Player extends Charactor {
+  protected _hp: PlayerHpbar;
   public bullets: Bullet[] = [];
 
   constructor(
     sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
     name: string,
-    hp: Hpbar,
+    hp: PlayerHpbar,
     attack: number,
     private _speed: number,
   ) {
     super(sprite, name, hp, attack);
+    this._hp = hp;
   }
+  get hp() { return this._hp; }
 
   moveX(dir: MoveDirection.LEFT | MoveDirection.RIGHT) {
     this._sprite.x += this._speed * dir;
-    this.hp.move(this._sprite.x - PLAYER_WIDTH / 2, this._sprite.y - PLAYER_HEIGHT / 2);
   }
   moveY(dir: MoveDirection.UP | MoveDirection.DOWN) {
     this._sprite.y += this._speed * dir;
-    this.hp.move(this._sprite.x - PLAYER_WIDTH / 2, this._sprite.y - PLAYER_HEIGHT / 2);
   }
 
   checkHp() {
@@ -69,17 +68,18 @@ export class Player extends Charactor {
     const player = new Player(
       sprite,
       'player',
-      new Hpbar(
+      new PlayerHpbar(
         scene,
-        sprite.x - PLAYER_WIDTH / 2,
-        sprite.y - PLAYER_HEIGHT / 2,
+        0,
+        0,
         PLAYER_INIT_HP,
         PLAYER_INIT_HP,
       ),
       PLAYER_INIT_ATTACK,
       PLAYER_INIT_SPEED,
     );
-    player.bullets = Array.from({length: 100}, () => Bullet.create(scene, -200, -100));
+    scene.mapLayer.add(player.sprite);
+    // player.bullets = Array.from({length: 100}, () => Bullet.create(scene, -200, -100));
     player.sprite.setCollideWorldBounds(true);
 
     return player;

@@ -1,22 +1,25 @@
-import {Charactor} from './game.object.charator';
-import type {Stage} from '../scenes/game.scene.stage';
+import {Charactor} from '../game.object.charator';
+import type {Stage} from '../../scenes/game.scene.stage';
 import {
   MONSTER_ATTACK, MONSTER_HEIGHT, MONSTER_HP, MONSTER_IDLE_FRAME, MONSTER_SPEED,
   MONSTER_WIDTH,
-} from '../constant/game.constant.monster';
-import {Vector} from '../utils/vector';
-import {CharactorStatus} from './game.object.enum';
-import {Hpbar} from './game.object.hpbar';
+} from '../../constant/game.constant.monster';
+import {Vector} from '../../utils/vector';
+import {CharactorStatus} from '../game.object.enum';
+import { MonsterHpbar } from "./game.object.monsterHpbar";
 
 export class Monster extends Charactor {
+  protected _hp: MonsterHpbar;
+
   constructor(
-    sprite: Phaser.GameObjects.Sprite,
+    sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
     name: string,
-    hp: Hpbar,
+    hp: MonsterHpbar,
     attack: number,
     private _speed: number,
   ) {
     super(sprite, name, hp, attack);
+    this._hp = hp;
   }
 
   move(dir: Vector, speed: number = this._speed) {
@@ -68,7 +71,7 @@ export class Monster extends Charactor {
     const monster = new Monster(
       sprite,
       'monster1',
-      new Hpbar(
+      new MonsterHpbar(
         scene,
         sprite.x - MONSTER_WIDTH / 2,
         sprite.y - MONSTER_HEIGHT / 2,
@@ -78,6 +81,7 @@ export class Monster extends Charactor {
       MONSTER_ATTACK,
       MONSTER_SPEED,
     );
+    scene.mapLayer.add(monster.sprite);
     monster._status = CharactorStatus.DEAD;
 
     return monster;
