@@ -1,5 +1,5 @@
 import {MoveDirection} from '../object/game.object.enum';
-import type {Main} from '../scenes/game.scene.main';
+import type {Main} from '../scenes/game.scene.stage';
 
 export class Keyboard {
   public cursor: Phaser.Types.Input.Keyboard.CursorKeys | undefined;

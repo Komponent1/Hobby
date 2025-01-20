@@ -47,7 +47,7 @@
       "search"
     ]
   },
-  "5": { 
+  "5": {
     "id": 5,
     "title": "Flipcard template",
     "path": "Flipcard template.md",
@@ -55,6 +55,24 @@
       "flipcard",
       "template",
       "tailwindcss"
+    ]
+  },
+  "6": {
+    "id": 6,
+    "title": "Phaser change Scene",
+    "path": "Phaser change Scene.md",
+    "tags": [
+      "phaser3",
+      "scene"
+    ]
+  },
+  "7": {
+    "id": 7,
+    "title": "Phaser Button",
+    "path": "Phaser Button.md",
+    "tags": [
+      "phaser3",
+      "button"
     ]
   }
 }

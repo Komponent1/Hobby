@@ -1,5 +1,5 @@
 import {Charactor} from './game.object.charator';
-import type {Main} from '../scenes/game.scene.main';
+import type {Stage} from '../scenes/game.scene.stage';
 import {
   MONSTER_ATTACK, MONSTER_HEIGHT, MONSTER_HP, MONSTER_IDLE_FRAME, MONSTER_SPEED,
   MONSTER_WIDTH,
@@ -54,7 +54,7 @@ export class Monster extends Charactor {
     this._status = CharactorStatus.ALIVE;
   }
 
-  static create(scene: Main, x: number, y: number) {
+  static create(scene: Stage, x: number, y: number) {
     const idle = {
       key: 'idle_monster1',
       frames: scene.anims.generateFrameNumbers('monster1', {start: MONSTER_IDLE_FRAME[0], end: MONSTER_IDLE_FRAME[1]}),

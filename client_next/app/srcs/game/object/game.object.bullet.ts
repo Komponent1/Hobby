@@ -1,4 +1,4 @@
-import type {Main} from '../scenes/game.scene.main';
+import type {Stage} from '../scenes/game.scene.stage';
 import {Vector} from '../utils/vector';
 import type {Charactor} from './game.object.charator';
 import {BulletStatus} from './game.object.enum';
@@ -43,7 +43,7 @@ export class Bullet {
     this._status = BulletStatus.LOADED;
   }
 
-  static create(scene: Main, x: number, y: number) {
+  static create(scene: Stage, x: number, y: number) {
     const sprite = scene.physics.add.sprite(x, y, 'bullet').setOrigin(0.5, 0.5);
     const speed = 10;
     const bullet = new Bullet(sprite, speed);

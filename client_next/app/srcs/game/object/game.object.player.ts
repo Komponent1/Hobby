@@ -3,7 +3,7 @@ import {
   PLAYER_IDLE_FRAME, PLAYER_INIT_ATTACK, PLAYER_INIT_HP, PLAYER_INIT_SPEED,
   PLAYER_WIDTH,
 } from '../constant/game.constant.player';
-import type {Main} from '../scenes/game.scene.main';
+import type {Stage} from '../scenes/game.scene.stage';
 import {MoveDirection} from './game.object.enum';
 import {Charactor} from './game.object.charator';
 import {Bullet} from './game.object.bullet';
@@ -55,7 +55,7 @@ export class Player extends Charactor {
     }
   }
 
-  static create(scene: Main, x: number, y: number) {
+  static create(scene: Stage, x: number, y: number) {
     const idle = {
       key: 'idle_player',
       frames: scene.anims.generateFrameNumbers('player', {start: PLAYER_IDLE_FRAME[0], end: PLAYER_IDLE_FRAME[1]}),

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import {Main} from '../scenes/game.scene.main';
+import {Stage} from '../scenes/game.scene.stage';
+import { Main } from "../scenes/game.scene.main";
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
@@ -23,5 +24,5 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     createContainer: true,
   },
   backgroundColor: '#028af8',
-  scene: Main,
+  scene: [Main, Stage],
 };
