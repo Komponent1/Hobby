@@ -1,12 +1,14 @@
 import {Charactor} from '../game.object.charator';
 import type {Stage} from '../../scenes/game.scene.stage';
 import {
-  MONSTER_ATTACK, MONSTER_HEIGHT, MONSTER_HP, MONSTER_IDLE_FRAME, MONSTER_SPEED,
+  MONSTER_ATTACK, MONSTER_HEIGHT, MONSTER_HP, MONSTER_IDLE_FRAME,
+  MONSTER_SPEED,
   MONSTER_WIDTH,
 } from '../../constant/game.constant.monster';
 import {Vector} from '../../utils/vector';
 import {CharactorStatus} from '../game.object.enum';
 import { MonsterHpbar } from "./game.object.monsterHpbar";
+import {Player} from '../game.object.player';
 
 export class Monster extends Charactor {
   protected _hp: MonsterHpbar;
@@ -16,9 +18,9 @@ export class Monster extends Charactor {
     name: string,
     hp: MonsterHpbar,
     attack: number,
-    private _speed: number,
+    speed: number,
   ) {
-    super(sprite, name, hp, attack);
+    super(sprite, name, hp, attack, speed);
     this._hp = hp;
   }
 
@@ -43,9 +45,15 @@ export class Monster extends Charactor {
     if (!super.attackTo(target)) {
       return false;
     }
+    return true;
+  }
+  swordAttacked(player: Player) {
+    if (this.attackedTime !== 0 && Date.now() - this.attackedTime < 500) return false;
+    this.changeAttackedTime(Date.now());
+    this._hp.decreaseHp(player.weapon.damage);
     const dir = new Vector(
-      this.position.x - target.position.x,
-      this.position.y - target.position.y,
+      this.position.x - player.position.x,
+      this.position.y - player.position.y,
     ).normalize();
     this.move(dir, this.sprite.width);
     return true;
@@ -54,7 +62,7 @@ export class Monster extends Charactor {
   spawn(x: number, y: number) {
     this._sprite.x = x;
     this._sprite.y = y;
-    this._status = CharactorStatus.ALIVE;
+    this._status = CharactorStatus.IDLE;
   }
 
   static create(scene: Stage, x: number, y: number) {

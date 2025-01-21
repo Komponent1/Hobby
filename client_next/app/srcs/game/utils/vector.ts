@@ -15,4 +15,8 @@ export class Vector {
   get length(): () => number {
     return () => Math.sqrt(this.x * this.x + this.y * this.y);
   }
+
+  get angle(): () => number {
+    return () => Math.atan2(this.y, this.x);
+  }
 }

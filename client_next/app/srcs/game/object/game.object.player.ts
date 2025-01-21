@@ -1,34 +1,40 @@
 import {
+  ATTACK_COOLTIME,
   PLAYER_IDLE_FRAME, PLAYER_INIT_ATTACK, PLAYER_INIT_HP, PLAYER_INIT_SPEED,
 } from '../constant/game.constant.player';
 import type {Stage} from '../scenes/game.scene.stage';
-import {MoveDirection} from './game.object.enum';
 import {Charactor} from './game.object.charator';
-import {Bullet} from './game.object.bullet';
-import {Vector} from '../utils/vector';
+import {CharactorStatus} from './game.object.enum';
 import { PlayerHpbar } from "./ui/game.object.playerHpbar";
+import { Sword } from "./weapon/game.object.weapon.sword";
 
 export class Player extends Charactor {
   protected _hp: PlayerHpbar;
-  public bullets: Bullet[] = [];
+  public weapon!: Sword;
+  protected _container!: Phaser.GameObjects.Container;
 
   constructor(
-    sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
     name: string,
-    hp: PlayerHpbar,
     attack: number,
-    private _speed: number,
+    speed: number,
+    hp: PlayerHpbar,
+    sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
+    sword: Sword,
+    container: Phaser.GameObjects.Container,
   ) {
-    super(sprite, name, hp, attack);
+    super(sprite, name, hp, attack, speed);
     this._hp = hp;
+    this.weapon = sword;
+    this._container = container;
   }
   get hp() { return this._hp; }
+  get container() { return this._container; }
+  get position() { return {x: this._container.x, y: this._container.y}; }
+  get dir() { return this._dir; }
 
-  moveX(dir: MoveDirection.LEFT | MoveDirection.RIGHT) {
-    this._sprite.x += this._speed * dir;
-  }
-  moveY(dir: MoveDirection.UP | MoveDirection.DOWN) {
-    this._sprite.y += this._speed * dir;
+  move() {
+    this._container.x += this._speed * this._dir.x;
+    this._container.y += this._speed * this._dir.y;
   }
 
   checkHp() {
@@ -40,18 +46,17 @@ export class Player extends Charactor {
   bodyAttack(target: Charactor) {
     super.attackTo(target);
   }
-  shootAttack(target: Charactor) {
-    const bullet = this.bullets.find((b) => b.status === 'LOADED');
-    if (bullet) {
-      bullet.shoot(
-        this.sprite.x,
-        this.sprite.y,
-        new Vector(
-          target.sprite.x - this.sprite.x,
-          target.sprite.y - this.sprite.y,
-        ).normalize(),
-      );
-    }
+  swordAttack(scene: Stage) {
+    if (this._hp.hp <= 0 || !this.sprite) return;
+    this._status = CharactorStatus.ATTACK;
+    this.weapon.attack(scene, this);
+    this.sprite.play('attack_player').once('animationcomplete', () => {
+      this.weapon.init();
+      setTimeout(() => {
+        this._status = CharactorStatus.IDLE;
+      }, ATTACK_COOLTIME);
+      this.sprite.play('idle_player');
+    });
   }
 
   static create(scene: Stage, x: number, y: number) {
@@ -61,26 +66,31 @@ export class Player extends Charactor {
       frameRate: 10,
       repeat: -1,
     };
-
+    const attack = {
+      key: 'attack_player',
+      frames: scene.anims.generateFrameNumbers('player', {start: 0, end: 3}),
+      frameRate: 10,
+      repeat: 0,
+    };
     scene.anims.create(idle);
-    const sprite = scene.physics.add.sprite(x, y, 'player').play('idle_player');
+    scene.anims.create(attack);
+
+    const sprite = scene.physics.add.sprite(0, 0, 'player').play('idle_player');
+    const weapon = new Sword(0, 0, PLAYER_INIT_ATTACK, 32, scene);
+    const container = scene.add.container(x, y, [sprite, weapon.hitbox]);
+    const hpBar = new PlayerHpbar(scene, 0, 0, PLAYER_INIT_HP, PLAYER_INIT_HP);
+
+    scene.mapLayer.add(container);
 
     const player = new Player(
-      sprite,
       'player',
-      new PlayerHpbar(
-        scene,
-        0,
-        0,
-        PLAYER_INIT_HP,
-        PLAYER_INIT_HP,
-      ),
       PLAYER_INIT_ATTACK,
       PLAYER_INIT_SPEED,
+      hpBar,
+      sprite,
+      weapon,
+      container,
     );
-    scene.mapLayer.add(player.sprite);
-    // player.bullets = Array.from({length: 100}, () => Bullet.create(scene, -200, -100));
-    player.sprite.setCollideWorldBounds(true);
 
     return player;
   }

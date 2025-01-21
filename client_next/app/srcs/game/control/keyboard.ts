@@ -1,4 +1,5 @@
-import {MoveDirection} from '../object/game.object.enum';
+import { PLAYER_INIT_SPEED } from "../constant/game.constant.player";
+import {CharactorStatus} from '../object/game.object.enum';
 import type {Stage} from '../scenes/game.scene.stage';
 
 export class Keyboard {
@@ -8,19 +9,52 @@ export class Keyboard {
     this.cursor = scene.input.keyboard?.createCursorKeys();
   }
 
-  setControl(scene: Stage) {
+  setMoveControl(scene: Stage) {
     if (!this.cursor || !scene.player) return;
 
-    if (this.cursor.left?.isDown) {
-      scene.player.moveX(MoveDirection.LEFT);
-    } else if (this.cursor.right?.isDown) {
-      scene.player.moveX(MoveDirection.RIGHT);
+    if (
+      this.cursor.left?.isDown
+      || this.cursor.right?.isDown
+      || this.cursor.up?.isDown
+      || this.cursor.down?.isDown
+    ) {
+      scene.player.setSpeed(PLAYER_INIT_SPEED);
+      if (this.cursor.left?.isDown) {
+        if (this.cursor.up?.isDown) {
+          scene.player.setDir(-1, -1);
+        } else if (this.cursor.down?.isDown) {
+          scene.player.setDir(-1, 1);
+        } else {
+          scene.player.setDir(-1, 0);
+        }
+      } else if (this.cursor.right?.isDown) {
+        if (this.cursor.up?.isDown) {
+          scene.player.setDir(1, -1);
+        } else if (this.cursor.down?.isDown) {
+          scene.player.setDir(1, 1);
+        } else {
+          scene.player.setDir(1, 0);
+        }
+      } else {
+        if (this.cursor.up?.isDown) {
+          scene.player.setDir(0, -1);
+        }
+        if (this.cursor.down?.isDown) {
+          scene.player.setDir(0, 1);
+        }
+      }
+    } else {
+      scene.player.setSpeed(0);
     }
+  }
 
-    if (this.cursor.up?.isDown) {
-      scene.player.moveY(MoveDirection.UP);
-    } else if (this.cursor.down?.isDown) {
-      scene.player.moveY(MoveDirection.DOWN);
+  setAttackControl(scene: Stage) {
+    if (!this.cursor || !scene.player) return;
+    if (scene.player.status === CharactorStatus.DEAD) return;
+    if (scene.player.status === CharactorStatus.ATTACK) return;
+
+    if (this.cursor.space?.isDown) {
+      scene.player.swordAttack(scene);
     }
   }
 }

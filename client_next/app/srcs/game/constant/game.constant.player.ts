@@ -9,3 +9,5 @@ export const PLAYER_WIDTH = 32;
 export const PLAYER_HEIGHT = 32;
 export const PLAYER_MARGIN = 16;
 export const PLAYER_SPACING = 32;
+
+export const ATTACK_COOLTIME = 200;

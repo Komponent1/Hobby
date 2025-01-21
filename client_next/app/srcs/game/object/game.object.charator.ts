@@ -1,12 +1,15 @@
 import {CharactorStatus} from './game.object.enum';
 import {Hpbar} from './base/game.object.hpbar';
+import { Vector } from "../utils/vector";
 
 export class Charactor {
-  protected _status: CharactorStatus = CharactorStatus.ALIVE;
+  protected _status: CharactorStatus = CharactorStatus.IDLE;
   protected _hp: Hpbar;
   protected _sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   protected _attack: number;
   protected _name: string;
+  protected _dir: Vector = new Vector(1, 0);
+  protected _speed: number = 0;
 
   public attackedTime = 0;
 
@@ -15,11 +18,13 @@ export class Charactor {
     name: string,
     hp: Hpbar,
     attack: number,
+    speed: number,
   ) {
     this._sprite = sprite;
     this._hp = hp;
     this._attack = attack;
     this._name = name;
+    this._speed = speed;
   }
 
   public get attack() { return this._attack; }
@@ -33,6 +38,12 @@ export class Charactor {
 
   public setHp(hp: number) {
     this._hp.setHp(hp);
+  }
+  public setDir(x: number, y: number) {
+    this._dir = new Vector(x, y).normalize();
+  }
+  public setSpeed(speed: number) {
+    this._speed = speed;
   }
 
   public attackTo(target: Charactor): boolean {

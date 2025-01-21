@@ -25,6 +25,7 @@ export class Stage extends Scene {
   public uiCamera!: Phaser.Cameras.Scene2D.Camera;
 
   public player!: Player;
+
   public monster1s: Monster[] = [];
   public monster2s: Monster[] = [];
 
@@ -54,31 +55,37 @@ export class Stage extends Scene {
   }
 
   create() {
+    /**
+     * 레이어 생성
+     * 1. uiLayer: UI 레이어
+     * 2. mapLayer: object(플레이어, 몬스터 등) 레이어
+     */
     this.uiLayer = this.add.layer();
     this.mapLayer = this.add.layer();
-    this.uiCamera = this.cameras.add(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    this.uiCamera.ignore(this.mapLayer);
-
+    /** 카메라 세팅 */
     this.cameras.main.setBounds(0, 0, SCREEN_WIDTH * MAP_RATIO, SCREEN_HEIGHT * MAP_RATIO);
-    this.physics.world.setBounds(0, 0, SCREEN_WIDTH * MAP_RATIO, SCREEN_HEIGHT * MAP_RATIO);
-
+    this.uiCamera = this.cameras.add(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    /** 카메라별 필요없는 비추적 object 등록 */
     this.cameras.main.ignore(this.uiLayer);
     this.uiCamera.ignore(this.mapLayer);
+    /** debug 옵션 (TODO: production 삭제) */
     this.uiCamera.ignore(this.physics.world.debugGraphic);
-
+    /** 입력 초기화 */
     this.keyboard.init(this);
+    /** 플레이어 생성(맵 중앙) */
     this.player = Player.create(
       this,
       (SCREEN_WIDTH * MAP_RATIO) / 2,
       (SCREEN_HEIGHT * MAP_RATIO) / 2,
     );
-    for (let i = 0; i < 100; i += 1) {
+    /** 매안 카메라에 player를 앵커로 설정 */
+    this.cameras.main.startFollow(this.player.container);
+    this.cameras.main.followOffset.set(0, 0);
+    /** 적 풀 생성 */
+    for (let i = 0; i < 10; i += 1) {
       this.monster1s.push(Monster.create(this, -100, -100));
     }
-
-    this.cameras.main.startFollow(this.player.sprite);
-    this.cameras.main.followOffset.set(0, 0);
-
+    /** 충돌 등록 */
     this.monster1s.forEach((monster) => {
       this.physics.add.overlap(this.player.sprite, monster.sprite, () => {
         this.player.bodyAttack(monster);
@@ -88,23 +95,17 @@ export class Stage extends Scene {
   }
 
   update(): void {
+    /** 조작 등록 */
+    this.keyboard.setMoveControl(this);
+    this.keyboard.setAttackControl(this);
+    /** 몬스터 스폰 */
     if (Date.now() - this.genTime > 2000) {
       this.genTime = Date.now();
       const x = Math.random() * 800;
       const y = Math.random() * 600;
       this.monster1s.find((monster) => monster.status === 'DEAD')?.spawn(x, y);
     }
-
-    this.keyboard.setControl(this);
-
-    if (Date.now() - this.shootTime > 2000) {
-      this.shootTime = Date.now();
-    }
-
-    this.player.bullets.forEach((bullet) => {
-      bullet.move();
-    });
-
+    /** 몬스터 이동 및 사망 체크크 */
     this.monster1s.forEach((monster) => {
       const dir = new Vector(
         this.player.position.x - monster.position.x,
@@ -114,6 +115,8 @@ export class Stage extends Scene {
 
       monster.checkHp();
     });
+    /** 플레이어 이동 및 사망 체크 */
+    this.player.move();
     this.player.checkHp();
   }
 }
