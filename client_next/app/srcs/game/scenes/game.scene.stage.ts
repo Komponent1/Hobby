@@ -156,6 +156,7 @@ export class Stage extends Scene {
       this.monster1s.forEach((monster) => {
         monster.dead();
       });
+      this.stageInfo.setStageState(StageState.SHOP);
       this.scene.launch('Shop', { player: this.player, stageInfo: this.stageInfo });
     } else if (this.stageInfo.stageState === StageState.SHOP) {
       /** shop */
