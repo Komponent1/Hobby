@@ -1,16 +1,23 @@
-import { PLAYER_HEIGHT, PLAYER_WIDTH } from "../../constant/game.constant.player";
+import {
+  PLAYER_HEIGHT, PLAYER_INIT_ATTACK, PLAYER_INIT_ATTACK_RANGE, PLAYER_WIDTH,
+} from "../../constant/game.constant.player";
 import type { Stage } from "../../scenes/game.scene.stage";
 import type {Player} from '../game.object.player';
 
 export class Sword {
   protected _damage: number = 1;
   protected _range: number;
+
   protected _hitbox!: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
 
-  constructor(x: number, y: number, damage: number, range: number, scene: Stage) {
+  constructor(damage: number, range: number) {
     this._damage = damage;
     this._range = range;
-
+  }
+  static init() {
+    return new Sword(PLAYER_INIT_ATTACK, PLAYER_INIT_ATTACK_RANGE);
+  }
+  create(scene: Stage, x: number, y: number) {
     this._hitbox = scene.add.ellipse(
       x,
       y,
@@ -26,6 +33,7 @@ export class Sword {
   public get position() { return { x: this._hitbox.x, y: this._hitbox.y }; }
   public get hitbox() { return this._hitbox; }
   public get damage() { return this._damage; }
+  public get range() { return this._range; }
 
   public attack(scene: Stage, player: Player) {
     this._hitbox.body.enable = true;
@@ -43,5 +51,12 @@ export class Sword {
   public init() {
     this._hitbox.body.enable = false;
     this._hitbox.visible = false;
+  }
+  public setRange(range: number) {
+    this._range = range;
+    this._hitbox.setSize(range, range);
+  }
+  public setDamage(damage: number) {
+    this._damage = damage;
   }
 }

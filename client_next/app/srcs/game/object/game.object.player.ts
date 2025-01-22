@@ -1,6 +1,6 @@
 import {
   ATTACK_COOLTIME,
-  PLAYER_IDLE_FRAME, PLAYER_INIT_ATTACK, PLAYER_INIT_HP, PLAYER_INIT_SPEED,
+  PLAYER_IDLE_FRAME, PLAYER_INIT_ATTACK, PLAYER_INIT_SPEED,
 } from '../constant/game.constant.player';
 import type {Stage} from '../scenes/game.scene.stage';
 import {Charactor} from './game.object.charator';
@@ -18,19 +18,50 @@ export class Player extends Charactor {
     attack: number,
     speed: number,
     hp: PlayerHpbar,
-    sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
     sword: Sword,
-    container: Phaser.GameObjects.Container,
   ) {
-    super(sprite, name, hp, attack, speed);
+    super(name, hp, attack, speed);
     this._hp = hp;
     this.weapon = sword;
-    this._container = container;
+  }
+  static init() {
+    const player = new Player(
+      'player',
+      PLAYER_INIT_ATTACK,
+      PLAYER_INIT_SPEED,
+      PlayerHpbar.init(),
+      Sword.init(),
+    );
+    return player;
+  }
+  create(scene: Stage, x: number, y: number) {
+    const idle = {
+      key: 'idle_player',
+      frames: scene.anims.generateFrameNumbers('player', {start: PLAYER_IDLE_FRAME[0], end: PLAYER_IDLE_FRAME[1]}),
+      frameRate: 10,
+      repeat: -1,
+    };
+    const attack = {
+      key: 'attack_player',
+      frames: scene.anims.generateFrameNumbers('player', {start: 0, end: 3}),
+      frameRate: 10,
+      repeat: 0,
+    };
+    scene.anims.create(idle);
+    scene.anims.create(attack);
+
+    this._sprite = scene.physics.add.sprite(0, 0, 'player').play('idle_player');
+    this._hp.create(scene);
+    this.weapon.create(scene, 0, 0);
+    this._container = scene.add.container(x, y, [this._sprite, this.weapon.hitbox]);
+
+    scene.mapLayer.add(this._container);
   }
   get hp() { return this._hp; }
   get container() { return this._container; }
   get position() { return {x: this._container.x, y: this._container.y}; }
   get dir() { return this._dir; }
+  get speed() { return this._speed; }
 
   move() {
     this._container.x += this._speed * this._dir.x;
@@ -41,6 +72,12 @@ export class Player extends Charactor {
     if (this.hp.hp <= 0) {
       this.sprite.destroy();
     }
+  }
+  setRange(range: number) {
+    this.weapon.setRange(range);
+  }
+  setDamage(damage: number) {
+    this.weapon.setDamage(damage);
   }
 
   bodyAttack(target: Charactor) {
@@ -57,41 +94,5 @@ export class Player extends Charactor {
       }, ATTACK_COOLTIME);
       this.sprite.play('idle_player');
     });
-  }
-
-  static create(scene: Stage, x: number, y: number) {
-    const idle = {
-      key: 'idle_player',
-      frames: scene.anims.generateFrameNumbers('player', {start: PLAYER_IDLE_FRAME[0], end: PLAYER_IDLE_FRAME[1]}),
-      frameRate: 10,
-      repeat: -1,
-    };
-    const attack = {
-      key: 'attack_player',
-      frames: scene.anims.generateFrameNumbers('player', {start: 0, end: 3}),
-      frameRate: 10,
-      repeat: 0,
-    };
-    scene.anims.create(idle);
-    scene.anims.create(attack);
-
-    const sprite = scene.physics.add.sprite(0, 0, 'player').play('idle_player');
-    const weapon = new Sword(0, 0, PLAYER_INIT_ATTACK, 32, scene);
-    const container = scene.add.container(x, y, [sprite, weapon.hitbox]);
-    const hpBar = new PlayerHpbar(scene, 0, 0, PLAYER_INIT_HP, PLAYER_INIT_HP);
-
-    scene.mapLayer.add(container);
-
-    const player = new Player(
-      'player',
-      PLAYER_INIT_ATTACK,
-      PLAYER_INIT_SPEED,
-      hpBar,
-      sprite,
-      weapon,
-      container,
-    );
-
-    return player;
   }
 }

@@ -2,26 +2,28 @@
 export class Hpbar {
   protected _hp: number;
   protected _maxHp: number;
-  protected _hpbar: Phaser.GameObjects.Graphics;
-  protected _hpbarBg: Phaser.GameObjects.Graphics;
   protected _hpbarWidth: number;
   protected _hpbarHeight: number;
-  protected _hpbarX: number;
-  protected _hpbarY: number;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, hp: number, maxHp: number) {
+  protected _hpbarX!: number;
+  protected _hpbarY!: number;
+  protected _hpbar!: Phaser.GameObjects.Graphics;
+  protected _hpbarBg!: Phaser.GameObjects.Graphics;
+
+  constructor(hp: number, maxHp: number) {
     this._hp = hp;
     this._maxHp = maxHp;
     this._hpbarWidth = 32;
     this._hpbarHeight = 5;
-    this._hpbarX = x;
-    this._hpbarY = y;
+  }
+  public get hp() { return this._hp; }
+  public create(scene: Phaser.Scene, x: number, y: number) {
     this._hpbar = scene.add.graphics();
     this._hpbarBg = scene.add.graphics();
+    this._hpbarX = x;
+    this._hpbarY = y;
     this.draw();
   }
-
-  public get hp() { return this._hp; }
 
   public setHp(hp: number) {
     this._hp = hp;

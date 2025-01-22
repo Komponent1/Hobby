@@ -1,13 +1,18 @@
+import { PLAYER_INIT_HP } from "../../constant/game.constant.player";
 import type { Stage } from "../../scenes/game.scene.stage";
 import { Hpbar } from "../base/game.object.hpbar";
 
 export class PlayerHpbar extends Hpbar {
-  constructor(scene: Stage, x: number, y: number, hp: number, maxHp: number) {
-    super(scene, x, y, hp, maxHp);
+  constructor(hp: number, maxHp: number) {
+    super(hp, maxHp);
     this._hpbarWidth = 100;
     this._hpbarHeight = 10;
-    scene.uiLayer.add(this._hpbar);
+  }
+  static init() {
+    return new PlayerHpbar(PLAYER_INIT_HP, PLAYER_INIT_HP);
+  }
+  public create(scene: Stage): void {
+    super.create(scene, 0, 0);
     scene.uiLayer.add(this._hpbarBg);
-    this.draw();
   }
 }

@@ -14,14 +14,37 @@ export class Monster extends Charactor {
   protected _hp: MonsterHpbar;
 
   constructor(
-    sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
     name: string,
     hp: MonsterHpbar,
     attack: number,
     speed: number,
   ) {
-    super(sprite, name, hp, attack, speed);
+    super(name, hp, attack, speed);
     this._hp = hp;
+  }
+  static init() {
+    const monster = new Monster(
+      'monster1',
+      MonsterHpbar.init(),
+      MONSTER_ATTACK,
+      MONSTER_SPEED,
+    );
+    return monster;
+  }
+  create(scene: Stage, x: number, y: number) {
+    const idle = {
+      key: 'idle_monster1',
+      frames: scene.anims.generateFrameNumbers('monster1', {start: MONSTER_IDLE_FRAME[0], end: MONSTER_IDLE_FRAME[1]}),
+      frameRate: 10,
+      repeat: -1,
+    };
+
+    scene.anims.create(idle);
+    this._sprite = scene.physics.add.sprite(x, y, 'monster1').play('idle_monster1');
+    this._hp.create(scene, x - MONSTER_WIDTH / 2, y - MONSTER_HEIGHT / 2);
+
+    scene.mapLayer.add(this._sprite);
+    this._status = CharactorStatus.DEAD;
   }
 
   move(dir: Vector, speed: number = this._speed) {
@@ -33,11 +56,7 @@ export class Monster extends Charactor {
 
   checkHp() {
     if (this.hp.hp <= 0) {
-      this._hp.setHp(MONSTER_HP);
-      this._status = CharactorStatus.DEAD;
-      this._sprite.x = -100;
-      this._sprite.y = -100;
-      this._hp.move(this._sprite.x - MONSTER_WIDTH / 2, this._sprite.y - MONSTER_HEIGHT / 2);
+      this.dead();
     }
   }
 
@@ -64,34 +83,11 @@ export class Monster extends Charactor {
     this._sprite.y = y;
     this._status = CharactorStatus.IDLE;
   }
-
-  static create(scene: Stage, x: number, y: number) {
-    const idle = {
-      key: 'idle_monster1',
-      frames: scene.anims.generateFrameNumbers('monster1', {start: MONSTER_IDLE_FRAME[0], end: MONSTER_IDLE_FRAME[1]}),
-      frameRate: 10,
-      repeat: -1,
-    };
-
-    scene.anims.create(idle);
-    const sprite = scene.physics.add.sprite(x, y, 'monster1').play('idle_monster1');
-
-    const monster = new Monster(
-      sprite,
-      'monster1',
-      new MonsterHpbar(
-        scene,
-        sprite.x - MONSTER_WIDTH / 2,
-        sprite.y - MONSTER_HEIGHT / 2,
-        MONSTER_HP,
-        MONSTER_HP,
-      ),
-      MONSTER_ATTACK,
-      MONSTER_SPEED,
-    );
-    scene.mapLayer.add(monster.sprite);
-    monster._status = CharactorStatus.DEAD;
-
-    return monster;
+  dead() {
+    this._hp.setHp(MONSTER_HP);
+    this._status = CharactorStatus.DEAD;
+    this._sprite.x = -100;
+    this._sprite.y = -100;
+    this._hp.move(this._sprite.x - MONSTER_WIDTH / 2, this._sprite.y - MONSTER_HEIGHT / 2);
   }
 }
