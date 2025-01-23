@@ -12,7 +12,6 @@ import {
 import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/game.constant.config";
 import { StageState } from "./game.scene.enum";
 import { StageInfo } from "../object/ui/game.object.ui.stageInfo";
-import { Shop } from "../object/ui/game.object.shop";
 import { TestText } from "../object/ui/game.object.ui.testText";
 
 /** https://bdragon1727.itch.io/pixel-character-part-5 */
@@ -29,7 +28,6 @@ export class Stage extends Scene {
   public shopLayer!: Phaser.GameObjects.Layer;
   public uiCamera!: Phaser.Cameras.Scene2D.Camera;
   public stageInfo!: StageInfo;
-  public shop!: Shop;
   public testUI!: TestText;
 
   public player!: Player;
@@ -97,7 +95,6 @@ export class Stage extends Scene {
     this.keyboard.init(this);
     /** 플레이어 생성(맵 중앙) */
     this.stageInfo.create(this);
-    this.shop = Shop.create(this);
     this.player.create(
       this,
       (SCREEN_WIDTH * MAP_RATIO) / 2,
@@ -158,8 +155,6 @@ export class Stage extends Scene {
       });
       this.stageInfo.setStageState(StageState.SHOP);
       this.scene.launch('Shop', { player: this.player, stageInfo: this.stageInfo });
-    } else if (this.stageInfo.stageState === StageState.SHOP) {
-      /** shop */
     }
   }
 }
