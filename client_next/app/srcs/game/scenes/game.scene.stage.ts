@@ -7,6 +7,7 @@ import {
   PLAYER_HEIGHT, PLAYER_MARGIN, PLAYER_SPACING, PLAYER_WIDTH,
 } from '../constant/game.constant.player';
 import {
+  MONSTER_EXP,
   MONSTER_HEIGHT, MONSTER_MARGIN, MONSTER_SPACING, MONSTER_WIDTH,
 } from '../constant/game.constant.monster';
 import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/game.constant.config";
@@ -47,7 +48,7 @@ export class Stage extends Scene {
       this.stageInfo = StageInfo.init();
     }
     for (let i = 0; i < 10; i += 1) {
-      this.monster1s.push(Monster.init());
+      this.monster1s.push(Monster.init(MONSTER_EXP));
     }
   }
 
@@ -144,17 +145,19 @@ export class Stage extends Scene {
         ).normalize();
         monster.move(dir);
 
-        monster.checkHp();
+        monster.checkHp(this);
       });
       /** 플레이어 이동 및 사망 체크 */
       this.player.move();
-      this.player.checkHp();
+      this.player.checkHp(this);
     } else if (this.stageInfo.stageState === StageState.CLEAR) {
       this.monster1s.forEach((monster) => {
         monster.dead();
       });
       this.stageInfo.setStageState(StageState.SHOP);
       this.scene.launch('Shop', { player: this.player, stageInfo: this.stageInfo });
+    } else if (this.stageInfo.stageState === StageState.GAMEOVER) {
+      this.scene.start('GameOver');
     }
   }
 }

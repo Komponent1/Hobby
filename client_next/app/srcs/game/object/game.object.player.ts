@@ -2,6 +2,7 @@ import {
   ATTACK_COOLTIME,
   PLAYER_IDLE_FRAME, PLAYER_INIT_ATTACK, PLAYER_INIT_SPEED,
 } from '../constant/game.constant.player';
+import {StageState} from '../scenes/game.scene.enum';
 import type {Stage} from '../scenes/game.scene.stage';
 import {Charactor} from './game.object.charator';
 import {CharactorStatus} from './game.object.enum';
@@ -12,6 +13,7 @@ export class Player extends Charactor {
   protected _hp: PlayerHpbar;
   public weapon!: Sword;
   protected _container!: Phaser.GameObjects.Container;
+  protected _exp: number;
 
   constructor(
     name: string,
@@ -23,6 +25,7 @@ export class Player extends Charactor {
     super(name, hp, attack, speed);
     this._hp = hp;
     this.weapon = sword;
+    this._exp = 13;
   }
   static init() {
     const player = new Player(
@@ -62,15 +65,16 @@ export class Player extends Charactor {
   get position() { return {x: this._container.x, y: this._container.y}; }
   get dir() { return this._dir; }
   get speed() { return this._speed; }
+  get exp() { return this._exp; }
 
   move() {
     this._container.x += this._speed * this._dir.x;
     this._container.y += this._speed * this._dir.y;
   }
 
-  checkHp() {
+  checkHp(scene: Stage) {
     if (this.hp.hp <= 0) {
-      this.sprite.destroy();
+      scene.stageInfo.setStageState(StageState.GAMEOVER);
     }
   }
   setRange(range: number) {
@@ -78,6 +82,12 @@ export class Player extends Charactor {
   }
   setDamage(damage: number) {
     this.weapon.setDamage(damage);
+  }
+  addExp(earn: number) {
+    this._exp += earn;
+  }
+  useExp(cost: number) {
+    this._exp -= cost;
   }
 
   bodyAttack(target: Charactor) {

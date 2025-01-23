@@ -12,22 +12,26 @@ import {Player} from '../game.object.player';
 
 export class Monster extends Charactor {
   protected _hp: MonsterHpbar;
+  protected _exp: number;
 
   constructor(
     name: string,
     hp: MonsterHpbar,
     attack: number,
     speed: number,
+    exp: number,
   ) {
     super(name, hp, attack, speed);
     this._hp = hp;
+    this._exp = exp;
   }
-  static init() {
+  static init(exp: number) {
     const monster = new Monster(
       'monster1',
       MonsterHpbar.init(),
       MONSTER_ATTACK,
       MONSTER_SPEED,
+      exp,
     );
     return monster;
   }
@@ -54,9 +58,9 @@ export class Monster extends Charactor {
     this._hp.move(this._sprite.x - MONSTER_WIDTH / 2, this._sprite.y - MONSTER_HEIGHT / 2);
   }
 
-  checkHp() {
+  checkHp(scene: Stage) {
     if (this.hp.hp <= 0) {
-      this.dead();
+      this.killed(scene);
     }
   }
 
@@ -89,5 +93,9 @@ export class Monster extends Charactor {
     this._sprite.x = -100;
     this._sprite.y = -100;
     this._hp.move(this._sprite.x - MONSTER_WIDTH / 2, this._sprite.y - MONSTER_HEIGHT / 2);
+  }
+  killed(scene: Stage) {
+    scene.player.addExp(this._exp);
+    this.dead();
   }
 }

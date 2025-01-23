@@ -12,18 +12,19 @@ enum ItemType {
 export class Shop extends Scene {
   public player!: Player;
   public stageInfo!: StageInfo;
+
   public hpupbtn!: Phaser.GameObjects.Text;
   public rangeupbtn!: Phaser.GameObjects.Text;
   public damageupbtn!: Phaser.GameObjects.Text;
   public shopbg!: Phaser.GameObjects.Rectangle;
+  public nextbtn!: Phaser.GameObjects.Text;
+  public cost!: Phaser.GameObjects.Text;
   public shopContainer!: Phaser.GameObjects.Container;
 
   public selecterBg!: Phaser.GameObjects.Rectangle;
   public okbtn!: Phaser.GameObjects.Text;
   public cancelbtn!: Phaser.GameObjects.Text;
   public selectorContainer!: Phaser.GameObjects.Container;
-
-  public nextbtn!: Phaser.GameObjects.Text;
 
   public selectedupgrade: ItemType = ItemType.NONE;
 
@@ -48,12 +49,18 @@ export class Shop extends Scene {
       switch (this.selectedupgrade) {
         case ItemType.HP:
           this.player.setHp(this.player.hp.hp + 10);
+          this.player.useExp(5);
+          this.cost.setText(`COST: ${this.player.exp}`);
           break;
         case ItemType.RANGE:
           this.player.setRange(this.player.weapon.range + 10);
+          this.player.useExp(5);
+          this.cost.setText(`COST: ${this.player.exp}`);
           break;
         case ItemType.DAMAGE:
           this.player.setDamage(this.player.weapon.damage + 10);
+          this.player.useExp(5);
+          this.cost.setText(`COST: ${this.player.exp}`);
           break;
         case ItemType.NONE:
           break;
@@ -71,20 +78,32 @@ export class Shop extends Scene {
     this.rangeupbtn = this.add.text(100, 200, 'Range +10', { color: '#0f0' }).setInteractive();
     this.damageupbtn = this.add.text(100, 250, 'Damage +10', { color: '#0f0' }).setInteractive();
     this.nextbtn = this.add.text(100, 300, 'OK', { color: '#0f0' }).setInteractive();
+    this.cost = this.add.text(0, 0, `COST: ${this.player.exp}`, { color: '#fff'});
     this.shopContainer = this.add.container(
       100,
       100,
-      [this.shopbg, this.hpupbtn, this.rangeupbtn, this.damageupbtn, this.nextbtn, this.selectorContainer],
+      [
+        this.shopbg,
+        this.hpupbtn,
+        this.rangeupbtn,
+        this.damageupbtn,
+        this.nextbtn,
+        this.selectorContainer,
+        this.cost,
+      ],
     );
     this.hpupbtn.on('pointerdown', () => {
+      if (this.player.exp < 5) return;
       this.selectedupgrade = ItemType.HP;
       this.selectorContainer.setDepth(1).setVisible(true);
     });
     this.rangeupbtn.on('pointerdown', () => {
+      if (this.player.exp < 5) return;
       this.selectedupgrade = ItemType.RANGE;
       this.selectorContainer.setDepth(1).setVisible(true);
     });
     this.damageupbtn.on('pointerdown', () => {
+      if (this.player.exp < 5) return;
       this.selectedupgrade = ItemType.DAMAGE;
       this.selectorContainer.setDepth(1).setVisible(true);
     });
