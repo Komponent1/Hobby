@@ -1,13 +1,11 @@
 import { Hpbar } from "../base/game.object.hpbar";
 import type { Stage } from "../../scenes/game.scene.stage";
-import { MONSTER_HP } from "../../constant/game.constant.monster";
 
-/* eslint-disable function-paren-newline */
 export class MonsterHpbar extends Hpbar {
-  static init() {
+  static init(hp: number) {
     const monsterhpBar = new MonsterHpbar(
-      MONSTER_HP,
-      MONSTER_HP,
+      hp,
+      hp,
     );
     return monsterhpBar;
   }

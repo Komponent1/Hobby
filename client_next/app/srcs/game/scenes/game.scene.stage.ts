@@ -1,19 +1,27 @@
 import { Scene } from 'phaser';
 import {Player} from '../object/game.object.player';
-import {Monster} from '../object/monster/game.object.monster';
 import {Vector} from '../utils/vector';
 import {Keyboard} from '../control/keyboard';
 import {
   PLAYER_HEIGHT, PLAYER_MARGIN, PLAYER_SPACING, PLAYER_WIDTH,
 } from '../constant/game.constant.player';
 import {
-  MONSTER_EXP,
+  BOSS_EXP,
+  BOSS_GEN_TIME,
+  MONSTER1_EXP,
+  MONSTER1_GEN_TIME,
+  MONSTER2_EXP,
+  MONSTER2_GEN_TIME,
   MONSTER_HEIGHT, MONSTER_MARGIN, MONSTER_SPACING, MONSTER_WIDTH,
 } from '../constant/game.constant.monster';
 import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/game.constant.config";
 import { StageState } from "./game.scene.enum";
 import { StageInfo } from "../object/ui/game.object.ui.stageInfo";
 import { TestText } from "../object/ui/game.object.ui.testText";
+import {Monster1} from '../object/monster/game.object.monster1';
+import {Monster2} from '../object/monster/game.object.monster2';
+import {Bullet} from '../object/game.object.bullet';
+import { Boss } from "../object/monster/game.object.boss";
 
 /** https://bdragon1727.itch.io/pixel-character-part-5 */
 
@@ -33,8 +41,10 @@ export class Stage extends Scene {
 
   public player!: Player;
 
-  public monster1s: Monster[] = [];
-  public monster2s: Monster[] = [];
+  public monster1s: Monster1[] = [];
+  public monster2s: Monster2[] = [];
+  public boss: Boss[] = [];
+  public bullets: Bullet[] = [];
 
   init(data: any) {
     if (data.player) {
@@ -48,7 +58,14 @@ export class Stage extends Scene {
       this.stageInfo = StageInfo.init();
     }
     for (let i = 0; i < 10; i += 1) {
-      this.monster1s.push(Monster.init(MONSTER_EXP));
+      this.monster1s.push(Monster1.init(MONSTER1_EXP));
+    }
+    for (let i = 0; i < 10; i += 1) {
+      this.monster2s.push(Monster2.init(MONSTER2_EXP));
+    }
+    this.boss.push(Boss.init(BOSS_EXP));
+    for (let i = 0; i < 100; i += 1) {
+      this.bullets.push(Bullet.init());
     }
   }
 
@@ -67,6 +84,12 @@ export class Stage extends Scene {
       spacing: MONSTER_SPACING,
     });
     this.load.spritesheet('monster2', 'assets/charator/monster2.png', {
+      frameWidth: MONSTER_WIDTH,
+      frameHeight: MONSTER_HEIGHT,
+      margin: MONSTER_MARGIN,
+      spacing: MONSTER_SPACING,
+    });
+    this.load.spritesheet('boss', 'assets/charator/boss.png', {
       frameWidth: MONSTER_WIDTH,
       frameHeight: MONSTER_HEIGHT,
       margin: MONSTER_MARGIN,
@@ -108,11 +131,37 @@ export class Stage extends Scene {
     this.monster1s.forEach((monster) => {
       monster.create(this, -100, -100);
     });
+    this.monster2s.forEach((monster) => {
+      monster.create(this, -100, -100);
+    });
+    this.boss.forEach((monster) => {
+      monster.create(this, -100, -100);
+    });
+    this.bullets.forEach((bullet) => {
+      bullet.create(this);
+    });
     /** 충돌 등록 */
     this.monster1s.forEach((monster) => {
       this.physics.add.overlap(this.player.sprite, monster.sprite, () => {
         this.player.bodyAttack(monster);
         monster.attackTo(this.player);
+      });
+    });
+    this.monster2s.forEach((monster) => {
+      this.physics.add.overlap(this.player.sprite, monster.sprite, () => {
+        this.player.bodyAttack(monster);
+        monster.attackTo(this.player);
+      });
+    });
+    this.boss.forEach((monster) => {
+      this.physics.add.overlap(this.player.sprite, monster.sprite, () => {
+        this.player.bodyAttack(monster);
+        monster.attackTo(this.player);
+      });
+    });
+    this.bullets.forEach((bullet) => {
+      this.physics.add.overlap(this.player.sprite, bullet.bullet, () => {
+        bullet.attackTo(this.player);
       });
     });
     /** 테스트 옵션(prod 삭제) */
@@ -131,11 +180,22 @@ export class Stage extends Scene {
       this.keyboard.setMoveControl(this);
       this.keyboard.setAttackControl(this);
       /** 몬스터 스폰 */
-      if (Date.now() - this.stageInfo.genTime > 2000) {
-        this.stageInfo.setGenTime(Date.now());
+      if (Date.now() - this.stageInfo.genTime.monster1 > MONSTER1_GEN_TIME) {
+        this.stageInfo.setGenTime('monster1', Date.now());
         const x = Math.random() * 800;
         const y = Math.random() * 600;
         this.monster1s.find((monster) => monster.status === 'DEAD')?.spawn(x, y);
+      }
+      if (Date.now() - this.stageInfo.genTime.monster2 > MONSTER2_GEN_TIME) {
+        this.stageInfo.setGenTime('monster2', Date.now());
+        const x = Math.random() * 800;
+        const y = Math.random() * 600;
+        this.monster2s.find((monster) => monster.status === 'DEAD')?.spawn(x, y);
+      }
+      if (Date.now() - this.stageInfo.genTime.boss > BOSS_GEN_TIME) {
+        const x = Math.random() * 800;
+        const y = Math.random() * 600;
+        this.boss.find((monster) => monster.status === 'DEAD')?.spawn(x, y);
       }
       /** 몬스터 이동 및 사망 체크크 */
       this.monster1s.forEach((monster) => {
@@ -146,6 +206,30 @@ export class Stage extends Scene {
         monster.move(dir);
 
         monster.checkHp(this);
+      });
+      this.monster2s.forEach((monster) => {
+        const dir = new Vector(
+          this.player.position.x - monster.position.x,
+          this.player.position.y - monster.position.y,
+        ).normalize();
+        monster.move(dir);
+        monster.shootAttack(this.player, this.bullets);
+
+        monster.checkHp(this);
+      });
+      this.boss.forEach((monster) => {
+        const dir = new Vector(
+          this.player.position.x - monster.position.x,
+          this.player.position.y - monster.position.y,
+        ).normalize();
+        monster.move(dir);
+        monster.shootAttack(this.player, this.bullets);
+
+        monster.checkHp(this);
+      });
+      this.bullets.forEach((bullet) => {
+        bullet.move();
+        bullet.checkOutOfScreen();
       });
       /** 플레이어 이동 및 사망 체크 */
       this.player.move();

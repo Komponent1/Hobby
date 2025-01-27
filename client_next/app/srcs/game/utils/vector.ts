@@ -19,4 +19,10 @@ export class Vector {
   get angle(): () => number {
     return () => Math.atan2(this.y, this.x);
   }
+
+  rotate(angle: number): Vector {
+    const x = this.x * Math.cos(angle) - this.y * Math.sin(angle);
+    const y = this.x * Math.sin(angle) + this.y * Math.cos(angle);
+    return new Vector(x, y);
+  }
 }

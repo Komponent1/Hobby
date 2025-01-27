@@ -2,8 +2,13 @@ import { CLEAR_TIME } from "../../scenes/game.scene.constant";
 import { StageState } from "../../scenes/game.scene.enum";
 import type { Stage } from "../../scenes/game.scene.stage";
 
+type GenTime = {
+  monster1: number;
+  monster2: number;
+  boss: number;
+};
 export class StageInfo {
-  protected _genTime: number;
+  protected _genTime: GenTime;
   protected _stageStartTime: number;
   protected _currentStageLevel: number;
   protected _stageState: StageState;
@@ -15,14 +20,14 @@ export class StageInfo {
     this._currentStageLevel = 1;
     this._stageStartTime = Date.now();
     this._stageState = StageState.PLAYING;
-    this._genTime = 0;
+    this._genTime = { monster1: 0, monster2: 0, boss: 0 };
   }
   get genTime() { return this._genTime; }
   get stageStartTime() { return this._stageStartTime; }
   get currentStageLevel() { return this._currentStageLevel; }
   get stageState() { return this._stageState; }
-  public setGenTime(genTime: number) {
-    this._genTime = genTime;
+  public setGenTime(key: keyof GenTime, genTime: number) {
+    this._genTime[key] = genTime;
   }
   public setStageStartTime(stageStartTime: number) {
     this._stageStartTime = stageStartTime;

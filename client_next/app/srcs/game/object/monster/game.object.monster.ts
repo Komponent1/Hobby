@@ -1,8 +1,7 @@
 import {Charactor} from '../game.object.charator';
 import type {Stage} from '../../scenes/game.scene.stage';
 import {
-  MONSTER_ATTACK, MONSTER_HEIGHT, MONSTER_HP, MONSTER_IDLE_FRAME,
-  MONSTER_SPEED,
+  MONSTER_HEIGHT, MONSTER_IDLE_FRAME,
   MONSTER_WIDTH,
 } from '../../constant/game.constant.monster';
 import {Vector} from '../../utils/vector';
@@ -25,26 +24,19 @@ export class Monster extends Charactor {
     this._hp = hp;
     this._exp = exp;
   }
-  static init(exp: number) {
-    const monster = new Monster(
-      'monster1',
-      MonsterHpbar.init(),
-      MONSTER_ATTACK,
-      MONSTER_SPEED,
-      exp,
-    );
-    return monster;
-  }
-  create(scene: Stage, x: number, y: number) {
+  create(scene: Stage, x: number, y: number, sprite: string) {
     const idle = {
-      key: 'idle_monster1',
-      frames: scene.anims.generateFrameNumbers('monster1', {start: MONSTER_IDLE_FRAME[0], end: MONSTER_IDLE_FRAME[1]}),
+      key: `idle_${sprite}`,
+      frames: scene.anims.generateFrameNumbers(
+        sprite,
+        {start: MONSTER_IDLE_FRAME[0], end: MONSTER_IDLE_FRAME[1]},
+      ),
       frameRate: 10,
       repeat: -1,
     };
 
     scene.anims.create(idle);
-    this._sprite = scene.physics.add.sprite(x, y, 'monster1').play('idle_monster1');
+    this._sprite = scene.physics.add.sprite(x, y, sprite).play(`idle_${sprite}`);
     this._hp.create(scene, x - MONSTER_WIDTH / 2, y - MONSTER_HEIGHT / 2);
 
     scene.mapLayer.add(this._sprite);
@@ -88,7 +80,6 @@ export class Monster extends Charactor {
     this._status = CharactorStatus.IDLE;
   }
   dead() {
-    this._hp.setHp(MONSTER_HP);
     this._status = CharactorStatus.DEAD;
     this._sprite.x = -100;
     this._sprite.y = -100;
