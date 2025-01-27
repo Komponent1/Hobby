@@ -1,6 +1,5 @@
 import { Scene } from 'phaser';
 import {Player} from '../object/game.object.player';
-import {Vector} from '../utils/vector';
 import {Keyboard} from '../control/keyboard';
 import {
   PLAYER_HEIGHT, PLAYER_MARGIN, PLAYER_SPACING, PLAYER_WIDTH,
@@ -197,36 +196,17 @@ export class Stage extends Scene {
         const y = Math.random() * 600;
         this.boss.find((monster) => monster.status === 'DEAD')?.spawn(x, y);
       }
-      /** 몬스터 이동 및 사망 체크크 */
+      /** 몬스터 이동 및 사망 체크 */
       this.monster1s.forEach((monster) => {
-        const dir = new Vector(
-          this.player.position.x - monster.position.x,
-          this.player.position.y - monster.position.y,
-        ).normalize();
-        monster.move(dir);
-
-        monster.checkHp(this);
+        monster.update(this);
       });
       this.monster2s.forEach((monster) => {
-        const dir = new Vector(
-          this.player.position.x - monster.position.x,
-          this.player.position.y - monster.position.y,
-        ).normalize();
-        monster.move(dir);
-        monster.shootAttack(this.player, this.bullets);
-
-        monster.checkHp(this);
+        monster.update(this);
       });
       this.boss.forEach((monster) => {
-        const dir = new Vector(
-          this.player.position.x - monster.position.x,
-          this.player.position.y - monster.position.y,
-        ).normalize();
-        monster.move(dir);
-        monster.shootAttack(this.player, this.bullets);
-
-        monster.checkHp(this);
+        monster.update(this);
       });
+      /** 총알 이동 및 업데이트 */
       this.bullets.forEach((bullet) => {
         bullet.move();
         bullet.checkOutOfScreen();

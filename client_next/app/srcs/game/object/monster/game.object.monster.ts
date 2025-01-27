@@ -42,6 +42,14 @@ export class Monster extends Charactor {
     scene.mapLayer.add(this._sprite);
     this._status = CharactorStatus.DEAD;
   }
+  update(scene: Stage) {
+    const dir = new Vector(
+      scene.player.position.x - this.position.x,
+      scene.player.position.y - this.position.y,
+    ).normalize();
+    this.move(dir);
+    this.checkHp(scene);
+  }
 
   move(dir: Vector, speed: number = this._speed) {
     if (this._status === CharactorStatus.DEAD) return;

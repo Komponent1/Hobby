@@ -48,6 +48,11 @@ export class Monster2 extends Monster {
   create(scene: Stage, x: number, y: number) {
     super.create(scene, x, y, 'monster2');
   }
+  update(scene: Stage): void {
+    if (this._status === CharactorStatus.DEAD) return;
+    super.update(scene);
+    this.shootAttack(scene.player, scene.bullets);
+  }
   dead() {
     this.setHp(MONSTER2_HP);
     super.dead();

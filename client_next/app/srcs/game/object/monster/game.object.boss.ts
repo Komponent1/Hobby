@@ -53,6 +53,11 @@ export class Boss extends Monster {
     super.create(scene, x, y, 'boss');
     this.sprite.setScale(2);
   }
+  update(scene: Stage) {
+    if (this._status === CharactorStatus.DEAD) return;
+    super.update(scene);
+    this.shootAttack(scene.player, scene.bullets);
+  }
   dead() {
     this.setHp(BOSS_HP);
     super.dead();
