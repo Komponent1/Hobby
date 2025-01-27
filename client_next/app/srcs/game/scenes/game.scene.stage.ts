@@ -5,22 +5,15 @@ import {
   PLAYER_HEIGHT, PLAYER_MARGIN, PLAYER_SPACING, PLAYER_WIDTH,
 } from '../constant/game.constant.player';
 import {
-  BOSS_EXP,
-  BOSS_GEN_TIME,
-  MONSTER1_EXP,
-  MONSTER1_GEN_TIME,
-  MONSTER2_EXP,
-  MONSTER2_GEN_TIME,
+  BULLET_SPEED,
   MONSTER_HEIGHT, MONSTER_MARGIN, MONSTER_SPACING, MONSTER_WIDTH,
 } from '../constant/game.constant.monster';
 import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/game.constant.config";
 import { StageState } from "./game.scene.enum";
 import { StageInfo } from "../object/ui/game.object.ui.stageInfo";
 import { TestText } from "../object/ui/game.object.ui.testText";
-import {Monster1} from '../object/monster/game.object.monster1';
-import {Monster2} from '../object/monster/game.object.monster2';
 import {Bullet} from '../object/game.object.bullet';
-import { Boss } from "../object/monster/game.object.boss";
+import { Pool } from "../object/monster/game.object.pool";
 
 /** https://bdragon1727.itch.io/pixel-character-part-5 */
 
@@ -39,10 +32,8 @@ export class Stage extends Scene {
   public testUI!: TestText;
 
   public player!: Player;
+  public pool!: Pool;
 
-  public monster1s: Monster1[] = [];
-  public monster2s: Monster2[] = [];
-  public boss: Boss[] = [];
   public bullets: Bullet[] = [];
 
   init(data: any) {
@@ -56,33 +47,27 @@ export class Stage extends Scene {
     } else {
       this.stageInfo = StageInfo.init();
     }
-    for (let i = 0; i < 10; i += 1) {
-      this.monster1s.push(Monster1.init(MONSTER1_EXP));
-    }
-    for (let i = 0; i < 10; i += 1) {
-      this.monster2s.push(Monster2.init(MONSTER2_EXP));
-    }
-    this.boss.push(Boss.init(BOSS_EXP));
+    this.pool = Pool.init();
     for (let i = 0; i < 100; i += 1) {
-      this.bullets.push(Bullet.init());
+      this.bullets.push(Bullet.init(BULLET_SPEED));
     }
   }
 
   preload() {
-    this.load.image('tile_38', 'assets/tiles/FieldTile_38png');
+    this.load.image('tile_38', 'assets/tiles/FieldTile_38.png');
     this.load.spritesheet('player', 'assets/charator/player.png', {
       frameWidth: PLAYER_WIDTH,
       frameHeight: PLAYER_HEIGHT,
       margin: PLAYER_MARGIN,
       spacing: PLAYER_SPACING,
     });
-    this.load.spritesheet('monster1', 'assets/charator/monster1.png', {
+    this.load.spritesheet('attacker', 'assets/charator/attacker.png', {
       frameWidth: MONSTER_WIDTH,
       frameHeight: MONSTER_HEIGHT,
       margin: MONSTER_MARGIN,
       spacing: MONSTER_SPACING,
     });
-    this.load.spritesheet('monster2', 'assets/charator/monster2.png', {
+    this.load.spritesheet('shooter', 'assets/charator/shooter.png', {
       frameWidth: MONSTER_WIDTH,
       frameHeight: MONSTER_HEIGHT,
       margin: MONSTER_MARGIN,
@@ -127,36 +112,10 @@ export class Stage extends Scene {
     this.cameras.main.startFollow(this.player.container);
     this.cameras.main.followOffset.set(0, 0);
     /** 적 풀 생성 */
-    this.monster1s.forEach((monster) => {
-      monster.create(this, -100, -100);
-    });
-    this.monster2s.forEach((monster) => {
-      monster.create(this, -100, -100);
-    });
-    this.boss.forEach((monster) => {
-      monster.create(this, -100, -100);
-    });
+    this.pool.create(this);
+    /** 무기 등록 */
     this.bullets.forEach((bullet) => {
       bullet.create(this);
-    });
-    /** 충돌 등록 */
-    this.monster1s.forEach((monster) => {
-      this.physics.add.overlap(this.player.sprite, monster.sprite, () => {
-        this.player.bodyAttack(monster);
-        monster.attackTo(this.player);
-      });
-    });
-    this.monster2s.forEach((monster) => {
-      this.physics.add.overlap(this.player.sprite, monster.sprite, () => {
-        this.player.bodyAttack(monster);
-        monster.attackTo(this.player);
-      });
-    });
-    this.boss.forEach((monster) => {
-      this.physics.add.overlap(this.player.sprite, monster.sprite, () => {
-        this.player.bodyAttack(monster);
-        monster.attackTo(this.player);
-      });
     });
     this.bullets.forEach((bullet) => {
       this.physics.add.overlap(this.player.sprite, bullet.bullet, () => {
@@ -178,34 +137,8 @@ export class Stage extends Scene {
       /** 조작 등록 */
       this.keyboard.setMoveControl(this);
       this.keyboard.setAttackControl(this);
-      /** 몬스터 스폰 */
-      if (Date.now() - this.stageInfo.genTime.monster1 > MONSTER1_GEN_TIME) {
-        this.stageInfo.setGenTime('monster1', Date.now());
-        const x = Math.random() * 800;
-        const y = Math.random() * 600;
-        this.monster1s.find((monster) => monster.status === 'DEAD')?.spawn(x, y);
-      }
-      if (Date.now() - this.stageInfo.genTime.monster2 > MONSTER2_GEN_TIME) {
-        this.stageInfo.setGenTime('monster2', Date.now());
-        const x = Math.random() * 800;
-        const y = Math.random() * 600;
-        this.monster2s.find((monster) => monster.status === 'DEAD')?.spawn(x, y);
-      }
-      if (Date.now() - this.stageInfo.genTime.boss > BOSS_GEN_TIME) {
-        const x = Math.random() * 800;
-        const y = Math.random() * 600;
-        this.boss.find((monster) => monster.status === 'DEAD')?.spawn(x, y);
-      }
-      /** 몬스터 이동 및 사망 체크 */
-      this.monster1s.forEach((monster) => {
-        monster.update(this);
-      });
-      this.monster2s.forEach((monster) => {
-        monster.update(this);
-      });
-      this.boss.forEach((monster) => {
-        monster.update(this);
-      });
+      /** 몬스터 스폰 및 업데이트 & 사망체크 */
+      this.pool.update(this);
       /** 총알 이동 및 업데이트 */
       this.bullets.forEach((bullet) => {
         bullet.move();
@@ -215,9 +148,7 @@ export class Stage extends Scene {
       this.player.move();
       this.player.checkHp(this);
     } else if (this.stageInfo.stageState === StageState.CLEAR) {
-      this.monster1s.forEach((monster) => {
-        monster.dead();
-      });
+      this.pool.clear();
       this.stageInfo.setStageState(StageState.SHOP);
       this.scene.launch('Shop', { player: this.player, stageInfo: this.stageInfo });
     } else if (this.stageInfo.stageState === StageState.GAMEOVER) {

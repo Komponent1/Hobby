@@ -109,7 +109,7 @@ export class Shop extends Scene {
     });
     this.nextbtn.on('pointerdown', () => {
       this.stageInfo.setStageState(StageState.PLAYING);
-      this.stageInfo.setStageLevel(this.stageInfo.currentStageLevel + 1);
+      this.stageInfo.setStageLevel(this.stageInfo.stageLevel + 1);
       this.stageInfo.setStageStartTime(Date.now());
       this.scene.stop('Shop');
       this.scene.start('Stage', { player: this.player, stageInfo: this.stageInfo });

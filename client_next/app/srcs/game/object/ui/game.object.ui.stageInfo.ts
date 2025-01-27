@@ -3,28 +3,28 @@ import { StageState } from "../../scenes/game.scene.enum";
 import type { Stage } from "../../scenes/game.scene.stage";
 
 type GenTime = {
-  monster1: number;
-  monster2: number;
+  attacker: number;
+  shooter: number;
   boss: number;
 };
 export class StageInfo {
   protected _genTime: GenTime;
   protected _stageStartTime: number;
-  protected _currentStageLevel: number;
+  protected _stageLevel: number;
   protected _stageState: StageState;
 
   public leftTimeText!: Phaser.GameObjects.Text;
   public stageLevelText!: Phaser.GameObjects.Text;
 
   constructor() {
-    this._currentStageLevel = 1;
+    this._stageLevel = 1;
     this._stageStartTime = Date.now();
     this._stageState = StageState.PLAYING;
-    this._genTime = { monster1: 0, monster2: 0, boss: 0 };
+    this._genTime = { attacker: 0, shooter: 0, boss: 0 };
   }
   get genTime() { return this._genTime; }
   get stageStartTime() { return this._stageStartTime; }
-  get currentStageLevel() { return this._currentStageLevel; }
+  get stageLevel() { return this._stageLevel; }
   get stageState() { return this._stageState; }
   public setGenTime(key: keyof GenTime, genTime: number) {
     this._genTime[key] = genTime;
@@ -36,7 +36,7 @@ export class StageInfo {
     this._stageState = stageState;
   }
   public setStageLevel(stageLevel: number) {
-    this._currentStageLevel = stageLevel;
+    this._stageLevel = stageLevel;
   }
 
   public updateTime() {
@@ -45,8 +45,8 @@ export class StageInfo {
     );
   }
   public nextLevel() {
-    this._currentStageLevel += 1;
-    this.stageLevelText.setText(String(this.currentStageLevel));
+    this._stageLevel += 1;
+    this.stageLevelText.setText(String(this.stageLevel));
   }
   public checkClear(): boolean {
     if (Date.now() - this.stageStartTime > CLEAR_TIME) {
@@ -55,6 +55,7 @@ export class StageInfo {
     }
     return false;
   }
+
   static init() {
     const stageInfo = new StageInfo();
     return stageInfo;
@@ -69,7 +70,7 @@ export class StageInfo {
     this.stageLevelText = scene.add.text(
       10,
       50,
-      String(this.currentStageLevel),
+      String(this.stageLevel),
       { fontSize: '32px', color: '#000' },
     );
     scene.uiLayer.add(this.leftTimeText);

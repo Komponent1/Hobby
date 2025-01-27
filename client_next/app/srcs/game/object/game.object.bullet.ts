@@ -1,5 +1,5 @@
 import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/game.constant.config";
-import {MONSTER2_BULLET_SPEED} from '../constant/game.constant.monster';
+import {} from '../constant/game.constant.monster';
 import type {Stage} from '../scenes/game.scene.stage';
 import {Vector} from '../utils/vector';
 import type {Charactor} from './game.object.charator';
@@ -16,12 +16,15 @@ export class Bullet {
   ) {
     this._speed = speed;
   }
-  static init() {
-    return new Bullet(MONSTER2_BULLET_SPEED);
+  static init(speed: number) {
+    return new Bullet(speed);
   }
   create(scene: Stage) {
     this._image = scene.add.rectangle(-200, -100, 12, 12);
     scene.physics.add.existing(this._image);
+    scene.physics.add.overlap(scene.player.sprite, this._image, () => {
+      this.attackTo(scene.player);
+    });
   }
 
   public get bullet() { return this._image; }

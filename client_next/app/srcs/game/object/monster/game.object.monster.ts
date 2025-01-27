@@ -40,15 +40,23 @@ export class Monster extends Charactor {
     this._hp.create(scene, x - MONSTER_WIDTH / 2, y - MONSTER_HEIGHT / 2);
 
     scene.mapLayer.add(this._sprite);
+    scene.physics.add.overlap(scene.player.sprite, this._sprite, () => {
+      scene.player.bodyAttack(this);
+      this.attackTo(scene.player);
+    });
+    scene.physics.add.overlap(scene.player.weapon.hitbox, this._sprite, () => {
+      this.swordAttacked(scene.player);
+    });
     this._status = CharactorStatus.DEAD;
   }
   update(scene: Stage) {
+    this.checkHp(scene);
+    if (this.status === CharactorStatus.DEAD) return;
     const dir = new Vector(
       scene.player.position.x - this.position.x,
       scene.player.position.y - this.position.y,
     ).normalize();
     this.move(dir);
-    this.checkHp(scene);
   }
 
   move(dir: Vector, speed: number = this._speed) {

@@ -32,9 +32,9 @@ export class GameOver extends Scene {
       this.scene.start('Stage');
     });
     this.menuButton.on('pointerdown', () => {
-      this.scene.stop('GameOver');
       this.scene.stop('Stage');
-      this.scene.start('Menu');
+      this.scene.stop('GameOver');
+      this.scene.start('Main');
     });
   }
 }

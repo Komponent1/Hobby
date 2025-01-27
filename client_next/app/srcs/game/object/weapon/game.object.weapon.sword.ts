@@ -35,18 +35,12 @@ export class Sword {
   public get damage() { return this._damage; }
   public get range() { return this._range; }
 
-  public attack(scene: Stage, player: Player) {
+  public attack(player: Player) {
     this._hitbox.body.enable = true;
     this._hitbox.visible = true;
 
     this._hitbox.x = player.sprite.x + (PLAYER_WIDTH / 2) * player.dir.x;
     this._hitbox.y = player.sprite.y + (PLAYER_HEIGHT / 2) * player.dir.y;
-
-    scene.monster1s.forEach((monster) => {
-      scene.physics.add.overlap(this._hitbox, monster.sprite, () => {
-        monster.swordAttacked(player);
-      });
-    });
   }
   public init() {
     this._hitbox.body.enable = false;

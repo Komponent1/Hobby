@@ -1,5 +1,5 @@
 import {
-  MONSTER2_ATTACK, MONSTER2_HP, MONSTER2_SPEED, SHOOT_INTERVAL,
+  SHOOTER_ATTACK, SHOOTER_HP, SHOOTER_SHOOT_INTERVAL, SHOOTER_SPEED,
 } from '../../constant/game.constant.monster';
 import type {Stage} from '../../scenes/game.scene.stage';
 import {Vector} from '../../utils/vector';
@@ -9,7 +9,7 @@ import {Player} from '../game.object.player';
 import {Monster} from './game.object.monster';
 import {MonsterHpbar} from './game.object.monsterHpbar';
 
-export class Monster2 extends Monster {
+export class Shooter extends Monster {
   private _shootTime: number = 0;
 
   constructor(
@@ -18,20 +18,20 @@ export class Monster2 extends Monster {
     speed: number,
     exp: number,
   ) {
-    super('monster2', hp, attack, speed, exp);
+    super('shooter', hp, attack, speed, exp);
   }
   static init(exp: number) {
-    const monster = new Monster2(
-      MonsterHpbar.init(MONSTER2_HP),
-      MONSTER2_ATTACK,
-      MONSTER2_SPEED,
+    const monster = new Shooter(
+      MonsterHpbar.init(SHOOTER_HP),
+      SHOOTER_ATTACK,
+      SHOOTER_SPEED,
       exp,
     );
     return monster;
   }
   shootAttack(target: Player, bullets: Bullet[]) {
     if (this._status === CharactorStatus.DEAD) return;
-    if (this._shootTime + SHOOT_INTERVAL > Date.now()) return;
+    if (this._shootTime + SHOOTER_SHOOT_INTERVAL > Date.now()) return;
     this._shootTime = Date.now();
     const dir = new Vector(
       target.position.x - this.position.x,
@@ -46,15 +46,14 @@ export class Monster2 extends Monster {
   }
 
   create(scene: Stage, x: number, y: number) {
-    super.create(scene, x, y, 'monster2');
+    super.create(scene, x, y, 'shooter');
   }
   update(scene: Stage): void {
-    if (this._status === CharactorStatus.DEAD) return;
     super.update(scene);
     this.shootAttack(scene.player, scene.bullets);
   }
   dead() {
-    this.setHp(MONSTER2_HP);
+    this.setHp(SHOOTER_HP);
     super.dead();
   }
 }
