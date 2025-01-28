@@ -96,7 +96,6 @@ export class Monster extends Charactor {
     });
   }
   killed(scene: Stage) {
-    console.log('killed');
     scene.player.addExp(this._exp);
     this.dead();
   }
