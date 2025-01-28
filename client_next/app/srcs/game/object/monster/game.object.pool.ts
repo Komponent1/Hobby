@@ -9,6 +9,7 @@ import type { StageInfo } from "../ui/game.object.ui.stageInfo";
 import { Skeleton } from "./game.object.skeleton";
 import { SkeletonBoss } from "./game.object.boss";
 import { SkeletonShooter } from "./game.object.skeletonShooter";
+import {CharactorStatus} from '../game.object.enum';
 
 enum MonsterPreloadNum {
   SKELETON = 20,
@@ -51,7 +52,7 @@ export class Pool {
   private spawnSkeleton(stageInfo: StageInfo) {
     if (Date.now() - stageInfo.genTime.skeleton <= SKELETON_GEN_TIME) return;
     stageInfo.setGenTime("skeleton", Date.now());
-    const skeleton = this.skeletons.find((monster) => monster.status === "DEAD");
+    const skeleton = this.skeletons.find((monster) => monster.status === CharactorStatus.WAIT);
     if (skeleton) {
       const x = Math.random() * MAP_RATIO * SCREEN_WIDTH;
       const y = Math.random() * MAP_RATIO * SCREEN_WIDTH;
@@ -61,7 +62,9 @@ export class Pool {
   private spawnShooter(stageInfo: StageInfo) {
     if (Date.now() - stageInfo.genTime.skeletonShooter <= SKELETON_SHOOTER_GEN_TIME) return;
     stageInfo.setGenTime("skeletonShooter", Date.now());
-    const shooter = this.skeletonShooters.find((monster) => monster.status === "DEAD");
+    const shooter = this.skeletonShooters.find(
+      (monster) => monster.status === CharactorStatus.WAIT,
+    );
     if (shooter) {
       const x = Math.random() * MAP_RATIO * SCREEN_WIDTH;
       const y = Math.random() * MAP_RATIO * SCREEN_WIDTH;
@@ -71,7 +74,7 @@ export class Pool {
   private spawnBoss(stageInfo: StageInfo) {
     if (Date.now() - stageInfo.genTime.skeletonBoss <= SKELETON_BOSS_GEN_TIME) return;
     stageInfo.setGenTime("skeletonBoss", Date.now());
-    const boss = this.skeletonBosses.find((monster) => monster.status === "DEAD");
+    const boss = this.skeletonBosses.find((monster) => monster.status === CharactorStatus.WAIT);
     if (boss) {
       const x = Math.random() * MAP_RATIO * SCREEN_WIDTH;
       const y = Math.random() * MAP_RATIO * SCREEN_WIDTH;

@@ -61,9 +61,8 @@ export class Player extends Charactor {
   checkHp(scene: Stage) {
     if (this.hp.hp <= 0) {
       this._status = CharactorStatus.DEAD;
-      this.sprite.play('player_die').once('animationcomplete', () => {
-        scene.stageInfo.setStageState(StageState.GAMEOVER);
-      });
+      this.sprite.play('player_die');
+      scene.stageInfo.setStageState(StageState.GAMEOVER);
     }
   }
   setRange(range: number) {

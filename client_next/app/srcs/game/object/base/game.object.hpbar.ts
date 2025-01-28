@@ -17,6 +17,7 @@ export class Hpbar {
     this._hpbarHeight = 5;
   }
   public get hp() { return this._hp; }
+  public get maxHp() { return this._maxHp; }
   public create(scene: Phaser.Scene, x: number, y: number) {
     this._hpbar = scene.add.graphics();
     this._hpbarBg = scene.add.graphics();

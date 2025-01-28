@@ -29,7 +29,6 @@ export class Skeleton extends Monster {
     super.update(scene);
   }
   dead() {
-    this.setHp(SKELETON_HP);
     super.dead();
   }
 }

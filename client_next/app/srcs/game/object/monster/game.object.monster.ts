@@ -20,6 +20,7 @@ export class Monster extends Charactor {
     super(name, hp, attack, speed);
     this._hp = hp;
     this._exp = exp;
+    this._status = CharactorStatus.WAIT;
   }
   create(scene: Stage, x: number, y: number, sprite: string) {
     this._sprite = scene.physics.add.sprite(x, y, `${sprite}`).play(`${sprite}_walk`);
@@ -34,20 +35,19 @@ export class Monster extends Charactor {
     scene.physics.add.overlap(scene.player.weapon.hitbox, this._sprite, () => {
       this.swordAttacked(scene.player);
     });
-    this._status = CharactorStatus.DEAD;
   }
   update(scene: Stage) {
-    this.checkHp(scene);
-    if (this.status === CharactorStatus.DEAD) return;
+    if (this.status === CharactorStatus.DEAD
+      || this.status === CharactorStatus.WAIT) return;
     const dir = new Vector(
       scene.player.position.x - this.position.x,
       scene.player.position.y - this.position.y,
     ).normalize();
     this.move(dir);
+    this.checkHp(scene);
   }
 
   move(dir: Vector, speed: number = this._speed) {
-    if (this._status === CharactorStatus.DEAD) return;
     this._sprite.x += dir.x * speed;
     this._sprite.y += dir.y * speed;
     this._hp.move(this._sprite.x - MONSTER_WIDTH / 2, this._sprite.y - MONSTER_HEIGHT / 2);
@@ -60,7 +60,6 @@ export class Monster extends Charactor {
   }
 
   attackTo(target: Charactor): boolean {
-    if (this.status === CharactorStatus.DEAD) return false;
     if (!super.attackTo(target)) {
       return false;
     }
@@ -68,9 +67,6 @@ export class Monster extends Charactor {
   }
   swordAttacked(player: Player) {
     if (this.attackedTime !== 0 && Date.now() - this.attackedTime < 500) return false;
-    this.sprite.play(`${this.name}_attacked`).once('animationcomplete', () => {
-      this.sprite.play(`${this.name}_walk`);
-    });
     this.changeAttackedTime(Date.now());
     this._hp.decreaseHp(player.weapon.damage);
     const dir = new Vector(
@@ -82,21 +78,25 @@ export class Monster extends Charactor {
   }
 
   spawn(x: number, y: number) {
+    this._status = CharactorStatus.IDLE;
     this.sprite.play(`${this.name}_walk`);
     this._sprite.x = x;
     this._sprite.y = y;
-    this._status = CharactorStatus.IDLE;
   }
   dead() {
+    if (this._status === CharactorStatus.DEAD) return;
     this._status = CharactorStatus.DEAD;
-    this._sprite.play(`${this._name}_die`).once('animationcomplete', () => {
+    this._sprite.play(`${this._name}_die`).once(`animationcomplete-${this.name}_die`, () => {
+      this._status = CharactorStatus.WAIT;
       this._sprite.stop();
       this._sprite.x = -100;
       this._sprite.y = -100;
       this._hp.move(this._sprite.x - MONSTER_WIDTH / 2, this._sprite.y - MONSTER_HEIGHT / 2);
+      this._hp.setHp(this._hp.maxHp);
     });
   }
   killed(scene: Stage) {
+    console.log('killed');
     scene.player.addExp(this._exp);
     this.dead();
   }

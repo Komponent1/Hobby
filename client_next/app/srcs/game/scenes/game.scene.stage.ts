@@ -99,11 +99,6 @@ export class Stage extends Scene {
     this.bullets.forEach((bullet) => {
       bullet.create(this);
     });
-    this.bullets.forEach((bullet) => {
-      this.physics.add.overlap(this.player.sprite, bullet.bullet, () => {
-        bullet.attackTo(this.player);
-      });
-    });
     /** 테스트 옵션(prod 삭제) */
     this.testUI = TestText.create(this);
     this.uiLayer.add(this.testUI.continer);
@@ -134,7 +129,7 @@ export class Stage extends Scene {
       this.stageInfo.setStageState(StageState.SHOP);
       this.scene.launch('Shop', { player: this.player, stageInfo: this.stageInfo });
     } else if (this.stageInfo.stageState === StageState.GAMEOVER) {
-      this.scene.start('GameOver');
+      this.scene.launch('GameOver');
     }
   }
 }

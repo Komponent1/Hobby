@@ -46,6 +46,7 @@ export class Charactor {
   }
 
   public attackTo(target: Charactor): boolean {
+    if (this.status === CharactorStatus.DEAD || this.status === CharactorStatus.WAIT) return false;
     if (target.status === CharactorStatus.DEAD) return false;
     if (
       target.attackedTime !== 0
@@ -59,9 +60,6 @@ export class Charactor {
 
   public decreaseHp(damage: number) {
     this._hp.decreaseHp(damage);
-    if (this._hp.hp <= 0) {
-      this._status = CharactorStatus.DEAD;
-    }
   }
   public changeAttackedTime(time: number) {
     this.attackedTime = time;
