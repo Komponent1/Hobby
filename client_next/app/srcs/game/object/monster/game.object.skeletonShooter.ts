@@ -1,5 +1,6 @@
 import {
-  SHOOTER_ATTACK, SHOOTER_HP, SHOOTER_SHOOT_INTERVAL, SHOOTER_SPEED,
+  SKELETON_SHOOTER_ATTACK, SKELETON_SHOOTER_HP,
+  SKELETON_SHOOTER_SHOOT_INTERVAL, SKELETON_SHOOTER_SPEED,
 } from '../../constant/game.constant.monster';
 import type {Stage} from '../../scenes/game.scene.stage';
 import {Vector} from '../../utils/vector';
@@ -9,7 +10,7 @@ import {Player} from '../game.object.player';
 import {Monster} from './game.object.monster';
 import {MonsterHpbar} from './game.object.monsterHpbar';
 
-export class Shooter extends Monster {
+export class SkeletonShooter extends Monster {
   private _shootTime: number = 0;
 
   constructor(
@@ -18,20 +19,20 @@ export class Shooter extends Monster {
     speed: number,
     exp: number,
   ) {
-    super('shooter', hp, attack, speed, exp);
+    super('skeleton_shooter', hp, attack, speed, exp);
   }
   static init(exp: number) {
-    const monster = new Shooter(
-      MonsterHpbar.init(SHOOTER_HP),
-      SHOOTER_ATTACK,
-      SHOOTER_SPEED,
+    const monster = new SkeletonShooter(
+      MonsterHpbar.init(SKELETON_SHOOTER_HP),
+      SKELETON_SHOOTER_ATTACK,
+      SKELETON_SHOOTER_SPEED,
       exp,
     );
     return monster;
   }
   shootAttack(target: Player, bullets: Bullet[]) {
     if (this._status === CharactorStatus.DEAD) return;
-    if (this._shootTime + SHOOTER_SHOOT_INTERVAL > Date.now()) return;
+    if (this._shootTime + SKELETON_SHOOTER_SHOOT_INTERVAL > Date.now()) return;
     this._shootTime = Date.now();
     const dir = new Vector(
       target.position.x - this.position.x,
@@ -46,14 +47,14 @@ export class Shooter extends Monster {
   }
 
   create(scene: Stage, x: number, y: number) {
-    super.create(scene, x, y, 'shooter');
+    super.create(scene, x, y, 'skeleton_shooter');
   }
   update(scene: Stage): void {
     super.update(scene);
     this.shootAttack(scene.player, scene.bullets);
   }
   dead() {
-    this.setHp(SHOOTER_HP);
+    this.setHp(SKELETON_SHOOTER_HP);
     super.dead();
   }
 }

@@ -1,5 +1,6 @@
 import {
-  BOSS_ATTACK, BOSS_HP, BOSS_SHOOT_INTERVAL, BOSS_SPEED,
+  SKELETON_BOSS_ATTACK, SKELETON_BOSS_HP,
+  SKELETON_BOSS_SHOOT_INTERVAL, SKELETON_BOSS_SPEED,
 } from '../../constant/game.constant.monster';
 import type {Stage} from '../../scenes/game.scene.stage';
 import {Vector} from '../../utils/vector';
@@ -9,7 +10,7 @@ import {Player} from '../game.object.player';
 import {Monster} from './game.object.monster';
 import {MonsterHpbar} from './game.object.monsterHpbar';
 
-export class Boss extends Monster {
+export class SkeletonBoss extends Monster {
   private _shootTime: number = 0;
 
   constructor(
@@ -18,20 +19,20 @@ export class Boss extends Monster {
     speed: number,
     exp: number,
   ) {
-    super('boss', hp, attack, speed, exp);
+    super('skeleton_boss', hp, attack, speed, exp);
   }
   static init(exp: number) {
-    const monster = new Boss(
-      MonsterHpbar.init(BOSS_HP),
-      BOSS_ATTACK,
-      BOSS_SPEED,
+    const monster = new SkeletonBoss(
+      MonsterHpbar.init(SKELETON_BOSS_HP),
+      SKELETON_BOSS_ATTACK,
+      SKELETON_BOSS_SPEED,
       exp,
     );
     return monster;
   }
   shootAttack(target: Player, bullets: Bullet[]) {
     if (this._status === CharactorStatus.DEAD) return;
-    if (this._shootTime + BOSS_SHOOT_INTERVAL > Date.now()) return;
+    if (this._shootTime + SKELETON_BOSS_SHOOT_INTERVAL > Date.now()) return;
     this._shootTime = Date.now();
     let bulletCount = -1;
     for (let i = 0; i < bullets.length; i += 1) {
@@ -50,7 +51,7 @@ export class Boss extends Monster {
   }
 
   create(scene: Stage, x: number, y: number) {
-    super.create(scene, x, y, 'boss');
+    super.create(scene, x, y, 'skeleton_boss');
     this.sprite.setScale(2);
   }
   update(scene: Stage) {
@@ -59,7 +60,7 @@ export class Boss extends Monster {
     this.shootAttack(scene.player, scene.bullets);
   }
   dead() {
-    this.setHp(BOSS_HP);
+    this.setHp(SKELETON_BOSS_HP);
     super.dead();
   }
 }

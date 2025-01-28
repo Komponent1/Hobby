@@ -1,6 +1,6 @@
 import {
   ATTACK_COOLTIME,
-  PLAYER_IDLE_FRAME, PLAYER_INIT_ATTACK, PLAYER_INIT_SPEED,
+  PLAYER_INIT_ATTACK, PLAYER_INIT_SPEED,
 } from '../constant/game.constant.player';
 import {StageState} from '../scenes/game.scene.enum';
 import type {Stage} from '../scenes/game.scene.stage';
@@ -38,22 +38,8 @@ export class Player extends Charactor {
     return player;
   }
   create(scene: Stage, x: number, y: number) {
-    const idle = {
-      key: 'idle_player',
-      frames: scene.anims.generateFrameNumbers('player', {start: PLAYER_IDLE_FRAME[0], end: PLAYER_IDLE_FRAME[1]}),
-      frameRate: 10,
-      repeat: -1,
-    };
-    const attack = {
-      key: 'attack_player',
-      frames: scene.anims.generateFrameNumbers('player', {start: 0, end: 3}),
-      frameRate: 10,
-      repeat: 0,
-    };
-    scene.anims.create(idle);
-    scene.anims.create(attack);
-
-    this._sprite = scene.physics.add.sprite(0, 0, 'player').play('idle_player');
+    this._sprite = scene.physics.add.sprite(0, 0, 'player').play('player_walk');
+    this._sprite.body.setSize(80, 100).setOffset(50, 50);
     this._hp.create(scene);
     this.weapon.create(scene, 0, 0);
     this._container = scene.add.container(x, y, [this._sprite, this.weapon.hitbox]);
@@ -74,7 +60,10 @@ export class Player extends Charactor {
 
   checkHp(scene: Stage) {
     if (this.hp.hp <= 0) {
-      scene.stageInfo.setStageState(StageState.GAMEOVER);
+      this._status = CharactorStatus.DEAD;
+      this.sprite.play('player_die').once('animationcomplete', () => {
+        scene.stageInfo.setStageState(StageState.GAMEOVER);
+      });
     }
   }
   setRange(range: number) {
@@ -97,12 +86,12 @@ export class Player extends Charactor {
     if (this._hp.hp <= 0 || !this.sprite) return;
     this._status = CharactorStatus.ATTACK;
     this.weapon.attack(this);
-    this.sprite.play('attack_player').once('animationcomplete', () => {
+    this.sprite.play('player_attack').once('animationcomplete', () => {
       this.weapon.init();
       setTimeout(() => {
         this._status = CharactorStatus.IDLE;
       }, ATTACK_COOLTIME);
-      this.sprite.play('idle_player');
+      this.sprite.play('player_walk');
     });
   }
 }

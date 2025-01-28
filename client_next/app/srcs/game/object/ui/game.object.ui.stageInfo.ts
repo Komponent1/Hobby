@@ -3,9 +3,9 @@ import { StageState } from "../../scenes/game.scene.enum";
 import type { Stage } from "../../scenes/game.scene.stage";
 
 type GenTime = {
-  attacker: number;
-  shooter: number;
-  boss: number;
+  skeleton: number;
+  skeletonShooter: number;
+  skeletonBoss: number;
 };
 export class StageInfo {
   protected _genTime: GenTime;
@@ -20,7 +20,7 @@ export class StageInfo {
     this._stageLevel = 1;
     this._stageStartTime = Date.now();
     this._stageState = StageState.PLAYING;
-    this._genTime = { attacker: 0, shooter: 0, boss: 0 };
+    this._genTime = { skeleton: 0, skeletonShooter: 0, skeletonBoss: 0 };
   }
   get genTime() { return this._genTime; }
   get stageStartTime() { return this._stageStartTime; }

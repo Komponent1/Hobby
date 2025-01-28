@@ -2,11 +2,7 @@ import { Scene } from 'phaser';
 import {Player} from '../object/game.object.player';
 import {Keyboard} from '../control/keyboard';
 import {
-  PLAYER_HEIGHT, PLAYER_MARGIN, PLAYER_SPACING, PLAYER_WIDTH,
-} from '../constant/game.constant.player';
-import {
   BULLET_SPEED,
-  MONSTER_HEIGHT, MONSTER_MARGIN, MONSTER_SPACING, MONSTER_WIDTH,
 } from '../constant/game.constant.monster';
 import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/game.constant.config";
 import { StageState } from "./game.scene.enum";
@@ -14,6 +10,7 @@ import { StageInfo } from "../object/ui/game.object.ui.stageInfo";
 import { TestText } from "../object/ui/game.object.ui.testText";
 import {Bullet} from '../object/game.object.bullet';
 import { Pool } from "../object/monster/game.object.pool";
+import { Loader } from "../loader/loader";
 
 /** https://bdragon1727.itch.io/pixel-character-part-5 */
 
@@ -54,31 +51,10 @@ export class Stage extends Scene {
   }
 
   preload() {
-    this.load.image('tile_38', 'assets/tiles/FieldTile_38.png');
-    this.load.spritesheet('player', 'assets/charator/player.png', {
-      frameWidth: PLAYER_WIDTH,
-      frameHeight: PLAYER_HEIGHT,
-      margin: PLAYER_MARGIN,
-      spacing: PLAYER_SPACING,
-    });
-    this.load.spritesheet('attacker', 'assets/charator/attacker.png', {
-      frameWidth: MONSTER_WIDTH,
-      frameHeight: MONSTER_HEIGHT,
-      margin: MONSTER_MARGIN,
-      spacing: MONSTER_SPACING,
-    });
-    this.load.spritesheet('shooter', 'assets/charator/shooter.png', {
-      frameWidth: MONSTER_WIDTH,
-      frameHeight: MONSTER_HEIGHT,
-      margin: MONSTER_MARGIN,
-      spacing: MONSTER_SPACING,
-    });
-    this.load.spritesheet('boss', 'assets/charator/boss.png', {
-      frameWidth: MONSTER_WIDTH,
-      frameHeight: MONSTER_HEIGHT,
-      margin: MONSTER_MARGIN,
-      spacing: MONSTER_SPACING,
-    });
+    Loader.loadAtlas(this, 'player');
+    Loader.loadAtlas(this, 'skeleton');
+    Loader.loadAtlas(this, 'skeleton_shooter');
+    Loader.loadAtlas(this, 'skeleton_boss');
   }
 
   create() {
@@ -101,8 +77,14 @@ export class Stage extends Scene {
     this.uiCamera.ignore(this.physics.world.debugGraphic);
     /** 입력 초기화 */
     this.keyboard.init(this);
-    /** 플레이어 생성(맵 중앙) */
+    /** 스테이지 정보 생성 */
     this.stageInfo.create(this);
+    /** 애니메이션 생성 */
+    Loader.createPlayerAnimation(this);
+    Loader.createAnimation(this, 'skeleton');
+    Loader.createAnimation(this, 'skeleton_shooter');
+    Loader.createAnimation(this, 'skeleton_boss');
+    /** 플레이어 생성(맵 중앙) */
     this.player.create(
       this,
       (SCREEN_WIDTH * MAP_RATIO) / 2,
@@ -148,7 +130,7 @@ export class Stage extends Scene {
       this.player.move();
       this.player.checkHp(this);
     } else if (this.stageInfo.stageState === StageState.CLEAR) {
-      this.pool.clear();
+      // this.pool.clear();
       this.stageInfo.setStageState(StageState.SHOP);
       this.scene.launch('Shop', { player: this.player, stageInfo: this.stageInfo });
     } else if (this.stageInfo.stageState === StageState.GAMEOVER) {

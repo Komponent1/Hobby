@@ -20,6 +20,7 @@ export class Keyboard {
     ) {
       scene.player.setSpeed(PLAYER_INIT_SPEED);
       if (this.cursor.left?.isDown) {
+        scene.player.sprite.setFlipX(true);
         if (this.cursor.up?.isDown) {
           scene.player.setDir(-1, -1);
         } else if (this.cursor.down?.isDown) {
@@ -28,6 +29,7 @@ export class Keyboard {
           scene.player.setDir(-1, 0);
         }
       } else if (this.cursor.right?.isDown) {
+        scene.player.sprite.setFlipX(false);
         if (this.cursor.up?.isDown) {
           scene.player.setDir(1, -1);
         } else if (this.cursor.down?.isDown) {
