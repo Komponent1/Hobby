@@ -7,6 +7,9 @@ export class Loader {
   static loadEffectAtlas(scene: Stage, name: string) {
     scene.load.atlas(name, `assets/effect/${name}.png`, `assets/effect/${name}.json`);
   }
+  static loadTile(scene: Stage, name: string) {
+    scene.load.atlas(name, `assets/tile/${name}.png`, `assets/tile/${name}.json`);
+  }
   static createEffectAnimation(scene: Stage, name: string) {
     scene.anims.create({
       key: `${name}_effect`,

@@ -1,4 +1,4 @@
-export const PLAYER_INIT_SPEED = 2;
+export const PLAYER_INIT_SPEED = 20;
 export const PLAYER_INIT_HP = 100;
 export const PLAYER_INIT_ATTACK = 5;
 export const PLAYER_INIT_ATTACK_RANGE = 32;

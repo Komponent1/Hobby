@@ -11,6 +11,7 @@ import { TestText } from "../object/ui/game.object.ui.testText";
 import {Bullet} from '../object/game.object.bullet';
 import { Pool } from "../object/monster/game.object.pool";
 import { Loader } from "../loader/loader";
+import {TileMap} from '../object/game.object.tileMap';
 
 /** https://bdragon1727.itch.io/pixel-character-part-5 */
 
@@ -30,6 +31,7 @@ export class Stage extends Scene {
 
   public player!: Player;
   public pool!: Pool;
+  public tileMap!: TileMap;
 
   public bullets: Bullet[] = [];
 
@@ -48,6 +50,7 @@ export class Stage extends Scene {
     for (let i = 0; i < 100; i += 1) {
       this.bullets.push(Bullet.init(BULLET_SPEED));
     }
+    this.tileMap = TileMap.init();
   }
 
   preload() {
@@ -56,6 +59,7 @@ export class Stage extends Scene {
     Loader.loadCharacterAtlas(this, 'skeleton_shooter');
     Loader.loadCharacterAtlas(this, 'skeleton_boss');
     Loader.loadEffectAtlas(this, 'slash');
+    Loader.loadTile(this, 'tile');
   }
 
   create() {
@@ -67,6 +71,8 @@ export class Stage extends Scene {
     this.uiLayer = this.add.layer();
     this.mapLayer = this.add.layer();
     this.shopLayer = this.add.layer();
+    /** world bound setting */
+    this.physics.world.setBounds(0, 0, SCREEN_WIDTH * MAP_RATIO, SCREEN_HEIGHT * MAP_RATIO);
     /** 카메라 세팅 */
     this.cameras.main.setBounds(0, 0, SCREEN_WIDTH * MAP_RATIO, SCREEN_HEIGHT * MAP_RATIO);
     this.uiCamera = this.cameras.add(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -78,6 +84,8 @@ export class Stage extends Scene {
     this.uiCamera.ignore(this.physics.world.debugGraphic);
     /** 입력 초기화 */
     this.keyboard.init(this);
+    /** 타일맵 생성 및 레이어 등록 */
+    this.tileMap.draw(this);
     /** 스테이지 정보 생성 */
     this.stageInfo.create(this);
     /** 애니메이션 생성 */
@@ -92,6 +100,8 @@ export class Stage extends Scene {
       (SCREEN_WIDTH * MAP_RATIO) / 2,
       (SCREEN_HEIGHT * MAP_RATIO) / 2,
     );
+    /** 플레이어 바운드 제한 생성 */
+    this.player.sprite.setCollideWorldBounds(true);
     /** 매안 카메라에 player를 앵커로 설정 */
     this.cameras.main.startFollow(this.player.container);
     this.cameras.main.followOffset.set(0, 0);
