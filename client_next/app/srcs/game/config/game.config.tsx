@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import {Stage} from '../scenes/game.scene.stage';
 import { Main } from "../scenes/game.scene.main";
 import { Shop } from "../scenes/game.scene.shop";
-import {GameOver} from '../scenes/game.scene.gameover';
+import {RetryCheck} from '../scenes/game.scene.retryCheck';
 import { Clear } from "../scenes/game.scene.clear";
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
@@ -27,5 +27,5 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     createContainer: true,
   },
   backgroundColor: '#028af8',
-  scene: [Main, Stage, Shop, GameOver, Clear],
+  scene: [Main, Stage, Shop, RetryCheck, Clear],
 };

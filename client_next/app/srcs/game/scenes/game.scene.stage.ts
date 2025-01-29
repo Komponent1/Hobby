@@ -137,11 +137,12 @@ export class Stage extends Scene {
       this.player.move();
       this.player.checkHp(this);
     } else if (this.stageInfo.stageState === StageState.CLEAR) {
-      // this.pool.clear();
+      this.pool.clear();
       this.stageInfo.setStageState(StageState.SHOP);
       this.scene.launch('Shop', { player: this.player, stageInfo: this.stageInfo });
     } else if (this.stageInfo.stageState === StageState.GAMEOVER) {
-      this.scene.launch('GameOver');
+      this.stageInfo.setStageState(StageState.RETRY_CHECK);
+      this.scene.launch('RetryCheck', { player: this.player });
     }
   }
 }

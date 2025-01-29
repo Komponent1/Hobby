@@ -1,16 +1,19 @@
-import type { Stage } from "../scenes/game.scene.stage";
+import {Scene} from 'phaser';
 
 export class Loader {
-  static loadCharacterAtlas(scene: Stage, name: string) {
+  static loadCharacterAtlas(scene: Scene, name: string) {
     scene.load.atlas(name, `assets/character/${name}/${name}.png`, `assets/character/${name}/${name}.json`);
   }
-  static loadEffectAtlas(scene: Stage, name: string) {
+  static loadEffectAtlas(scene: Scene, name: string) {
     scene.load.atlas(name, `assets/effect/${name}.png`, `assets/effect/${name}.json`);
   }
-  static loadTile(scene: Stage, name: string) {
+  static loadTile(scene: Scene, name: string) {
     scene.load.atlas(name, `assets/tile/${name}.png`, `assets/tile/${name}.json`);
   }
-  static createEffectAnimation(scene: Stage, name: string) {
+  static loadUi(scene: Scene, name: string) {
+    scene.load.atlas(name, `assets/ui/${name}.png`, `assets/ui/${name}.json`);
+  }
+  static createEffectAnimation(scene: Scene, name: string) {
     scene.anims.create({
       key: `${name}_effect`,
       frames: scene.anims.generateFrameNames(name, {
@@ -23,7 +26,7 @@ export class Loader {
       repeat: 0,
     });
   }
-  static createCharacterAnimation(scene: Stage, name: string) {
+  static createCharacterAnimation(scene: Scene, name: string) {
     scene.anims.create({
       key: `${name}_walk`,
       frames: scene.anims.generateFrameNames(name, {
@@ -61,7 +64,7 @@ export class Loader {
       repeat: -1,
     });
   }
-  static createPlayerAnimation(scene: Stage) {
+  static createPlayerAnimation(scene: Scene) {
     Loader.createCharacterAnimation(scene, 'player');
     scene.anims.create({
       key: `player_attack`,

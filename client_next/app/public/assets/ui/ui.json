@@ -1,0 +1,419 @@
+{
+	"textures": [
+		{
+			"image": "ui.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 944,
+				"h": 719
+			},
+			"scale": 0.5,
+			"frames": [
+				{
+					"filename": "Window.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 470,
+						"h": 700
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 470,
+						"h": 700
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 470,
+						"h": 700
+					}
+				},
+				{
+					"filename": "shop/Select_Window.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 470,
+						"h": 390
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 470,
+						"h": 390
+					},
+					"frame": {
+						"x": 473,
+						"y": 1,
+						"w": 470,
+						"h": 390
+					}
+				},
+				{
+					"filename": "gameover/Exit_BTN.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 205,
+						"h": 61
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 205,
+						"h": 61
+					},
+					"frame": {
+						"x": 473,
+						"y": 393,
+						"w": 205,
+						"h": 61
+					}
+				},
+				{
+					"filename": "gameover/Replay_BTN.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 105,
+						"h": 105
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 105,
+						"h": 105
+					},
+					"frame": {
+						"x": 680,
+						"y": 393,
+						"w": 105,
+						"h": 105
+					}
+				},
+				{
+					"filename": "shop/Close_BTN.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 105,
+						"h": 105
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 105,
+						"h": 105
+					},
+					"frame": {
+						"x": 473,
+						"y": 456,
+						"w": 105,
+						"h": 105
+					}
+				},
+				{
+					"filename": "stage/Boss_HP_Bar_2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 445,
+						"h": 10
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 445,
+						"h": 10
+					},
+					"frame": {
+						"x": 473,
+						"y": 563,
+						"w": 445,
+						"h": 10
+					}
+				},
+				{
+					"filename": "shop/Damage_Icon.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 57
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 57
+					},
+					"frame": {
+						"x": 580,
+						"y": 456,
+						"w": 58,
+						"h": 57
+					}
+				},
+				{
+					"filename": "shop/Ok_BTN.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 105,
+						"h": 105
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 105,
+						"h": 105
+					},
+					"frame": {
+						"x": 787,
+						"y": 393,
+						"w": 105,
+						"h": 105
+					}
+				},
+				{
+					"filename": "gameover/Header.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 227,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 227,
+						"h": 30
+					},
+					"frame": {
+						"x": 640,
+						"y": 500,
+						"w": 227,
+						"h": 30
+					}
+				},
+				{
+					"filename": "shop/HP_Icon.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 58,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 58,
+						"h": 50
+					},
+					"frame": {
+						"x": 869,
+						"y": 500,
+						"w": 58,
+						"h": 50
+					}
+				},
+				{
+					"filename": "stage/Boss_HP_Bar_1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 25,
+						"h": 10
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 25,
+						"h": 10
+					},
+					"frame": {
+						"x": 640,
+						"y": 456,
+						"w": 25,
+						"h": 10
+					}
+				},
+				{
+					"filename": "stage/Boss_HP_Bar_3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 25,
+						"h": 10
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 25,
+						"h": 10
+					},
+					"frame": {
+						"x": 640,
+						"y": 468,
+						"w": 25,
+						"h": 10
+					}
+				},
+				{
+					"filename": "shop/Damage.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 147,
+						"h": 23
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 147,
+						"h": 23
+					},
+					"frame": {
+						"x": 580,
+						"y": 532,
+						"w": 147,
+						"h": 23
+					}
+				},
+				{
+					"filename": "shop/Health.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 129,
+						"h": 22
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 129,
+						"h": 22
+					},
+					"frame": {
+						"x": 729,
+						"y": 532,
+						"w": 129,
+						"h": 22
+					}
+				},
+				{
+					"filename": "main/Start_BTN.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 205,
+						"h": 61
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 205,
+						"h": 61
+					},
+					"frame": {
+						"x": 473,
+						"y": 575,
+						"w": 205,
+						"h": 61
+					}
+				},
+				{
+					"filename": "main/Header.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 200,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 200,
+						"h": 30
+					},
+					"frame": {
+						"x": 680,
+						"y": 575,
+						"w": 200,
+						"h": 30
+					}
+				},
+				{
+					"filename": "shop/Header.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 127,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 127,
+						"h": 30
+					},
+					"frame": {
+						"x": 680,
+						"y": 607,
+						"w": 127,
+						"h": 30
+					}
+				},
+				{
+					"filename": "shop/Play_BTN.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 105,
+						"h": 105
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 105,
+						"h": 105
+					},
+					"frame": {
+						"x": 809,
+						"y": 607,
+						"w": 105,
+						"h": 105
+					}
+				},
+				{
+					"filename": "stage/Boss_HP_Table.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 520,
+						"h": 15
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 520,
+						"h": 15
+					},
+					"frame": {
+						"x": 1,
+						"y": 703,
+						"w": 520,
+						"h": 15
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:7c3a8ecb4048155a7ea9b8994a59a0ea:22d9c35045e6e9f34b84c2efb9306df0:5b04aa198265472a3c5f56958d78e97b$"
+	}
+}

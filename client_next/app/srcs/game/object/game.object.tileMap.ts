@@ -1,5 +1,5 @@
-import {MAP_H, MAP_W, SCREEN_WIDTH} from '../constant/game.constant.config';
-import type {Stage} from '../scenes/game.scene.stage';
+import {Scene} from 'phaser';
+import {MAP_H, MAP_W} from '../constant/game.constant.config';
 
 const tile = (code: string) => `Tile_${code}.png`;
 export class TileMap {
@@ -18,7 +18,7 @@ export class TileMap {
   static init() {
     return new TileMap();
   }
-  draw(scene: Stage) {
+  draw(scene: Scene) {
     const rowNum = Math.floor(MAP_W / 64);
     const colNum = Math.floor(MAP_H / 64);
 
@@ -41,6 +41,8 @@ export class TileMap {
     this.mapContainer.add(scene.add.image(0, MAP_H - 64, 'tile', this.tiles.lb));
     this.mapContainer.add(scene.add.image(MAP_W - 64, MAP_H - 64, 'tile', this.tiles.rb));
 
-    scene.mapLayer.add(this.mapContainer);
+    if (Object.keys(scene).findIndex(key => key === 'mapLayer') !== -1) {
+      (scene as any).mapLayer.add(this.mapContainer);
+    }
   }
 }
