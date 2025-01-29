@@ -1,10 +1,26 @@
 import type { Stage } from "../scenes/game.scene.stage";
 
 export class Loader {
-  static loadAtlas(scene: Stage, name: string) {
+  static loadCharacterAtlas(scene: Stage, name: string) {
     scene.load.atlas(name, `assets/character/${name}/${name}.png`, `assets/character/${name}/${name}.json`);
   }
-  static createAnimation(scene: Stage, name: string) {
+  static loadEffectAtlas(scene: Stage, name: string) {
+    scene.load.atlas(name, `assets/effect/${name}.png`, `assets/effect/${name}.json`);
+  }
+  static createEffectAnimation(scene: Stage, name: string) {
+    scene.anims.create({
+      key: `${name}_effect`,
+      frames: scene.anims.generateFrameNames(name, {
+        suffix: '.png',
+        zeroPad: 3,
+        start: 0,
+        end: 10,
+      }),
+      frameRate: 30,
+      repeat: 0,
+    });
+  }
+  static createCharacterAnimation(scene: Stage, name: string) {
     scene.anims.create({
       key: `${name}_walk`,
       frames: scene.anims.generateFrameNames(name, {
@@ -43,7 +59,7 @@ export class Loader {
     });
   }
   static createPlayerAnimation(scene: Stage) {
-    Loader.createAnimation(scene, 'player');
+    Loader.createCharacterAnimation(scene, 'player');
     scene.anims.create({
       key: `player_attack`,
       frames: scene.anims.generateFrameNames('player', {

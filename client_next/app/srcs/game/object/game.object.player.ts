@@ -42,7 +42,7 @@ export class Player extends Charactor {
     this._sprite.body.setSize(80, 100).setOffset(50, 50);
     this._hp.create(scene);
     this.weapon.create(scene, 0, 0);
-    this._container = scene.add.container(x, y, [this._sprite, this.weapon.hitbox]);
+    this._container = scene.add.container(x, y, [this._sprite, this.weapon.sprite]);
 
     scene.mapLayer.add(this._container);
   }
@@ -85,12 +85,16 @@ export class Player extends Charactor {
     if (this._hp.hp <= 0 || !this.sprite) return;
     this._status = CharactorStatus.ATTACK;
     this.weapon.attack(this);
-    this.sprite.play('player_attack').once('animationcomplete', () => {
+    this.sprite.play('player_attack').once('animationcomplete-player_attack', () => {
       this.weapon.init();
       setTimeout(() => {
         this._status = CharactorStatus.IDLE;
       }, ATTACK_COOLTIME);
       this.sprite.play('player_walk');
     });
+  }
+  flip(dir: boolean) {
+    this._sprite.setFlipX(dir);
+    this.weapon.sprite.setFlipX(dir);
   }
 }

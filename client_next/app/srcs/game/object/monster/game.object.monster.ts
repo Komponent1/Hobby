@@ -32,7 +32,7 @@ export class Monster extends Charactor {
       scene.player.bodyAttack(this);
       this.attackTo(scene.player);
     });
-    scene.physics.add.overlap(scene.player.weapon.hitbox, this._sprite, () => {
+    scene.physics.add.overlap(scene.player.weapon.sprite, this._sprite, () => {
       this.swordAttacked(scene.player);
     });
   }

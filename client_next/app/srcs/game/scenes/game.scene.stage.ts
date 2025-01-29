@@ -51,10 +51,11 @@ export class Stage extends Scene {
   }
 
   preload() {
-    Loader.loadAtlas(this, 'player');
-    Loader.loadAtlas(this, 'skeleton');
-    Loader.loadAtlas(this, 'skeleton_shooter');
-    Loader.loadAtlas(this, 'skeleton_boss');
+    Loader.loadCharacterAtlas(this, 'player');
+    Loader.loadCharacterAtlas(this, 'skeleton');
+    Loader.loadCharacterAtlas(this, 'skeleton_shooter');
+    Loader.loadCharacterAtlas(this, 'skeleton_boss');
+    Loader.loadEffectAtlas(this, 'slash');
   }
 
   create() {
@@ -81,9 +82,10 @@ export class Stage extends Scene {
     this.stageInfo.create(this);
     /** 애니메이션 생성 */
     Loader.createPlayerAnimation(this);
-    Loader.createAnimation(this, 'skeleton');
-    Loader.createAnimation(this, 'skeleton_shooter');
-    Loader.createAnimation(this, 'skeleton_boss');
+    Loader.createCharacterAnimation(this, 'skeleton');
+    Loader.createCharacterAnimation(this, 'skeleton_shooter');
+    Loader.createCharacterAnimation(this, 'skeleton_boss');
+    Loader.createEffectAnimation(this, 'slash');
     /** 플레이어 생성(맵 중앙) */
     this.player.create(
       this,
