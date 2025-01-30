@@ -8,7 +8,7 @@ import {BulletStatus} from './game.object.enum';
 export class Bullet {
   protected _status: BulletStatus = BulletStatus.LOADED;
   protected _dir: Vector = new Vector(0, 0);
-  protected _image!: Phaser.GameObjects.Rectangle;
+  protected _image!: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
   protected _speed: number = 0;
 
   constructor(
@@ -20,8 +20,9 @@ export class Bullet {
     return new Bullet(speed);
   }
   create(scene: Stage) {
-    this._image = scene.add.rectangle(-200, -100, 12, 12);
-    scene.physics.add.existing(this._image);
+    this._image = scene.physics.add.image(-200, -100, 'bullet');
+    this._image.body.setOffset(19, 18).setCircle(15);
+    scene.mapLayer.add(this._image);
     scene.physics.add.overlap(scene.player.sprite, this._image, () => {
       this.attackTo(scene.player);
     });

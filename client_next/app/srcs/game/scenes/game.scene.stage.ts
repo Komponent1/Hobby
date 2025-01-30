@@ -60,6 +60,7 @@ export class Stage extends Scene {
     Loader.loadCharacterAtlas(this, 'skeleton_boss');
     Loader.loadEffectAtlas(this, 'slash');
     Loader.loadTile(this, 'tile');
+    Loader.loadBullet(this);
   }
 
   create() {

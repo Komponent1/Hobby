@@ -13,6 +13,9 @@ export class Loader {
   static loadUi(scene: Scene, name: string) {
     scene.load.atlas(name, `assets/ui/${name}.png`, `assets/ui/${name}.json`);
   }
+  static loadBullet(scene: Scene) {
+    scene.load.image('bullet', `assets/effect/bullet.png`);
+  }
   static createEffectAnimation(scene: Scene, name: string) {
     scene.anims.create({
       key: `${name}_effect`,
