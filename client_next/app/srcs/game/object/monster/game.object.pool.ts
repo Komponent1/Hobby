@@ -1,4 +1,4 @@
-import { MAP_RATIO, SCREEN_WIDTH } from "../../constant/game.constant.config";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../constant/game.constant.config";
 import {
   SKELETON_EXP, SKELETON_GEN_TIME,
   SKELETON_BOSS_EXP, SKELETON_BOSS_GEN_TIME,
@@ -49,56 +49,56 @@ export class Pool {
       boss.create(scene, -400, -400);
     });
   }
-  private spawnSkeleton(stageInfo: StageInfo) {
+  private spawnSkeleton(stageInfo: StageInfo, scene: Stage) {
     if (Date.now() - stageInfo.genTime.skeleton <= SKELETON_GEN_TIME) return;
     stageInfo.setGenTime("skeleton", Date.now());
     const skeleton = this.skeletons.find((monster) => monster.status === CharactorStatus.WAIT);
     if (skeleton) {
-      const x = Math.random() * MAP_RATIO * SCREEN_WIDTH;
-      const y = Math.random() * MAP_RATIO * SCREEN_WIDTH;
-      skeleton.spawn(x, y);
+      const x = Math.random() * (SCREEN_WIDTH * 0.8) + 100;
+      const y = Math.random() * (SCREEN_HEIGHT * 0.8) + 100;
+      skeleton.spawn(x, y, scene);
     }
   }
-  private spawnShooter(stageInfo: StageInfo) {
+  private spawnShooter(stageInfo: StageInfo, scene: Stage) {
     if (Date.now() - stageInfo.genTime.skeletonShooter <= SKELETON_SHOOTER_GEN_TIME) return;
     stageInfo.setGenTime("skeletonShooter", Date.now());
     const shooter = this.skeletonShooters.find(
       (monster) => monster.status === CharactorStatus.WAIT,
     );
     if (shooter) {
-      const x = Math.random() * MAP_RATIO * SCREEN_WIDTH;
-      const y = Math.random() * MAP_RATIO * SCREEN_WIDTH;
-      shooter.spawn(x, y);
+      const x = Math.random() * (SCREEN_WIDTH * 0.8) + 100;
+      const y = Math.random() * (SCREEN_HEIGHT * 0.8) + 100;
+      shooter.spawn(x, y, scene);
     }
   }
-  private spawnBoss(stageInfo: StageInfo) {
+  private spawnBoss(stageInfo: StageInfo, scene: Stage) {
     if (Date.now() - stageInfo.genTime.skeletonBoss <= SKELETON_BOSS_GEN_TIME) return;
     stageInfo.setGenTime("skeletonBoss", Date.now());
     const boss = this.skeletonBosses.find((monster) => monster.status === CharactorStatus.WAIT);
     if (boss) {
-      const x = Math.random() * MAP_RATIO * SCREEN_WIDTH;
-      const y = Math.random() * MAP_RATIO * SCREEN_WIDTH;
-      boss.spawn(x, y);
+      const x = Math.random() * (SCREEN_WIDTH * 0.8) + 100;
+      const y = Math.random() * (SCREEN_HEIGHT * 0.8) + 100;
+      boss.spawn(x, y, scene);
     }
   }
   update(scene: Stage) {
     switch (scene.stageInfo.stageLevel) {
       case 1:
-        this.spawnSkeleton(scene.stageInfo);
+        this.spawnSkeleton(scene.stageInfo, scene);
 
         this.skeletons.forEach((skeleton) => skeleton.update(scene));
         break;
       case 2:
-        this.spawnSkeleton(scene.stageInfo);
-        this.spawnShooter(scene.stageInfo);
+        this.spawnSkeleton(scene.stageInfo, scene);
+        this.spawnShooter(scene.stageInfo, scene);
 
         this.skeletons.forEach((skeleton) => skeleton.update(scene));
         this.skeletonShooters.forEach((shooter) => shooter.update(scene));
         break;
       case 3:
-        this.spawnSkeleton(scene.stageInfo);
-        this.spawnShooter(scene.stageInfo);
-        this.spawnBoss(scene.stageInfo);
+        this.spawnSkeleton(scene.stageInfo, scene);
+        this.spawnShooter(scene.stageInfo, scene);
+        this.spawnBoss(scene.stageInfo, scene);
 
         this.skeletons.forEach((skeleton) => skeleton.update(scene));
         this.skeletonShooters.forEach((shooter) => shooter.update(scene));

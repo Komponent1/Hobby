@@ -77,11 +77,18 @@ export class Monster extends Charactor {
     return true;
   }
 
-  spawn(x: number, y: number) {
-    this._status = CharactorStatus.IDLE;
-    this.sprite.play(`${this.name}_walk`);
-    this._sprite.x = x;
-    this._sprite.y = y;
+  spawn(x: number, y: number, scene: Stage) {
+    const spawnCircle = scene.add.circle(x, y, 40, 0x00ff00, 0.5);
+    scene.mapLayer.add(spawnCircle);
+
+    setTimeout(() => {
+      if (!this._sprite) return;
+      this._status = CharactorStatus.IDLE;
+      this._sprite.play(`${this.name}_walk`);
+      this._sprite.x = x;
+      this._sprite.y = y;
+      spawnCircle.destroy();
+    }, 1000);
   }
   dead() {
     if (this._status === CharactorStatus.DEAD) return;
@@ -89,8 +96,8 @@ export class Monster extends Charactor {
     this._sprite.play(`${this._name}_die`).once(`animationcomplete-${this.name}_die`, () => {
       this._status = CharactorStatus.WAIT;
       this._sprite.stop();
-      this._sprite.x = -100;
-      this._sprite.y = -100;
+      this._sprite.x = -400;
+      this._sprite.y = -400;
       this._hp.move(this._sprite.x - MONSTER_WIDTH / 2, this._sprite.y - MONSTER_HEIGHT / 2);
       this._hp.setHp(this._hp.maxHp);
     });
