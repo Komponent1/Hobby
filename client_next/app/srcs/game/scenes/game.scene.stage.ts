@@ -143,7 +143,7 @@ export class Stage extends Scene {
       this.scene.launch('Shop', { player: this.player, stageInfo: this.stageInfo });
     } else if (this.stageInfo.stageState === StageState.GAMEOVER) {
       this.stageInfo.setStageState(StageState.RETRY_CHECK);
-      this.scene.launch('RetryCheck', { player: this.player });
+      this.scene.launch('RetryCheck', { player: this.player, stageInfo: this.stageInfo });
     }
   }
 }

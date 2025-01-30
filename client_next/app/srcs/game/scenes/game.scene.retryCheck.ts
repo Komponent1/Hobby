@@ -2,9 +2,11 @@ import {Scene} from 'phaser';
 import {StageInfo} from '../object/ui/game.object.ui.stageInfo';
 import {Loader} from '../loader/loader';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../constant/game.constant.config';
+import { Player } from "../object/game.object.player";
 
 export class RetryCheck extends Scene {
   public stageInfo!: StageInfo;
+  public player!: Player;
 
   public retryButton!: Phaser.GameObjects.Image;
   public menuButton!: Phaser.GameObjects.Image;
@@ -17,6 +19,7 @@ export class RetryCheck extends Scene {
   }
   init(data: any) {
     this.stageInfo = data.stageInfo;
+    this.player = data.player;
   }
   preload() {
     Loader.loadUi(this, 'ui');
