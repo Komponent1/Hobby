@@ -109,6 +109,10 @@ export class Shop extends Scene {
       selectorContainer.setDepth(1).setVisible(true);
     });
     nextbtn.on('pointerdown', () => {
+      if (this.stageInfo.stageLevel === 3) {
+        this.scene.stop('Shop');
+        this.scene.start('Menu');
+      }
       this.stageInfo.setStageState(StageState.PLAYING);
       this.stageInfo.setStageLevel(this.stageInfo.stageLevel + 1);
       this.stageInfo.setStageStartTime(Date.now());

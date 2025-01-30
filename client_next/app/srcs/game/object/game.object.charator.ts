@@ -53,6 +53,10 @@ export class Charactor {
       && Date.now() - target.attackedTime < 1000
     ) return false;
 
+    target.sprite.setTint(0xff0000);
+    setTimeout(() => {
+      target.sprite.setTint(0xffffff);
+    }, 100);
     target.changeAttackedTime(Date.now());
     target.decreaseHp(this.attack);
     return true;

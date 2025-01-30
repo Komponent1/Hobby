@@ -41,6 +41,10 @@ export class Bullet {
   }
 
   attackTo(target: Charactor) {
+    target.sprite.setTint(0xff0000);
+    setTimeout(() => {
+      target.sprite.setTint(0xffffff);
+    }, 100);
     target.decreaseHp(10);
     this.destroy();
   }

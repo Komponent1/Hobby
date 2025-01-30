@@ -68,6 +68,10 @@ export class Monster extends Charactor {
   swordAttacked(player: Player) {
     if (this.attackedTime !== 0 && Date.now() - this.attackedTime < 500) return false;
     this.changeAttackedTime(Date.now());
+    this.sprite.setTint(0xff0000);
+    setTimeout(() => {
+      this.sprite.setTint(0xffffff);
+    }, 100);
     this._hp.decreaseHp(player.weapon.damage);
     const dir = new Vector(
       this.position.x - player.position.x,
