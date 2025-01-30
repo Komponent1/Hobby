@@ -7,6 +7,7 @@ export class TestText {
   public rangeText!: Phaser.GameObjects.Text;
   public costText!: Phaser.GameObjects.Text;
   public bulletText!: Phaser.GameObjects.Text;
+  public playerDir!: Phaser.GameObjects.Text;
 
   public bg!: Phaser.GameObjects.Rectangle;
   public continer!: Phaser.GameObjects.Container;
@@ -18,11 +19,12 @@ export class TestText {
     testText.rangeText = scene.add.text(10, 50, 'Range: 10', { color: '#0f0' });
     testText.costText = scene.add.text(10, 70, "COST: 0", { color: '#0f0' });
     testText.bulletText = scene.add.text(10, 90, "BULLET: 0", { color: '#0f0' });
-    testText.bg = scene.add.rectangle(0, 0, 200, 100, 0x000000, 0.5).setOrigin(0, 0);
+    testText.bg = scene.add.rectangle(0, 0, 200, 200, 0x000000, 0.5).setOrigin(0, 0);
+    testText.playerDir = scene.add.text(10, 110, "Dir: (1, 0)", { color: '#0f0' });
     testText.continer = scene.add.container(
       1000,
       0,
-      [testText.bg, testText.hpText, testText.damageText, testText.rangeText, testText.bulletText],
+      [testText.bg, testText.hpText, testText.damageText, testText.rangeText, testText.bulletText, testText.playerDir, testText.costText],
     );
     return testText;
   }
@@ -32,5 +34,6 @@ export class TestText {
     this.rangeText.setText(`Range: ${scene.player.weapon.range}`);
     this.costText.setText(`COST: ${scene.player.exp}`);
     this.bulletText.setText(`BULLET: ${scene.bullets.filter((bullet) => bullet.status === BulletStatus.LOADED).length}`);
+    this.playerDir.setText(`Dir: (${scene.player.dir.x}, ${scene.player.dir.y})`);
   }
 }

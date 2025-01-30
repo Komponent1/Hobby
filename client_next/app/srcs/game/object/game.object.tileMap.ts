@@ -23,16 +23,16 @@ export class TileMap {
     const colNum = Math.floor(MAP_H / 64);
 
     this.mapContainer = scene.add.container(0, 0);
-    for(let i = 0; i <= rowNum; i++) {
-      for(let j = 0; j <= colNum; j++) {
+    for (let i = 0; i <= rowNum; i += 1) {
+      for (let j = 0; j <= colNum; j += 1) {
         this.mapContainer.add(scene.add.image(i * 64, j * 64, 'tile', this.tiles.center));
       }
     }
-    for(let i = 0; i <= rowNum; i++) {
+    for (let i = 0; i <= rowNum; i += 1) {
       this.mapContainer.add(scene.add.image(i * 64, 64, 'tile', this.tiles.t));
       this.mapContainer.add(scene.add.image(i * 64, MAP_H - 64, 'tile', this.tiles.b));
     }
-    for(let i = 0; i <= colNum; i++) {
+    for (let i = 0; i <= colNum; i += 1) {
       this.mapContainer.add(scene.add.image(64, i * 64, 'tile', this.tiles.l));
       this.mapContainer.add(scene.add.image(MAP_W - 64, i * 64, 'tile', this.tiles.r));
     }
@@ -41,7 +41,7 @@ export class TileMap {
     this.mapContainer.add(scene.add.image(0, MAP_H - 64, 'tile', this.tiles.lb));
     this.mapContainer.add(scene.add.image(MAP_W - 64, MAP_H - 64, 'tile', this.tiles.rb));
 
-    if (Object.keys(scene).findIndex(key => key === 'mapLayer') !== -1) {
+    if (Object.keys(scene).findIndex((key) => key === 'mapLayer') !== -1) {
       (scene as any).mapLayer.add(this.mapContainer);
     }
   }

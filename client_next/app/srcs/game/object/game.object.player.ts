@@ -81,10 +81,10 @@ export class Player extends Charactor {
   bodyAttack(target: Charactor) {
     super.attackTo(target);
   }
-  swordAttack() {
+  swordAttack(scene: Stage) {
     if (this._hp.hp <= 0 || !this.sprite) return;
     this._status = CharactorStatus.ATTACK;
-    this.weapon.attack(this);
+    this.weapon.attack(scene);
     this.sprite.play('player_attack').once('animationcomplete-player_attack', () => {
       this.weapon.init();
       setTimeout(() => {

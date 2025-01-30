@@ -27,5 +27,5 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     createContainer: true,
   },
   backgroundColor: '#ffffff',
-  scene: [Main, Stage, Shop, RetryCheck, Clear],
+  scene: [Stage, Shop, RetryCheck, Clear, Main],
 };
