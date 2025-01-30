@@ -1,1 +1,1 @@
-export const CLEAR_TIME = 3000 * 1000;
+export const CLEAR_TIME = 30 * 1000;

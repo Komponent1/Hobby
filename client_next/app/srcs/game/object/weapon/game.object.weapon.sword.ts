@@ -1,5 +1,5 @@
 import {
-  PLAYER_HEIGHT, PLAYER_INIT_ATTACK, PLAYER_INIT_ATTACK_RANGE, PLAYER_WIDTH,
+  PLAYER_INIT_ATTACK, PLAYER_INIT_ATTACK_RANGE,
 } from "../../constant/game.constant.player";
 import type { Stage } from "../../scenes/game.scene.stage";
 
