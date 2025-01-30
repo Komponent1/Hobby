@@ -107,7 +107,7 @@ export class Stage extends Scene {
     this.cameras.main.startFollow(this.player.container);
     this.cameras.main.followOffset.set(0, 0);
     /** 적 풀 생성 */
-    // this.pool.create(this);
+    this.pool.create(this);
     /** 무기 등록 */
     this.bullets.forEach((bullet) => {
       bullet.create(this);
@@ -128,7 +128,7 @@ export class Stage extends Scene {
       this.keyboard.setMoveControl(this);
       this.keyboard.setAttackControl(this);
       /** 몬스터 스폰 및 업데이트 & 사망체크 */
-      // this.pool.update(this);
+      this.pool.update(this);
       /** 총알 이동 및 업데이트 */
       this.bullets.forEach((bullet) => {
         bullet.move();
@@ -138,7 +138,7 @@ export class Stage extends Scene {
       this.player.move();
       this.player.checkHp(this);
     } else if (this.stageInfo.stageState === StageState.CLEAR) {
-      // this.pool.clear();
+      this.pool.clear();
       this.stageInfo.setStageState(StageState.SHOP);
       this.scene.launch('Shop', { player: this.player, stageInfo: this.stageInfo });
     } else if (this.stageInfo.stageState === StageState.GAMEOVER) {

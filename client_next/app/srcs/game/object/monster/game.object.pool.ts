@@ -40,13 +40,13 @@ export class Pool {
   }
   create(scene: Stage) {
     this.skeletons.forEach((skeleton) => {
-      skeleton.create(scene, -100, -100);
+      skeleton.create(scene, -400, -400);
     });
     this.skeletonShooters.forEach((shooter) => {
-      shooter.create(scene, -100, -100);
+      shooter.create(scene, -400, -400);
     });
     this.skeletonBosses.forEach((boss) => {
-      boss.create(scene, -100, -100);
+      boss.create(scene, -400, -400);
     });
   }
   private spawnSkeleton(stageInfo: StageInfo) {

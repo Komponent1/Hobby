@@ -25,7 +25,6 @@ export class Monster extends Charactor {
   create(scene: Stage, x: number, y: number, sprite: string) {
     this._sprite = scene.physics.add.sprite(x, y, `${sprite}`).play(`${sprite}_walk`);
     this._sprite.body.setSize(80, 100).setOffset(50, 50);
-    this._sprite.setCollideWorldBounds(true);
     this._hp.create(scene, x - MONSTER_WIDTH / 2, y - MONSTER_HEIGHT / 2);
 
     scene.mapLayer.add(this._sprite);
