@@ -31,7 +31,12 @@ export class Hpbar {
     this.draw();
   }
   public decreaseHp(damage: number) {
-    this._hp -= damage;
+    const hp = this._hp - damage;
+    if (hp < 0) {
+      this._hp = 0;
+    } else {
+      this._hp = hp;
+    }
     this.draw();
   }
 

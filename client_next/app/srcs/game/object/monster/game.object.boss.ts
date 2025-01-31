@@ -1,4 +1,6 @@
 import {
+  BOSS_HEIGHT,
+  BOSS_WIDTH,
   SKELETON_BOSS_ATTACK, SKELETON_BOSS_HP,
   SKELETON_BOSS_SHOOT_INTERVAL, SKELETON_BOSS_SPEED,
 } from '../../constant/game.constant.monster';
@@ -19,7 +21,7 @@ export class SkeletonBoss extends Monster {
     speed: number,
     exp: number,
   ) {
-    super('skeleton_boss', hp, attack, speed, exp);
+    super('skeleton_boss', hp, attack, speed, exp, BOSS_WIDTH, BOSS_HEIGHT);
   }
   static init(exp: number) {
     const monster = new SkeletonBoss(
@@ -53,6 +55,7 @@ export class SkeletonBoss extends Monster {
   create(scene: Stage, x: number, y: number) {
     super.create(scene, x, y, 'skeleton_boss');
     this.sprite.setScale(2);
+    this.sprite.body.setSize(105, 155).setOffset(80, 65);
   }
   update(scene: Stage) {
     if (this._status === CharactorStatus.DEAD) return;
@@ -60,7 +63,6 @@ export class SkeletonBoss extends Monster {
     this.shootAttack(scene.player, scene.bullets);
   }
   dead() {
-    this.setHp(SKELETON_BOSS_HP);
     super.dead();
   }
 }

@@ -1,6 +1,7 @@
 import {
-  SKELETON_SHOOTER_ATTACK, SKELETON_SHOOTER_HP,
+  SKELETON_SHOOTER_ATTACK, SKELETON_SHOOTER_HEIGHT, SKELETON_SHOOTER_HP,
   SKELETON_SHOOTER_SHOOT_INTERVAL, SKELETON_SHOOTER_SPEED,
+  SKELETON_SHOOTER_WIDTH,
 } from '../../constant/game.constant.monster';
 import type {Stage} from '../../scenes/game.scene.stage';
 import {Vector} from '../../utils/vector';
@@ -19,7 +20,7 @@ export class SkeletonShooter extends Monster {
     speed: number,
     exp: number,
   ) {
-    super('skeleton_shooter', hp, attack, speed, exp);
+    super('skeleton_shooter', hp, attack, speed, exp, SKELETON_SHOOTER_WIDTH, SKELETON_SHOOTER_HEIGHT);
   }
   static init(exp: number) {
     const monster = new SkeletonShooter(
@@ -54,7 +55,6 @@ export class SkeletonShooter extends Monster {
     this.shootAttack(scene.player, scene.bullets);
   }
   dead() {
-    this.setHp(SKELETON_SHOOTER_HP);
     super.dead();
   }
 }
