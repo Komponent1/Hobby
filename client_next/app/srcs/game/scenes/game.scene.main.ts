@@ -27,6 +27,12 @@ export class Main extends Scene {
     this.startButton.on("pointerdown", () => {
       this.cameras.main.fadeOut(500, 0, 0, 0);
     });
+    this.startButton.on("pointerover", () => {
+      this.startButton.setScale(1.1);
+    });
+    this.startButton.on("pointerout", () => {
+      this.startButton.setScale(1);
+    });
 
     this.cameras.main.once("camerafadeoutcomplete", () => {
       this.scene.start("Stage", {fadeIn: true});

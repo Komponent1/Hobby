@@ -1,3 +1,4 @@
+import { SCREEN_WIDTH } from "../../constant/game.constant.config";
 import { CLEAR_TIME } from "../../scenes/game.scene.constant";
 import { StageState } from "../../scenes/game.scene.enum";
 import type { Stage } from "../../scenes/game.scene.stage";
@@ -62,17 +63,17 @@ export class StageInfo {
   }
   create(scene: Stage) {
     this.leftTimeText = scene.add.text(
-      10,
-      10,
-      String(Math.floor((CLEAR_TIME + this.stageStartTime - Date.now()) / 1000)),
-      { fontSize: '32px', color: '#000' },
-    );
+      SCREEN_WIDTH / 2,
+      60,
+      `${Math.floor((CLEAR_TIME + this.stageStartTime - Date.now()) / 1000)}`,
+      { fontSize: '32px', color: '#fff', fontStyle: 'bold' },
+    ).setOrigin(0.5);
     this.stageLevelText = scene.add.text(
-      10,
-      50,
-      String(this.stageLevel),
-      { fontSize: '32px', color: '#000' },
-    );
+      SCREEN_WIDTH / 2,
+      20,
+      `STAGE ${this.stageLevel}`,
+      { fontSize: '48px', color: '#fff', fontStyle: 'bold' },
+    ).setOrigin(0.5);
     scene.uiLayer.add(this.leftTimeText);
     scene.uiLayer.add(this.stageLevelText);
   }

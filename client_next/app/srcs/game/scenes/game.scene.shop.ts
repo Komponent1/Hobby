@@ -96,20 +96,44 @@ export class Shop extends Scene {
       }
       selectorContainer.setDepth(-1).setVisible(false);
     });
+    okbtn.on('pointerover', () => {
+      okbtn.setScale(1.1);
+    });
+    okbtn.on('pointerout', () => {
+      okbtn.setScale(1);
+    });
     cancelbtn.on('pointerdown', () => {
       selectorContainer.setDepth(-1).setVisible(false);
+    });
+    cancelbtn.on('pointerover', () => {
+      cancelbtn.setScale(1.1);
+    });
+    cancelbtn.on('pointerout', () => {
+      cancelbtn.setScale(1);
     });
 
     hpContainer.on('pointerdown', () => {
       this.selectedupgrade = ItemType.HP;
       selectorContainer.setDepth(1).setVisible(true);
     });
+    hpContainer.on('pointerover', () => {
+      hpContainer.setScale(1.1);
+    });
+    hpContainer.on('pointerout', () => {
+      hpContainer.setScale(1);
+    });
     damageContainer.on('pointerdown', () => {
       this.selectedupgrade = ItemType.DAMAGE;
       selectorContainer.setDepth(1).setVisible(true);
     });
+    damageContainer.on('pointerover', () => {
+      damageContainer.setScale(1.1);
+    });
+    damageContainer.on('pointerout', () => {
+      damageContainer.setScale(1);
+    });
     nextbtn.on('pointerdown', () => {
-      if (this.stageInfo.stageLevel === 1) {
+      if (this.stageInfo.stageLevel === 3) {
         this.scene.stop('Shop');
         this.scene.stop('Stage');
         this.scene.start('Main');
@@ -120,6 +144,12 @@ export class Shop extends Scene {
       this.stageInfo.setStageStartTime(Date.now());
       this.scene.stop('Shop');
       this.scene.start('Stage', { player: this.player, stageInfo: this.stageInfo });
+    });
+    nextbtn.on('pointerover', () => {
+      nextbtn.setScale(1.1);
+    });
+    nextbtn.on('pointerout', () => {
+      nextbtn.setScale(1);
     });
   }
 }

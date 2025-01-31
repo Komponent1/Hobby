@@ -39,10 +39,23 @@ export class RetryCheck extends Scene {
       this.scene.stop('GameOver');
       this.scene.start('Stage');
     });
+    this.retryButton.on('pointerover', () => {
+      this.retryButton.setScale(1.1);
+    });
+    this.retryButton.on('pointerout', () => {
+      this.retryButton.setScale(1);
+    });
+
     this.menuButton.on('pointerdown', () => {
       this.scene.stop('Stage');
       this.scene.stop('GameOver');
       this.scene.start('Main');
+    });
+    this.menuButton.on('pointerover', () => {
+      this.menuButton.setScale(1.1);
+    });
+    this.menuButton.on('pointerout', () => {
+      this.menuButton.setScale(1);
     });
   }
 }

@@ -1,3 +1,4 @@
+import { SCREEN_WIDTH } from "../../constant/game.constant.config";
 import type { Stage } from "../../scenes/game.scene.stage";
 import { BulletStatus } from "../game.object.enum";
 
@@ -22,7 +23,7 @@ export class TestText {
     testText.bg = scene.add.rectangle(0, 0, 200, 200, 0x000000, 0.5).setOrigin(0, 0);
     testText.playerDir = scene.add.text(10, 110, "Dir: (1, 0)", { color: '#0f0' });
     testText.continer = scene.add.container(
-      1000,
+      SCREEN_WIDTH - 200,
       0,
       [
         testText.bg,
