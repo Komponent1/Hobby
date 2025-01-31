@@ -83,7 +83,7 @@ export class Stage extends Scene {
     this.cameras.main.ignore(this.shopLayer);
     this.uiCamera.ignore(this.mapLayer);
     /** debug 옵션 (TODO: production 삭제) */
-    this.uiCamera.ignore(this.physics.world.debugGraphic);
+    // this.uiCamera.ignore(this.physics.world.debugGraphic);
     /** 입력 초기화 */
     this.keyboard.init(this);
     /** 타일맵 생성 및 레이어 등록 */

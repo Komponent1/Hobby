@@ -61,7 +61,7 @@ export class SkeletonBoss extends Monster {
   update(scene: Stage) {
     if (this._status === CharactorStatus.DEAD) return;
     super.update(scene);
-    // this.shootAttack(scene.player, scene.bullets);
+    this.shootAttack(scene.player, scene.bullets);
   }
   dead() {
     super.dead();

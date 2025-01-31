@@ -109,9 +109,11 @@ export class Shop extends Scene {
       selectorContainer.setDepth(1).setVisible(true);
     });
     nextbtn.on('pointerdown', () => {
-      if (this.stageInfo.stageLevel === 3) {
+      if (this.stageInfo.stageLevel === 1) {
         this.scene.stop('Shop');
-        this.scene.start('Menu');
+        this.scene.stop('Stage');
+        this.scene.start('Main');
+        return;
       }
       this.stageInfo.setStageState(StageState.PLAYING);
       this.stageInfo.setStageLevel(this.stageInfo.stageLevel + 1);

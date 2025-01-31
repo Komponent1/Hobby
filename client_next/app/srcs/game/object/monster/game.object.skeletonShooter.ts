@@ -53,7 +53,7 @@ export class SkeletonShooter extends Monster {
   }
   update(scene: Stage): void {
     super.update(scene);
-    // this.shootAttack(scene.player, scene.bullets);
+    this.shootAttack(scene.player, scene.bullets);
   }
   dead() {
     super.dead();
