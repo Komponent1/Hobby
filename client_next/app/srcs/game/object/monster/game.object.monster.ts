@@ -55,7 +55,7 @@ export class Monster extends Charactor {
   move(dir: Vector, speed: number = this._speed) {
     this._sprite.x += dir.x * speed;
     this._sprite.y += dir.y * speed;
-    this._hp.move(this._sprite.x - this._w / 2, this._sprite.y - this._h / 2);
+    this._hp.move(this._sprite.x, this._sprite.y - this._h / 2 - 5);
   }
 
   checkHp(scene: Stage) {

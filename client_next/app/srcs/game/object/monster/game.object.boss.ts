@@ -1,3 +1,4 @@
+import { HPbarType } from "../../constant/game.constant.hp";
 import {
   BOSS_HEIGHT,
   BOSS_WIDTH,
@@ -25,7 +26,7 @@ export class SkeletonBoss extends Monster {
   }
   static init(exp: number) {
     const monster = new SkeletonBoss(
-      MonsterHpbar.init(SKELETON_BOSS_HP),
+      MonsterHpbar.init(SKELETON_BOSS_HP, HPbarType.BOSS),
       SKELETON_BOSS_ATTACK,
       SKELETON_BOSS_SPEED,
       exp,
@@ -60,7 +61,7 @@ export class SkeletonBoss extends Monster {
   update(scene: Stage) {
     if (this._status === CharactorStatus.DEAD) return;
     super.update(scene);
-    this.shootAttack(scene.player, scene.bullets);
+    // this.shootAttack(scene.player, scene.bullets);
   }
   dead() {
     super.dead();

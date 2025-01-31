@@ -1,6 +1,6 @@
 export const BULLET_SPEED = 1;
 
-export const SKELETON_SPEED = 10;
+export const SKELETON_SPEED = 7;
 export const SKELETON_HP = 10;
 export const SKELETON_ATTACK = 10;
 export const SKELETON_EXP = 10;
@@ -14,7 +14,7 @@ export const SKELETON_SHOOTER_EXP = 20;
 export const SKELETON_SHOOTER_SHOOT_INTERVAL = 1000;
 export const SKELETON_SHOOTER_GEN_TIME = 2000;
 
-export const SKELETON_BOSS_SPEED = 10;
+export const SKELETON_BOSS_SPEED = 6;
 export const SKELETON_BOSS_HP = 100;
 export const SKELETON_BOSS_ATTACK = 50;
 export const SKELETON_BOSS_BULLET_ATTACK = 10;

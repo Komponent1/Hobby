@@ -1,3 +1,4 @@
+import { HPbarType } from "../../constant/game.constant.hp";
 import {
   SKELETON_SHOOTER_ATTACK, SKELETON_SHOOTER_HEIGHT, SKELETON_SHOOTER_HP,
   SKELETON_SHOOTER_SHOOT_INTERVAL, SKELETON_SHOOTER_SPEED,
@@ -24,7 +25,7 @@ export class SkeletonShooter extends Monster {
   }
   static init(exp: number) {
     const monster = new SkeletonShooter(
-      MonsterHpbar.init(SKELETON_SHOOTER_HP),
+      MonsterHpbar.init(SKELETON_SHOOTER_HP, HPbarType.MONSTER),
       SKELETON_SHOOTER_ATTACK,
       SKELETON_SHOOTER_SPEED,
       exp,
@@ -52,7 +53,7 @@ export class SkeletonShooter extends Monster {
   }
   update(scene: Stage): void {
     super.update(scene);
-    this.shootAttack(scene.player, scene.bullets);
+    // this.shootAttack(scene.player, scene.bullets);
   }
   dead() {
     super.dead();

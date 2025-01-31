@@ -24,7 +24,15 @@ export class TestText {
     testText.continer = scene.add.container(
       1000,
       0,
-      [testText.bg, testText.hpText, testText.damageText, testText.rangeText, testText.bulletText, testText.playerDir, testText.costText],
+      [
+        testText.bg,
+        testText.hpText,
+        testText.damageText,
+        testText.rangeText,
+        testText.bulletText,
+        testText.playerDir,
+        testText.costText,
+      ],
     );
     return testText;
   }

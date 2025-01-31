@@ -1,29 +1,36 @@
+import { HP_LAYOUT, HPbarType } from "../../constant/game.constant.hp";
+import type { Stage } from "../../scenes/game.scene.stage";
+
 /* eslint-disable function-paren-newline */
 export class Hpbar {
   protected _hp: number;
   protected _maxHp: number;
-  protected _hpbarWidth: number;
-  protected _hpbarHeight: number;
 
   protected _hpbarX!: number;
   protected _hpbarY!: number;
-  protected _hpbar!: Phaser.GameObjects.Graphics;
-  protected _hpbarBg!: Phaser.GameObjects.Graphics;
+  protected _hpbar!: Phaser.GameObjects.Image;
+  protected _hpbarBg!: Phaser.GameObjects.Image;
+  protected _hpContainer!: Phaser.GameObjects.Container;
 
-  constructor(hp: number, maxHp: number) {
+  protected _type!: HPbarType;
+
+  constructor(hp: number, maxHp: number, type: HPbarType) {
     this._hp = hp;
     this._maxHp = maxHp;
-    this._hpbarWidth = 32;
-    this._hpbarHeight = 5;
+    this._type = type;
   }
   public get hp() { return this._hp; }
   public get maxHp() { return this._maxHp; }
-  public create(scene: Phaser.Scene, x: number, y: number) {
-    this._hpbar = scene.add.graphics();
-    this._hpbarBg = scene.add.graphics();
+  public create(scene: Stage, x: number, y: number) {
     this._hpbarX = x;
     this._hpbarY = y;
-    this.draw();
+    this._hpbarBg = scene.add.image(0, 0, 'ui', 'stage/Boss_HP_Table.png')
+      .setOrigin(0, 0)
+      .setDisplaySize(HP_LAYOUT[this._type].bgW, HP_LAYOUT[this._type].bgH).setDepth(2);
+    this._hpbar = scene.add.image(HP_LAYOUT[this._type].marginX, HP_LAYOUT[this._type].marginY, 'ui', 'stage/Boss_HP_Bar_2.png')
+      .setOrigin(0, 0)
+      .setDisplaySize(HP_LAYOUT[this._type].barW, HP_LAYOUT[this._type].barH).setDepth(3);
+    this._hpContainer = scene.add.container(x, y, [this._hpbarBg, this._hpbar]);
   }
 
   public setHp(hp: number) {
@@ -46,17 +53,15 @@ export class Hpbar {
   }
 
   protected draw() {
-    const hpW = this._hpbarWidth * (this._hp / this._maxHp);
-    const hpBgW = this._hpbarWidth - hpW;
-    this._hpbar.clear();
-    this._hpbar.fillStyle(0x00ff00, 1);
-    this._hpbar.fillRect(
-      this._hpbarX, this._hpbarY, hpW, this._hpbarHeight,
-    );
-    this._hpbarBg.clear();
-    this._hpbarBg.fillStyle(0xff0000, 1);
-    this._hpbarBg.fillRect(
-      this._hpbarX + hpW, this._hpbarY, hpBgW, this._hpbarHeight,
+    const hpRatio = this._hp / this._maxHp;
+    if (this._type === HPbarType.PLAYER) {
+      this._hpContainer.setPosition(this._hpbarX, this._hpbarY);
+    } else {
+      this._hpContainer.setPosition(this._hpbarX - HP_LAYOUT[this._type].bgW / 2, this._hpbarY);
+    }
+    this._hpbar.setDisplaySize(
+      HP_LAYOUT[this._type].barW * hpRatio,
+      HP_LAYOUT[this._type].barH,
     );
   }
 

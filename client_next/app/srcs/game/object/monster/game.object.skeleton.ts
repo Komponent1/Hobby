@@ -1,3 +1,4 @@
+import { HPbarType } from "../../constant/game.constant.hp";
 import {
   SKELETON_HP, SKELETON_ATTACK, SKELETON_SPEED,
   SKELETON_WALK_WIDTH,
@@ -18,7 +19,7 @@ export class Skeleton extends Monster {
   }
   static init(exp: number) {
     const monster = new Skeleton(
-      MonsterHpbar.init(SKELETON_HP),
+      MonsterHpbar.init(SKELETON_HP, HPbarType.MONSTER),
       SKELETON_ATTACK,
       SKELETON_SPEED,
       exp,
