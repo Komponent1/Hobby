@@ -1,0 +1,1091 @@
+{
+	"textures": [
+		{
+			"image": "skeleton_boss.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1957,
+				"h": 512
+			},
+			"scale": 0.3,
+			"frames": [
+				{
+					"filename": "Dying/004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 73,
+						"y": 33,
+						"w": 116,
+						"h": 171
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 116,
+						"h": 171
+					}
+				},
+				{
+					"filename": "Hurt/003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 64,
+						"y": 56,
+						"w": 116,
+						"h": 171
+					},
+					"frame": {
+						"x": 1,
+						"y": 174,
+						"w": 116,
+						"h": 171
+					}
+				},
+				{
+					"filename": "Dying/006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 37,
+						"y": 44,
+						"w": 149,
+						"h": 151
+					},
+					"frame": {
+						"x": 1,
+						"y": 347,
+						"w": 149,
+						"h": 151
+					}
+				},
+				{
+					"filename": "Walking/014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 76,
+						"y": 59,
+						"w": 117,
+						"h": 170
+					},
+					"frame": {
+						"x": 119,
+						"y": 1,
+						"w": 117,
+						"h": 170
+					}
+				},
+				{
+					"filename": "Walking/015.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 58,
+						"w": 117,
+						"h": 170
+					},
+					"frame": {
+						"x": 119,
+						"y": 173,
+						"w": 117,
+						"h": 170
+					}
+				},
+				{
+					"filename": "Dying/005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 53,
+						"y": 34,
+						"w": 131,
+						"h": 166
+					},
+					"frame": {
+						"x": 152,
+						"y": 345,
+						"w": 131,
+						"h": 166
+					}
+				},
+				{
+					"filename": "Walking/011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 59,
+						"w": 116,
+						"h": 170
+					},
+					"frame": {
+						"x": 238,
+						"y": 1,
+						"w": 116,
+						"h": 170
+					}
+				},
+				{
+					"filename": "Walking/012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 77,
+						"y": 59,
+						"w": 116,
+						"h": 170
+					},
+					"frame": {
+						"x": 238,
+						"y": 173,
+						"w": 116,
+						"h": 170
+					}
+				},
+				{
+					"filename": "Hurt/005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 40,
+						"y": 62,
+						"w": 136,
+						"h": 165
+					},
+					"frame": {
+						"x": 285,
+						"y": 345,
+						"w": 136,
+						"h": 165
+					}
+				},
+				{
+					"filename": "Walking/013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 77,
+						"y": 59,
+						"w": 116,
+						"h": 170
+					},
+					"frame": {
+						"x": 356,
+						"y": 1,
+						"w": 116,
+						"h": 170
+					}
+				},
+				{
+					"filename": "Walking/016.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 74,
+						"y": 58,
+						"w": 116,
+						"h": 170
+					},
+					"frame": {
+						"x": 356,
+						"y": 173,
+						"w": 116,
+						"h": 170
+					}
+				},
+				{
+					"filename": "Hurt/006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 43,
+						"y": 62,
+						"w": 133,
+						"h": 165
+					},
+					"frame": {
+						"x": 423,
+						"y": 345,
+						"w": 133,
+						"h": 165
+					}
+				},
+				{
+					"filename": "Walking/017.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 72,
+						"y": 57,
+						"w": 116,
+						"h": 170
+					},
+					"frame": {
+						"x": 474,
+						"y": 1,
+						"w": 116,
+						"h": 170
+					}
+				},
+				{
+					"filename": "Walking/018.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 71,
+						"y": 57,
+						"w": 115,
+						"h": 170
+					},
+					"frame": {
+						"x": 474,
+						"y": 173,
+						"w": 115,
+						"h": 170
+					}
+				},
+				{
+					"filename": "Dying/007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 28,
+						"y": 65,
+						"w": 157,
+						"h": 141
+					},
+					"frame": {
+						"x": 558,
+						"y": 345,
+						"w": 157,
+						"h": 141
+					}
+				},
+				{
+					"filename": "Walking/019.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 70,
+						"y": 57,
+						"w": 115,
+						"h": 170
+					},
+					"frame": {
+						"x": 591,
+						"y": 173,
+						"w": 115,
+						"h": 170
+					}
+				},
+				{
+					"filename": "Hurt/004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 48,
+						"y": 58,
+						"w": 129,
+						"h": 169
+					},
+					"frame": {
+						"x": 592,
+						"y": 1,
+						"w": 129,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Hurt/002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 58,
+						"w": 120,
+						"h": 169
+					},
+					"frame": {
+						"x": 708,
+						"y": 172,
+						"w": 120,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Hurt/008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 51,
+						"y": 59,
+						"w": 124,
+						"h": 168
+					},
+					"frame": {
+						"x": 717,
+						"y": 343,
+						"w": 124,
+						"h": 168
+					}
+				},
+				{
+					"filename": "Walking/000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 76,
+						"y": 59,
+						"w": 117,
+						"h": 169
+					},
+					"frame": {
+						"x": 723,
+						"y": 1,
+						"w": 117,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walking/001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 76,
+						"y": 59,
+						"w": 117,
+						"h": 169
+					},
+					"frame": {
+						"x": 830,
+						"y": 172,
+						"w": 117,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Hurt/009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 56,
+						"y": 59,
+						"w": 118,
+						"h": 168
+					},
+					"frame": {
+						"x": 843,
+						"y": 343,
+						"w": 118,
+						"h": 168
+					}
+				},
+				{
+					"filename": "Walking/023.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 74,
+						"y": 59,
+						"w": 117,
+						"h": 169
+					},
+					"frame": {
+						"x": 842,
+						"y": 1,
+						"w": 117,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walking/003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 75,
+						"y": 58,
+						"w": 116,
+						"h": 169
+					},
+					"frame": {
+						"x": 949,
+						"y": 172,
+						"w": 116,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Hurt/010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 60,
+						"y": 59,
+						"w": 117,
+						"h": 168
+					},
+					"frame": {
+						"x": 963,
+						"y": 343,
+						"w": 117,
+						"h": 168
+					}
+				},
+				{
+					"filename": "Walking/004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 73,
+						"y": 58,
+						"w": 116,
+						"h": 169
+					},
+					"frame": {
+						"x": 961,
+						"y": 1,
+						"w": 116,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walking/006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 70,
+						"y": 57,
+						"w": 116,
+						"h": 169
+					},
+					"frame": {
+						"x": 1067,
+						"y": 172,
+						"w": 116,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walking/002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 76,
+						"y": 59,
+						"w": 117,
+						"h": 168
+					},
+					"frame": {
+						"x": 1082,
+						"y": 343,
+						"w": 117,
+						"h": 168
+					}
+				},
+				{
+					"filename": "Walking/008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 70,
+						"y": 58,
+						"w": 116,
+						"h": 169
+					},
+					"frame": {
+						"x": 1079,
+						"y": 1,
+						"w": 116,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walking/021.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 71,
+						"y": 58,
+						"w": 116,
+						"h": 169
+					},
+					"frame": {
+						"x": 1185,
+						"y": 172,
+						"w": 116,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Hurt/011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 65,
+						"y": 59,
+						"w": 116,
+						"h": 168
+					},
+					"frame": {
+						"x": 1201,
+						"y": 343,
+						"w": 116,
+						"h": 168
+					}
+				},
+				{
+					"filename": "Walking/005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 72,
+						"y": 57,
+						"w": 115,
+						"h": 169
+					},
+					"frame": {
+						"x": 1197,
+						"y": 1,
+						"w": 115,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walking/007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 70,
+						"y": 57,
+						"w": 115,
+						"h": 169
+					},
+					"frame": {
+						"x": 1303,
+						"y": 172,
+						"w": 115,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walking/022.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 73,
+						"y": 59,
+						"w": 116,
+						"h": 168
+					},
+					"frame": {
+						"x": 1319,
+						"y": 343,
+						"w": 116,
+						"h": 168
+					}
+				},
+				{
+					"filename": "Walking/009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 72,
+						"y": 58,
+						"w": 115,
+						"h": 169
+					},
+					"frame": {
+						"x": 1314,
+						"y": 1,
+						"w": 115,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walking/010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 74,
+						"y": 59,
+						"w": 115,
+						"h": 169
+					},
+					"frame": {
+						"x": 1420,
+						"y": 172,
+						"w": 115,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walking/020.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 70,
+						"y": 58,
+						"w": 115,
+						"h": 169
+					},
+					"frame": {
+						"x": 1431,
+						"y": 1,
+						"w": 115,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Hurt/007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 47,
+						"y": 60,
+						"w": 128,
+						"h": 167
+					},
+					"frame": {
+						"x": 1437,
+						"y": 343,
+						"w": 128,
+						"h": 167
+					}
+				},
+				{
+					"filename": "Dying/003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 88,
+						"y": 41,
+						"w": 123,
+						"h": 167
+					},
+					"frame": {
+						"x": 1537,
+						"y": 172,
+						"w": 123,
+						"h": 167
+					}
+				},
+				{
+					"filename": "Dying/002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 83,
+						"y": 47,
+						"w": 119,
+						"h": 167
+					},
+					"frame": {
+						"x": 1548,
+						"y": 1,
+						"w": 119,
+						"h": 167
+					}
+				},
+				{
+					"filename": "Hurt/001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 80,
+						"y": 60,
+						"w": 119,
+						"h": 167
+					},
+					"frame": {
+						"x": 1567,
+						"y": 341,
+						"w": 119,
+						"h": 167
+					}
+				},
+				{
+					"filename": "Dying/001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 78,
+						"y": 53,
+						"w": 116,
+						"h": 167
+					},
+					"frame": {
+						"x": 1662,
+						"y": 170,
+						"w": 116,
+						"h": 167
+					}
+				},
+				{
+					"filename": "Dying/000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 71,
+						"y": 60,
+						"w": 115,
+						"h": 167
+					},
+					"frame": {
+						"x": 1669,
+						"y": 1,
+						"w": 115,
+						"h": 167
+					}
+				},
+				{
+					"filename": "Hurt/000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 71,
+						"y": 60,
+						"w": 115,
+						"h": 167
+					},
+					"frame": {
+						"x": 1669,
+						"y": 1,
+						"w": 115,
+						"h": 167
+					}
+				},
+				{
+					"filename": "Dying/010.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 126,
+						"w": 170,
+						"h": 121
+					},
+					"frame": {
+						"x": 1786,
+						"y": 1,
+						"w": 170,
+						"h": 121
+					}
+				},
+				{
+					"filename": "Dying/011.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 133,
+						"w": 170,
+						"h": 116
+					},
+					"frame": {
+						"x": 1786,
+						"y": 124,
+						"w": 170,
+						"h": 116
+					}
+				},
+				{
+					"filename": "Dying/012.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 133,
+						"w": 170,
+						"h": 116
+					},
+					"frame": {
+						"x": 1786,
+						"y": 124,
+						"w": 170,
+						"h": 116
+					}
+				},
+				{
+					"filename": "Dying/013.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 133,
+						"w": 170,
+						"h": 116
+					},
+					"frame": {
+						"x": 1786,
+						"y": 124,
+						"w": 170,
+						"h": 116
+					}
+				},
+				{
+					"filename": "Dying/014.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 133,
+						"w": 170,
+						"h": 116
+					},
+					"frame": {
+						"x": 1786,
+						"y": 124,
+						"w": 170,
+						"h": 116
+					}
+				},
+				{
+					"filename": "Dying/009.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 115,
+						"w": 167,
+						"h": 126
+					},
+					"frame": {
+						"x": 1780,
+						"y": 242,
+						"w": 167,
+						"h": 126
+					}
+				},
+				{
+					"filename": "Dying/008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 270,
+						"h": 270
+					},
+					"spriteSourceSize": {
+						"x": 23,
+						"y": 89,
+						"w": 163,
+						"h": 130
+					},
+					"frame": {
+						"x": 1688,
+						"y": 370,
+						"w": 163,
+						"h": 130
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:8529fb3f77a67a35d53722d32141904e:14b671818b1bf0ec0e10729389f32815:c87fa74f7dbd21c077dc2e8fc2d2d752$"
+	}
+}

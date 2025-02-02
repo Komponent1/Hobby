@@ -46,5 +46,52 @@
       "string",
       "search"
     ]
+  },
+  "5": {
+    "id": 5,
+    "title": "Flipcard template",
+    "path": "Flipcard template.md",
+    "tags": [
+      "flipcard",
+      "template",
+      "tailwindcss"
+    ]
+  },
+  "6": {
+    "id": 6,
+    "title": "Phaser change Scene",
+    "path": "Phaser change Scene.md",
+    "tags": [
+      "phaser3",
+      "scene"
+    ]
+  },
+  "7": {
+    "id": 7,
+    "title": "Phaser Button",
+    "path": "Phaser Button.md",
+    "tags": [
+      "phaser3",
+      "button"
+    ]
+  },
+  "8": {
+    "id": 8,
+    "title": "Phaser 카메라 따라다니기",
+    "path": "Phaser 카메라 따라다니기.md",
+    "tags": [
+      "phaser3",
+      "camera"
+    ]
+  },
+  "9": {
+    "id": 9,
+    "title": "Phaser 카메라와 관계없이 그려지는 object",
+    "path": "Phaser 카메라와 관계없이 그려지는 object.md",
+    "tags": [
+      "phaser3",
+      "camera",
+      "ui"
+    ]
   }
 }

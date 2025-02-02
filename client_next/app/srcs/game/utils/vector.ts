@@ -15,4 +15,14 @@ export class Vector {
   get length(): () => number {
     return () => Math.sqrt(this.x * this.x + this.y * this.y);
   }
+
+  get angle(): () => number {
+    return () => Math.atan2(this.y, this.x);
+  }
+
+  rotate(angle: number): Vector {
+    const x = this.x * Math.cos(angle) - this.y * Math.sin(angle);
+    const y = this.x * Math.sin(angle) + this.y * Math.cos(angle);
+    return new Vector(x, y);
+  }
 }

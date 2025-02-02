@@ -10,7 +10,7 @@ type Props = {
 };
 const ArticlePage: React.FC<Props> = ({ articles }) => {
   const {filteredArticle, search} = useSearch(articles);
-  console.log('1', filteredArticle);
+
   return (
     <div>
       <Navbar />

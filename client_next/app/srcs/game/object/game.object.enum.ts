@@ -1,6 +1,8 @@
 export enum CharactorStatus {
-  ALIVE = 'ALIVE',
+  IDLE = 'IDLE',
+  ATTACK = 'ATTACK',
   DEAD = 'DEAD',
+  WAIT = 'WAIT',
 }
 export enum MoveDirection {
   UP = -1,
