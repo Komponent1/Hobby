@@ -1,4 +1,4 @@
-export const BULLET_SPEED = 1;
+export const BULLET_SPEED = 7;
 
 export const SKELETON_SPEED = 7;
 export const SKELETON_HP = 10;
