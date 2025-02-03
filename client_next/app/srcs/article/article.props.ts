@@ -6,7 +6,7 @@ export function getArticlePropsFromLocal() {
 
   return ({
     props: {
-      articles: articleList,
+      articles: articleList.reverse(),
     },
   });
 }
