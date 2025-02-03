@@ -33,7 +33,7 @@ export async function getInformationsPropsFromLoacl() {
 
   return ({
     props: {
-      informations,
+      informations: informations.reverse(),
     },
   });
 }
