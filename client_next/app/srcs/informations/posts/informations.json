@@ -93,5 +93,15 @@
       "camera",
       "ui"
     ]
+  },
+  "10": {
+    "id": 10,
+    "title": "Phaser에 물리 추가",
+    "path": "Phaser에 물리 추가.md",
+    "tags": [
+      "Phaser3",
+      "physics",
+      "example"
+    ]
   }
 }
