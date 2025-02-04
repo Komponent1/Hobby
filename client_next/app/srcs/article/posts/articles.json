@@ -48,7 +48,7 @@
     "id": 6,
     "title": "npm, pnpm",
     "path": "npm, pnpm.md",
-    "tag": [
+    "tags": [
       "pnpm",
       "build"
     ]
