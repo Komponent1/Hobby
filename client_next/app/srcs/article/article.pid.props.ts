@@ -44,7 +44,10 @@ export async function getArticleProps({pid}: Property) {
     .use(rehypeStringify)
     .process(file);
   const content = parsed.toString();
-  const achorPoints = content.match(/<h3>.*<\/h3>/g)?.map((match) => match.replace(/<h3>/, '').replace(/<\/h3>/, ''));
+  let anchorPoints = content.match(/<h3>.*<\/h3>/g)?.map((match) => match.replace(/<h3>/, '').replace(/<\/h3>/, ''));
+  if (!anchorPoints) {
+    anchorPoints = [];
+  }
   const replaceH3WithTag = content.replace(
     /<h3>.*<\/h3>/g,
     (match) => `<h3 id="${match.replace(/<h3>/, '').replace(/<\/h3>/, '')}">${match.replace(/<h3>/, '').replace(/<h3>/, '')}</h3>`,
@@ -54,7 +57,7 @@ export async function getArticleProps({pid}: Property) {
     props: {
       article: (articlesJson as {[key: string]: any})[pid] as Article,
       content: replaceH3WithTag,
-      anchorPoints: achorPoints,
+      anchorPoints,
     },
   };
 }
