@@ -8,11 +8,12 @@ import Navbar from "../common/common.components/common.components.navbar";
 type Props = {
   content: string;
   article: Article;
+  anchorPoints: string[];
 };
-const ArticlesPidPage: React.FC<Props> = ({content, article}) => (
+const ArticlesPidPage: React.FC<Props> = ({content, article, anchorPoints}) => (
   <div>
     <Navbar />
-    <main className="mx-7 lg:mx-6 mt-32 mb-32 flex-grow">
+    <main className="mx-7 lg:mx-6 mt-32 mb-32 flex">
       <div className="max-w-5xl mx-auto">
         <header className="mb-14 mt-28">
           <h1 className="text-3xl text-center font-bold leading-normal text-slate-900 mt-0 mb-3">
@@ -43,6 +44,20 @@ const ArticlesPidPage: React.FC<Props> = ({content, article}) => (
         <div className="prose text-slate-800 max-w-none">
           <div dangerouslySetInnerHTML={{ __html: content }} className="markdown-body" />
         </div>
+      </div>
+      <div className="mt-10 max-w-5xl mx-auto hidden lg:block">
+        {anchorPoints.length > 0 && (
+          <div className="sticky top-128">
+            <h2 className="text-lg font-semibold text-slate-800 mb-3">목차</h2>
+            <ul>
+              {anchorPoints.map((anchor) => (
+                <li key={anchor} className="text-base text-slate-500 mt-2 hover:text-slate-900">
+                  <a href={`#${anchor}`}>{anchor}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </main>
   </div>
