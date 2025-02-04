@@ -19,7 +19,7 @@ rl.question('  Write Title : ', (title) => {
           id: newArticleNumber,
           title,
           path: `${title}.md`,
-          tag: tags.split(','),
+          tags: tags.split(','),
         },
       }
       fs.writeFileSync(`${__dirname}/client_next/app/srcs/article/posts/articles.json`, JSON.stringify(newArticleListJson, null, 2));
