@@ -20,7 +20,10 @@
   "game": {
     "title": "Game",
     "path": "/game",
-    "description": "웹 게임 저장소"
+    "description": "웹 게임 저장소",
+    "children": {
+      "path": "/game/survival-monster"
+    }
   },
   "steam": {
     "title": "Steam",

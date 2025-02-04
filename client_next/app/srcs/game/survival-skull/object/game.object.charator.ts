@@ -1,6 +1,6 @@
 import {CharactorStatus} from './game.object.enum';
 import {Hpbar} from './base/game.object.hpbar';
-import { Vector } from "../utils/vector";
+import { Vector } from "../../utils/vector";
 
 export class Charactor {
   protected _status: CharactorStatus = CharactorStatus.IDLE;

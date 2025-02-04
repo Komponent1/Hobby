@@ -11,7 +11,7 @@ const MainPage: React.FC = () => {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-4 auto-rows-auto">
         {Object.keys(pages as PageConfig).map((page) => {
           // eslint-disable-next-line react/jsx-no-useless-fragment
-          if (page === 'main') return <></>;
+          if (page === 'main') return <React.Fragment key={page} />;
           return (
             <FlipCard
               key={page}

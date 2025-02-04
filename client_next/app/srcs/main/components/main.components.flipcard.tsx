@@ -4,11 +4,14 @@ type Props = {
   front: ReactNode;
   back: ReactNode;
   onClick?: () => void;
+  customClass?: string;
 };
-const FlipCard: React.FC<Props> = ({front, back, onClick}) => (
+const FlipCard: React.FC<Props> = ({
+  front, back, onClick, customClass,
+}) => (
   <button
     type="button"
-    className="group w-48 h-48 [perspective:800px]"
+    className={`group w-48 h-48 [perspective:800px] ${customClass}`}
     onClick={() => onClick && onClick()}
   >
     <div className="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">

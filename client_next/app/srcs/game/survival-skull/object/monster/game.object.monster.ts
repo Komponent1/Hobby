@@ -1,6 +1,6 @@
 import {Charactor} from '../game.object.charator';
 import type {Stage} from '../../scenes/game.scene.stage';
-import {Vector} from '../../utils/vector';
+import {Vector} from '../../../utils/vector';
 import {CharactorStatus} from '../game.object.enum';
 import { MonsterHpbar } from "./game.object.monsterHpbar";
 import {Player} from '../game.object.player';
