@@ -6,9 +6,10 @@ import { Article } from "../../srcs/article/dto/article";
 type Props = {
   content: string;
   article: Article;
+  anchorPoints: string[];
 };
-const ArticlesPid: React.FC<Props> = ({content, article}) => (
-  <ArticlesPidPage content={content} article={article} />
+const ArticlesPid: React.FC<Props> = ({content, article, anchorPoints}) => (
+  <ArticlesPidPage content={content} article={article} anchorPoints={anchorPoints} />
 );
 
 export function getStaticPaths() {
