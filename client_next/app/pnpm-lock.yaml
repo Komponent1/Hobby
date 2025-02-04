@@ -26,6 +26,9 @@ importers:
       apexcharts:
         specifier: ^4.3.0
         version: 4.4.0
+      axios:
+        specifier: ^1.7.9
+        version: 1.7.9
       chart.js:
         specifier: ^4.4.4
         version: 4.4.7
