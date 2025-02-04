@@ -31,7 +31,7 @@ const Autocomplete: React.FC<Props> = ({
     <div className="relative mb-5">
       <input
         type="text"
-        className="w-full p-3 border border-gray-200 dark:border-gray-700 dark:text-gray-400 focus:border-gray-300 dark:focus:border-gray-600 focus:outline-none rounded-md"
+        className="w-full p-3 border border-gray-200 focus:border-gray-300 focus:outline-none rounded-md"
         placeholder="검색어를 입력해주세요"
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -41,12 +41,12 @@ const Autocomplete: React.FC<Props> = ({
         onKeyDown={(e) => e.key === 'Enter' && handleClick(text)}
       />
       {show && (
-        <div className="absolute w-full bg-white border border-gray-200 dark:border-gray-700 dark:text-gray-400 rounded-md shadow-md z-50">
+        <div className="absolute w-full bg-white border border-gray-200 rounded-md shadow-md z-50">
           {tags.map((tag) => (
             <button
               key={tag}
               type="button"
-              className="w-full p-3 text-left hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="w-full p-3 text-left hover:bg-gray-100"
               onClick={() => handleClick(tag)}
             >
               {tag}

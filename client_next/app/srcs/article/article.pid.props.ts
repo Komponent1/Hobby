@@ -43,11 +43,21 @@ export async function getArticleProps({pid}: Property) {
     .use(rehypeHighlight)
     .use(rehypeStringify)
     .process(file);
+  const content = parsed.toString();
+  let anchorPoints = content.match(/<h3>.*<\/h3>/g)?.map((match) => match.replace(/<h3>/, '').replace(/<\/h3>/, ''));
+  if (!anchorPoints) {
+    anchorPoints = [];
+  }
+  const replaceH3WithTag = content.replace(
+    /<h3>.*<\/h3>/g,
+    (match) => `<h3 id="${match.replace(/<h3>/, '').replace(/<\/h3>/, '')}">${match.replace(/<h3>/, '').replace(/<h3>/, '')}</h3>`,
+  );
 
   return {
     props: {
       article: (articlesJson as {[key: string]: any})[pid] as Article,
-      content: parsed.toString(),
+      content: replaceH3WithTag,
+      anchorPoints,
     },
   };
 }

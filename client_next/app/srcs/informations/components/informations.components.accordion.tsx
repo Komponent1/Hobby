@@ -15,8 +15,8 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
     <h2 id={`accordion-collapse-heading-${information.information.id}`}>
       <button
         type="button"
-        className="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 dark:border-gray-700 dark:text-gray-400 focus:bg-gray-100 gap-3"
         data-accordion-target={`#accordion-collapse-body-${information.information.id}`}
+        className="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:bg-gray-100 gap-3"
         aria-expanded={openId === information.information.id}
         aria-controls={`accordion-collapse-body-${information.information.id}`}
         onClick={
