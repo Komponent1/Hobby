@@ -4,7 +4,10 @@
     "title": "idea",
     "path": "idea.md",
     "photo": "/github.png",
-    "tags": ["idea", "simple"]
+    "tags": [
+      "idea",
+      "simple"
+    ]
   },
   "1": {
     "id": 1,
@@ -34,6 +37,20 @@
     "id": 5,
     "title": "Phaser Game - 1 기초",
     "path": "Phaser Game - 1 기초.md",
-    "tags": ["phaser", "series", "base", "nextjs"]
+    "tags": [
+      "phaser",
+      "series",
+      "base",
+      "nextjs"
+    ]
+  },
+  "6": {
+    "id": 6,
+    "title": "npm, pnpm",
+    "path": "npm, pnpm.md",
+    "tag": [
+      "pnpm",
+      "build"
+    ]
   }
 }
