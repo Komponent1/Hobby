@@ -4,7 +4,7 @@ import { forwardRef, useLayoutEffect, useRef } from 'react';
 import { RefPhaserGame } from './dto/game.dto.ref';
 import {gameConfig} from './config/game.config';
 
-const Game = forwardRef<RefPhaserGame, {}>((_, ref) => {
+const SurvivalSkullContainer = forwardRef<RefPhaserGame, {}>((_, ref) => {
   const game = useRef<Phaser.Game | null>(null);
 
   useLayoutEffect(() => {
@@ -33,6 +33,6 @@ const Game = forwardRef<RefPhaserGame, {}>((_, ref) => {
   );
 });
 
-Game.displayName = 'Game';
+SurvivalSkullContainer.displayName = 'Game';
 
-export default Game;
+export default SurvivalSkullContainer;

@@ -1,12 +1,8 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
+import GamePage from "../../srcs/game/game.page";
 
-const DynamicComponent = dynamic(() => import('../../srcs/game/game.page'), { ssr: false });
-
-const GamePage: React.FC = () => (
-  <div id="game">
-    <DynamicComponent />
-  </div>
+const Game: React.FC = () => (
+  <GamePage />
 );
 
-export default GamePage;
+export default Game;

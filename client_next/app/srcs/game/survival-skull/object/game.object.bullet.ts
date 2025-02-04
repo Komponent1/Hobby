@@ -1,7 +1,7 @@
 import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/game.constant.config";
 import {} from '../constant/game.constant.monster';
 import type {Stage} from '../scenes/game.scene.stage';
-import {Vector} from '../utils/vector';
+import {Vector} from '../../utils/vector';
 import type {Charactor} from './game.object.charator';
 import {BulletStatus} from './game.object.enum';
 
