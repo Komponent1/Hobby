@@ -39,7 +39,7 @@ const Table = <T extends {[key: string]: {type: 'image' | 'text', value: string,
               {categories.map((category) => (
                 <td key={`${category}`} className="px-6 py-4">
                   {data[category].type === 'image' ? (
-                    <Image src={data[category].value as string} layout="fixed" objectFit="cover" width={200} height={80} alt="no photo" />
+                    <Image src={data[category].value as string} className="fixed object-cover" width={200} height={80} alt="no photo" />
                   ) : (
                     <span className="font-semibold text-gray-900">
                       {data[category].value}

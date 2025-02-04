@@ -32,7 +32,7 @@ const GamePage: React.FC = () => {
                   alt={game.title}
                   width={200}
                   height={200}
-                  objectFit="cover"
+                  className="object-cover"
                 />
                 <h2 className="text-white mt-3">{game.title}</h2>
               </div>

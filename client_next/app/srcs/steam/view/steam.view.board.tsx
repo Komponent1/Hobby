@@ -42,8 +42,7 @@ const SteamViewBoard: React.FC<Props> = observer(({
             <Image
               src={playerSummary.avatarfull}
               alt="Avatar Logo"
-              layout="fill"
-              objectFit="cover"
+              fill
               className="top-0 left-0 object-cover"
             />
           </div>
