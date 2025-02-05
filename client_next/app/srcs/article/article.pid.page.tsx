@@ -33,8 +33,7 @@ const ArticlesPidPage: React.FC<Props> = ({content, article, anchorPoints}) => (
                 alt={article.title}
                 width={960}
                 height={300}
-                objectFit="contain"
-                className="w-full max-w-2xl mx-auto"
+                className="w-full max-w-2xl mx-auto object-contain"
               />
             ) : (
               <div className="w-full max-w-2xl mx-auto h-96 bg-slate-200">.</div>
