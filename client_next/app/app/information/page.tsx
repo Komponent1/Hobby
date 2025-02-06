@@ -18,7 +18,7 @@ const getInformationMd2Html = async (id: number): Promise<string> => {
   return html;
 };
 const Page = async () => {
-  const list = Object.values(informationJson) as Information[];
+  const list = (Object.values(informationJson) as Information[]).reverse();
   const informations = await Promise.all(
     list.map(
       async (info) => {

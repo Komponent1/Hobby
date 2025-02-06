@@ -6,7 +6,7 @@ import ArticlePage from "./article.page";
 import { Article } from "./dto/article";
 
 const Page: React.FC = () => {
-  const articleList: Article[] = Object.values(articleJson);
+  const articleList: Article[] = Object.values(articleJson).reverse();
 
   return (
     <ArticlePage articles={articleList} />
