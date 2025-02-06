@@ -9,7 +9,7 @@ import { Information } from "./dto/informations";
 const getInformationMd2Html = async (id: number): Promise<string> => {
   const filePath = path.join(
     process.cwd(),
-    'srcs/informations/posts',
+    'app/information/__posts__',
     ((informationJson as {[key: string]: any})[id].path),
   );
   const file = fs.readFileSync(filePath, 'utf-8');

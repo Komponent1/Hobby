@@ -18,7 +18,7 @@ const ArticlesPidPage = async ({params}: Props) => {
     redirect('/error');
   }
   const article = (articlesJson as {[key: string]: any})[params.pid] as Article;
-  const filePath = path.join(process.cwd(), 'srcs/article/posts', (articlesJson as {[key: string]: any})[params.pid].path);
+  const filePath = path.join(process.cwd(), 'app/article/__posts__', (articlesJson as {[key: string]: any})[params.pid].path);
   const file = fs.readFileSync(filePath, 'utf-8');
   const html = await md2html(file);
   let anchorPoints = html.match(/<h3>.*<\/h3>/g)?.map((match) => match.replace(/<h3>/, '').replace(/<\/h3>/, ''));
