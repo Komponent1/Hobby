@@ -1,17 +1,13 @@
-'use client';
+import React from 'react';
+import dynamic from "next/dynamic";
 
-import React, { useRef } from 'react';
-import Game from './survival-skull.container';
-import { RefPhaserGame } from './dto/game.dto.ref';
-
-const SurvivalSkullPage: React.FC = () => {
-  const phaserRef = useRef<RefPhaserGame | null>(null);
-
-  return (
-    <div id="app">
-      <Game ref={phaserRef} />
-    </div>
-  );
-};
-
-export default SurvivalSkullPage;
+const DynamicComponent = dynamic(
+  () => import('./survival-skull.container'),
+  { ssr: false },
+);
+const Page: React.FC = () => (
+  <div id="app">
+    <DynamicComponent />
+  </div>
+);
+export default Page;

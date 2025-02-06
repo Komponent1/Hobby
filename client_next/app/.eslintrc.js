@@ -21,6 +21,7 @@ module.exports = {
     }],
     "@typescript-eslint/quotes": 0,
     "react/require-default-props": 0,
+    "import/no-anonymous-default-export": 0,
   },
   "overrides": [],
   "ignorePatterns": ['.eslintrc.js', 'node_modules/**', 'legacy/**', "tailwind.config.js"]

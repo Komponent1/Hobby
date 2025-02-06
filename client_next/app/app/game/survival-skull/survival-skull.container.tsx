@@ -1,5 +1,6 @@
+'use client';
+
 /* eslint-disable no-param-reassign */
-import Phaser from 'phaser';
 import { forwardRef, useLayoutEffect, useRef } from 'react';
 import { RefPhaserGame } from './dto/game.dto.ref';
 import {gameConfig} from './config/game.config';

@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import {Stage} from '../scenes/game.scene.stage';
 import { Main } from "../scenes/game.scene.main";
 import { Shop } from "../scenes/game.scene.shop";
