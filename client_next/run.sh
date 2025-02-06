@@ -1,1 +1,1 @@
-docker run -d -p 4000:4000 -v $PWD/app:/usr/app --name next next
+docker run -d -p 4000:4000 -v $PWD/app:/usr/app --name next-page-router next-page-router

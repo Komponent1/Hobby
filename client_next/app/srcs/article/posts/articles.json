@@ -52,5 +52,14 @@
       "pnpm",
       "build"
     ]
+  },
+  "7": {
+    "id": 7,
+    "title": "Next migration 12 to 14",
+    "path": "Next migration 12 to 14.md",
+    "tags": [
+      "nextjs",
+      "migration"
+    ]
   }
 }
