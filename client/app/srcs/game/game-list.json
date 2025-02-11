@@ -4,5 +4,11 @@
     "path": "/game/survival-skull",
     "description": "살아남아라 skull",
     "thumbnail": "/thumbnail/survival-skull-thumbnail.png"
+  },
+  "ten-game": {
+    "title": "TenGame",
+    "path": "/game/ten-game",
+    "description": "10을 만들어라",
+    "thumbnail": "/thumbnail/ten-game-thumbnail.png"
   }
 }
