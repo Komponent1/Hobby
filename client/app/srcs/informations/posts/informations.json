@@ -94,5 +94,26 @@
       "physics",
       "example"
     ]
+  },
+  "11": {
+    "id": 11,
+    "title": "tailwindcss upgrade",
+    "path": "tailwindcss upgrade.md",
+    "tags": [
+      "migration",
+      "cmd",
+      "tailwindcss",
+      "nextjs"
+    ]
+  },
+  "12": {
+    "id": 12,
+    "title": "react portal with nextjs",
+    "path": "react portal with nextjs.md",
+    "tags": [
+      "portal",
+      "react",
+      "nextjs"
+    ]
   }
 }

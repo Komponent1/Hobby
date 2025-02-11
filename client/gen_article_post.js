@@ -12,7 +12,7 @@ rl.question('  Write Title : ', (title) => {
       const articleList = fs.readFileSync(`${__dirname}/app/srcs/article/posts/articles.json`, 'utf-8');
       const articleListJson = JSON.parse(articleList);
   
-      const newArticleNumber = Object.keys(articleListJson).reverse()[0] + 1;
+      const newArticleNumber = Number(Object.keys(articleListJson).reverse()[0]) + 1;
       const newArticleListJson = {
         ...articleListJson,
         [newArticleNumber]: {
