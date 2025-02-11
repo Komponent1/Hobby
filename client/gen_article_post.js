@@ -9,7 +9,7 @@ const rl = readline.createInterface({
 rl.question('  Write Title : ', (title) => {
   rl.question('  Write Tags (with \',\') : ', (tags) => {
     try {
-      const articleList = fs.readFileSync(`${__dirname}/client_next/app/srcs/article/posts/articles.json`, 'utf-8');
+      const articleList = fs.readFileSync(`${__dirname}/app/srcs/article/posts/articles.json`, 'utf-8');
       const articleListJson = JSON.parse(articleList);
   
       const newArticleNumber = Object.keys(articleListJson).length;
@@ -22,7 +22,7 @@ rl.question('  Write Title : ', (title) => {
           tags: tags.split(','),
         },
       }
-      fs.writeFileSync(`${__dirname}/client_next/app/srcs/article/posts/articles.json`, JSON.stringify(newArticleListJson, null, 2));
+      fs.writeFileSync(`${__dirname}/app/srcs/article/posts/articles.json`, JSON.stringify(newArticleListJson, null, 2));
       
     } catch (err) {
       console.log('Artice.json gen error');
@@ -30,7 +30,7 @@ rl.question('  Write Title : ', (title) => {
     }
     
     try {
-      fs.writeFileSync(`${__dirname}/client_next/app/srcs/article/posts/${title}.md`, `# ${title}\n\n`);
+      fs.writeFileSync(`${__dirname}/app/srcs/article/posts/${title}.md`, `# ${title}\n\n`);
       rl.close();
     } catch (err) {
       console.log('Article.md gen error')

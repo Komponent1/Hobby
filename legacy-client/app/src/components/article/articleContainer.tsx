@@ -8,7 +8,7 @@ import { deleteArticle } from '../../store/article';
 import ArticlePresenter from './articlePresenter';
 import { EMAIL } from '../../env';
 import { useLoading } from '../../hooks';
-import { Loading } from '../../components';
+import { Loading } from '..';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import 'prismjs/themes/prism.css';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';

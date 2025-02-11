@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:19-alpine
 
 COPY app /usr/app
 WORKDIR /usr/app
@@ -7,7 +7,8 @@ ENV NODE_OPTIONS="--max-old-space-size=2048"
 ENV NODE_ENV=development
 ENV CHOKIDAR_USEPOLLING=true
 
-RUN npm install
+RUN npm i -g pnpm
+RUN pnpm install --force
 
-EXPOSE 3000
-CMD npm start
+EXPOSE 4000
+CMD npm run dev

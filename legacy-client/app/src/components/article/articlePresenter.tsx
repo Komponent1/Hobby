@@ -1,6 +1,6 @@
 import React from 'react'
 import * as style from './style';
-import { SimpleButton } from '../../components';
+import { SimpleButton } from '..';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 
 type Prop = {

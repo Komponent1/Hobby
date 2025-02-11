@@ -1,6 +1,6 @@
 import React from 'react';
 import * as style from './style';
-import { SimpleButton } from '../';
+import { SimpleButton } from '..';
 import { Typography } from '@mui/material';
 
 type Prop = {

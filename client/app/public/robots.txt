@@ -1,3 +1,10 @@
-# https://www.robotstxt.org/robotstxt.html
+# *
 User-agent: *
-Disallow:
+Allow: /
+
+# Host
+Host: https://blog-sage-pi.vercel.app
+
+# Sitemaps
+Sitemap: https://blog-sage-pi.vercel.app/sitemap.xml
+Sitemap: undefined/server-sitemap-index.xml
