@@ -18,7 +18,7 @@ const GamePage: React.FC = () => {
   const router = useRouter();
 
   return (
-    <div className="bg-cover bg-center min-h-screen w-screen bg-gradient-to-tr from-slate-600 to-slate-900 pt-32 px-12">
+    <div className="bg-cover bg-center min-h-screen w-screen bg-linear-to-tr from-slate-600 to-slate-900 pt-32 px-12">
       <Navbar />
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-4 auto-rows-auto">
         {Object.values(GameList as GameConfig).map((game) => (

@@ -12,7 +12,7 @@ const InformationsPidPage: React.FC<Props> = ({information, content}) => (
   <div>
     <Navbar />
     {information.title}
-    <main className="mx-7 lg:mx-6 mt-32 mb-32 flex-grow">
+    <main className="mx-7 lg:mx-6 mt-32 mb-32 grow">
       <div dangerouslySetInnerHTML={{__html: content}} />
     </main>
   </div>

@@ -15,7 +15,7 @@ const Card: React.FC<Props> = ({
 }) => (
   <div className="self-stretch mb-2 hover:transition-transform hover:transform hover:scale-105">
     <Link href={`/article/${id}`}>
-      <div className="rounded shadow-md h-full">
+      <div className="rounded-sm shadow-md h-full">
         <div className="h-52 grid place-items-center bg-slate-100 relative">
           {photo ? <Image fill src={photo} alt={title} className="bg:slate-100 m-0 rounded-t lazy object-contain" /> : <div className="w-full h-full" />}
         </div>

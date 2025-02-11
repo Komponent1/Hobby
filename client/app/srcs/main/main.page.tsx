@@ -7,7 +7,7 @@ import FlipCard from './components/main.components.flipcard';
 const MainPage: React.FC = () => {
   const router = useRouter();
   return (
-    <div className="bg-cover bg-center min-h-screen w-screen bg-gradient-to-tr from-slate-600 to-slate-900 grid place-items-center">
+    <div className="bg-cover bg-center min-h-screen w-screen bg-linear-to-tr from-slate-600 to-slate-900 grid place-items-center">
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-4 auto-rows-auto">
         {Object.keys(pages as PageConfig).map((page) => {
           // eslint-disable-next-line react/jsx-no-useless-fragment

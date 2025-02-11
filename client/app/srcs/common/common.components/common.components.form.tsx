@@ -25,7 +25,7 @@ const Form: React.FC<Props> = ({
         <Tooltip tooltipText="스팀 > 우측 상단 계정 > 계정정보 > 좌 상단 ID 확인" />
       </div>
       <input
-        className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+        className="shadow-sm appearance-none border rounded-sm w-full p-3 text-gray-700 leading-tight focus:ring-3 transform transition hover:scale-105 duration-300 ease-in-out"
         id={labelId}
         type="text"
         value={value}
@@ -43,7 +43,7 @@ const Form: React.FC<Props> = ({
     <div className="flex items-center justify-between pt-4">
       <button
         onClick={() => onSubmit && onSubmit(value)}
-        className="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+        className="bg-linear-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded-sm focus:ring-3 transform transition hover:scale-105 duration-300 ease-in-out"
         type="button"
       >
         {buttonText}

@@ -31,7 +31,7 @@ const Autocomplete: React.FC<Props> = ({
     <div className="relative mb-5">
       <input
         type="text"
-        className="w-full p-3 border border-gray-200 focus:border-gray-300 focus:outline-none rounded-md"
+        className="w-full p-3 border border-gray-200 focus:border-gray-300 focus:outline-hidden rounded-md"
         placeholder="검색어를 입력해주세요"
         value={text}
         onChange={(e) => setText(e.target.value)}

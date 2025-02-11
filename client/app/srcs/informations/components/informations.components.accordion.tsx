@@ -29,7 +29,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
         <div>
           <span className="mr-5">{information.information.title}</span>
           {information.information.tags.map((tag) => (
-            <span key={tag} className="rounded-md bg-slate-800 py-0.5 px-2.5 border border-transparent text-sm text-white transition-all shadow-sm mr-2">
+            <span key={tag} className="rounded-md bg-slate-800 py-0.5 px-2.5 border border-transparent text-sm text-white transition-all shadow-xs mr-2">
               {`# ${tag}`}
             </span>
           ))}

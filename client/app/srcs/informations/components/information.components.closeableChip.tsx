@@ -5,7 +5,7 @@ type Props = {
   onClose: () => void;
 };
 const CloseableChip: React.FC<Props> = ({label, onClose}) => (
-  <div id="chip" className="relative rounded-md flex bg-slate-800 py-0.5 pl-2.5 pr-8 border border-transparent text-sm text-white transition-all shadow-sm">
+  <div id="chip" className="relative rounded-md flex bg-slate-800 py-0.5 pl-2.5 pr-8 border border-transparent text-sm text-white transition-all shadow-xs">
     {label}
 
     <button

@@ -8,7 +8,7 @@ const BgBlurImage: React.FC = () => (
         <Image src="/steam-logo.png" alt="Steam Logo" fill className="-rotate-12" />
       </div>
     </div>
-    <div className="fixed top-0 bg-gradient-to-t from-slate-600 to-slate-900 h-screen w-screen grid place-items-center opacity-90" />
+    <div className="fixed top-0 bg-linear-to-t from-slate-600 to-slate-900 h-screen w-screen grid place-items-center opacity-90" />
   </>
 );
 

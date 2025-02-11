@@ -22,7 +22,7 @@ const InformationsPage: React.FC<Props> = ({informations}) => {
   return (
     <div>
       <Navbar />
-      <main className="mx-7 lg:mx-6 mt-32 mb-32 flex-grow">
+      <main className="mx-7 lg:mx-6 mt-32 mb-32 grow">
         <Autocomplete
           text={text}
           setText={setText}
