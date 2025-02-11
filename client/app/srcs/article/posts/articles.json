@@ -1,14 +1,4 @@
 {
-  "0": {
-    "id": 0,
-    "title": "idea",
-    "path": "idea.md",
-    "photo": "/github.png",
-    "tags": [
-      "idea",
-      "simple"
-    ]
-  },
   "1": {
     "id": 1,
     "title": "Nest Template",
@@ -19,12 +9,6 @@
     "id": 2,
     "title": "NextJs",
     "path": "nextjs.md",
-    "tags": []
-  },
-  "3": {
-    "id": 3,
-    "title": "TypeORM",
-    "path": "typeorm.md",
     "tags": []
   },
   "4": {

@@ -9,15 +9,6 @@
       "page"
     ]
   },
-  "1": {
-    "id": 1,
-    "title": "test",
-    "path": "test.md",
-    "tags": [
-      "test",
-      "test2"
-    ]
-  },
   "2": {
     "id": 2,
     "title": "react component generic",
