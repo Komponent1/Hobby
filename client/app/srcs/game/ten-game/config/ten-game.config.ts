@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { Stage } from "../scene/ten-game.scene.stage";
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
@@ -15,7 +16,6 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     },
   },
   input: {
-    keyboard: true,
     mouse: true,
   },
   dom: {
@@ -23,6 +23,6 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   },
   backgroundColor: '#ffffff',
   scene: [
-    /** Add Scenes */
+    Stage,
   ],
 };

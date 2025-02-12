@@ -2,19 +2,19 @@ import {Scene} from 'phaser';
 
 export class Loader {
   static loadCharacterAtlas(scene: Scene, name: string) {
-    scene.load.atlas(name, `/assets/character/${name}/${name}.png`, `/assets/character/${name}/${name}.json`);
+    scene.load.atlas(name, `/assets/survival-skull/character/${name}/${name}.png`, `/assets/survival-skull/character/${name}/${name}.json`);
   }
   static loadEffectAtlas(scene: Scene, name: string) {
-    scene.load.atlas(name, `/assets/effect/${name}.png`, `/assets/effect/${name}.json`);
+    scene.load.atlas(name, `/assets/survival-skull/effect/${name}.png`, `/assets/survival-skull/effect/${name}.json`);
   }
   static loadTile(scene: Scene, name: string) {
-    scene.load.atlas(name, `/assets/tile/${name}.png`, `/assets/tile/${name}.json`);
+    scene.load.atlas(name, `/assets/survival-skull/tile/${name}.png`, `/assets/survival-skull/tile/${name}.json`);
   }
   static loadUi(scene: Scene, name: string) {
-    scene.load.atlas(name, `/assets/ui/${name}.png`, `/assets/ui/${name}.json`);
+    scene.load.atlas(name, `/assets/survival-skull/ui/${name}.png`, `/assets/survival-skull/ui/${name}.json`);
   }
   static loadBullet(scene: Scene) {
-    scene.load.image('bullet', `/assets/effect/bullet.png`);
+    scene.load.image('bullet', `/assets/survival-skull/effect/bullet.png`);
   }
   static createEffectAnimation(scene: Scene, name: string) {
     scene.anims.create({
