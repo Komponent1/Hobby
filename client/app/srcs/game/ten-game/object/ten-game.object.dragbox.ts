@@ -13,9 +13,14 @@ export class DragBox {
     this.startPoint = {x, y};
     this.box = scene.add.rectangle(x, y, 0, 0, 0x000000, 0.5);
   }
-  draw(x: number, y: number) {
+  draw(scene: Stage, x: number, y: number) {
     if (this.box === null) return;
     if (this.startPoint === null) return;
+    if (scene.board.isSumTen(this.startPoint, {x, y})) {
+      this.box.setFillStyle(0x0000ff, 0.5);
+    } else {
+      this.box.setFillStyle(0x000000, 0.5);
+    }
 
     this.box.width = x - this.startPoint.x;
     this.box.height = y - this.startPoint.y;

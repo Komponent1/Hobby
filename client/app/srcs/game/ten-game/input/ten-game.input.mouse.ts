@@ -8,7 +8,7 @@ export class Mouse {
   }
   static move(scene: Stage) {
     scene.input.on("pointermove", (pointer: {x: number; y: number}) => {
-      scene.dragBox.draw(pointer.x, pointer.y);
+      scene.dragBox.draw(scene, pointer.x, pointer.y);
     });
   }
   static end(scene: Stage) {

@@ -28,7 +28,7 @@ export class Board {
     this.boardMeta.forEach((row, i) => {
       row.forEach((col, j) => {
         const base = scene.add.circle(0, 0, BASE_W / 2, 0xff0000).setOrigin(0, 0);
-        const text = scene.add.text(BASE_W / 2, BASE_H / 2, `${col}`, {color: "#ffffff"}).setOrigin(0.5, 0.5);
+        const text = scene.add.text(BASE_W / 2, BASE_H / 2, `${col}`, {color: "#ffffff", fontSize: 24, fontStyle: 'bold'}).setOrigin(0.5, 0.5);
         const object = scene.add.container(
           BASE_W * j + MARGIN * (j + 1),
           BASE_H * i + MARGIN * (i + 1),
@@ -38,9 +38,8 @@ export class Board {
       });
     });
   }
-  checkTen(downPoint: {x: number; y: number} | null, releasePoint: {x: number; y: number}) {
-    if (downPoint === null) return;
-
+  isSumTen(downPoint: {x: number; y: number} | null, releasePoint: {x: number; y: number}) {
+    if (downPoint === null) return false;
     const startPoint = {
       x: Math.min(downPoint.x, releasePoint.x),
       y: Math.min(downPoint.y, releasePoint.y),
@@ -56,23 +55,37 @@ export class Board {
     let sum = 0;
     for (let {i} = startIndex; i <= endIndex.i; i += 1) {
       for (let {j} = startIndex; j <= endIndex.j; j += 1) {
-        const appleX = MARGIN + j * (BASE_W + MARGIN);
-        const appleY = MARGIN + i * (BASE_H + MARGIN);
+        const appleX = MARGIN + j * (BASE_W + MARGIN) + BASE_W / 2;
+        const appleY = MARGIN + i * (BASE_H + MARGIN) + BASE_H / 2;
 
-        if (appleX >= startPoint.x && appleX + BASE_W <= endPoint.x
-            && appleY >= startPoint.y && appleY + BASE_H <= endPoint.y) {
+        if (appleX >= startPoint.x && appleX <= endPoint.x
+            && appleY >= startPoint.y && appleY <= endPoint.y) {
           if (this.boardMeta[i][j] !== undefined) sum += this.boardMeta[i][j];
         }
       }
     }
-    if (sum === 10) {
+    return sum === 10;
+  }
+  checkTen(downPoint: {x: number; y: number} | null, releasePoint: {x: number; y: number}) {
+    if (downPoint === null) return;
+
+    const startPoint = {
+      x: Math.min(downPoint.x, releasePoint.x),
+      y: Math.min(downPoint.y, releasePoint.y),
+    };
+    const endPoint = {
+      x: Math.max(downPoint.x, releasePoint.x),
+      y: Math.max(downPoint.y, releasePoint.y),
+    };
+
+    if (this.isSumTen(startPoint, endPoint)) {
       this.boardMeta.forEach((row, i) => {
         row.forEach((col, j) => {
-          const appleX = MARGIN + j * (BASE_W + MARGIN);
-          const appleY = MARGIN + i * (BASE_H + MARGIN);
+          const appleX = MARGIN + j * (BASE_W + MARGIN) + BASE_W / 2;
+          const appleY = MARGIN + i * (BASE_H + MARGIN) + BASE_H / 2;
 
-          if (appleX >= startPoint.x && appleX + BASE_W <= endPoint.x
-              && appleY >= startPoint.y && appleY + BASE_H <= endPoint.y) {
+          if (appleX >= startPoint.x && appleX <= endPoint.x
+              && appleY >= startPoint.y && appleY <= endPoint.y) {
             this.boardMeta[i][j] = 0;
             this.board[i][j]?.destroy();
             this.board[i][j] = null;
