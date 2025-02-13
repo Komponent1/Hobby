@@ -122,7 +122,7 @@ export class Board {
             if (this.board[i][j]) {
               this.emptyBoardIndexes.push({i, j});
               score += 1;
-              this.board[i][j].destroy();
+              this.board[i][j]?.destroy();
             }
             this.board[i][j] = null;
           }
