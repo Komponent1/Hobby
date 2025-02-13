@@ -22,6 +22,7 @@ export class Stage extends Scene {
   public timer!: Timer;
   public ui!: Ui;
 
+  public boomGenTimerEvent!: Phaser.Time.TimerEvent;
   // preload() {
   //   Loader.loadBackground(this);
   //   Loader.loadBaseImage(this);
@@ -50,6 +51,13 @@ export class Stage extends Scene {
     Mouse.create(this);
     Mouse.move(this);
     Mouse.end(this);
+
+    this.boomGenTimerEvent = this.time.addEvent({
+      delay: 1000,
+      callback: (scene: Stage) => this.board.genNewBoom(scene),
+      args: [this],
+      loop: true,
+    });
   }
   update() {
     if (this.stageInfo.stageState === StageState.Playing) {
