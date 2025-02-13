@@ -66,8 +66,11 @@ export class Board {
     }
     return sum === 10;
   }
-  checkTen(downPoint: {x: number; y: number} | null, releasePoint: {x: number; y: number}) {
-    if (downPoint === null) return;
+  checkTenAndGetScore(
+    downPoint: {x: number; y: number} | null,
+    releasePoint: {x: number; y: number},
+  ) {
+    if (downPoint === null) return 0;
 
     const startPoint = {
       x: Math.min(downPoint.x, releasePoint.x),
@@ -79,6 +82,7 @@ export class Board {
     };
 
     if (this.isSumTen(startPoint, endPoint)) {
+      let score = 0;
       this.boardMeta.forEach((row, i) => {
         row.forEach((col, j) => {
           const appleX = MARGIN + j * (BASE_W + MARGIN) + BASE_W / 2;
@@ -87,12 +91,17 @@ export class Board {
           if (appleX >= startPoint.x && appleX <= endPoint.x
               && appleY >= startPoint.y && appleY <= endPoint.y) {
             this.boardMeta[i][j] = 0;
-            this.board[i][j]?.destroy();
+            if (this.board[i][j]) {
+              score += 1;
+              this.board[i][j].destroy();
+            }
             this.board[i][j] = null;
           }
         });
       });
+      return score;
     }
+    return 0;
   }
 
   static getIndex(point: {x: number; y: number}) {

@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import { Stage } from "../scene/ten-game.scene.stage";
+import { Main } from "../scene/ten-game.scene.main";
+import { Result } from "../scene/ten-game.scene.result";
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
@@ -9,12 +11,6 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     height: 1080,
     mode: Phaser.Scale.FIT,
   },
-  physics: {
-    default: 'arcade',
-    arcade: {
-      debug: false,
-    },
-  },
   input: {
     mouse: true,
   },
@@ -23,6 +19,6 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   },
   backgroundColor: '#ffffff',
   scene: [
-    Stage,
+    Main, Stage, Result,
   ],
 };

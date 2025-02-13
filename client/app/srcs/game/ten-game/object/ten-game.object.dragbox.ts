@@ -29,7 +29,9 @@ export class DragBox {
     if (this.box === null) return;
     if (this.startPoint === null) return;
 
-    scene.board.checkTen(this.startPoint, {x, y});
+    const newScore = scene.board.checkTenAndGetScore(this.startPoint, {x, y});
+    scene.stageInfo.addScore(newScore);
+    scene.ui.scoreUpdate(scene);
     this.box.destroy();
     this.box = null;
   }
