@@ -1,7 +1,8 @@
 import {Scene} from 'phaser';
 // import { Loader } from "../loader/ten-game.loader";
 import {
-  BASE_H, BASE_W, COL, MARGIN, ROW,
+  APPLE_GEN_TIME,
+  BASE_H, BASE_W, BOOM_GEN_TIME, COL, MARGIN, ROW,
   StageState,
 } from "../constant/ten-game.constant.stage";
 import { Board } from "../object/ten-game.object.board";
@@ -23,6 +24,7 @@ export class Stage extends Scene {
   public ui!: Ui;
 
   public boomGenTimerEvent!: Phaser.Time.TimerEvent;
+  public appleGenTimerEvent!: Phaser.Time.TimerEvent;
   // preload() {
   //   Loader.loadBackground(this);
   //   Loader.loadBaseImage(this);
@@ -53,8 +55,14 @@ export class Stage extends Scene {
     Mouse.end(this);
 
     this.boomGenTimerEvent = this.time.addEvent({
-      delay: 1000,
+      delay: BOOM_GEN_TIME,
       callback: (scene: Stage) => this.board.genNewBoom(scene),
+      args: [this],
+      loop: true,
+    });
+    this.appleGenTimerEvent = this.time.addEvent({
+      delay: APPLE_GEN_TIME,
+      callback: (scene: Stage) => this.board.genNewBlock(scene),
       args: [this],
       loop: true,
     });

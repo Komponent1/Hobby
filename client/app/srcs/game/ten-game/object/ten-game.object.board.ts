@@ -1,24 +1,14 @@
 import {
-  BASE_H, BASE_W, COL, MARGIN, ROW,
+  APPLE_GEN_RATE,
+  BASE_H, BASE_W, BlockType, COL, MARGIN, ROW,
 } from "../constant/ten-game.constant.stage";
+import { Block } from "../dto/ten-game.dto.ref";
 import type { Stage } from "../scene/ten-game.scene.stage";
-import { getRandomIndex, isInAppleCircle } from "../utils/ten-game.utils.board";
+import { checkBoardRate, getRandomIndex, isInAppleCircle } from "../utils/ten-game.utils.board";
 
-enum BlockType {
-  Apple = "apple",
-  Boom = "boom",
-  Empty = "empty",
-}
-type Block = {
-  type: BlockType;
-  value: number;
-};
 export class Board {
   public board!: (Phaser.GameObjects.Container | null)[][];
   public boardMeta!: Block[][];
-
-  private emptyBoardIndexes!: {i: number, j: number}[];
-  private fillBoardIndexes!: {i: number, j: number}[];
 
   static init() {
     const board = new Board();
@@ -26,15 +16,6 @@ export class Board {
       type: BlockType.Apple,
       value: Math.round(Math.random() * 8) + 1,
     })));
-    board.fillBoardIndexes = Array.from({length: ROW * COL}, (_, i) => ({
-      i: Math.floor(i / COL),
-      j: i % COL,
-    }));
-    board.emptyBoardIndexes = [];
-    /**
-       * TODO
-       * 맵 생성에서 총합이 10의 배수가 되도록 수정 필요
-       */
     return board;
   }
   create(scene: Stage) {
@@ -112,15 +93,13 @@ export class Board {
           if (appleX >= startPoint.x && appleX <= endPoint.x
               && appleY >= startPoint.y && appleY <= endPoint.y) {
             if (this.boardMeta[i][j].type === BlockType.Boom) {
-              scene.stageInfo.addBoom();
-              scene.ui.boomUpdate(scene);
+              scene.stageInfo.addBoom(scene);
             }
             this.boardMeta[i][j] = {
               type: BlockType.Empty,
               value: 0,
             };
             if (this.board[i][j]) {
-              this.emptyBoardIndexes.push({i, j});
               score += 1;
               this.board[i][j]?.destroy();
             }
@@ -134,8 +113,9 @@ export class Board {
   }
 
   genNewBlock(scene: Stage) {
-    const randomIndex = getRandomIndex(this.emptyBoardIndexes);
-    const genIndex = this.emptyBoardIndexes.splice(randomIndex, 1)[0];
+    if (checkBoardRate(this.boardMeta) >= APPLE_GEN_RATE) return;
+
+    const genIndex = getRandomIndex(this.boardMeta, BlockType.Empty);
     this.boardMeta[genIndex.i][genIndex.j] = {
       type: BlockType.Apple,
       value: Math.round(Math.random() * 8) + 1,
@@ -152,12 +132,9 @@ export class Board {
       BASE_H * genIndex.i + MARGIN * (genIndex.i + 1),
       [base, text],
     );
-    this.fillBoardIndexes.push(genIndex);
   }
   genNewBoom(scene: Stage) {
-    if (this.fillBoardIndexes.length === 0) return;
-    const randomIndex = getRandomIndex(this.fillBoardIndexes);
-    const genIndex = this.fillBoardIndexes.splice(randomIndex, 1)[0];
+    const genIndex = getRandomIndex(this.boardMeta, BlockType.Apple);
     this.boardMeta[genIndex.i][genIndex.j].type = BlockType.Boom;
     this.board[genIndex.i][genIndex.j]?.destroy();
     const base = scene.add.circle(0, 0, BASE_W / 2, 0x000000).setOrigin(0, 0);
@@ -184,17 +161,14 @@ export class Board {
       r: BASE_W / 2,
     })) return;
 
-    if (scene.stageInfo.useBoom()) {
+    if (scene.stageInfo.useBoom(scene)) {
       this.boardMeta[index.i][index.j] = {
         type: BlockType.Empty,
         value: 0,
       };
       this.board[index.i][index.j]?.destroy();
       this.board[index.i][index.j] = null;
-      this.emptyBoardIndexes.push(index);
-      scene.ui.boomUpdate(scene);
-      scene.stageInfo.addScore(1);
-      scene.ui.scoreUpdate(scene);
+      scene.stageInfo.addScore(1, scene);
     }
   }
 
