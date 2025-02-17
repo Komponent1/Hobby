@@ -1,10 +1,15 @@
 import { Scene } from "phaser";
+import { BASE_H, BASE_W } from "../constant/ten-game.constant.stage";
 
 export class Loader {
-  static loadBackground(scene: Scene) {
-    scene.load.image("background", "/assets/ten-game/background.png");
+  static loadBricksSprite(scene: Scene) {
+    scene.load.spritesheet("bricks", "/assets/ten-game/bricks.png", {
+      frameWidth: BASE_W,
+      frameHeight: BASE_H,
+    });
   }
-  static loadBaseImage(scene: Scene) {
-    scene.load.image("base", "/assets/ten-game/base.png");
+  static loadBombImage(scene: Scene) {
+    scene.load.image("bomb-normal", "/assets/ten-game/bomb-normal.png");
+    scene.load.image("bomb-check", "/assets/ten-game/bomb-check.png");
   }
 }

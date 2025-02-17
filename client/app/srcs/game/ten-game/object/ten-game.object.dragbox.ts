@@ -4,6 +4,7 @@ export class DragBox {
   public box: Phaser.GameObjects.Rectangle | null = null;
 
   public startPoint: {x: number; y: number} | null = null;
+  private _savedijs: {i: number; j: number}[] = [];
   static init() {
     return new DragBox();
   }
@@ -16,10 +17,19 @@ export class DragBox {
   draw(scene: Stage, x: number, y: number) {
     if (this.box === null) return;
     if (this.startPoint === null) return;
-    if (scene.board.isSumTen(this.startPoint, {x, y})) {
+    const {isTen, ijs} = scene.board.isSumTenAndIndexes(this.startPoint, {x, y});
+    if (isTen) {
       this.box.setFillStyle(0x0000ff, 0.5);
+      ijs.forEach(({i, j}) => {
+        scene.board.board[i][j]?.check();
+        this._savedijs.push({i, j});
+      });
     } else {
       this.box.setFillStyle(0x000000, 0.5);
+      this._savedijs.forEach(({i, j}) => {
+        scene.board.board[i][j]?.release();
+      });
+      this._savedijs = [];
     }
 
     this.box.width = x - this.startPoint.x;

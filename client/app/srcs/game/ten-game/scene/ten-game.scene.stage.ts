@@ -1,7 +1,6 @@
 import {Scene} from 'phaser';
 // import { Loader } from "../loader/ten-game.loader";
 import {
-  APPLE_GEN_TIME,
   BASE_H, BASE_W, BOOM_GEN_TIME, COL, MARGIN, ROW,
   StageState,
 } from "../constant/ten-game.constant.stage";
@@ -11,6 +10,7 @@ import { Mouse } from "../input/ten-game.input.mouse";
 import {StageInfo} from '../object/ten-game.object.stageInfo';
 import {Timer} from '../object/ten-game.object.timer';
 import { Ui } from "../object/ten-game.object.ui";
+import { Loader } from "../loader/ten-game.loader";
 
 export class Stage extends Scene {
   constructor() {
@@ -25,10 +25,10 @@ export class Stage extends Scene {
 
   public boomGenTimerEvent!: Phaser.Time.TimerEvent;
   public appleGenTimerEvent!: Phaser.Time.TimerEvent;
-  // preload() {
-  //   Loader.loadBackground(this);
-  //   Loader.loadBaseImage(this);
-  // }
+  preload() {
+    Loader.loadBricksSprite(this);
+    Loader.loadBombImage(this);
+  }
   init() {
     this.board = Board.init();
     this.dragBox = DragBox.init();
@@ -37,13 +37,12 @@ export class Stage extends Scene {
     this.ui = Ui.init();
   }
   create() {
-    // this.add.image(0, 0, 'background').setOrigin(0, 0);
     this.add.rectangle(
       0,
       0,
       BASE_W * COL + MARGIN * (COL + 1),
-      BASE_H * ROW + MARGIN * (ROW + 1),
-      0x00ff00,
+      BASE_H * (ROW / 2) + MARGIN * ((ROW / 2) + 1),
+      0x000000,
     ).setOrigin(0, 0);
     this.stageInfo.create();
     this.board.create(this);
@@ -60,16 +59,11 @@ export class Stage extends Scene {
       args: [this],
       loop: true,
     });
-    this.appleGenTimerEvent = this.time.addEvent({
-      delay: APPLE_GEN_TIME,
-      callback: (scene: Stage) => this.board.genNewBlock(scene),
-      args: [this],
-      loop: true,
-    });
   }
   update() {
     if (this.stageInfo.stageState === StageState.Playing) {
       this.timer.update(this);
+      this.board.update();
       this.stageInfo.checkClear(this);
     } else if (this.stageInfo.stageState === StageState.GameOver) {
       this.scene.pause("Stage");

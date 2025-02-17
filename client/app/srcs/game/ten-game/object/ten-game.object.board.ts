@@ -1,13 +1,14 @@
 import {
-  APPLE_GEN_RATE,
   BASE_H, BASE_W, BlockType, COL, MARGIN, ROW,
 } from "../constant/ten-game.constant.stage";
 import { Block } from "../dto/ten-game.dto.ref";
 import type { Stage } from "../scene/ten-game.scene.stage";
-import { checkBoardRate, getRandomIndex, isInAppleCircle } from "../utils/ten-game.utils.board";
+import { getRandomIndex, isInAppleCircle } from "../utils/ten-game.utils.board";
+import {Bomb} from './ten-game.object.bomb';
+import {Brick} from './ten-game.object.brick';
 
 export class Board {
-  public board!: (Phaser.GameObjects.Container | null)[][];
+  public board!: (Brick | Bomb | null)[][];
   public boardMeta!: Block[][];
 
   static init() {
@@ -23,24 +24,17 @@ export class Board {
     this.board = Array.from({length: ROW}, () => Array.from({length: COL}, () => null));
     this.boardMeta.forEach((row, i) => {
       row.forEach((col, j) => {
-        const base = scene.add.circle(0, 0, BASE_W / 2, 0xff0000).setOrigin(0, 0);
-        const text = scene.add.text(
-          BASE_W / 2,
-          BASE_H / 2,
-          `${col.value}`,
-          {color: "#ffffff", fontSize: 24, fontStyle: 'bold'},
-        ).setOrigin(0.5, 0.5);
-        const object = scene.add.container(
-          BASE_W * j + MARGIN * (j + 1),
-          BASE_H * i + MARGIN * (i + 1),
-          [base, text],
-        );
-        this.board[i][j] = object;
+        this.board[i][j] = Brick.create(scene, i, j, col.value);
       });
     });
   }
-  isSumTen(downPoint: {x: number; y: number} | null, releasePoint: {x: number; y: number}) {
-    if (downPoint === null) return false;
+  isSumTenAndIndexes(
+    downPoint: {x: number; y: number} | null,
+    releasePoint: {x: number; y: number},
+  ) {
+    if (downPoint === null) return {isTen: false, ijs: []};
+
+    const ijs = [];
     const startPoint = {
       x: Math.min(downPoint.x, releasePoint.x),
       y: Math.min(downPoint.y, releasePoint.y),
@@ -57,15 +51,18 @@ export class Board {
     for (let {i} = startIndex; i <= endIndex.i; i += 1) {
       for (let {j} = startIndex; j <= endIndex.j; j += 1) {
         const appleX = MARGIN + j * (BASE_W + MARGIN) + BASE_W / 2;
-        const appleY = MARGIN + i * (BASE_H + MARGIN) + BASE_H / 2;
+        const appleY = MARGIN + (i - ROW / 2) * (BASE_H + MARGIN) + BASE_H / 2;
 
         if (appleX >= startPoint.x && appleX <= endPoint.x
             && appleY >= startPoint.y && appleY <= endPoint.y) {
-          if (this.boardMeta[i][j] !== undefined) sum += this.boardMeta[i][j].value;
+          if (this.boardMeta[i][j] !== undefined) {
+            ijs.push({i, j});
+            sum += this.boardMeta[i][j].value;
+          }
         }
       }
     }
-    return sum === 10;
+    return {isTen: sum === 10, ijs};
   }
   checkTenAndGetScore(
     scene: Stage,
@@ -83,71 +80,33 @@ export class Board {
       y: Math.max(downPoint.y, releasePoint.y),
     };
 
-    if (this.isSumTen(startPoint, endPoint)) {
-      let score = 0;
-      this.boardMeta.forEach((row, i) => {
-        row.forEach((col, j) => {
-          const appleX = MARGIN + j * (BASE_W + MARGIN) + BASE_W / 2;
-          const appleY = MARGIN + i * (BASE_H + MARGIN) + BASE_H / 2;
+    const {isTen, ijs} = this.isSumTenAndIndexes(startPoint, endPoint);
+    if (isTen) {
+      const score = ijs.length;
 
-          if (appleX >= startPoint.x && appleX <= endPoint.x
-              && appleY >= startPoint.y && appleY <= endPoint.y) {
-            if (this.boardMeta[i][j].type === BlockType.Boom) {
-              scene.stageInfo.addBoom(scene);
-            }
-            this.boardMeta[i][j] = {
-              type: BlockType.Empty,
-              value: 0,
-            };
-            if (this.board[i][j]) {
-              score += 1;
-              this.board[i][j]?.destroy();
-            }
-            this.board[i][j] = null;
-          }
-        });
-      });
+      this.destroyBricks(ijs, scene, 'drag');
       return score;
     }
     return 0;
   }
 
-  genNewBlock(scene: Stage) {
-    if (checkBoardRate(this.boardMeta) >= APPLE_GEN_RATE) return;
-
-    const genIndex = getRandomIndex(this.boardMeta, BlockType.Empty);
-    this.boardMeta[genIndex.i][genIndex.j] = {
-      type: BlockType.Apple,
-      value: Math.round(Math.random() * 8) + 1,
-    };
-    const base = scene.add.circle(0, 0, BASE_W / 2, 0xff0000).setOrigin(0, 0);
-    const text = scene.add.text(
-      BASE_W / 2,
-      BASE_H / 2,
-      `${this.boardMeta[genIndex.i][genIndex.j].value}`,
-      {color: "#ffffff", fontSize: 24, fontStyle: 'bold'},
-    ).setOrigin(0.5, 0.5);
-    this.board[genIndex.i][genIndex.j] = scene.add.container(
-      BASE_W * genIndex.j + MARGIN * (genIndex.j + 1),
-      BASE_H * genIndex.i + MARGIN * (genIndex.i + 1),
-      [base, text],
-    );
+  update() {
+    this.board.forEach((row) => {
+      row.forEach((col) => {
+        col?.move();
+      });
+    });
   }
   genNewBoom(scene: Stage) {
     const genIndex = getRandomIndex(this.boardMeta, BlockType.Apple);
     this.boardMeta[genIndex.i][genIndex.j].type = BlockType.Boom;
     this.board[genIndex.i][genIndex.j]?.destroy();
-    const base = scene.add.circle(0, 0, BASE_W / 2, 0x000000).setOrigin(0, 0);
-    const text = scene.add.text(
-      BASE_W / 2,
-      BASE_H / 2,
-      `${this.boardMeta[genIndex.i][genIndex.j].value}`,
-      {color: "#ffffff", fontSize: 24, fontStyle: 'bold'},
-    ).setOrigin(0.5, 0.5);
-    this.board[genIndex.i][genIndex.j] = scene.add.container(
-      BASE_W * genIndex.j + MARGIN * (genIndex.j + 1),
-      BASE_H * genIndex.i + MARGIN * (genIndex.i + 1),
-      [base, text],
+    this.board[genIndex.i][genIndex.j] = null;
+    this.board[genIndex.i][genIndex.j] = Bomb.create(
+      scene,
+      genIndex.i,
+      genIndex.j,
+      this.boardMeta[genIndex.i][genIndex.j].value,
     );
   }
   explosion(scene: Stage, downPoint: {x: number; y: number}) {
@@ -157,23 +116,64 @@ export class Board {
     if (!isInAppleCircle({
       point: downPoint,
       x: BASE_W * index.j + MARGIN * (index.j + 1) + BASE_W / 2,
-      y: BASE_H * index.i + MARGIN * (index.i + 1) + BASE_W / 2,
+      y: BASE_H * (index.i - ROW / 2) + MARGIN * (index.i + 1 - ROW / 2) + BASE_W / 2,
       r: BASE_W / 2,
     })) return;
 
     if (scene.stageInfo.useBoom(scene)) {
-      this.boardMeta[index.i][index.j] = {
-        type: BlockType.Empty,
-        value: 0,
-      };
-      this.board[index.i][index.j]?.destroy();
-      this.board[index.i][index.j] = null;
+      this.destroyBricks([{i: index.i, j: index.j}], scene, 'boom');
       scene.stageInfo.addScore(1, scene);
     }
   }
 
+  destroyBricks(ijs: {i: number; j: number}[], scene: Stage, type: 'boom' | 'drag') {
+    ijs.forEach(({i, j}) => {
+      if (this.boardMeta[i][j].type === BlockType.Boom && type === 'drag') {
+        scene.stageInfo.addBoom(scene);
+      }
+      this.boardMeta[i][j] = {
+        type: BlockType.Empty,
+        value: 0,
+      };
+      this.board[i][j]?.destroy();
+      this.board[i][j] = null;
+    });
+    for (let j = 0; j < COL; j += 1) {
+      let emptyCount = 0;
+      for (let i = ROW - 1; i >= 0; i -= 1) {
+        if (this.boardMeta[i][j].type === BlockType.Empty) {
+          emptyCount += 1;
+        } else if (emptyCount > 0) {
+          // 빈 공간을 채움
+          this.boardMeta[i + emptyCount][j] = this.boardMeta[i][j];
+          this.boardMeta[i][j] = {
+            type: BlockType.Empty,
+            value: 0,
+          };
+          this.board[i + emptyCount][j] = this.board[i][j];
+          this.board[i][j] = null;
+          // 블록의 위치를 업데이트
+          this.board[i + emptyCount][j]?.setPos(i + emptyCount, j);
+        }
+      }
+      for (let i = 0; i < emptyCount; i += 1) {
+        const value = Math.round(Math.random() * 8) + 1;
+        this.boardMeta[i][j] = {
+          type: BlockType.Apple,
+          value,
+        };
+        this.board[i][j] = Brick.create(
+          scene,
+          i,
+          j,
+          value,
+        );
+      }
+    }
+  }
+
   static getIndex(point: {x: number; y: number}) {
-    const i = Math.floor((point.y - MARGIN) / (BASE_H + MARGIN));
+    const i = Math.floor((point.y - MARGIN) / (BASE_H + MARGIN)) + ROW / 2;
     const j = Math.floor((point.x - MARGIN) / (BASE_W + MARGIN));
     return {i, j};
   }

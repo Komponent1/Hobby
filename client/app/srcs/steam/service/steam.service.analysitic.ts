@@ -43,4 +43,5 @@ class AnalyticService {
   }
 }
 
-export default new AnalyticService(rootStore.userStore, rootStore.analyticStore);
+const analyticServiceInstance = new AnalyticService(rootStore.userStore, rootStore.analyticStore);
+export default analyticServiceInstance;
