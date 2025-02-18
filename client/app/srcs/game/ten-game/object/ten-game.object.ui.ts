@@ -19,7 +19,7 @@ export class Ui {
   create(scene: Stage) {
     this._continer = scene.add.container(1920 - 250, 200);
     this.timer.create(scene, this._continer);
-    this.scoreText = scene.add.text(0, 150, `Score: ${scene.stageInfo.score}`, {
+    this.scoreText = scene.add.text(0, 150, `SCORE ${scene.stageInfo.score}`, {
       fontFamily: 'noto',
       fontSize: '32px',
       color: '#fff',
@@ -56,7 +56,7 @@ export class Ui {
   }
 
   scoreUpdate(scene: Stage) {
-    this.scoreText.setText(`Score: ${scene.stageInfo.score}`);
+    this.scoreText.setText(`SCORE ${scene.stageInfo.score}`);
   }
   bombUpdate(scene: Stage) {
     this.bombText.setText(`${scene.stageInfo.bombs}`);

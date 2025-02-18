@@ -1,6 +1,7 @@
 import {
   BASE_H, BASE_W, BlockDestroyType, BRICK_FONT_SIZE, BRICK_FONT_STROKE, BRICK_H, BRICK_W, MARGIN,
   ROW,
+  WINDOW_H,
   WINDOW_POS_X,
   WINDOW_POS_Y,
 } from '../constant/ten-game.constant.stage';
@@ -47,7 +48,7 @@ export class Brick extends BlockBase {
     brick._pos = {i, j};
     brick._container = scene.add.container(
       WINDOW_POS_X + BASE_W * j + MARGIN * (j + 1),
-      WINDOW_POS_Y + BASE_H * (i - ROW / 2) + MARGIN * (i - ROW / 2 + 1),
+      WINDOW_POS_Y + BASE_H * (i - ROW / 2) + MARGIN * (i - ROW / 2 + 1) - WINDOW_H,
       [brick._back, brick._brick, brick._text],
     );
     container.add(brick._container);

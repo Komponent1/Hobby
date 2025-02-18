@@ -32,7 +32,7 @@ export const APPLE_GEN_RATE = 0.7;
 /** 시작 폭탄 개수 */
 export const BOMB_COUNT = 5;
 /** 블록 움직이는 속도 */
-export const MOVE_SPEED = 4;
+export const MOVE_SPEED = 20;
 /** 게임 윈도우 크기 및 코너 마진 */
 export const WINDOW_W = BASE_W * COL + MARGIN * (COL + 1);
 export const WINDOW_H = BASE_H * (ROW / 2) + MARGIN * ((ROW / 2) + 1);

@@ -18,6 +18,7 @@ export class Loader {
   static loadSound(scene: Scene) {
     scene.load.audio("bomb", ["/assets/ten-game/sound/bomb.wav"]);
     scene.load.audio("brick", ["/assets/ten-game/sound/brick.wav"]);
+    scene.load.audio("bgm", ["/assets/ten-game/sound/bgm.mp3"]);
   }
   static loadExplosion(scene: Scene) {
     scene.load.spritesheet("explosion", "/assets/ten-game/explosion.png", {

@@ -17,8 +17,8 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   dom: {
     createContainer: true,
   },
-  backgroundColor: '#ffffff',
+  backgroundColor: '#000000',
   scene: [
-    Stage, Result,
+    Main, Stage, Result,
   ],
 };
