@@ -59,7 +59,7 @@ export class Brick extends BlockBase {
   release() {
     this._back.setFillStyle(0xffffff, 1);
   }
-  destroy(type: BlockDestroyType) {
+  destroy(type: BlockDestroyType, scene: Stage) {
     if (type === BlockDestroyType.Change) {
       this._container.destroy();
       return;
@@ -74,6 +74,9 @@ export class Brick extends BlockBase {
       return;
     }
     if (type === BlockDestroyType.Bomb) {
+      const sp = scene.add.sprite(this._container.x + 32, this._container.y + 32, 'explosion').play('explosion_effect').on('animationcomplete', () => {
+        sp.destroy();
+      }).setDepth(99);
       this._container.destroy();
     }
   }

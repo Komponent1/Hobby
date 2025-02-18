@@ -19,4 +19,24 @@ export class Loader {
     scene.load.audio("bomb", ["/assets/ten-game/sound/bomb.wav"]);
     scene.load.audio("brick", ["/assets/ten-game/sound/brick.wav"]);
   }
+  static loadExplosion(scene: Scene) {
+    scene.load.spritesheet("explosion", "/assets/ten-game/explosion.png", {
+      frameWidth: 64,
+      frameHeight: 64,
+    });
+  }
+  static createExplosionAnimation(scene: Scene) {
+    scene.anims.create({
+      key: "explosion_effect",
+      frames: scene.anims.generateFrameNumbers(
+        "explosion",
+        {
+          start: 0,
+          end: 5,
+        },
+      ),
+      frameRate: 20,
+      repeat: 0,
+    });
+  }
 }

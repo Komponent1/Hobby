@@ -51,8 +51,11 @@ export class Bomb extends BlockBase {
   release() {
     this._bomb.setTexture('bomb-normal');
   }
-  destroy(type: BlockDestroyType) {
+  destroy(type: BlockDestroyType, scene: Stage) {
     if (type === BlockDestroyType.Bomb) {
+      const sp = scene.add.sprite(this.container.x, this.container.y, 'explosion').play('explosion_effect').on('animationcomplete', () => {
+        sp.destroy();
+      });
       this._container.destroy();
       return;
     }

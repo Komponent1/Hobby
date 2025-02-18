@@ -129,7 +129,7 @@ export class Board {
   genNewBomb(scene: Stage) {
     const genIndex = getRandomIndex(this.boardMeta, BlockType.Apple);
     this.boardMeta[genIndex.i][genIndex.j].type = BlockType.Bomb;
-    this.board[genIndex.i][genIndex.j]?.destroy(BlockDestroyType.Change);
+    this.board[genIndex.i][genIndex.j]?.destroy(BlockDestroyType.Change, scene);
     this.board[genIndex.i][genIndex.j] = null;
     this.board[genIndex.i][genIndex.j] = Bomb.create(
       scene,
@@ -169,7 +169,7 @@ export class Board {
       };
       if (this.board[i][j]) {
         this._container.remove(this.board[i][j]!.container);
-        this.board[i][j]?.destroy(BlockDestroyType[type]);
+        this.board[i][j]?.destroy(BlockDestroyType[type], scene);
         this._deletedBricks.push(this.board[i][j]);
         this.board[i][j] = null;
       }

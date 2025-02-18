@@ -27,6 +27,7 @@ export class Stage extends Scene {
     Loader.loadBombImage(this);
     Loader.loadMouseImage(this);
     Loader.loadSound(this);
+    Loader.loadExplosion(this);
   }
   init() {
     this.board = Board.init();
@@ -42,6 +43,7 @@ export class Stage extends Scene {
       1080,
       0x000000,
     ).setOrigin(0, 0);
+    Loader.createExplosionAnimation(this);
     this.stageInfo.create();
     this.board.create(this);
     this.ui.create(this);
