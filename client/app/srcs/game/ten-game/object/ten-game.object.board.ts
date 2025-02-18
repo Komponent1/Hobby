@@ -16,7 +16,7 @@ import {Brick} from './ten-game.object.brick';
 export class Board {
   private _container!: Phaser.GameObjects.Container;
   private _outline!: Phaser.GameObjects.Graphics;
-  private _deletedBricks: (Brick | Bomb)[] = [];
+  private _deletedBricks: (Brick | Bomb | null)[] = [];
 
   public board!: (Brick | Bomb | null)[][];
   public boardMeta!: Block[][];
@@ -121,9 +121,9 @@ export class Board {
       });
     });
     this._deletedBricks.forEach((brick) => {
-      brick.update();
+      brick?.update();
     });
-    this._deletedBricks = this._deletedBricks.filter((brick) => brick.destroyed);
+    this._deletedBricks = this._deletedBricks.filter((brick) => brick?.destroyed);
   }
   genNewBoom(scene: Stage) {
     const genIndex = getRandomIndex(this.boardMeta, BlockType.Apple);
@@ -165,11 +165,12 @@ export class Board {
         type: BlockType.Empty,
         value: 0,
       };
-      if (this.board[i][j] === null) return;
-      this._container.remove(this.board[i][j].container);
-      this.board[i][j].destroy(BlockDestroyType[type]);
-      this._deletedBricks.push(this.board[i][j]);
-      this.board[i][j] = null;
+      if (this.board[i][j]) {
+        this._container.remove(this.board[i][j]!.container);
+        this.board[i][j]?.destroy(BlockDestroyType[type]);
+        this._deletedBricks.push(this.board[i][j]);
+        this.board[i][j] = null;
+      }
     });
     for (let j = 0; j < COL; j += 1) {
       let emptyCount = 0;
