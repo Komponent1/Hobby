@@ -73,7 +73,7 @@ export class Brick extends BlockBase {
       this._dirx = Math.random() > 0.5 ? 1 : -1;
       return;
     }
-    if (type === BlockDestroyType.Boom) {
+    if (type === BlockDestroyType.Bomb) {
       this._container.destroy();
     }
   }

@@ -1,11 +1,11 @@
-import { BOOM_COUNT, GAME_TIME, StageState } from "../constant/ten-game.constant.stage";
+import { BOMB_COUNT, GAME_TIME, StageState } from "../constant/ten-game.constant.stage";
 import type { Stage } from "../scene/ten-game.scene.stage";
 
 export class StageInfo {
   public stageState: StageState = StageState.Playing;
 
   public startTime: number = 0;
-  public booms: number = BOOM_COUNT;
+  public bombs: number = BOMB_COUNT;
   public score: number = 0;
 
   static init() {
@@ -19,14 +19,14 @@ export class StageInfo {
     this.score += score;
     scene.ui.scoreUpdate(scene);
   }
-  addBoom(scene: Stage) {
-    this.booms += 1;
-    scene.ui.boomUpdate(scene);
+  addBomb(scene: Stage) {
+    this.bombs += 1;
+    scene.ui.bombUpdate(scene);
   }
-  useBoom(scene: Stage) {
-    if (this.booms > 0) {
-      this.booms -= 1;
-      scene.ui.boomUpdate(scene);
+  useBomb(scene: Stage) {
+    if (this.bombs > 0) {
+      this.bombs -= 1;
+      scene.ui.bombUpdate(scene);
       return true;
     }
     return false;

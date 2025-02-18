@@ -20,17 +20,17 @@ export enum StageState {
 /** 블록의 타입(apple = 일반 블록, boom = 폭탄, empty = 빈공간) */
 export enum BlockType {
   Apple = "apple",
-  Boom = "boom",
+  Bomb = "bomb",
   Empty = "empty",
 }
 /** 폭탄 변환 주기 */
-export const BOOM_GEN_TIME = 5000;
+export const BOMB_GEN_TIME = 5000;
 /** 사과 젠 주기 */
 export const APPLE_GEN_TIME = 5000;
 /** 사과 젠 시작 비율 */
 export const APPLE_GEN_RATE = 0.7;
 /** 시작 폭탄 개수 */
-export const BOOM_COUNT = 5;
+export const BOMB_COUNT = 5;
 /** 블록 움직이는 속도 */
 export const MOVE_SPEED = 4;
 /** 게임 윈도우 크기 및 코너 마진 */
@@ -43,12 +43,12 @@ export const WINDOW_STROKE = 20;
 /** 블록 붕괴 타입 */
 export enum BlockDestroyType {
   Drag = "drag",
-  Boom = "boom",
+  Bomb = "bomb",
   Change = "change",
 }
 /** 폭탄 이동 위치 */
-export const BOOM_MOVE_POS = {
+export const BOMBS_MOVE_POS = {
   x: 1920 - 250,
   y: 450,
 };
-export const BOOM_DURATION = 300;
+export const BOMBS_DURATION = 300;

@@ -106,6 +106,7 @@ export class Board {
 
     const {isTen, ijs} = this.isSumTenAndIndexes(startPoint, endPoint);
     if (isTen) {
+      scene.sound.play('brick');
       const score = ijs.length;
 
       this.destroyBricks(ijs, scene, 'Drag');
@@ -125,9 +126,9 @@ export class Board {
     });
     this._deletedBricks = this._deletedBricks.filter((brick) => brick?.destroyed);
   }
-  genNewBoom(scene: Stage) {
+  genNewBomb(scene: Stage) {
     const genIndex = getRandomIndex(this.boardMeta, BlockType.Apple);
-    this.boardMeta[genIndex.i][genIndex.j].type = BlockType.Boom;
+    this.boardMeta[genIndex.i][genIndex.j].type = BlockType.Bomb;
     this.board[genIndex.i][genIndex.j]?.destroy(BlockDestroyType.Change);
     this.board[genIndex.i][genIndex.j] = null;
     this.board[genIndex.i][genIndex.j] = Bomb.create(
@@ -150,16 +151,17 @@ export class Board {
       r: BASE_W / 2,
     })) return;
 
-    if (scene.stageInfo.useBoom(scene)) {
-      this.destroyBricks([{i: index.i, j: index.j}], scene, 'Boom');
+    if (scene.stageInfo.useBomb(scene)) {
+      scene.sound.play('bomb');
+      this.destroyBricks([{i: index.i, j: index.j}], scene, 'Bomb');
       scene.stageInfo.addScore(1, scene);
     }
   }
 
   destroyBricks(ijs: {i: number; j: number}[], scene: Stage, type: keyof typeof BlockDestroyType) {
     ijs.forEach(({i, j}) => {
-      if (this.boardMeta[i][j].type === BlockType.Boom && type === 'Drag') {
-        scene.stageInfo.addBoom(scene);
+      if (this.boardMeta[i][j].type === BlockType.Bomb && type === 'Drag') {
+        scene.stageInfo.addBomb(scene);
       }
       this.boardMeta[i][j] = {
         type: BlockType.Empty,

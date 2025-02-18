@@ -15,4 +15,8 @@ export class Loader {
   static loadMouseImage(scene: Scene) {
     scene.load.image("mouse-right", "/assets/ten-game/mouse-right.png");
   }
+  static loadSound(scene: Scene) {
+    scene.load.audio("bomb", ["/assets/ten-game/sound/bomb.wav"]);
+    scene.load.audio("brick", ["/assets/ten-game/sound/brick.wav"]);
+  }
 }

@@ -1,5 +1,5 @@
 import {
-  BASE_H, BASE_W, BlockDestroyType, BOOM_DURATION, BOOM_MOVE_POS,
+  BASE_H, BASE_W, BlockDestroyType, BOMBS_DURATION, BOMBS_MOVE_POS,
   BRICK_FONT_SIZE, BRICK_FONT_STROKE, MARGIN, ROW,
   WINDOW_POS_X, WINDOW_POS_Y,
 } from '../constant/ten-game.constant.stage';
@@ -52,7 +52,7 @@ export class Bomb extends BlockBase {
     this._bomb.setTexture('bomb-normal');
   }
   destroy(type: BlockDestroyType) {
-    if (type === BlockDestroyType.Boom) {
+    if (type === BlockDestroyType.Bomb) {
       this._container.destroy();
       return;
     }
@@ -68,14 +68,14 @@ export class Bomb extends BlockBase {
   update() {
     if (this._destroyed) {
       const elapsedTime = Date.now() - this._startTime;
-      if (elapsedTime < BOOM_DURATION) {
-        const t = elapsedTime / BOOM_DURATION;
+      if (elapsedTime < BOMBS_DURATION) {
+        const t = elapsedTime / BOMBS_DURATION;
         this._container.x = Phaser.Math.Interpolation.Linear(
-          [this._startPos.x, BOOM_MOVE_POS.x],
+          [this._startPos.x, BOMBS_MOVE_POS.x],
           t,
         );
         this._container.y = Phaser.Math.Interpolation.Linear(
-          [this._startPos.y, BOOM_MOVE_POS.y],
+          [this._startPos.y, BOMBS_MOVE_POS.y],
           t,
         );
       } else {

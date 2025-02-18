@@ -5,8 +5,8 @@ export class Ui {
   private _continer!: Phaser.GameObjects.Container;
   public scoreText!: Phaser.GameObjects.Text;
   public resetButton!: Phaser.GameObjects.Container;
-  public boomImage!: Phaser.GameObjects.Image;
-  public boomText!: Phaser.GameObjects.Text;
+  public bombImage!: Phaser.GameObjects.Image;
+  public bombText!: Phaser.GameObjects.Text;
   public timer!: Timer;
   public tutorial!: Phaser.GameObjects.Container;
 
@@ -26,15 +26,15 @@ export class Ui {
       fontStyle: 'bold',
     }).setOrigin(0.5, 0.5);
     this._continer.add(this.scoreText);
-    this.boomImage = scene.add.image(0, 250, 'bomb-normal').setOrigin(0.5, 0.5);
-    this.boomText = scene.add.text(-20, 260, `${scene.stageInfo.booms}`, {
+    this.bombImage = scene.add.image(0, 250, 'bomb-normal').setOrigin(0.5, 0.5);
+    this.bombText = scene.add.text(-20, 260, `${scene.stageInfo.bombs}`, {
       fontFamily: 'noto',
       fontSize: '48px',
       color: '#000',
       fontStyle: 'bold',
     }).setOrigin(0.5, 0.5).setStroke('#fff', 4);
-    this._continer.add(this.boomImage);
-    this._continer.add(this.boomText);
+    this._continer.add(this.bombImage);
+    this._continer.add(this.bombText);
 
     const title = scene.add.text(
       -15,
@@ -58,7 +58,7 @@ export class Ui {
   scoreUpdate(scene: Stage) {
     this.scoreText.setText(`Score: ${scene.stageInfo.score}`);
   }
-  boomUpdate(scene: Stage) {
-    this.boomText.setText(`${scene.stageInfo.booms}`);
+  bombUpdate(scene: Stage) {
+    this.bombText.setText(`${scene.stageInfo.bombs}`);
   }
 }

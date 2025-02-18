@@ -1,7 +1,7 @@
 import {Scene} from 'phaser';
 // import { Loader } from "../loader/ten-game.loader";
 import {
-  BOOM_GEN_TIME, StageState,
+  BOMB_GEN_TIME, StageState,
 } from "../constant/ten-game.constant.stage";
 import { Board } from "../object/ten-game.object.board";
 import { DragBox } from "../object/ten-game.object.dragbox";
@@ -20,12 +20,13 @@ export class Stage extends Scene {
   public stageInfo!: StageInfo;
   public ui!: Ui;
 
-  public boomGenTimerEvent!: Phaser.Time.TimerEvent;
+  public bombGenTimerEvent!: Phaser.Time.TimerEvent;
   public appleGenTimerEvent!: Phaser.Time.TimerEvent;
   preload() {
     Loader.loadBricksSprite(this);
     Loader.loadBombImage(this);
     Loader.loadMouseImage(this);
+    Loader.loadSound(this);
   }
   init() {
     this.board = Board.init();
@@ -49,9 +50,9 @@ export class Stage extends Scene {
     Mouse.move(this);
     Mouse.end(this);
 
-    this.boomGenTimerEvent = this.time.addEvent({
-      delay: BOOM_GEN_TIME,
-      callback: (scene: Stage) => this.board.genNewBoom(scene),
+    this.bombGenTimerEvent = this.time.addEvent({
+      delay: BOMB_GEN_TIME,
+      callback: (scene: Stage) => this.board.genNewBomb(scene),
       args: [this],
       loop: true,
     });
