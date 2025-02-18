@@ -1,14 +1,15 @@
 /** 사과 크기 */
-export const BASE_W = 64;
-export const BASE_H = 64;
-export const BRICK_W = 48;
-export const BRICK_H = 48;
-
+export const BASE_W = 72;
+export const BASE_H = 72;
+export const BRICK_W = 60;
+export const BRICK_H = 60;
+export const BRICK_FONT_SIZE = 48;
+export const BRICK_FONT_STROKE = 6;
 /** 사과 사이 마진 */
 export const MARGIN = 16;
 /** 게임 보드 가로 세로 개수 */
-export const ROW = 4 * 2;
-export const COL = 5;
+export const ROW = 10 * 2;
+export const COL = 17;
 /** 게임 플레이 시간 120초 */
 export const GAME_TIME = 120 * 1000;
 /** 스테이지 상태 */
@@ -32,3 +33,10 @@ export const APPLE_GEN_RATE = 0.7;
 export const BOOM_COUNT = 5;
 /** 블록 움직이는 속도 */
 export const MOVE_SPEED = 4;
+/** 게임 윈도우 크기 및 코너 마진 */
+export const WINDOW_W = BASE_W * COL + MARGIN * (COL + 1);
+export const WINDOW_H = BASE_H * (ROW / 2) + MARGIN * ((ROW / 2) + 1);
+export const WINDOW_POS_X = 100;
+export const WINDOW_POS_Y = 80;
+export const WINDOW_RADIUS = 10;
+export const WINDOW_STROKE = 20;

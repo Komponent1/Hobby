@@ -1,6 +1,8 @@
 import {
-  BASE_H, BASE_W, BRICK_H, BRICK_W, MARGIN,
+  BASE_H, BASE_W, BRICK_FONT_SIZE, BRICK_FONT_STROKE, BRICK_H, BRICK_W, MARGIN,
   ROW,
+  WINDOW_POS_X,
+  WINDOW_POS_Y,
 } from '../constant/ten-game.constant.stage';
 import type {Stage} from '../scene/ten-game.scene.stage';
 import { BlockBase } from "./ten-game.object.blockbase";
@@ -10,7 +12,13 @@ export class Brick extends BlockBase {
   private _brick!: Phaser.GameObjects.Image;
   private _text!: Phaser.GameObjects.Text;
 
-  static create(scene: Stage, i: number, j: number, value: number) {
+  static create(
+    scene: Stage,
+    i: number,
+    j: number,
+    value: number,
+    container: Phaser.GameObjects.Container,
+  ) {
     const brick = new Brick();
     brick._back = scene.add.rectangle(0, 0, BASE_W, BASE_H, 0xffffff).setOrigin(0, 0);
     brick._brick = scene.add.sprite(
@@ -23,14 +31,15 @@ export class Brick extends BlockBase {
       BASE_W / 2,
       BASE_H / 2,
       `${value}`,
-      {color: "#000", fontSize: 32, fontStyle: 'bold'},
-    ).setOrigin(0.5, 0.5).setStroke("#fff", 3);
+      {color: "#000", fontSize: BRICK_FONT_SIZE, fontStyle: 'bold'},
+    ).setOrigin(0.5, 0.5).setStroke("#fff", BRICK_FONT_STROKE);
     brick._pos = {i, j};
     brick._container = scene.add.container(
-      BASE_W * j + MARGIN * (j + 1),
-      BASE_H * (i - ROW / 2) + MARGIN * (i - ROW / 2 + 1),
+      WINDOW_POS_X + BASE_W * j + MARGIN * (j + 1),
+      WINDOW_POS_Y + BASE_H * (i - ROW / 2) + MARGIN * (i - ROW / 2 + 1),
       [brick._back, brick._brick, brick._text],
     );
+    container.add(brick._container);
     return brick;
   }
   check() {

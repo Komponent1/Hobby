@@ -19,6 +19,6 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   },
   backgroundColor: '#ffffff',
   scene: [
-    Main, Stage, Result,
+    Stage, Result,
   ],
 };

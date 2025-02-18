@@ -10,13 +10,13 @@ export class Ui {
   }
 
   create(scene: Stage) {
-    this.scoreText = scene.add.text(1920 - 100, 300, `Score: ${scene.stageInfo.score}`, {
+    this.scoreText = scene.add.text(1920 - 180, 300, `Score: ${scene.stageInfo.score}`, {
       fontSize: '32px',
-      color: '#000',
+      color: '#fff',
     }).setOrigin(0.5, 0.5);
-    this.boomText = scene.add.text(1920 - 100, 400, `Boom: ${scene.stageInfo.booms}`, {
+    this.boomText = scene.add.text(1920 - 180, 400, `Boom: ${scene.stageInfo.booms}`, {
       fontSize: '32px',
-      color: '#000',
+      color: '#fff',
     }).setOrigin(0.5, 0.5);
   }
 

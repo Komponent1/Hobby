@@ -1,8 +1,7 @@
 import {Scene} from 'phaser';
 // import { Loader } from "../loader/ten-game.loader";
 import {
-  BASE_H, BASE_W, BOOM_GEN_TIME, COL, MARGIN, ROW,
-  StageState,
+  BOOM_GEN_TIME, StageState,
 } from "../constant/ten-game.constant.stage";
 import { Board } from "../object/ten-game.object.board";
 import { DragBox } from "../object/ten-game.object.dragbox";
@@ -40,8 +39,8 @@ export class Stage extends Scene {
     this.add.rectangle(
       0,
       0,
-      BASE_W * COL + MARGIN * (COL + 1),
-      BASE_H * (ROW / 2) + MARGIN * ((ROW / 2) + 1),
+      1920,
+      1080,
       0x000000,
     ).setOrigin(0, 0);
     this.stageInfo.create();

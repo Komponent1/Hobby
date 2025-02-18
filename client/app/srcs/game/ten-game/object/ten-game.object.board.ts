@@ -1,13 +1,22 @@
 import {
   BASE_H, BASE_W, BlockType, COL, MARGIN, ROW,
+  WINDOW_H,
+  WINDOW_POS_X,
+  WINDOW_POS_Y,
+  WINDOW_RADIUS,
+  WINDOW_STROKE,
+  WINDOW_W,
 } from "../constant/ten-game.constant.stage";
 import { Block } from "../dto/ten-game.dto.ref";
 import type { Stage } from "../scene/ten-game.scene.stage";
-import { getRandomIndex, isInAppleCircle } from "../utils/ten-game.utils.board";
+import { drawRoundRect, getRandomIndex, isInAppleCircle } from "../utils/ten-game.utils.board";
 import {Bomb} from './ten-game.object.bomb';
 import {Brick} from './ten-game.object.brick';
 
 export class Board {
+  private _container!: Phaser.GameObjects.Container;
+  private _outline!: Phaser.GameObjects.Graphics;
+
   public board!: (Brick | Bomb | null)[][];
   public boardMeta!: Block[][];
 
@@ -21,10 +30,24 @@ export class Board {
   }
   create(scene: Stage) {
     if (!this.boardMeta) return;
+    this._outline = drawRoundRect(
+      scene,
+      WINDOW_POS_X,
+      WINDOW_POS_Y,
+      WINDOW_W,
+      WINDOW_H,
+      WINDOW_RADIUS,
+      WINDOW_STROKE,
+    );
+    this._container = scene.add.container(0, 0).setDepth(1);
+    const mask = scene.make.graphics();
+    mask.fillStyle(0xffffff, 0);
+    mask.fillRect(WINDOW_POS_X, WINDOW_POS_Y, WINDOW_W, WINDOW_H);
+    this._container.setMask(mask.createGeometryMask());
     this.board = Array.from({length: ROW}, () => Array.from({length: COL}, () => null));
     this.boardMeta.forEach((row, i) => {
       row.forEach((col, j) => {
-        this.board[i][j] = Brick.create(scene, i, j, col.value);
+        this.board[i][j] = Brick.create(scene, i, j, col.value, this._container);
       });
     });
   }
@@ -50,8 +73,8 @@ export class Board {
     let sum = 0;
     for (let {i} = startIndex; i <= endIndex.i; i += 1) {
       for (let {j} = startIndex; j <= endIndex.j; j += 1) {
-        const appleX = MARGIN + j * (BASE_W + MARGIN) + BASE_W / 2;
-        const appleY = MARGIN + (i - ROW / 2) * (BASE_H + MARGIN) + BASE_H / 2;
+        const appleX = WINDOW_POS_X + MARGIN + j * (BASE_W + MARGIN) + BASE_W / 2;
+        const appleY = WINDOW_POS_Y + MARGIN + (i - ROW / 2) * (BASE_H + MARGIN) + BASE_H / 2;
 
         if (appleX >= startPoint.x && appleX <= endPoint.x
             && appleY >= startPoint.y && appleY <= endPoint.y) {
@@ -107,6 +130,7 @@ export class Board {
       genIndex.i,
       genIndex.j,
       this.boardMeta[genIndex.i][genIndex.j].value,
+      this._container,
     );
   }
   explosion(scene: Stage, downPoint: {x: number; y: number}) {
@@ -115,8 +139,9 @@ export class Board {
 
     if (!isInAppleCircle({
       point: downPoint,
-      x: BASE_W * index.j + MARGIN * (index.j + 1) + BASE_W / 2,
-      y: BASE_H * (index.i - ROW / 2) + MARGIN * (index.i + 1 - ROW / 2) + BASE_W / 2,
+      x: WINDOW_POS_X + BASE_W * index.j + MARGIN * (index.j + 1) + BASE_W / 2,
+      // eslint-disable-next-line max-len
+      y: WINDOW_POS_Y + BASE_H * (index.i - ROW / 2) + MARGIN * (index.i + 1 - ROW / 2) + BASE_W / 2,
       r: BASE_W / 2,
     })) return;
 
@@ -167,14 +192,15 @@ export class Board {
           i,
           j,
           value,
+          this._container,
         );
       }
     }
   }
 
   static getIndex(point: {x: number; y: number}) {
-    const i = Math.floor((point.y - MARGIN) / (BASE_H + MARGIN)) + ROW / 2;
-    const j = Math.floor((point.x - MARGIN) / (BASE_W + MARGIN));
+    const i = Math.floor((point.y - WINDOW_POS_Y - MARGIN) / (BASE_H + MARGIN)) + ROW / 2;
+    const j = Math.floor((point.x - WINDOW_POS_X - MARGIN) / (BASE_W + MARGIN));
     return {i, j};
   }
 }

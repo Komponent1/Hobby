@@ -1,4 +1,4 @@
-import { GAME_TIME } from "../constant/ten-game.constant.stage";
+import { GAME_TIME, WINDOW_POS_Y } from "../constant/ten-game.constant.stage";
 import type { Stage } from "../scene/ten-game.scene.stage";
 
 export class Timer {
@@ -21,7 +21,7 @@ export class Timer {
     this.timerLeft.slice(
       0,
       0,
-      100,
+      80,
       Phaser.Math.DegToRad(-90),
       Phaser.Math.DegToRad(270),
       false,
@@ -33,7 +33,7 @@ export class Timer {
       color: '#ffffff',
     });
 
-    this.timerContainer = scene.add.container(1920 - 100, 100, [
+    this.timerContainer = scene.add.container(1920 - 180, 80 + WINDOW_POS_Y, [
       this.timerBackground,
       this.timerLeft,
       this.timerText,

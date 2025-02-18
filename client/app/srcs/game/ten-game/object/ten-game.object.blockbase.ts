@@ -1,5 +1,6 @@
 import {
   BASE_H, MARGIN, MOVE_SPEED, ROW,
+  WINDOW_POS_Y,
 } from "../constant/ten-game.constant.stage";
 
 export class BlockBase {
@@ -16,11 +17,13 @@ export class BlockBase {
   }
   move() {
     if (
-      this._container.y < BASE_H * (this._pos.i - ROW / 2) + MARGIN * (this._pos.i - ROW / 2 + 1)
+      // eslint-disable-next-line max-len
+      this._container.y < WINDOW_POS_Y + BASE_H * (this._pos.i - ROW / 2) + MARGIN * (this._pos.i - ROW / 2 + 1)
     ) {
       this._container.y += MOVE_SPEED;
     } else {
-      this._container.y = BASE_H * (this._pos.i - ROW / 2) + MARGIN * (this._pos.i - ROW / 2 + 1);
+      // eslint-disable-next-line max-len
+      this._container.y = WINDOW_POS_Y + BASE_H * (this._pos.i - ROW / 2) + MARGIN * (this._pos.i - ROW / 2 + 1);
     }
   }
   destroy() {
