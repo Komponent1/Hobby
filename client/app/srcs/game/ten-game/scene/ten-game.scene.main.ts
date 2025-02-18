@@ -25,6 +25,7 @@ export class Main extends Scene {
   }
 
   create() {
+    this.sound.stopAll();
     this.sound.play("bgm", {loop: true});
     this.add.rectangle(
       0,
