@@ -14,11 +14,12 @@ export class Result extends Scene {
   }
 
   create() {
-    this.add.text(400, 300, `Game Score: ${this.stageInfo.score}`, { fontSize: "64px" });
+    this.add.text(400, 300, `Game Score: ${this.stageInfo.score}`, { fontSize: "64px", fontFamily: "noto" });
     const button = this.add.rectangle(0, 0, 200, 100, 0x00ff00);
     const text = this.add.text(0, 0, "Restart", {
       fontSize: "32px",
       color: "#000",
+      fontFamily: "noto",
     }).setOrigin(0.5, 0.5);
     this.startButton = this.add.container(1920 / 2, 1080 / 2, [button, text]);
     button.setInteractive();

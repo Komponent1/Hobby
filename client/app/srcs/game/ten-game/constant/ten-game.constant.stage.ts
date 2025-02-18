@@ -1,10 +1,10 @@
 /** 사과 크기 */
-export const BASE_W = 72;
-export const BASE_H = 72;
-export const BRICK_W = 60;
-export const BRICK_H = 60;
-export const BRICK_FONT_SIZE = 48;
-export const BRICK_FONT_STROKE = 6;
+export const BASE_W = 64;
+export const BASE_H = 64;
+export const BRICK_W = 48;
+export const BRICK_H = 48;
+export const BRICK_FONT_SIZE = 32;
+export const BRICK_FONT_STROKE = 4;
 /** 사과 사이 마진 */
 export const MARGIN = 16;
 /** 게임 보드 가로 세로 개수 */
@@ -37,6 +37,6 @@ export const MOVE_SPEED = 4;
 export const WINDOW_W = BASE_W * COL + MARGIN * (COL + 1);
 export const WINDOW_H = BASE_H * (ROW / 2) + MARGIN * ((ROW / 2) + 1);
 export const WINDOW_POS_X = 100;
-export const WINDOW_POS_Y = 80;
+export const WINDOW_POS_Y = 30;
 export const WINDOW_RADIUS = 10;
 export const WINDOW_STROKE = 20;

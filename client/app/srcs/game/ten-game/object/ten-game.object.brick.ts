@@ -31,7 +31,9 @@ export class Brick extends BlockBase {
       BASE_W / 2,
       BASE_H / 2,
       `${value}`,
-      {color: "#000", fontSize: BRICK_FONT_SIZE, fontStyle: 'bold'},
+      {
+        color: "#000", fontSize: BRICK_FONT_SIZE, fontStyle: 'bold', fontFamily: 'noto',
+      },
     ).setOrigin(0.5, 0.5).setStroke("#fff", BRICK_FONT_STROKE);
     brick._pos = {i, j};
     brick._container = scene.add.container(

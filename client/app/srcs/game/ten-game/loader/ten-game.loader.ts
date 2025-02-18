@@ -12,4 +12,7 @@ export class Loader {
     scene.load.image("bomb-normal", "/assets/ten-game/bomb-normal.png");
     scene.load.image("bomb-check", "/assets/ten-game/bomb-check.png");
   }
+  static loadMouseImage(scene: Scene) {
+    scene.load.image("mouse-right", "/assets/ten-game/mouse-right.png");
+  }
 }

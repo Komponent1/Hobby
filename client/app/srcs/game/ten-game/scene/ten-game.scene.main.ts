@@ -12,6 +12,7 @@ export class Main extends Scene {
     const text = this.add.text(0, 0, "Start", {
       fontSize: "32px",
       color: "#000",
+      fontFamily: "noto",
     }).setOrigin(0.5, 0.5);
     this.startButton = this.add.container(1920 / 2, 1080 / 2, [button, text]);
     button.setInteractive();

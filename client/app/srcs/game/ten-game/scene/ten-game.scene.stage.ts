@@ -7,7 +7,6 @@ import { Board } from "../object/ten-game.object.board";
 import { DragBox } from "../object/ten-game.object.dragbox";
 import { Mouse } from "../input/ten-game.input.mouse";
 import {StageInfo} from '../object/ten-game.object.stageInfo';
-import {Timer} from '../object/ten-game.object.timer';
 import { Ui } from "../object/ten-game.object.ui";
 import { Loader } from "../loader/ten-game.loader";
 
@@ -19,7 +18,6 @@ export class Stage extends Scene {
   public board!: Board;
   public dragBox!: DragBox;
   public stageInfo!: StageInfo;
-  public timer!: Timer;
   public ui!: Ui;
 
   public boomGenTimerEvent!: Phaser.Time.TimerEvent;
@@ -27,12 +25,12 @@ export class Stage extends Scene {
   preload() {
     Loader.loadBricksSprite(this);
     Loader.loadBombImage(this);
+    Loader.loadMouseImage(this);
   }
   init() {
     this.board = Board.init();
     this.dragBox = DragBox.init();
     this.stageInfo = StageInfo.init();
-    this.timer = Timer.init();
     this.ui = Ui.init();
   }
   create() {
@@ -45,7 +43,6 @@ export class Stage extends Scene {
     ).setOrigin(0, 0);
     this.stageInfo.create();
     this.board.create(this);
-    this.timer.create(this);
     this.ui.create(this);
 
     Mouse.create(this);
@@ -61,8 +58,8 @@ export class Stage extends Scene {
   }
   update() {
     if (this.stageInfo.stageState === StageState.Playing) {
-      this.timer.update(this);
       this.board.update();
+      this.ui.update(this);
       this.stageInfo.checkClear(this);
     } else if (this.stageInfo.stageState === StageState.GameOver) {
       this.scene.pause("Stage");

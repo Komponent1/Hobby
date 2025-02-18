@@ -1,4 +1,4 @@
-import { GAME_TIME, WINDOW_POS_Y } from "../constant/ten-game.constant.stage";
+import { GAME_TIME } from "../constant/ten-game.constant.stage";
 import type { Stage } from "../scene/ten-game.scene.stage";
 
 export class Timer {
@@ -11,13 +11,13 @@ export class Timer {
     return new Timer();
   }
 
-  create(scene: Stage) {
+  create(scene: Stage, continer: Phaser.GameObjects.Container) {
     this.timerBackground = scene.add.graphics();
-    this.timerBackground.fillStyle(0x000000, 0.5);
-    this.timerBackground.fillCircle(0, 0, 100);
+    this.timerBackground.fillStyle(0xffffff, 1);
+    this.timerBackground.fillCircle(0, 0, 80);
 
     this.timerLeft = scene.add.graphics();
-    this.timerLeft.fillStyle(0xff0000, 1);
+    this.timerLeft.fillStyle(0x000000, 1);
     this.timerLeft.slice(
       0,
       0,
@@ -30,14 +30,17 @@ export class Timer {
 
     this.timerText = scene.add.text(0, 0, `${GAME_TIME / 1000}`, {
       fontSize: '32px',
-      color: '#ffffff',
-    });
+      color: '#fff',
+      fontFamily: 'noto',
+      fontStyle: 'bold',
+    }).setStroke('#000', 4).setOrigin(0.5, 0.5);
 
-    this.timerContainer = scene.add.container(1920 - 180, 80 + WINDOW_POS_Y, [
+    this.timerContainer = scene.add.container(0, 0, [
       this.timerBackground,
       this.timerLeft,
       this.timerText,
     ]);
+    continer.add(this.timerContainer);
   }
 
   update(scene: Stage) {
@@ -46,11 +49,11 @@ export class Timer {
       leftTime > 0 ? `${leftTime}` : "0",
     );
     this.timerLeft.clear();
-    this.timerLeft.fillStyle(0xff0000, 1);
+    this.timerLeft.fillStyle(0x000000, 1);
     this.timerLeft.slice(
       0,
       0,
-      100,
+      80,
       Phaser.Math.DegToRad(-90),
       Phaser.Math.DegToRad(
         -90 + 360 * ((GAME_TIME - (Date.now() - scene.stageInfo.startTime)) / GAME_TIME),
