@@ -5,10 +5,10 @@
     "description": "살아남아라 skull",
     "thumbnail": "/thumbnail/survival-skull-thumbnail.png"
   },
-  "ten-game": {
-    "title": "TenGame",
-    "path": "/game/ten-game",
+  "ten-bricks": {
+    "title": "Ten Bricks",
+    "path": "/game/ten-bricks",
     "description": "10을 만들어라",
-    "thumbnail": "/thumbnail/ten-game-thumbnail.png"
+    "thumbnail": "/thumbnail/ten-bricks-thumbnail.png"
   }
 }

@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import Phaser from 'phaser';
 import React, { forwardRef, useLayoutEffect, useRef } from 'react';
-import { RefPhaserGame } from './dto/ten-game.dto.ref';
-import {gameConfig} from './config/ten-game.config';
+import { RefPhaserGame } from './dto/ten-bricks.dto.ref';
+import {gameConfig} from './config/ten-bricks.config';
 
 const TenGameContainer = forwardRef<RefPhaserGame, {}>((_, ref) => {
   const game = useRef<Phaser.Game | null>(null);

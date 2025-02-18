@@ -1,4 +1,4 @@
-import { BlockType } from "../constant/ten-game.constant.stage";
+import { BlockType } from "../constant/ten-bricks.constant.stage";
 
 export interface RefPhaserGame {
   game: Phaser.Game | null;

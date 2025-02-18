@@ -1,14 +1,13 @@
 import {Scene} from 'phaser';
-// import { Loader } from "../loader/ten-game.loader";
 import {
   BOMB_GEN_TIME, StageState,
-} from "../constant/ten-game.constant.stage";
-import { Board } from "../object/ten-game.object.board";
-import { DragBox } from "../object/ten-game.object.dragbox";
-import { Mouse } from "../input/ten-game.input.mouse";
-import {StageInfo} from '../object/ten-game.object.stageInfo';
-import { Ui } from "../object/ten-game.object.ui";
-import { Loader } from "../loader/ten-game.loader";
+} from "../constant/ten-bricks.constant.stage";
+import { Board } from "../object/ten-bricks.object.board";
+import { DragBox } from "../object/ten-bricks.object.dragbox";
+import { Mouse } from "../input/ten-bricks.input.mouse";
+import {StageInfo} from '../object/ten-bricks.object.stageInfo';
+import { Ui } from "../object/ten-bricks.object.ui";
+import { Loader } from "../loader/ten-bricks.loader";
 
 export class Stage extends Scene {
   constructor() {

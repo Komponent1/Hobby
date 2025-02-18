@@ -1,5 +1,5 @@
-import { GAME_TIME } from "../constant/ten-game.constant.stage";
-import type { Stage } from "../scene/ten-game.scene.stage";
+import { GAME_TIME } from "../constant/ten-bricks.constant.stage";
+import type { Stage } from "../scene/ten-bricks.scene.stage";
 
 export class Timer {
   public timerContainer!: Phaser.GameObjects.Container;

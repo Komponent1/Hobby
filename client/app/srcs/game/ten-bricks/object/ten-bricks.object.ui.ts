@@ -1,5 +1,5 @@
-import type { Stage } from "../scene/ten-game.scene.stage";
-import { Timer } from "./ten-game.object.timer";
+import type { Stage } from "../scene/ten-bricks.scene.stage";
+import { Timer } from "./ten-bricks.object.timer";
 
 export class Ui {
   private _continer!: Phaser.GameObjects.Container;

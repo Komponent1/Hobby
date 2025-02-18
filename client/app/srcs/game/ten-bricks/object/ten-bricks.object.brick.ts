@@ -4,9 +4,9 @@ import {
   WINDOW_H,
   WINDOW_POS_X,
   WINDOW_POS_Y,
-} from '../constant/ten-game.constant.stage';
-import type {Stage} from '../scene/ten-game.scene.stage';
-import { BlockBase } from "./ten-game.object.blockbase";
+} from '../constant/ten-bricks.constant.stage';
+import type {Stage} from '../scene/ten-bricks.scene.stage';
+import { BlockBase } from "./ten-bricks.object.blockbase";
 
 export class Brick extends BlockBase {
   private _back!: Phaser.GameObjects.Rectangle;

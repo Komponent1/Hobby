@@ -1,4 +1,4 @@
-import type { Stage } from "../scene/ten-game.scene.stage";
+import type { Stage } from "../scene/ten-bricks.scene.stage";
 
 export class DragBox {
   public box: Phaser.GameObjects.Rectangle | null = null;

@@ -1,5 +1,5 @@
-import { BlockType } from "../constant/ten-game.constant.stage";
-import { Block } from "../dto/ten-game.dto.ref";
+import { BlockType } from "../constant/ten-bricks.constant.stage";
+import { Block } from "../dto/ten-bricks.dto.ref";
 
 /**
  * 배열 내 랜덤 인덱스 반환 함수

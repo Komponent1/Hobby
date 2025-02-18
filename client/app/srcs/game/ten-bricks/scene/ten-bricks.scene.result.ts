@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { StageInfo } from "../object/ten-game.object.stageInfo";
+import { StageInfo } from "../object/ten-bricks.object.stageInfo";
 
 export class Result extends Scene {
   constructor() {

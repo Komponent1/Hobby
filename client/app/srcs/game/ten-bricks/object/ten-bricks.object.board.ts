@@ -6,12 +6,12 @@ import {
   WINDOW_RADIUS,
   WINDOW_STROKE,
   WINDOW_W,
-} from "../constant/ten-game.constant.stage";
-import { Block } from "../dto/ten-game.dto.ref";
-import type { Stage } from "../scene/ten-game.scene.stage";
-import { drawRoundRect, getRandomIndex, isInAppleCircle } from "../utils/ten-game.utils.board";
-import {Bomb} from './ten-game.object.bomb';
-import {Brick} from './ten-game.object.brick';
+} from "../constant/ten-bricks.constant.stage";
+import { Block } from "../dto/ten-bricks.dto.ref";
+import type { Stage } from "../scene/ten-bricks.scene.stage";
+import { drawRoundRect, getRandomIndex, isInAppleCircle } from "../utils/ten-bricks.utils.board";
+import {Bomb} from './ten-bricks.object.bomb';
+import {Brick} from './ten-bricks.object.brick';
 
 export class Board {
   private _container!: Phaser.GameObjects.Container;

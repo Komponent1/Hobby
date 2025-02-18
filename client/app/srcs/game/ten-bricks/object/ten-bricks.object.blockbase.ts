@@ -1,7 +1,7 @@
 import {
   BASE_H, MARGIN, MOVE_SPEED, ROW,
   WINDOW_POS_Y,
-} from "../constant/ten-game.constant.stage";
+} from "../constant/ten-bricks.constant.stage";
 
 export class BlockBase {
   protected _container!: Phaser.GameObjects.Container;

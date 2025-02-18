@@ -1,5 +1,5 @@
-import { BOMB_COUNT, GAME_TIME, StageState } from "../constant/ten-game.constant.stage";
-import type { Stage } from "../scene/ten-game.scene.stage";
+import { BOMB_COUNT, GAME_TIME, StageState } from "../constant/ten-bricks.constant.stage";
+import type { Stage } from "../scene/ten-bricks.scene.stage";
 
 export class StageInfo {
   public stageState: StageState = StageState.Playing;

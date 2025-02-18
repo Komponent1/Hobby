@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import {drawRoundRect} from '../utils/ten-game.utils.board';
+import {drawRoundRect} from '../utils/ten-bricks.utils.board';
 import {
   BASE_H,
   BASE_W,
@@ -7,8 +7,8 @@ import {
   MARGIN,
   ROW,
   WINDOW_H, WINDOW_POS_X, WINDOW_POS_Y, WINDOW_RADIUS, WINDOW_STROKE, WINDOW_W,
-} from '../constant/ten-game.constant.stage';
-import {Loader} from '../loader/ten-game.loader';
+} from '../constant/ten-bricks.constant.stage';
+import {Loader} from '../loader/ten-bricks.loader';
 
 export class Main extends Scene {
   constructor() {

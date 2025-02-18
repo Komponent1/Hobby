@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import { Stage } from "../scene/ten-game.scene.stage";
-import { Main } from "../scene/ten-game.scene.main";
-import { Result } from "../scene/ten-game.scene.result";
+import { Stage } from "../scene/ten-bricks.scene.stage";
+import { Main } from "../scene/ten-bricks.scene.main";
+import { Result } from "../scene/ten-bricks.scene.result";
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
