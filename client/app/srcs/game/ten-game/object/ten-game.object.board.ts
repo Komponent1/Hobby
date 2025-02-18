@@ -1,5 +1,5 @@
 import {
-  BASE_H, BASE_W, BlockType, COL, MARGIN, ROW,
+  BASE_H, BASE_W, BlockDestroyType, BlockType, COL, MARGIN, ROW,
   WINDOW_H,
   WINDOW_POS_X,
   WINDOW_POS_Y,
@@ -16,6 +16,7 @@ import {Brick} from './ten-game.object.brick';
 export class Board {
   private _container!: Phaser.GameObjects.Container;
   private _outline!: Phaser.GameObjects.Graphics;
+  private _deletedBricks: (Brick | Bomb)[] = [];
 
   public board!: (Brick | Bomb | null)[][];
   public boardMeta!: Block[][];
@@ -107,7 +108,7 @@ export class Board {
     if (isTen) {
       const score = ijs.length;
 
-      this.destroyBricks(ijs, scene, 'drag');
+      this.destroyBricks(ijs, scene, 'Drag');
       return score;
     }
     return 0;
@@ -119,11 +120,15 @@ export class Board {
         col?.move();
       });
     });
+    this._deletedBricks.forEach((brick) => {
+      brick.update();
+    });
+    this._deletedBricks = this._deletedBricks.filter((brick) => brick.destroyed);
   }
   genNewBoom(scene: Stage) {
     const genIndex = getRandomIndex(this.boardMeta, BlockType.Apple);
     this.boardMeta[genIndex.i][genIndex.j].type = BlockType.Boom;
-    this.board[genIndex.i][genIndex.j]?.destroy();
+    this.board[genIndex.i][genIndex.j]?.destroy(BlockDestroyType.Change);
     this.board[genIndex.i][genIndex.j] = null;
     this.board[genIndex.i][genIndex.j] = Bomb.create(
       scene,
@@ -146,21 +151,24 @@ export class Board {
     })) return;
 
     if (scene.stageInfo.useBoom(scene)) {
-      this.destroyBricks([{i: index.i, j: index.j}], scene, 'boom');
+      this.destroyBricks([{i: index.i, j: index.j}], scene, 'Boom');
       scene.stageInfo.addScore(1, scene);
     }
   }
 
-  destroyBricks(ijs: {i: number; j: number}[], scene: Stage, type: 'boom' | 'drag') {
+  destroyBricks(ijs: {i: number; j: number}[], scene: Stage, type: keyof typeof BlockDestroyType) {
     ijs.forEach(({i, j}) => {
-      if (this.boardMeta[i][j].type === BlockType.Boom && type === 'drag') {
+      if (this.boardMeta[i][j].type === BlockType.Boom && type === 'Drag') {
         scene.stageInfo.addBoom(scene);
       }
       this.boardMeta[i][j] = {
         type: BlockType.Empty,
         value: 0,
       };
-      this.board[i][j]?.destroy();
+      if (this.board[i][j] === null) return;
+      this._container.remove(this.board[i][j].container);
+      this.board[i][j].destroy(BlockDestroyType[type]);
+      this._deletedBricks.push(this.board[i][j]);
       this.board[i][j] = null;
     });
     for (let j = 0; j < COL; j += 1) {

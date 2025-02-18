@@ -9,6 +9,8 @@ export class BlockBase {
 
   public value!: number;
 
+  get container() { return this._container; }
+
   setPosition(x: number, y: number) {
     this._container.setPosition(x, y);
   }
@@ -25,8 +27,5 @@ export class BlockBase {
       // eslint-disable-next-line max-len
       this._container.y = WINDOW_POS_Y + BASE_H * (this._pos.i - ROW / 2) + MARGIN * (this._pos.i - ROW / 2 + 1);
     }
-  }
-  destroy() {
-    this._container.destroy();
   }
 }

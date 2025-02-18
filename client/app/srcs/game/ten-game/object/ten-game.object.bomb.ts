@@ -1,7 +1,7 @@
 import {
-  BASE_H, BASE_W, BRICK_FONT_SIZE, BRICK_FONT_STROKE, MARGIN, ROW,
-  WINDOW_POS_X,
-  WINDOW_POS_Y,
+  BASE_H, BASE_W, BlockDestroyType, BOOM_DURATION, BOOM_MOVE_POS,
+  BRICK_FONT_SIZE, BRICK_FONT_STROKE, MARGIN, ROW,
+  WINDOW_POS_X, WINDOW_POS_Y,
 } from '../constant/ten-game.constant.stage';
 import type {Stage} from '../scene/ten-game.scene.stage';
 import { BlockBase } from "./ten-game.object.blockbase";
@@ -9,6 +9,11 @@ import { BlockBase } from "./ten-game.object.blockbase";
 export class Bomb extends BlockBase {
   private _bomb!: Phaser.GameObjects.Image;
   private _text!: Phaser.GameObjects.Text;
+
+  private _destroyed = false;
+  private _startPos: {x: number; y: number} = {x: 0, y: 0};
+  private _startTime = 0;
+  get destroyed() { return this._destroyed; }
 
   static create(
     scene: Stage,
@@ -45,5 +50,38 @@ export class Bomb extends BlockBase {
   }
   release() {
     this._bomb.setTexture('bomb-normal');
+  }
+  destroy(type: BlockDestroyType) {
+    if (type === BlockDestroyType.Boom) {
+      this._container.destroy();
+      return;
+    }
+    if (type === BlockDestroyType.Drag) {
+      this._destroyed = true;
+      this._startPos = {
+        x: this._container.x,
+        y: this._container.y,
+      };
+      this._startTime = Date.now();
+    }
+  }
+  update() {
+    if (this._destroyed) {
+      const elapsedTime = Date.now() - this._startTime;
+      if (elapsedTime < BOOM_DURATION) {
+        const t = elapsedTime / BOOM_DURATION;
+        this._container.x = Phaser.Math.Interpolation.Linear(
+          [this._startPos.x, BOOM_MOVE_POS.x],
+          t,
+        );
+        this._container.y = Phaser.Math.Interpolation.Linear(
+          [this._startPos.y, BOOM_MOVE_POS.y],
+          t,
+        );
+      } else {
+        this._container.destroy();
+        this._destroyed = false;
+      }
+    }
   }
 }

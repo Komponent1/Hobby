@@ -40,3 +40,15 @@ export const WINDOW_POS_X = 100;
 export const WINDOW_POS_Y = 30;
 export const WINDOW_RADIUS = 10;
 export const WINDOW_STROKE = 20;
+/** 블록 붕괴 타입 */
+export enum BlockDestroyType {
+  Drag = "drag",
+  Boom = "boom",
+  Change = "change",
+}
+/** 폭탄 이동 위치 */
+export const BOOM_MOVE_POS = {
+  x: 1920 - 250,
+  y: 450,
+};
+export const BOOM_DURATION = 300;
