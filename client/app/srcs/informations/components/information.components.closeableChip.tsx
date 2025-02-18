@@ -9,6 +9,7 @@ const CloseableChip: React.FC<Props> = ({label, onClose}) => (
     {label}
 
     <button
+      aria-label="Close"
       className="flex items-center justify-center transition-all p-1 rounded-md text-white hover:bg-white/10 active:bg-white/10 absolute top-0.5 right-0.5"
       type="button"
       onClick={onClose}

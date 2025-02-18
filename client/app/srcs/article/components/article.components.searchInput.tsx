@@ -29,6 +29,7 @@ const SearchInput: React.FC<Props> = ({
             onKeyDown={onKeyDown}
           />
           <button
+            aria-label="검색"
             type="button"
             className="absolute top-0 end-0 p-2.5 h-full text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-hidden focus:ring-blue-300"
             onClick={() => search(text)}

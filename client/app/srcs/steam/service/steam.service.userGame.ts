@@ -37,4 +37,5 @@ class UserGameService {
   }
 }
 
-export default new UserGameService(rootStore.userStore);
+const userGameService = new UserGameService(rootStore.userStore);
+export default userGameService;
