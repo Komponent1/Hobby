@@ -1,9 +1,9 @@
 {
-  "survival-skull": {
-    "title": "Survival Skull",
-    "path": "/game/survival-skull",
-    "description": "살아남아라 skull",
-    "thumbnail": "/thumbnail/survival-skull-thumbnail.png"
+  "survival-knight": {
+    "title": "Survival Kight",
+    "path": "/game/survival-knight",
+    "description": "살아남아라 knight",
+    "thumbnail": "/thumbnail/survival-knight-thumbnail.png"
   },
   "ten-bricks": {
     "title": "Ten Bricks",

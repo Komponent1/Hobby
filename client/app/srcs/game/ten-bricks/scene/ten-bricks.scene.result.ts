@@ -25,7 +25,9 @@ export class Result extends Scene {
     const ScoreText = this.add.text(0, -20, `${this.stageInfo.score}`, {
       fontSize: "128px", fontFamily: "noto", color: "#fff",
     }).setStroke("#000", 15).setOrigin(0.5, 0.5);
-    const button = this.add.rectangle(0, 0, 200, 100, 0x000000).setStrokeStyle(5, 0xff0000).setOrigin(0.5, 0.5);
+    const button = this.add.rectangle(0, 0, 200, 100, 0x000000)
+      .setStrokeStyle(5, 0xff0000)
+      .setOrigin(0.5, 0.5);
     const text = this.add.text(0, 0, "RESTART", {
       fontSize: "32px",
       color: "#000",
