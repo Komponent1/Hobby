@@ -1,6 +1,7 @@
 import {CharacterStatus} from './survival-knight.object.enum';
 import {Hpbar} from './base/survival-knight.object.hpbar';
 import { Vector } from "../../utils/vector";
+import type {Stage} from '../scenes/survival-knight.scene.stage';
 
 export class Character {
   protected _status: CharacterStatus = CharacterStatus.IDLE;
@@ -46,7 +47,7 @@ export class Character {
     this._speed = speed;
   }
 
-  public attackTo(target: Character): boolean {
+  public attackTo(scene: Stage, target: Character): boolean {
     if (this.status === CharacterStatus.DEAD || this.status === CharacterStatus.WAIT) return false;
     if (target.status === CharacterStatus.DEAD) return false;
     if (
@@ -59,11 +60,12 @@ export class Character {
       target.sprite.setTint(0xffffff);
     }, 100);
     target.changeAttackedTime(Date.now());
-    target.decreaseHp(this.attack);
+    target.decreaseHp(scene, this.attack);
     return true;
   }
 
-  public decreaseHp(damage: number) {
+  public decreaseHp(scene: Stage, damage: number) {
+    scene.sound.play("damaged");
     this._hp.decreaseHp(damage);
   }
   public changeAttackedTime(time: number) {

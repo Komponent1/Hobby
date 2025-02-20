@@ -67,4 +67,11 @@ export class Loader {
       repeat: 0,
     });
   }
+  static loadSound(scene: Scene) {
+    scene.load.audio('bgm', ['/assets/survival-knight/sound/bgm.wav']);
+    scene.load.audio('btn', ['/assets/survival-knight/sound/btn.wav']);
+    scene.load.audio('swing', ['/assets/survival-knight/sound/swing.wav']);
+    scene.load.audio('damaged', ['/assets/survival-knight/sound/damaged.wav']);
+    scene.load.audio('up', ['/assets/survival-knight/sound/up.wav']);
+  }
 }

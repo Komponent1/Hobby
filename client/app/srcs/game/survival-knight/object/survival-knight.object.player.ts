@@ -109,8 +109,8 @@ export class Player extends Character {
     this._exp -= cost;
   }
 
-  bodyAttack(target: Character) {
-    super.attackTo(target);
+  bodyAttack(scene: Stage, target: Character) {
+    super.attackTo(scene, target);
   }
   swordAttack(scene: Stage) {
     if (this._hp.hp <= 0 || !this.sprite) return;

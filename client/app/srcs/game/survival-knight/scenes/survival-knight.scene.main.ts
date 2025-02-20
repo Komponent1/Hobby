@@ -17,6 +17,7 @@ export class Main extends Scene {
   preload() {
     Loader.loadTilemap(this);
     Loader.loadUi(this, 'ui');
+    Loader.loadSound(this);
   }
   init() {
     this.tileMap = TileMap.init();
@@ -32,11 +33,14 @@ export class Main extends Scene {
     if (this.scene.get('Shop') === null) {
       this.scene.add('Shop', Shop, false);
     }
+    this.sound.stopAll();
+    this.sound.play("bgm", {loop: true});
     this.cameras.main.fadeIn(1000, 0, 0, 0);
     this.tileMap.create(this);
     this.startButton = this.add.image(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'ui', 'main/Start_BTN.png').setInteractive();
 
     this.startButton.on("pointerdown", () => {
+      this.sound.play("btn");
       this.cameras.main.fadeOut(500, 0, 0, 0);
     });
     this.startButton.on("pointerover", () => {

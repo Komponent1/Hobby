@@ -43,7 +43,7 @@ export class Monster extends Character {
         const { bodyA, bodyB } = pair;
         if ((bodyA === this._physics.body && bodyB === scene.player.physics.body)
             || (bodyB === this._physics.body && bodyA === scene.player.physics.body)) {
-          this.attackTo(scene.player);
+          this.attackTo(scene, scene.player);
         }
       });
     });
@@ -71,8 +71,8 @@ export class Monster extends Character {
     }
   }
 
-  attackTo(target: Character): boolean {
-    if (!super.attackTo(target)) {
+  attackTo(scene: Stage, target: Character): boolean {
+    if (!super.attackTo(scene, target)) {
       return false;
     }
     return true;
@@ -84,6 +84,7 @@ export class Monster extends Character {
     setTimeout(() => {
       this.sprite.setTint(0xffffff);
     }, 100);
+    scene.sound.play('damaged');
     this._hp.decreaseHp(player.sword.damage);
     const dir = new Vector(
       this.position.x - player.position.x,

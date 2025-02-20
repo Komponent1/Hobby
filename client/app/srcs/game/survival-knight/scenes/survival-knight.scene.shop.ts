@@ -72,6 +72,7 @@ export class Shop extends Scene {
       [selecterBg, okbtn, cancelbtn, text],
     ).setDepth(-1).setVisible(false);
     okbtn.on('pointerdown', () => {
+      this.sound.play('up');
       switch (this.selectedupgrade) {
         case ItemType.HP:
           this.player.setHp(this.player.hp.hp + 10);
@@ -102,6 +103,7 @@ export class Shop extends Scene {
       okbtn.setScale(1);
     });
     cancelbtn.on('pointerdown', () => {
+      this.sound.play('btn');
       selectorContainer.setDepth(-1).setVisible(false);
     });
     cancelbtn.on('pointerover', () => {
@@ -112,6 +114,7 @@ export class Shop extends Scene {
     });
 
     hpContainer.on('pointerdown', () => {
+      this.sound.play('btn');
       this.selectedupgrade = ItemType.HP;
       selectorContainer.setDepth(1).setVisible(true);
     });
@@ -122,6 +125,7 @@ export class Shop extends Scene {
       hpContainer.setScale(1);
     });
     damageContainer.on('pointerdown', () => {
+      this.sound.play('btn');
       this.selectedupgrade = ItemType.DAMAGE;
       selectorContainer.setDepth(1).setVisible(true);
     });
@@ -132,6 +136,7 @@ export class Shop extends Scene {
       damageContainer.setScale(1);
     });
     nextbtn.on('pointerdown', () => {
+      this.sound.play('btn');
       this.stageInfo.setStageLevel(this.stageInfo.stageLevel + 1);
       this.scene.get("Stage").events.emit('next-level', { player: this.player, stageInfo: this.stageInfo });
       this.scene.stop('Shop');

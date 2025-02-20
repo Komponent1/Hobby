@@ -36,7 +36,7 @@ export class Bullet {
         const { bodyA, bodyB } = pair;
         if ((bodyA === scene.player.physics.body && bodyB === this._image.body)
             || (bodyB === scene.player.physics.body && bodyA === this._image.body)) {
-          this.attackTo(scene.player);
+          this.attackTo(scene, scene.player);
         }
       });
     });
@@ -54,12 +54,12 @@ export class Bullet {
     this._image.y += this._dir.y * this._speed;
   }
 
-  attackTo(target: Character) {
+  attackTo(scene: Stage, target: Character) {
     target.sprite.setTint(0xff0000);
     setTimeout(() => {
       target.sprite.setTint(0xffffff);
     }, 100);
-    target.decreaseHp(10);
+    target.decreaseHp(scene, 10);
     this.clear();
   }
 

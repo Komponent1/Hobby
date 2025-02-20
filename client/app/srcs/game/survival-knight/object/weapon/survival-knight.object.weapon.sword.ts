@@ -92,6 +92,7 @@ export class Sword {
   public get range() { return this._range; }
 
   public attack(scene: Stage, dir: Vector) {
+    scene.sound.play('swing');
     this.create(scene, scene.player.position.x, scene.player.position.y, dir);
   }
   public release(scene: Stage) {

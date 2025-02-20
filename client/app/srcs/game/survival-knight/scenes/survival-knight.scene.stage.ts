@@ -63,6 +63,7 @@ export class Stage extends Scene {
     Loader.loadCharacterSprite(this, 'goblin_torch');
     Loader.loadCharacterSprite(this, 'fire', 128);
     Loader.loadCharacterSprite(this, 'boss');
+    Loader.loadSound(this);
   }
 
   create() {
