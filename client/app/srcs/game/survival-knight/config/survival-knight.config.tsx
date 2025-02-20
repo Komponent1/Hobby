@@ -9,8 +9,8 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
   parent: 'game-container',
   scale: {
-    width: 1920,
-    height: 1080,
+    width: window.innerWidth,
+    height: window.innerHeight,
     mode: Phaser.Scale.FIT,
   },
   physics: {

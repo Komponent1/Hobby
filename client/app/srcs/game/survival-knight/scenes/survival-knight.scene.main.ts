@@ -4,7 +4,7 @@ import {TileMap} from '../object/survival-knight.object.tileMap';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../constant/survival-knight.constant.config';
 import {Stage} from './survival-knight.scene.stage';
 import {RetryCheck} from './survival-knight.scene.retryCheck';
-import {Shop} from 'react-bootstrap-icons';
+import { Shop } from "./survival-knight.scene.shop";
 
 export class Main extends Scene {
   public tileMap!: TileMap;
@@ -15,7 +15,7 @@ export class Main extends Scene {
   }
 
   preload() {
-    Loader.loadTile(this, 'tile');
+    Loader.loadTilemap(this);
     Loader.loadUi(this, 'ui');
   }
   init() {
@@ -33,7 +33,7 @@ export class Main extends Scene {
       this.scene.add('Shop', Shop, false);
     }
     this.cameras.main.fadeIn(1000, 0, 0, 0);
-    this.tileMap.draw(this);
+    this.tileMap.create(this);
     this.startButton = this.add.image(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'ui', 'main/Start_BTN.png').setInteractive();
 
     this.startButton.on("pointerdown", () => {

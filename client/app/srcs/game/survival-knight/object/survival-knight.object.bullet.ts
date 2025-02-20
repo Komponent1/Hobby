@@ -1,4 +1,4 @@
-import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/survival-knight.constant.config";
+import { MAP_H, MAP_W } from "../constant/survival-knight.constant.config";
 import {} from '../constant/survival-knight.constant.monster';
 import type {Stage} from '../scenes/survival-knight.scene.stage';
 import {Vector} from '../../utils/vector';
@@ -73,9 +73,9 @@ export class Bullet {
   checkOutOfScreen() {
     if (
       this._image.x < 0
-      || this._image.x > SCREEN_WIDTH * MAP_RATIO
+      || this._image.x > MAP_W
       || this._image.y < 0
-      || this._image.y > SCREEN_HEIGHT * MAP_RATIO
+      || this._image.y > MAP_H
     ) {
       this.clear();
     }

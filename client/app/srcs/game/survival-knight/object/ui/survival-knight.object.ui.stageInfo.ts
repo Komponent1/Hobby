@@ -41,6 +41,9 @@ export class StageInfo {
   }
 
   public updateTime() {
+    if (this._stageLevel === 4) {
+      this.leftTimeText.setText('Infinity');
+    }
     this.leftTimeText.setText(
       String(Math.floor((CLEAR_TIME + this.stageStartTime - Date.now()) / 1000)),
     );
@@ -50,6 +53,7 @@ export class StageInfo {
     this.stageLevelText.setText(String(this.stageLevel));
   }
   public checkClear(): boolean {
+    if (this.stageLevel === 4) return false;
     if (Date.now() - this.stageStartTime > CLEAR_TIME) {
       this._stageState = StageState.CLEAR;
       return true;

@@ -4,7 +4,9 @@ import {Keyboard} from '../control/survival-knight.keyboard';
 import {
   BULLET_SPEED,
 } from '../constant/survival-knight.constant.monster';
-import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/survival-knight.constant.config";
+import {
+  MAP_H, MAP_W, SCREEN_HEIGHT, SCREEN_WIDTH,
+} from "../constant/survival-knight.constant.config";
 import { StageState } from "./survival-knight.scene.enum";
 import { StageInfo } from "../object/ui/survival-knight.object.ui.stageInfo";
 import { TestText } from "../object/ui/survival-knight.object.ui.testText";
@@ -54,8 +56,7 @@ export class Stage extends Scene {
   }
 
   preload() {
-    Loader.loadEffectAtlas(this, 'slash');
-    Loader.loadTile(this, 'tile');
+    Loader.loadTilemap(this);
     Loader.loadUi(this, 'ui');
     Loader.loadBullet(this);
     Loader.loadCharacterSprite(this, 'player');
@@ -74,9 +75,9 @@ export class Stage extends Scene {
     this.mapLayer = this.add.layer();
     this.shopLayer = this.add.layer();
     /** world bound setting */
-    this.matter.world.setBounds(0, 0, SCREEN_WIDTH * MAP_RATIO, SCREEN_HEIGHT * MAP_RATIO);
+    this.matter.world.setBounds(64, 64, MAP_W - 192, MAP_H - 192);
     /** 카메라 세팅 */
-    this.cameras.main.setBounds(0, 0, SCREEN_WIDTH * MAP_RATIO, SCREEN_HEIGHT * MAP_RATIO);
+    this.cameras.main.setBounds(0, 0, MAP_W, MAP_H);
     this.uiCamera = this.cameras.add(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     /** 카메라별 필요없는 비추적 object 등록 */
     this.cameras.main.ignore(this.uiLayer);
@@ -87,7 +88,7 @@ export class Stage extends Scene {
     /** 입력 초기화 */
     this.keyboard.init(this);
     /** 타일맵 생성 및 레이어 등록 */
-    this.tileMap.draw(this);
+    this.tileMap.create(this);
     /** 스테이지 정보 생성 */
     this.stageInfo.create(this);
     /** 애니메이션 생성 */
@@ -98,8 +99,8 @@ export class Stage extends Scene {
     /** 플레이어 생성(맵 중앙) */
     this.player.create(
       this,
-      (SCREEN_WIDTH * MAP_RATIO) / 2,
-      (SCREEN_HEIGHT * MAP_RATIO) / 2,
+      MAP_W / 2,
+      MAP_H / 2,
     );
 
     // /** 플레이어 바운드 제한 생성 */
@@ -127,7 +128,7 @@ export class Stage extends Scene {
     this.events.on('next-level', (data: {player: Player, stageInfo: StageInfo}) => {
       this.stageInfo = data.stageInfo;
       this.player = data.player;
-      this.player.setPosition((SCREEN_WIDTH * MAP_RATIO) / 2, (SCREEN_HEIGHT * MAP_RATIO) / 2);
+      this.player.setPosition(MAP_W / 2, MAP_H / 2);
       this.stageStartTime = Date.now();
 
       this.pool.clear();
@@ -148,7 +149,14 @@ export class Stage extends Scene {
     this.testUI.draw(this);
     if (this.stageInfo.stageState === StageState.LOADING) {
       if (!this.loadTime) {
-        this.loadTime = this.add.text(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, '1', { color: '#fff', fontStyle: 'bold', fontSize: 96, fontFamily: 'noto' }).setOrigin(0.5);
+        this.loadTime = this.add.text(
+          SCREEN_WIDTH / 2,
+          SCREEN_HEIGHT / 2,
+          '1',
+          {
+            color: '#fff', fontStyle: 'bold', fontSize: 96, fontFamily: 'noto',
+          },
+        ).setOrigin(0.5);
         this.uiLayer.add(this.loadTime);
       } else {
         this.loadTime.setText(`${Math.ceil((Date.now() - this.stageStartTime) / 1000)}`);

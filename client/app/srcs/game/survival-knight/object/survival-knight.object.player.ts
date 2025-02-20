@@ -1,4 +1,4 @@
-import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/survival-knight.constant.config";
+import { MAP_H, MAP_W } from "../constant/survival-knight.constant.config";
 import { PLAYER, SWORD } from "../constant/survival-knight.constant.object";
 import {StageState} from '../scenes/survival-knight.scene.enum';
 import type {Stage} from '../scenes/survival-knight.scene.stage';
@@ -125,8 +125,8 @@ export class Player extends Character {
   }
   clear() {
     this._container.setPosition(
-      (SCREEN_WIDTH * MAP_RATIO) / 2,
-      (SCREEN_HEIGHT * MAP_RATIO) / 2,
+      MAP_W / 2,
+      MAP_H / 2,
     );
     this._speed = PLAYER.SPEED;
     this._attack = PLAYER.ATTACK;

@@ -1,8 +1,10 @@
-export const SCREEN_WIDTH = 1920;
-export const SCREEN_HEIGHT = 1080;
+export const SCREEN_WIDTH = window.innerWidth;
+export const SCREEN_HEIGHT = window.innerHeight;
 export const MAP_RATIO = 1.1;
-export const MAP_W = SCREEN_WIDTH * MAP_RATIO;
-export const MAP_H = SCREEN_HEIGHT * MAP_RATIO;
+export const ROW = 50;
+export const COL = 30;
+export const MAP_W = 64 * ROW;
+export const MAP_H = 64 * COL;
 export const TILE_W = 64;
 export const TILE_H = 64;
 

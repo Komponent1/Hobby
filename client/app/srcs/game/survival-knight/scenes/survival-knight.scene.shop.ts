@@ -132,12 +132,6 @@ export class Shop extends Scene {
       damageContainer.setScale(1);
     });
     nextbtn.on('pointerdown', () => {
-      if (this.stageInfo.stageLevel === 3) {
-        this.scene.stop('Shop');
-        this.scene.stop('Stage');
-        this.scene.start('Main');
-        return;
-      }
       this.stageInfo.setStageLevel(this.stageInfo.stageLevel + 1);
       this.scene.get("Stage").events.emit('next-level', { player: this.player, stageInfo: this.stageInfo });
       this.scene.stop('Shop');
