@@ -3,6 +3,8 @@ export const FRAME = {
     IDLE: [0, 5],
     WALK: [6, 11],
     ATTACK: [12, 17],
+    ATTACK_UP: [24, 29],
+    ATTACK_DOWN: [36, 41],
   },
   goblin_torch: {
     IDLE: [0, 6],
@@ -56,5 +58,5 @@ export const PLAYER = {
 };
 export const SWORD = {
   ATTACK: 10,
-  RANGE: 200,
+  RANGE: 100,
 };

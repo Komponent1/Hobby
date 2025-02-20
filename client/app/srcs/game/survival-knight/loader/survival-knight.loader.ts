@@ -66,6 +66,26 @@ export class Loader {
       frameRate: 20,
       repeat: 0,
     });
+    if (name === 'player') {
+      scene.anims.create({
+        key: `${name}_attack_up`,
+        frames: scene.anims.generateFrameNumbers(
+          name,
+          { start: FRAME[name].ATTACK_UP[0], end: FRAME[name].ATTACK_UP[1] },
+        ),
+        frameRate: 10,
+        repeat: 0,
+      });
+      scene.anims.create({
+        key: `${name}_attack_down`,
+        frames: scene.anims.generateFrameNumbers(
+          name,
+          { start: FRAME[name].ATTACK_DOWN[0], end: FRAME[name].ATTACK_DOWN[1] },
+        ),
+        frameRate: 10,
+        repeat: 0,
+      });
+    }
   }
   static loadSound(scene: Scene) {
     scene.load.audio('bgm', ['/assets/survival-knight/sound/bgm.wav']);

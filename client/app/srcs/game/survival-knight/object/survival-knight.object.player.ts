@@ -66,7 +66,8 @@ export class Player extends Character {
         this._sprite.play('player_walk');
         break;
       case CharacterStatus.ATTACK:
-        this._sprite.play('player_attack').once('animationcomplete-player_attack', () => {
+        const animKey = this._dir.x === 0 ? this._dir.y > 0 ? 'player_attack_up' : 'player_attack_down' : 'player_attack';
+        this._sprite.play(animKey).once(`animationcomplete-${animKey}`, () => {
           this._sword.release(scene);
           this._status = CharacterStatus.IDLE;
           this._sprite.play('player_idle');
@@ -87,6 +88,7 @@ export class Player extends Character {
     else this.changeState(CharacterStatus.WALK, scene);
     this._container.x += (this._speed * this._dir.x);
     this._container.y += (this._speed * this._dir.y);
+    this.sword.setPosition(this._container.x, this._container.y);
   }
 
   checkHp(scene: Stage) {
