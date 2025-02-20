@@ -60,7 +60,7 @@ export class Bullet {
       target.sprite.setTint(0xffffff);
     }, 100);
     target.decreaseHp(10);
-    this.destroy();
+    this.clear();
   }
 
   shoot(x: number, y: number, dir: Vector) {
@@ -77,14 +77,19 @@ export class Bullet {
       || this._image.y < 0
       || this._image.y > SCREEN_HEIGHT * MAP_RATIO
     ) {
-      this.destroy();
+      this.clear();
     }
   }
 
-  destroy() {
+  clear() {
     this._image.x = -200;
     this._image.y = -100;
     this._dir = new Vector(0, 0);
     this._status = BulletStatus.LOADED;
+  }
+
+  destroy() {
+    this._image.destroy();
+    this._physics.destroy();
   }
 }

@@ -113,15 +113,54 @@ export class Stage extends Scene {
     this.bullets.forEach((bullet) => {
       bullet.create(this);
     });
+
+    this.events.on('retry', () => {
+      this.stageStartTime = Date.now();
+      this.stageInfo.clear();
+      this.pool.clear();
+      this.bullets.forEach((bullet) => {
+        bullet.clear();
+      });
+      this.player.clear();
+      this.stageInfo.setStageState(StageState.LOADING);
+    }, this);
+    this.events.on('next-level', (data: {player: Player, stageInfo: StageInfo}) => {
+      this.stageInfo = data.stageInfo;
+      this.player = data.player;
+      this.player.setPosition((SCREEN_WIDTH * MAP_RATIO) / 2, (SCREEN_HEIGHT * MAP_RATIO) / 2);
+      this.stageStartTime = Date.now();
+
+      this.pool.clear();
+      this.bullets.forEach((bullet) => {
+        bullet.clear();
+      });
+      this.stageInfo.setStageState(StageState.LOADING);
+    });
     // /** 테스트 옵션(prod 삭제) */
-    // this.testUI = TestText.create(this);
-    // this.uiLayer.add(this.testUI.continer);
+    this.testUI = TestText.create(this);
+    this.uiLayer.add(this.testUI.continer);
   }
 
+  stageStartTime = Date.now();
+  loadTime!: Phaser.GameObjects.Text | null;
+
   update(): void {
-    // this.testUI.draw(this);
-    if (this.stageInfo.stageState === StageState.PLAYING) {
-    //   /** 클리어 체크 */
+    this.testUI.draw(this);
+    if (this.stageInfo.stageState === StageState.LOADING) {
+      if (!this.loadTime) {
+        this.loadTime = this.add.text(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, '1', { color: '#fff', fontStyle: 'bold', fontSize: 96, fontFamily: 'noto' }).setOrigin(0.5);
+        this.uiLayer.add(this.loadTime);
+      } else {
+        this.loadTime.setText(`${Math.ceil((Date.now() - this.stageStartTime) / 1000)}`);
+        if (Date.now() - this.stageStartTime > 3000) {
+          this.stageInfo.setStageState(StageState.PLAYING);
+          this.stageInfo.setStageStartTime(Date.now());
+          this.loadTime.destroy();
+          this.loadTime = null;
+        }
+      }
+    } else if (this.stageInfo.stageState === StageState.PLAYING) {
+      /** 클리어 체크 */
       if (this.stageInfo.checkClear()) return;
       this.stageInfo.updateTime();
 

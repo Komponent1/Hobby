@@ -1,7 +1,6 @@
 import { Scene } from "phaser";
 import { Player } from "../object/survival-knight.object.player";
 import { StageInfo } from "../object/ui/survival-knight.object.ui.stageInfo";
-import { StageState } from "./survival-knight.scene.enum";
 import { Loader } from "../loader/survival-knight.loader";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/survival-knight.constant.config";
 
@@ -80,12 +79,12 @@ export class Shop extends Scene {
           cost.setText(`EXP: ${this.player.exp}`);
           break;
         case ItemType.RANGE:
-          this.player.setRange(this.player.weapon.range + 10);
+          this.player.setRange(this.player.sword.range + 10);
           this.player.useExp(5);
           cost.setText(`EXP: ${this.player.exp}`);
           break;
         case ItemType.DAMAGE:
-          this.player.setDamage(this.player.weapon.damage + 10);
+          this.player.setDamage(this.player.sword.damage + 10);
           this.player.useExp(5);
           cost.setText(`EXP: ${this.player.exp}`);
           break;
@@ -139,11 +138,9 @@ export class Shop extends Scene {
         this.scene.start('Main');
         return;
       }
-      this.stageInfo.setStageState(StageState.PLAYING);
       this.stageInfo.setStageLevel(this.stageInfo.stageLevel + 1);
-      this.stageInfo.setStageStartTime(Date.now());
+      this.scene.get("Stage").events.emit('next-level', { player: this.player, stageInfo: this.stageInfo });
       this.scene.stop('Shop');
-      this.scene.start('Stage', { player: this.player, stageInfo: this.stageInfo });
     });
     nextbtn.on('pointerover', () => {
       nextbtn.setScale(1.1);

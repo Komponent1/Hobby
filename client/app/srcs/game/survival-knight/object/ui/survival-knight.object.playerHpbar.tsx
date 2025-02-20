@@ -1,5 +1,5 @@
 import { HPbarType } from "../../constant/survival-knight.constant.hp";
-import { PLAYER_INIT_HP } from "../../constant/survival-knight.constant.player";
+import { PLAYER } from "../../constant/survival-knight.constant.object";
 import type { Stage } from "../../scenes/survival-knight.scene.stage";
 import { Hpbar } from "../base/survival-knight.object.hpbar";
 
@@ -8,7 +8,7 @@ export class PlayerHpbar extends Hpbar {
     super(hp, maxHp, HPbarType.PLAYER);
   }
   static init() {
-    return new PlayerHpbar(PLAYER_INIT_HP, PLAYER_INIT_HP);
+    return new PlayerHpbar(PLAYER.HP, PLAYER.HP);
   }
   public create(scene: Stage): void {
     super.create(scene, 10, 10);

@@ -49,3 +49,12 @@ export const BOSS = {
   W: 80,
   H: 80,
 };
+export const PLAYER = {
+  SPEED: 10,
+  HP: 100,
+  ATTACK: 5,
+};
+export const SWORD = {
+  ATTACK: 10,
+  RANGE: 200,
+};

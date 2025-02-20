@@ -39,8 +39,8 @@ export class TestText {
   }
   draw(scene: Stage) {
     this.hpText.setText(`HP: ${scene.player.hp.hp}`);
-    this.damageText.setText(`Damage: ${scene.player.weapon.damage}`);
-    this.rangeText.setText(`Range: ${scene.player.weapon.range}`);
+    this.damageText.setText(`Damage: ${scene.player.sword.damage}`);
+    this.rangeText.setText(`Range: ${scene.player.sword.range}`);
     this.costText.setText(`COST: ${scene.player.exp}`);
     this.bulletText.setText(`BULLET: ${scene.bullets.filter((bullet) => bullet.status === BulletStatus.LOADED).length}`);
     this.playerDir.setText(`Dir: (${scene.player.dir.x}, ${scene.player.dir.y})`);

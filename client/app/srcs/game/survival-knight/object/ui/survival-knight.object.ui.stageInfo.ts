@@ -20,7 +20,7 @@ export class StageInfo {
   constructor() {
     this._stageLevel = 1;
     this._stageStartTime = Date.now();
-    this._stageState = StageState.PLAYING;
+    this._stageState = StageState.LOADING;
     this._genTime = { goblin_torch: 0, fire: 0, boss: 0 };
   }
   get genTime() { return this._genTime; }
@@ -55,6 +55,11 @@ export class StageInfo {
       return true;
     }
     return false;
+  }
+  public clear() {
+    this._stageLevel = 1;
+    this._stageStartTime = Date.now();
+    this._genTime = { goblin_torch: 0, fire: 0, boss: 0 };
   }
 
   static init() {

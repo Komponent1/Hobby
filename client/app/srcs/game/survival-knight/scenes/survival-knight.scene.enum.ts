@@ -1,4 +1,5 @@
 export enum StageState {
+  LOADING = 'LOADING',
   PLAYING = 'PLAYING',
   SHOP = 'SHOP',
   GAMEOVER = 'GAMEOVER',

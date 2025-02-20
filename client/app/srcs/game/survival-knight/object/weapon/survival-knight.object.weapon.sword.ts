@@ -1,11 +1,9 @@
 import { Vector } from "../../../utils/vector";
-import {
-  PLAYER_INIT_ATTACK, PLAYER_INIT_ATTACK_RANGE,
-} from "../../constant/survival-knight.constant.player";
+import { SWORD } from "../../constant/survival-knight.constant.object";
 import type { Stage } from "../../scenes/survival-knight.scene.stage";
 
 export class Sword {
-  protected _damage: number = 1;
+  protected _damage: number;
   protected _range: number;
   protected _area!: MatterJS.BodyType;
 
@@ -14,7 +12,7 @@ export class Sword {
     this._range = range;
   }
   static init() {
-    return new Sword(PLAYER_INIT_ATTACK, PLAYER_INIT_ATTACK_RANGE);
+    return new Sword(SWORD.ATTACK, SWORD.RANGE);
   }
   create(scene: Stage, x: number, y: number, dir: Vector) {
     let posX = 0;
@@ -48,7 +46,7 @@ export class Sword {
       this._area = scene.matter.add.fromVertices(
         posX,
         posY,
-        Sword.createFanShapePoints(x, y, 200, startAngle, endAngle, 2),
+        Sword.createFanShapePoints(x, y, this._range, startAngle, endAngle, 2),
         { isSensor: true },
         true,
       );

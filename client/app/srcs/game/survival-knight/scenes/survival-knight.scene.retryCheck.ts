@@ -3,6 +3,8 @@ import {StageInfo} from '../object/ui/survival-knight.object.ui.stageInfo';
 import {Loader} from '../loader/survival-knight.loader';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../constant/survival-knight.constant.config';
 import { Player } from "../object/survival-knight.object.player";
+import { Stage } from "./survival-knight.scene.stage";
+import {Shop} from './survival-knight.scene.shop';
 
 export class RetryCheck extends Scene {
   public stageInfo!: StageInfo;
@@ -36,8 +38,8 @@ export class RetryCheck extends Scene {
     );
 
     this.retryButton.on('pointerdown', () => {
-      this.scene.stop('GameOver');
-      this.scene.start('Stage');
+      this.scene.get('Stage').events.emit('retry');
+      this.scene.stop('RetryCheck');
     });
     this.retryButton.on('pointerover', () => {
       this.retryButton.setScale(1.1);
@@ -47,9 +49,14 @@ export class RetryCheck extends Scene {
     });
 
     this.menuButton.on('pointerdown', () => {
-      this.scene.stop('Stage');
-      this.scene.stop('GameOver');
       this.scene.start('Main');
+      this.scene.remove('Stage');
+      this.scene.remove('Shop');
+
+      this.scene.add('Stage', Stage, false);
+      this.scene.add('Shop', Shop, false);
+      this.scene.stop('RetryCheck');
+      this.scene.remove('RetryCheck');
     });
     this.menuButton.on('pointerover', () => {
       this.menuButton.setScale(1.1);

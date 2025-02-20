@@ -103,6 +103,9 @@ export class Loader {
     });
   }
   static createAnimationV2(scene: Scene, name: keyof typeof FRAME) {
+    if (scene.anims.exists(`${name}_idle`)) {
+      return;
+    }
     scene.anims.create({
       key: `${name}_idle`,
       frames: scene.anims.generateFrameNumbers(
@@ -122,7 +125,7 @@ export class Loader {
       repeat: -1,
     });
     scene.anims.create({
-      key: 'player_attack',
+      key: `${name}_attack`,
       frames: scene.anims.generateFrameNumbers(
         'player',
         { start: FRAME[name].ATTACK[0], end: FRAME[name].ATTACK[1] },

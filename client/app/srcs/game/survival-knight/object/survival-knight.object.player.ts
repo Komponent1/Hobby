@@ -1,6 +1,5 @@
-import {
-  PLAYER_INIT_ATTACK, PLAYER_INIT_SPEED,
-} from '../constant/survival-knight.constant.player';
+import { MAP_RATIO, SCREEN_HEIGHT, SCREEN_WIDTH } from "../constant/survival-knight.constant.config";
+import { PLAYER, SWORD } from "../constant/survival-knight.constant.object";
 import {StageState} from '../scenes/survival-knight.scene.enum';
 import type {Stage} from '../scenes/survival-knight.scene.stage';
 import {Character} from './survival-knight.object.character';
@@ -30,8 +29,8 @@ export class Player extends Character {
   static init() {
     const player = new Player(
       'player',
-      PLAYER_INIT_ATTACK,
-      PLAYER_INIT_SPEED,
+      PLAYER.ATTACK,
+      PLAYER.SPEED,
       PlayerHpbar.init(),
       Sword.init(),
     );
@@ -120,5 +119,18 @@ export class Player extends Character {
   }
   flip(dir: boolean) {
     this._sprite.setFlipX(dir);
+  }
+  setPosition(x: number, y: number) {
+    this._container.setPosition(x, y);
+  }
+  clear() {
+    this._container.setPosition(
+      (SCREEN_WIDTH * MAP_RATIO) / 2,
+      (SCREEN_HEIGHT * MAP_RATIO) / 2,
+    );
+    this._speed = PLAYER.SPEED;
+    this._attack = PLAYER.ATTACK;
+    this._sword.setDamage(SWORD.ATTACK);
+    this._hp.setHp(PLAYER.HP);
   }
 }

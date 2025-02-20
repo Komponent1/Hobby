@@ -108,12 +108,11 @@ export class Monster extends Character {
   }
   dead() {
     if (this._status === CharacterStatus.DEAD) return;
-    this._status = CharacterStatus.DEAD;
     this._status = CharacterStatus.WAIT;
     this._sprite.stop();
-    this._sprite.x = -400;
-    this._sprite.y = -400;
-    this._hp.move(this._sprite.x - this._w / 2, this._sprite.y - this._h / 2);
+    this._container.x = -400;
+    this._container.y = -400;
+    this._hp.move(this._container.x - this._w / 2, this._container.y - this._h / 2);
     this._hp.setHp(this._hp.maxHp);
   }
   killed(scene: Stage) {

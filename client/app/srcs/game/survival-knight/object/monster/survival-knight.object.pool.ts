@@ -56,17 +56,26 @@ export class Pool {
   update(scene: Stage) {
     switch (scene.stageInfo.stageLevel) {
       case 1:
-        // this.spawnMonster(scene.stageInfo, scene, 'goblin_torch');
-        // this.spawnMonster(scene.stageInfo, scene, 'fire');
-        this.spawnMonster(scene.stageInfo, scene, 'boss');
-        // this.monsters.goblin_torch.forEach((monster) => monster.update(scene));
-        // this.monsters.fire.forEach((monster) => monster.update(scene));
+        this.spawnMonster(scene.stageInfo, scene, 'goblin_torch');
+
+        this.monsters.goblin_torch.forEach((monster) => monster.update(scene));
         this.monsters.boss.forEach((monster) => monster.update(scene));
         break;
       case 2:
+        this.spawnMonster(scene.stageInfo, scene, 'goblin_torch');
+        this.spawnMonster(scene.stageInfo, scene, 'fire');
 
+        this.monsters.goblin_torch.forEach((monster) => monster.update(scene));
+        this.monsters.fire.forEach((monster) => monster.update(scene));
         break;
       case 3:
+        this.spawnMonster(scene.stageInfo, scene, 'goblin_torch');
+        this.spawnMonster(scene.stageInfo, scene, 'fire');
+        this.spawnMonster(scene.stageInfo, scene, 'boss');
+
+        this.monsters.goblin_torch.forEach((monster) => monster.update(scene));
+        this.monsters.fire.forEach((monster) => monster.update(scene));
+        this.monsters.boss.forEach((monster) => monster.update(scene));
         break;
       default:
         break;
@@ -75,5 +84,6 @@ export class Pool {
   clear() {
     this.monsters.goblin_torch.forEach((monster) => monster.dead());
     this.monsters.fire.forEach((monster) => monster.dead());
+    this.monsters.boss.forEach((monster) => monster.dead());
   }
 }
