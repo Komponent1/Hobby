@@ -84,8 +84,6 @@ export class Stage extends Scene {
     this.cameras.main.ignore(this.uiLayer);
     this.cameras.main.ignore(this.shopLayer);
     this.uiCamera.ignore(this.mapLayer);
-    /** debug 옵션 (TODO: production 삭제) */
-    this.uiCamera.ignore(this.matter.world.debugGraphic);
     /** 입력 초기화 */
     this.keyboard.init(this);
     /** 타일맵 생성 및 레이어 등록 */
@@ -139,15 +137,16 @@ export class Stage extends Scene {
       this.stageInfo.setStageState(StageState.LOADING);
     });
     // /** 테스트 옵션(prod 삭제) */
-    this.testUI = TestText.create(this);
-    this.uiLayer.add(this.testUI.continer);
+    // this.testUI = TestText.create(this);
+    // this.uiLayer.add(this.testUI.continer);
+    // this.uiCamera.ignore(this.matter.world.debugGraphic);
   }
 
   stageStartTime = Date.now();
   loadTime!: Phaser.GameObjects.Text | null;
 
   update(): void {
-    this.testUI.draw(this);
+    // this.testUI.draw(this);
     if (this.stageInfo.stageState === StageState.LOADING) {
       if (!this.loadTime) {
         this.loadTime = this.add.text(

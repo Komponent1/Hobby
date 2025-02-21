@@ -5,9 +5,12 @@ import type { Stage } from "../../scenes/survival-knight.scene.stage";
 export class Sword {
   protected _damage: number;
   protected _range: number;
-  protected _area!: MatterJS.BodyType;
+  protected _area!: MatterJS.BodyType | null;
+  protected _graphics!: Phaser.GameObjects.Graphics;
+  protected _object!: Phaser.GameObjects.GameObject;
 
   private _dir: Vector = new Vector(0, 0);
+  private _offset: {x: number; y: number} = {x: 0, y: 0};
 
   constructor(damage: number, range: number) {
     this._damage = damage;
@@ -17,42 +20,60 @@ export class Sword {
     return new Sword(SWORD.ATTACK, SWORD.RANGE);
   }
   create(scene: Stage, x: number, y: number, dir: Vector) {
-    this._dir = dir;
-    let posX = 0;
-    let posY = 0;
-    let startAngle = 0;
-    let endAngle = 0;
-    if (this._dir.x === 0) {
-      if (this._dir.y > 0) {
-        posX = x;
-        posY = y + this._range / 2;
-        startAngle = Math.PI * (1 / 4);
-        endAngle = Math.PI * (3 / 4);
-      } else {
-        posX = x;
-        posY = y - this._range / 2;
-        startAngle = Math.PI * (5 / 4);
-        endAngle = Math.PI * (7 / 4);
-      }
-    } else if (this._dir.x > 0) {
-      posX = x + this._range / 2;
-      posY = y;
-      startAngle = -Math.PI * (1 / 4);
-      endAngle = Math.PI * (1 / 4);
-    } else {
-      posX = x - this._range / 2;
-      posY = y;
-      startAngle = Math.PI * (3 / 4);
-      endAngle = Math.PI * (5 / 4);
-    }
     if (dir) {
+      this._dir = dir;
+      let startAngle = 0;
+      let endAngle = 0;
+      if (this._dir.x === 0) {
+        if (this._dir.y > 0) {
+          startAngle = Math.PI * (1 / 4);
+          endAngle = Math.PI * (3 / 4);
+        } else {
+          startAngle = Math.PI * (5 / 4);
+          endAngle = Math.PI * (7 / 4);
+        }
+      } else if (this._dir.x > 0) {
+        startAngle = -Math.PI * (1 / 4);
+        endAngle = Math.PI * (1 / 4);
+      } else {
+        startAngle = Math.PI * (3 / 4);
+        endAngle = Math.PI * (5 / 4);
+      }
+      const points = Sword.createFanShapePoints(this._range, startAngle, endAngle, 4);
       this._area = scene.matter.add.fromVertices(
-        posX,
-        posY,
-        Sword.createFanShapePoints(this._range, startAngle, endAngle, 2),
-        { isSensor: true },
+        -1000,
+        -1000,
+        points,
+        {
+          isSensor: true,
+        },
         true,
       );
+      this._offset = {x: this._area.centerOffset.x, y: this._area.centerOffset.y};
+      if (this._dir.x === 0) {
+        if (this._dir.y > 0) {
+          this._offset = {x: 0, y: this._offset.y};
+        } else {
+          this._offset = {x: 0, y: -(this._range - this._offset.y)};
+        }
+      } else if (this._dir.x > 0) {
+        this._offset = {x: this._offset.x, y: 0};
+      } else {
+        this._offset = {x: -(this._range - this._offset.x), y: 0};
+      }
+
+      this._graphics = scene.add.graphics();
+      this._graphics.fillStyle(0xff0000, 0.5);
+      this._graphics.beginPath();
+      this._graphics.moveTo(points[0].x - this._offset.x, points[0].y - this._offset.y);
+      for (let i = 1; i < points.length; i += 1) {
+        this._graphics.lineTo(points[i].x - this._offset.x, points[i].y - this._offset.y);
+      }
+      this._graphics.closePath();
+      this._graphics.fillPath();
+      scene.mapLayer.add(this._graphics);
+      this._object = scene.matter.add.gameObject(this._graphics, this._area);
+
       scene.pool.monsters.goblin_torch.forEach((monster) => {
         scene.matter.world.on('collisionstart', (event: any) => {
           event.pairs.forEach((pair: Phaser.Types.Physics.Matter.MatterCollisionPair) => {
@@ -89,7 +110,10 @@ export class Sword {
     }
   }
 
-  public get position() { return { x: this._area.position.x, y: this._area.position.y }; }
+  public get position() {
+    if (!this._area) return undefined;
+    return { x: this._area.position.x, y: this._area.position.y };
+  }
   public get area() { return this._area; }
   public get damage() { return this._damage; }
   public get range() { return this._range; }
@@ -99,7 +123,10 @@ export class Sword {
     this.create(scene, scene.player.position.x, scene.player.position.y, dir);
   }
   public release(scene: Stage) {
+    if (!this._area) return;
+    this._graphics?.destroy();
     scene.matter.world.remove(this._area);
+    this._area = null;
   }
   public setRange(range: number) {
     this._range = range;
@@ -107,27 +134,9 @@ export class Sword {
   public setDamage(damage: number) {
     this._damage = damage;
   }
-  public setPosition(x: number, y: number) {
+  public setPosition(scene: Stage, x: number, y: number) {
     if (!this._area) return;
-    let posX = 0;
-    let posY = 0;
-    if (this._dir.x === 0) {
-      if (this._dir.y > 0) {
-        posX = x;
-        posY = y + this._range / 2;
-      } else {
-        posX = x;
-        posY = y - this._range / 2;
-      }
-    } else if (this._dir.x > 0) {
-      posX = x + this._range / 2;
-      posY = y;
-    } else {
-      posX = x - this._range / 2;
-      posY = y;
-    }
-    this._area.position.x = posX;
-    this._area.position.y = posY;
+    scene.matter.body.setPosition(this._area, { x: x + this._offset.x, y: y + this._offset.y });
   }
 
   static createFanShapePoints(

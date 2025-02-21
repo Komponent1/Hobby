@@ -8,3 +8,4 @@ export const MONSTER_GEN_TIME = {
   fire: 2000,
   boss: 30000,
 };
+export const CLEAR_TIME = 30 * 1000;

@@ -59,7 +59,6 @@ export class Pool {
         this.spawnMonster(scene.stageInfo, scene, 'goblin_torch');
 
         this.monsters.goblin_torch.forEach((monster) => monster.update(scene));
-        this.monsters.boss.forEach((monster) => monster.update(scene));
         break;
       case 2:
         this.spawnMonster(scene.stageInfo, scene, 'goblin_torch');
@@ -68,7 +67,7 @@ export class Pool {
         this.monsters.goblin_torch.forEach((monster) => monster.update(scene));
         this.monsters.fire.forEach((monster) => monster.update(scene));
         break;
-      case 3:
+      default:
         this.spawnMonster(scene.stageInfo, scene, 'goblin_torch');
         this.spawnMonster(scene.stageInfo, scene, 'fire');
         this.spawnMonster(scene.stageInfo, scene, 'boss');
@@ -76,8 +75,6 @@ export class Pool {
         this.monsters.goblin_torch.forEach((monster) => monster.update(scene));
         this.monsters.fire.forEach((monster) => monster.update(scene));
         this.monsters.boss.forEach((monster) => monster.update(scene));
-        break;
-      default:
         break;
     }
   }

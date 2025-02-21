@@ -3,10 +3,10 @@ import { FRAME } from "../constant/survival-knight.constant.object";
 
 export class Loader {
   static loadUi(scene: Scene, name: string) {
-    scene.load.atlas(name, `/assets/survival-skull/ui/${name}.png`, `/assets/survival-skull/ui/${name}.json`);
+    scene.load.atlas(name, `/assets/survival-knight/ui/${name}.png`, `/assets/survival-knight/ui/${name}.json`);
   }
   static loadBullet(scene: Scene) {
-    scene.load.image('bullet', `/assets/survival-skull/effect/bullet.png`);
+    scene.load.image('bullet', `/assets/survival-knight/effect/bullet.png`);
   }
   static loadTilemap(scene: Scene) {
     scene.load.spritesheet('grass', `/assets/survival-knight/tile/grass.png`, {
@@ -73,7 +73,7 @@ export class Loader {
           name,
           { start: FRAME[name].ATTACK_UP[0], end: FRAME[name].ATTACK_UP[1] },
         ),
-        frameRate: 10,
+        frameRate: 20,
         repeat: 0,
       });
       scene.anims.create({
@@ -82,7 +82,7 @@ export class Loader {
           name,
           { start: FRAME[name].ATTACK_DOWN[0], end: FRAME[name].ATTACK_DOWN[1] },
         ),
-        frameRate: 10,
+        frameRate: 20,
         repeat: 0,
       });
     }

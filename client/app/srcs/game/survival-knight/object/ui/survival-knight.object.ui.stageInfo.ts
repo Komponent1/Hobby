@@ -1,5 +1,5 @@
 import { SCREEN_WIDTH } from "../../constant/survival-knight.constant.config";
-import { CLEAR_TIME } from "../../scenes/survival-knight.scene.constant";
+import { CLEAR_TIME } from "../../constant/survival-knight.constant.stage";
 import { StageState } from "../../scenes/survival-knight.scene.enum";
 import type { Stage } from "../../scenes/survival-knight.scene.stage";
 
@@ -65,7 +65,6 @@ export class StageInfo {
     this._stageStartTime = Date.now();
     this._genTime = { goblin_torch: 0, fire: 0, boss: 0 };
   }
-
   static init() {
     const stageInfo = new StageInfo();
     return stageInfo;

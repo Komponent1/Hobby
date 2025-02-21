@@ -40,7 +40,7 @@ export class Player extends Character {
     this._sprite = scene.add.sprite(0, 0, 'player').play('player_idle');
     this._hp.create(scene);
     this._container = scene.add.container(x, y, [this._sprite]).setSize(80, 80);
-    this._container.setSize(80, 80);
+    this._container.setSize(80, 80).setDepth(5);
     this._physics = scene.matter.add.gameObject(this._container);
 
     scene.mapLayer.add(this._container);
@@ -65,14 +65,20 @@ export class Player extends Character {
         if (this._status === CharacterStatus.WALK) return;
         this._sprite.play('player_walk');
         break;
-      case CharacterStatus.ATTACK:
-        const animKey = this._dir.x === 0 ? this._dir.y > 0 ? 'player_attack_up' : 'player_attack_down' : 'player_attack';
+      case CharacterStatus.ATTACK: {
+        let animKey;
+        if (this._dir.x === 0) {
+          animKey = this._dir.y > 0 ? 'player_attack_up' : 'player_attack_down';
+        } else {
+          animKey = 'player_attack';
+        }
         this._sprite.play(animKey).once(`animationcomplete-${animKey}`, () => {
           this._sword.release(scene);
           this._status = CharacterStatus.IDLE;
           this._sprite.play('player_idle');
         });
         break;
+      }
       case CharacterStatus.DEAD:
         if (this._status === CharacterStatus.DEAD) return;
         this._sprite.play('player_die');
@@ -88,7 +94,7 @@ export class Player extends Character {
     else this.changeState(CharacterStatus.WALK, scene);
     this._container.x += (this._speed * this._dir.x);
     this._container.y += (this._speed * this._dir.y);
-    this.sword.setPosition(this._container.x, this._container.y);
+    this._sword.setPosition(scene, this._container.x, this._container.y);
   }
 
   checkHp(scene: Stage) {
