@@ -22,7 +22,7 @@
     "path": "/game",
     "description": "웹 게임 저장소",
     "children": {
-      "path": "/game/survival-monster"
+      "path": "/game/survival-knight"
     }
   },
   "steam": {
