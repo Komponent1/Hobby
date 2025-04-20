@@ -136,5 +136,25 @@
       "physics",
       "migration"
     ]
+  },
+  "15": {
+    "id": 15,
+    "title": "aws 기초 셋업",
+    "path": "aws 기초 셋업.md",
+    "tags": [
+      "aws",
+      "infra",
+      "setup"
+    ]
+  },
+  "16": {
+    "id": 16,
+    "title": "aws setting",
+    "path": "aws setting.md",
+    "tags": [
+      "aws",
+      "server",
+      "infra"
+    ]
   }
 }
