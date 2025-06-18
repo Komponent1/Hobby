@@ -136,5 +136,14 @@
       "physics",
       "migration"
     ]
+  },
+  "15": {
+    "id": 15,
+    "title": "tailwind custom color in v4",
+    "path": "tailwind custom color in v4.md",
+    "tags": [
+      "tailwindcss",
+      "color"
+    ]
   }
 }
