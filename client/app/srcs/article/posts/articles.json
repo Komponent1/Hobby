@@ -45,5 +45,14 @@
       "nextjs",
       "migration"
     ]
+  },
+  "8": {
+    "id": 8,
+    "title": "Phaser Game - 2 Loader",
+    "path": "Phaser Game - 2 Object 구성하기.md",
+    "tags": [
+      "phaser",
+      "series"
+    ]
   }
 }

@@ -5,7 +5,7 @@
     "description": ""
   },
   "articles": {
-    "title": "Article",
+    "title": "블로그",
     "path": "/article",
     "description": "게시글 저장소",
     "children": {
@@ -13,12 +13,12 @@
     }
   },
   "information": {
-    "title": "Informations",
+    "title": "개발 정보",
     "path": "/informations",
     "description": "가벼운 로깅 문서 저장소"
   },
   "game": {
-    "title": "Game",
+    "title": "웹 게임",
     "path": "/game",
     "description": "웹 게임 저장소",
     "children": {
@@ -26,7 +26,7 @@
     }
   },
   "steam": {
-    "title": "Steam",
+    "title": "스팀 정보",
     "path": "/steam",
     "description": "스팀 계정 대시보드"
   }
