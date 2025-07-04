@@ -13,6 +13,7 @@ import { TABLE_VIEW_NUM, useGetTable } from "../hooks/steam.hooks.getTable";
 import { PlayerSummary } from "../dto/steam.dto.api";
 import { Typography } from "../../common/common.components";
 import { num2wonComma } from "../utils/steam.util.string";
+import { useAnalyzePrice } from '../hooks/steam.hooks.analyzePrice';
 
 type Props = {
   owedGameDatas: GameData[];
@@ -25,6 +26,7 @@ const SteamViewBoard: React.FC<Props> = observer(({
   const {mostPlayedGame, allPlayTime, totalPrice} = useViewData(owedGameDatas);
   const {tagPercentage} = useAnalyzeTag(owedGameDatas);
   const {genrePercentage} = useAnalyzeGenres(owedGameDatas);
+  const {unplayedGamesPrice} = useAnalyzePrice(owedGameDatas);
   const {
     gameTable, viewData, setDataIndex, sortOrder, sortData,
   } = useGetTable(owedGameDatas);
@@ -62,6 +64,9 @@ const SteamViewBoard: React.FC<Props> = observer(({
             </Card>
             <Card>
               <Infobox title="총 게임 금액" information={`${num2wonComma(totalPrice / 100)}`} />
+            </Card>
+            <Card>
+              <Infobox title="플레이하지 않은 게임 금액" information={`${num2wonComma(unplayedGamesPrice / 100)}`} />
             </Card>
           </div>
         </div>

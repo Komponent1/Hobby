@@ -48,7 +48,7 @@ export const genTable = (gameDatas: GameData[]): GameTable[] => gameDatas.map((d
   photoUrl: { type: 'image', value: data.system_data.capsule_image || '' },
   name: { type: 'text', value: data.system_data.name },
   playtime: { type: 'text', value: timeToHour(data.personal_data.playtime_forever), sort: data.personal_data.playtime_forever ? data.personal_data.playtime_forever : 0 },
-  price: { type: 'text', value: priceCut(data.system_data.price_overview?.final), sort: data.system_data.price_overview?.final ? data.system_data.price_overview?.final : 0 },
+  price: { type: 'text', value: priceCut(data.system_data.price_overview?.initial), sort: data.system_data.price_overview?.initial ? data.system_data.price_overview?.initial : 0 },
   releaseDate: { type: 'text', value: dateToText(data.system_data.release_date), sort: data.system_data.release_date?.date ? new Date(data.system_data.release_date.date).getTime() : 0 },
   rating: { type: 'text', value: ratingText(data.crawling_data?.rating)},
 }));
