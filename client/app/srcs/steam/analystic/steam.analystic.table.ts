@@ -45,10 +45,10 @@ const ratingText = (rating: string | undefined) => {
   return text;
 };
 const getPlayEfficency = (game: GameData) => {
-  const playTime = game.personal_data.playtime_forever;
+  const playTime = game.personal_data.playtime_forever / 60;
   const price = game.system_data.price_overview?.initial || 0;
   if (playTime === 0 || price === 0) return '-';
-  return (playTime / (price / 1000)).toFixed(2);
+  return (playTime / (price / 100000)).toFixed(2);
 };
 export const genTable = (gameDatas: GameData[]): GameTable[] => gameDatas.map((data) => ({
   thumbnail: { type: 'image', value: data.system_data.capsule_image || '' },
