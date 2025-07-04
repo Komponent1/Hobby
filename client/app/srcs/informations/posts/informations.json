@@ -145,5 +145,15 @@
       "tailwindcss",
       "color"
     ]
+  },
+  "16": {
+    "id": 16,
+    "title": "객체의 key 타입으로 객체의 key를 선언하기",
+    "path": "객체의 key 타입으로 객체의 key를 선언하기.md",
+    "tags": [
+      "typescript",
+      "type",
+      "object"
+    ]
   }
 }
