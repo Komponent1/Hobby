@@ -18,7 +18,7 @@ const dateToText = (release_date: {coming_soon: boolean; date: string} | undefin
   if (dateProcess.length !== 3) {
     return '-';
   }
-  const change = (mon: string) => {
+  const monthChange = (mon: string) => {
     switch (mon) {
       case 'Jan,': return '1';
       case 'Feb,': return '2';
@@ -36,7 +36,7 @@ const dateToText = (release_date: {coming_soon: boolean; date: string} | undefin
     }
   };
 
-  return `${dateWithZero(dateProcess[2].slice(2))}.${dateWithZero(change(dateProcess[1]))}.${dateWithZero(dateProcess[0])}`;
+  return `${dateWithZero(dateProcess[2].slice(2))}.${dateWithZero(monthChange(dateProcess[1]))}.${dateWithZero(dateProcess[0])}`;
 };
 const ratingText = (rating: string | undefined) => {
   if (!rating) return '-';
@@ -44,11 +44,18 @@ const ratingText = (rating: string | undefined) => {
   if (!text) return '-';
   return text;
 };
+const getPlayEfficency = (game: GameData) => {
+  const playTime = game.personal_data.playtime_forever;
+  const price = game.system_data.price_overview?.initial || 0;
+  if (playTime === 0 || price === 0) return '-';
+  return (playTime / (price / 1000)).toFixed(2);
+};
 export const genTable = (gameDatas: GameData[]): GameTable[] => gameDatas.map((data) => ({
-  photoUrl: { type: 'image', value: data.system_data.capsule_image || '' },
+  thumbnail: { type: 'image', value: data.system_data.capsule_image || '' },
   name: { type: 'text', value: data.system_data.name },
   playtime: { type: 'text', value: timeToHour(data.personal_data.playtime_forever), sort: data.personal_data.playtime_forever ? data.personal_data.playtime_forever : 0 },
   price: { type: 'text', value: priceCut(data.system_data.price_overview?.initial), sort: data.system_data.price_overview?.initial ? data.system_data.price_overview?.initial : 0 },
+  playEfficency: { type: 'text', value: getPlayEfficency(data), sort: data.personal_data.playtime_forever && data.system_data.price_overview?.initial ? (data.personal_data.playtime_forever / (data.system_data.price_overview.initial / 1000)) : 0 },
   releaseDate: { type: 'text', value: dateToText(data.system_data.release_date), sort: data.system_data.release_date?.date ? new Date(data.system_data.release_date.date).getTime() : 0 },
   rating: { type: 'text', value: ratingText(data.crawling_data?.rating)},
 }));

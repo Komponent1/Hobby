@@ -1,6 +1,17 @@
 /* eslint-disable react/no-array-index-key */
 import Image from "next/image";
 import React, { useMemo } from 'react';
+import { GameTable } from '../dto/steam.dto.game';
+
+const TableName: { [key in keyof GameTable]: string } = {
+  thumbnail: '썸네일',
+  name: '이름',
+  playtime: '플레이 시간',
+  price: '가격',
+  playEfficency: '1000원당 플탐',
+  releaseDate: '출시일',
+  rating: '스팀 평가',
+};
 
 type Props<T> = {
   datas: T[];
@@ -10,7 +21,7 @@ const Table = <T extends {[key: string]: {type: 'image' | 'text', value: string,
   const categories = useMemo(() => {
     if (datas.length === 0) return [];
     return Object.keys(datas[0]);
-  }, [datas]);
+  }, [datas]) as (keyof GameTable)[];
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -26,7 +37,7 @@ const Table = <T extends {[key: string]: {type: 'image' | 'text', value: string,
                     () => datas[0][category].sort !== undefined && sortData(category as keyof T)
                   }
                 >
-                  {category}
+                  {TableName[category]}
                   <span className="text-[8px]">{datas[0][category].sort !== undefined ? ' ▼' : ''}</span>
                 </button>
               </th>
