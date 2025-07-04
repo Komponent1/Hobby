@@ -16,8 +16,8 @@ const InformationsPage: React.FC<Props> = ({informations}) => {
     informationList, openId, open, close, tags,
   } = useGetData(informations);
   const {
-    text, setText, search, searchTags, deleteSearchTag, filteredInformation,
-  } = useSearch({informationList, informations});
+    text, setText, search, searchTags, deleteSearchTag, filteredInformation, filteredTags,
+  } = useSearch({informationList, informations, tags});
 
   return (
     <div>
@@ -28,7 +28,7 @@ const InformationsPage: React.FC<Props> = ({informations}) => {
           setText={setText}
           search={search}
           searchTags={searchTags}
-          tags={tags}
+          tags={filteredTags}
           deleteSearchTags={deleteSearchTag}
         />
         <Accordion informations={filteredInformation} openId={openId} open={open} close={close} />
