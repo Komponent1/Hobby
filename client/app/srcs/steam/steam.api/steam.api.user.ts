@@ -34,6 +34,7 @@ export const getOwnedGames = async (steamid: string): Promise<GetOwnedGamesRespo
     const res = await fetch(queryString(`${BASE_URL}/${I_PLAYER_SERVICE}/GetOwnedGames/${VERSION_1}`, {
       key: process.env.STEAM_API_KEY as string,
       steamid,
+      skip_unvetted_apps: 0,
       format: 'json',
     }));
     const result = await res.json();
