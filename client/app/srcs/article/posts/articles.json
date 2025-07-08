@@ -54,5 +54,15 @@
       "phaser",
       "series"
     ]
+  },
+  "9": {
+    "id": 9,
+    "title": "Phaser Game - 3 캐릭터 만들어보기",
+    "path": "Phaser Game - 3 캐릭터 만들어보기.md",
+    "tags": [
+      "phaser",
+      "series",
+      "class"
+    ]
   }
 }
