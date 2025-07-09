@@ -1,5 +1,5 @@
 export type Article = {
-  id: string;
+  id: number;
   title: string;
   path: string;
   photo?: string;

@@ -1,8 +1,17 @@
-export type PageConfig = {
-  [key: string]: {
-    title: string;
+export type Page = {
+  title: string;
+  path: string;
+  description: string;
+  children?: {
     path: string;
-    children?: {path: string};
-    description: string;
+  };
+};
+export type PageConfig = {
+  main: Page;
+  default: {
+    [key: string]: Page;
+  }
+  etc: {
+    [key: string]: Page;
   }
 };
