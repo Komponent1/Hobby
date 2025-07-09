@@ -64,5 +64,15 @@
       "series",
       "class"
     ]
+  },
+  "10": {
+    "id": 10,
+    "title": "Phaser Game - 4 캐릭터 상태와 애니메이션",
+    "path": "Phaser Game - 4 캐릭터 상태와 애니메이션.md",
+    "tags": [
+      "phaser",
+      "series",
+      "class"
+    ]
   }
 }

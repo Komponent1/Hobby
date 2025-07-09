@@ -108,9 +108,6 @@ export class Stage extends Phaser.Scene {
 export class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'player');
-
-    /** staticBody 타입은 사용 안할 예정이므로 type을 강제한다 */
-    this.body as Phaser.Physics.Arcade.Body;
   }
 
   static create(scene: Phaser.Scene, x: number, y: number): Player {
