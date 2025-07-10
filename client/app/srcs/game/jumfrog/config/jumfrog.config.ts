@@ -5,9 +5,8 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
   parent: 'game-container',
   scale: {
-    width: 1920,
-    height: 1080,
-    mode: Phaser.Scale.FIT,
+    width: 800,
+    height: 600,
   },
   physics: {
     default: 'arcade',
@@ -23,7 +22,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   dom: {
     createContainer: true,
   },
-  backgroundColor: '#ffffff',
+  backgroundColor: '#00ffff',
   scene: [
     Stage,
   ],

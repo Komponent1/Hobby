@@ -12,6 +12,12 @@ export class Loader {
     });
   }
 
+  /** 출처: https://pixelfrog-assets.itch.io/pixel-adventure-1 */
+  static loadScaffoldingComp(scene: Phaser.Scene) {
+    scene.load.image("scaffolding_left", "/assets/jumfrog/scaffolding_left.png");
+    scene.load.image("scaffolding_middle", "/assets/jumfrog/scaffolding_middle.png");
+    scene.load.image("scaffolding_right", "/assets/jumfrog/scaffolding_right.png");
+  }
   static createFrogAnimation(scene: Phaser.Scene) {
     scene.anims.create({
       key: "idle",

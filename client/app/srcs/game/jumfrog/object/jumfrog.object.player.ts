@@ -12,7 +12,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'player');
-    this.setScale(3);
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
+    scene.physics.world.enable(this);
+    this.setCollideWorldBounds(true);
+    this.body?.setSize(20, 20);
+    this._cursor = scene.input.keyboard?.createCursorKeys();
   }
   changeState(state: CharacterState) {
     if (this.state === state) return;
@@ -91,15 +96,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
   static create(scene: Phaser.Scene, x: number, y: number): Player {
     const player = new Player(scene, x, y);
-    scene.add.existing(player);
-    scene.physics.add.existing(player);
-    scene.physics.world.enable(player);
-    player.setScale(3);
-    player.setCollideWorldBounds(true);
     player.changeState(CharacterState.IDLE);
-
-    player._cursor = scene.input.keyboard?.createCursorKeys();
     player.play('idle');
+
     return player;
   }
 }
