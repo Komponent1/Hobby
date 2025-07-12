@@ -1,12 +1,13 @@
 import Phaser from 'phaser';
 import { Stage } from '../scene/jumfrog.scene.stage';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from './jumfrog.map.config';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
   parent: 'game-container',
   scale: {
-    width: 800,
-    height: 600,
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
   },
   physics: {
     default: 'arcade',

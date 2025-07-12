@@ -3,7 +3,9 @@ import { Loader } from '../loader/jumfrog,loader';
 import { Player } from '../object/jumfrog.object.player';
 
 import { ScaffoldingPool } from '../object/jumfrog.object.scaffoldingpool';
-import { mapConfig, SCREEN_HEIGHT, SCREEN_WIDTH } from '../config/jumfrog.map.config';
+import {
+  BOTTOM, mapConfig, SCREEN_HEIGHT, SCREEN_WIDTH,
+} from '../config/jumfrog.map.config';
 import { UI } from '../object/jumfrog.object.ui';
 
 export class Stage extends Scene {
@@ -28,14 +30,18 @@ export class Stage extends Scene {
 
     uiCamera.ignore(this.objLayer);
     uiCamera.ignore(this.physics.world.debugGraphic);
-
-    this.physics.world.setBounds(0, 0, mapConfig.width, mapConfig.height);
+    this.physics.world.setBounds(
+      SCREEN_WIDTH / 2 - mapConfig.width / 2,
+      0,
+      mapConfig.width,
+      mapConfig.height - BOTTOM,
+    );
     this.cameras.main.setBounds(0, 0, mapConfig.width, mapConfig.height);
     this.cameras.main.ignore(this.uiLayer);
 
     Loader.createFrogAnimation(this);
 
-    this.player = Player.create(this, mapConfig.width / 2, mapConfig.height);
+    this.player = Player.create(this, mapConfig.width / 2, mapConfig.height - BOTTOM);
     this.scaffoldings = ScaffoldingPool.create(this);
 
     this.cameras.main.startFollow(this.player);

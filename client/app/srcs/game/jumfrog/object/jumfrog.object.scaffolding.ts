@@ -1,6 +1,7 @@
-import { MAP_W } from '../config/jumfrog.map.config';
+import { MAP_W, X } from '../config/jumfrog.map.config';
 import type { Stage } from '../scene/jumfrog.scene.stage';
 
+export const MARGIN = 50;
 export class Scaffolding extends Phaser.GameObjects.Container {
   private _movable = false;
 
@@ -35,12 +36,12 @@ export class Scaffolding extends Phaser.GameObjects.Container {
     if (scaffolding._movable) {
       scene.tweens.add({
         targets: scaffolding,
-        x: 50,
-        duration: ((scaffolding.x - 50) / (MAP_W - scaffolding.width)) * 5000,
+        x: X + MARGIN,
+        duration: ((scaffolding.x - MARGIN) / (MAP_W - scaffolding.width)) * 5000,
         onComplete: () => {
           scene.tweens.add({
             targets: scaffolding,
-            x: { from: 50, to: MAP_W - scaffolding.width },
+            x: { from: X + MARGIN, to: X + MAP_W - scaffolding.width },
             duration: 5000,
             yoyo: true,
             repeat: -1,
