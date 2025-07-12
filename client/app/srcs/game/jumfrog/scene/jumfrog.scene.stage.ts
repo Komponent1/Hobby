@@ -31,6 +31,7 @@ export class Stage extends Scene {
 
     this.physics.world.setBounds(0, 0, mapConfig.width, mapConfig.height);
     this.cameras.main.setBounds(0, 0, mapConfig.width, mapConfig.height);
+    this.cameras.main.ignore(this.uiLayer);
 
     Loader.createFrogAnimation(this);
 

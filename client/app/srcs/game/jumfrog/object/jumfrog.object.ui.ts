@@ -27,7 +27,6 @@ export class UI extends Phaser.GameObjects.Container {
 
   static create(scene: Stage): UI {
     const ui = new UI(scene, 0, 0);
-    scene.uiLayer.add(ui);
 
     return ui;
   }
