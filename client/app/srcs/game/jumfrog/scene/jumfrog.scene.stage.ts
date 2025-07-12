@@ -3,7 +3,8 @@ import { Loader } from '../loader/jumfrog,loader';
 import { Player } from '../object/jumfrog.object.player';
 
 import { ScaffoldingPool } from '../object/jumfrog.object.scaffoldingpool';
-import { mapConfig } from '../config/jumfrog.map.config';
+import { mapConfig, SCREEN_HEIGHT, SCREEN_WIDTH } from '../config/jumfrog.map.config';
+import { UI } from '../object/jumfrog.object.ui';
 
 export class Stage extends Scene {
   constructor() {
@@ -12,12 +13,22 @@ export class Stage extends Scene {
 
   public player!: Player;
   public scaffoldings!: ScaffoldingPool;
+  public ui!: UI;
+  public objLayer!: Phaser.GameObjects.Layer;
+  public uiLayer!: Phaser.GameObjects.Layer;
 
   preload() {
     Loader.loadFrog(this);
     Loader.loadScaffoldingComp(this);
   }
   create() {
+    this.objLayer = this.add.layer();
+    this.uiLayer = this.add.layer();
+    const uiCamera = this.cameras.add(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    uiCamera.ignore(this.objLayer);
+    uiCamera.ignore(this.physics.world.debugGraphic);
+
     this.physics.world.setBounds(0, 0, mapConfig.width, mapConfig.height);
     this.cameras.main.setBounds(0, 0, mapConfig.width, mapConfig.height);
 
@@ -30,8 +41,10 @@ export class Stage extends Scene {
     this.cameras.main.followOffset.set(0, 0);
 
     this.physics.add.collider(this.player, this.scaffoldings.getAll());
+    this.ui = UI.create(this);
   }
   update() {
     this.player.update();
+    this.ui.update(this);
   }
 }

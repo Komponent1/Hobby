@@ -1,3 +1,6 @@
+export const SCREEN_WIDTH = 800;
+export const SCREEN_HEIGHT = 600;
+
 export const MAP_H = 8000;
 export const MAP_W = 800;
 

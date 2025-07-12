@@ -1,11 +1,12 @@
 import { mapConfig } from '../config/jumfrog.map.config';
 import { Scaffolding } from './jumfrog.object.scaffolding';
+import type { Stage } from '../scene/jumfrog.scene.stage';
 
 export class ScaffoldingPool {
   private _scaffoldings: Scaffolding[] = [];
-  private _scene: Phaser.Scene;
+  private _scene: Stage;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(scene: Stage) {
     this._scene = scene;
   }
 
@@ -24,7 +25,7 @@ export class ScaffoldingPool {
     this._scaffoldings = [];
   }
 
-  static create(scene: Phaser.Scene): ScaffoldingPool {
+  static create(scene: Stage): ScaffoldingPool {
     const pool = new ScaffoldingPool(scene);
     mapConfig.scaffoldings.forEach((scaffoldingConfig) => {
       const scaffolding = Scaffolding.create(

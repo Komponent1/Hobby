@@ -1,12 +1,14 @@
 import { MAP_W } from '../config/jumfrog.map.config';
+import type { Stage } from '../scene/jumfrog.scene.stage';
 
 export class Scaffolding extends Phaser.GameObjects.Container {
   private _movable = false;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, movable: boolean = false) {
+  constructor(scene: Stage, x: number, y: number, movable: boolean = false) {
     super(scene, x, y);
     this._movable = movable;
 
+    scene.objLayer.add(this);
     scene.add.existing(this);
     scene.physics.world.enable(this);
 
@@ -28,7 +30,7 @@ export class Scaffolding extends Phaser.GameObjects.Container {
     body.setOffset(left.width, 0);
   }
 
-  static create(scene: Phaser.Scene, x: number, y: number, movable: boolean = false): Scaffolding {
+  static create(scene: Stage, x: number, y: number, movable: boolean = false): Scaffolding {
     const scaffolding = new Scaffolding(scene, x, y, movable);
     if (scaffolding._movable) {
       scene.tweens.add({

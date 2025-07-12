@@ -27,7 +27,7 @@ const InformationIntro: React.FC<Props> = ({ onLink }) => {
             정보 저장소
           </p>
         )}
-        onClick={() => onLink('/information')}
+        onClick={() => onLink('/informations')}
       />
       <div className="flex flex-col justify-center items-start ml-4">
         <h2 className="mb-4 text-xl font-bold tracking-tight text-white">

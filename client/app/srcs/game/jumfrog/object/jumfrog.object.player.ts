@@ -1,4 +1,5 @@
 import { JUMP_DOWN_FRAME, JUMP_TOP_FRAME, JUMP_UP_FRAME } from '../jumfrog.constant';
+import type { Stage } from '../scene/jumfrog.scene.stage';
 
 export enum CharacterState {
   IDLE = 'idle',
@@ -10,8 +11,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   private _cursor: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private _jumpPower: number = 0;
 
-  constructor(scene: Phaser.Scene, x: number, y: number) {
+  constructor(scene: Stage, x: number, y: number) {
     super(scene, x, y, 'player');
+    scene.objLayer.add(this);
     scene.add.existing(this);
     scene.physics.add.existing(this);
     scene.physics.world.enable(this);
@@ -44,11 +46,12 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
   jump() {
     if (!this._cursor) return;
     if (this.state === CharacterState.JUMP) return;
+    if (this.body?.velocity.y !== 0) return;
     if (this._cursor.space.isDown) {
       this.setVelocityX(0);
       this.changeState(CharacterState.READY_JUMP);
       if (this._jumpPower < 700) {
-        this._jumpPower += 10;
+        this._jumpPower += 5;
       }
     } else if (this._cursor.space.isUp) {
       if (this.state !== CharacterState.READY_JUMP) return;
@@ -95,7 +98,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  static create(scene: Phaser.Scene, x: number, y: number): Player {
+  static create(scene: Stage, x: number, y: number): Player {
     const player = new Player(scene, x, y);
     player.changeState(CharacterState.IDLE);
     player.play('idle');
