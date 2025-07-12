@@ -74,5 +74,33 @@
       "series",
       "class"
     ]
+  },
+  "11": {
+    "id": 11,
+    "title": "Phaser Game - 5 점프하기",
+    "path": "Phaser Game - 5 점프하기.md",
+    "tags": [
+      "phaser",
+      "series"
+    ]
+  },
+  "12": {
+    "id": 12,
+    "title": "Phaser Game - 6 발판 만들기",
+    "path": "Phaser Game - 6 발판 만들기.md",
+    "tags": [
+      "phaser",
+      "series",
+      "collision"
+    ]
+  },
+  "13": {
+    "id": 13,
+    "title": "Phaser Game - 7 맵 구성 기초",
+    "path": "Phaser Game - 7 맵 구성 기초.md",
+    "tags": [
+      "phaser",
+      "series"
+    ]
   }
 }

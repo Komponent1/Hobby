@@ -29,7 +29,7 @@ export class Stage extends Scene {
     this.cameras.main.startFollow(this.player);
     this.cameras.main.followOffset.set(0, 0);
 
-    this.physics.add.collider(this.player, this.scaffoldings.getAll().map((s) => s.container));
+    this.physics.add.collider(this.player, this.scaffoldings.getAll());
   }
   update() {
     this.player.update();

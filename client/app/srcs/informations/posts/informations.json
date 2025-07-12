@@ -155,5 +155,15 @@
       "type",
       "object"
     ]
+  },
+  "17": {
+    "id": 17,
+    "title": "움직이는 발판 위 캐릭터",
+    "path": "움직이는 발판 위 캐릭터.md",
+    "tags": [
+      "phaser",
+      "physics",
+      "setDirectControl"
+    ]
   }
 }

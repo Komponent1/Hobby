@@ -11,8 +11,8 @@ export class ScaffoldingPool {
 
   add(scaffolding: Scaffolding) {
     this._scaffoldings.push(scaffolding);
-    this._scene.add.existing(scaffolding.container);
-    this._scene.physics.add.existing(scaffolding.container);
+    this._scene.add.existing(scaffolding);
+    this._scene.physics.add.existing(scaffolding);
   }
 
   getAll(): Scaffolding[] {
@@ -20,7 +20,7 @@ export class ScaffoldingPool {
   }
 
   clear() {
-    this._scaffoldings.forEach((scaffolding) => scaffolding.container.destroy());
+    this._scaffoldings.forEach((scaffolding) => scaffolding.destroy());
     this._scaffoldings = [];
   }
 
@@ -31,6 +31,7 @@ export class ScaffoldingPool {
         scene,
         scaffoldingConfig.x,
         scaffoldingConfig.y,
+        scaffoldingConfig.movable,
       );
       pool.add(scaffolding);
     });

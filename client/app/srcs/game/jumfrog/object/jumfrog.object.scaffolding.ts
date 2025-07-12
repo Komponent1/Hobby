@@ -1,52 +1,51 @@
-export class Scaffolding {
-  private _container!: Phaser.GameObjects.Container;
-  private _body!: Phaser.Physics.Arcade.Body;
+import { MAP_W } from '../config/jumfrog.map.config';
 
-  get x(): number {
-    return this._container.x;
-  }
-  get y(): number {
-    return this._container.y;
-  }
-  get body(): Phaser.Physics.Arcade.Body {
-    return this._body;
-  }
-  get container(): Phaser.GameObjects.Container {
-    return this._container;
-  }
-  setPosition(x: number, y: number) {
-    this._container.setPosition(x, y);
-  }
+export class Scaffolding extends Phaser.GameObjects.Container {
+  private _movable = false;
 
-  constructor(scene: Phaser.Scene, x: number, y: number) {
-    this._container = scene.add.container(x, y);
+  constructor(scene: Phaser.Scene, x: number, y: number, movable: boolean = false) {
+    super(scene, x, y);
+    this._movable = movable;
 
-    const left = scene.add.image(0, 0, "scaffolding_left");
-    const middle = scene.add.image(left.width, 0, "scaffolding_middle");
-    const right = scene.add.image(left.width + middle.width, 0, "scaffolding_right");
+    scene.add.existing(this);
+    scene.physics.world.enable(this);
 
-    this._container.add([left, middle, right]);
-    this._container.setSize(left.width + middle.width + right.width, left.height);
-    this._container.setInteractive();
+    const left = scene.add.image(0, 0, 'scaffolding_left');
+    const middle = scene.add.image(left.width, 0, 'scaffolding_middle');
+    const right = scene.add.image(left.width + middle.width, 0, 'scaffolding_right');
 
-    this._container = scene.physics.add.existing(this._container) as Phaser.GameObjects.Container;
-    scene.physics.world.enable(this._container);
-    this._body = this._container.body as Phaser.Physics.Arcade.Body;
-    this._body.setSize(this._container.width, this._container.height);
-    this._body.setImmovable(true);
-    this._body.setCollideWorldBounds(true);
-    this._body.setAllowGravity(false);
-    this._body.setFriction(0);
-    this._body.setBounce(0.2);
-    this._body.setOffset(
-      left.width,
-      0,
-    );
+    this.add([left, middle, right]);
+    this.setSize(left.width + middle.width + right.width, left.height);
+    this.setInteractive();
+
+    scene.physics.add.existing(this);
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setSize(this.width, this.height);
+    body.setImmovable();
+    body.setDirectControl();
+    body.setCollideWorldBounds(true);
+    body.setAllowGravity(false);
+    body.setOffset(left.width, 0);
   }
 
-  static create(scene: Phaser.Scene, x: number, y: number): Scaffolding {
-    const scaffolding = new Scaffolding(scene, x, y);
-
+  static create(scene: Phaser.Scene, x: number, y: number, movable: boolean = false): Scaffolding {
+    const scaffolding = new Scaffolding(scene, x, y, movable);
+    if (scaffolding._movable) {
+      scene.tweens.add({
+        targets: scaffolding,
+        x: 50,
+        duration: ((scaffolding.x - 50) / (MAP_W - scaffolding.width)) * 5000,
+        onComplete: () => {
+          scene.tweens.add({
+            targets: scaffolding,
+            x: { from: 50, to: MAP_W - scaffolding.width },
+            duration: 5000,
+            yoyo: true,
+            repeat: -1,
+          });
+        },
+      });
+    }
     return scaffolding;
   }
 }

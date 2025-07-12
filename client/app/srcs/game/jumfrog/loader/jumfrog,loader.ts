@@ -12,7 +12,7 @@ export class Loader {
     });
   }
 
-  /** 출처: https://pixelfrog-assets.itch.io/pixel-adventure-1 */
+  /** 출처: https://free-game-assets.itch.io/free-swamp-2d-tileset-pixel-art */
   static loadScaffoldingComp(scene: Phaser.Scene) {
     scene.load.image("scaffolding_left", "/assets/jumfrog/scaffolding_left.png");
     scene.load.image("scaffolding_middle", "/assets/jumfrog/scaffolding_middle.png");
