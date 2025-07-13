@@ -32,6 +32,7 @@ export class ScaffoldingPool {
         scene,
         scaffoldingConfig.x,
         scaffoldingConfig.y,
+        scaffoldingConfig.len,
         scaffoldingConfig.movable,
       );
       pool.add(scaffolding);
