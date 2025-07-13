@@ -18,6 +18,7 @@ export class Stage extends Scene {
   public player!: Player;
   public scaffoldings!: ScaffoldingPool;
   public ui!: UI;
+  public background!: Background;
   public objLayer!: Phaser.GameObjects.Layer;
   public uiLayer!: Phaser.GameObjects.Layer;
 
@@ -35,7 +36,7 @@ export class Stage extends Scene {
     uiCamera.ignore(this.physics.world.debugGraphic);
     this.cameras.main.ignore(this.uiLayer);
 
-    Background.create(this);
+    this.background = Background.create(this);
     Tile.create(this);
     this.ui = UI.create(this);
 
