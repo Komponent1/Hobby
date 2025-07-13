@@ -14,10 +14,24 @@ export class Loader {
 
   /** 출처: https://free-game-assets.itch.io/free-swamp-2d-tileset-pixel-art */
   static loadScaffoldingComp(scene: Phaser.Scene) {
-    scene.load.image("scaffolding_left", "/assets/jumfrog/scaffolding_left.png");
-    scene.load.image("scaffolding_middle", "/assets/jumfrog/scaffolding_middle.png");
-    scene.load.image("scaffolding_right", "/assets/jumfrog/scaffolding_right.png");
+    scene.load.image("scaffolding_left", "/assets/jumfrog/scaffolding/scaffolding_left.png");
+    scene.load.image("scaffolding_middle", "/assets/jumfrog/scaffolding/scaffolding_middle.png");
+    scene.load.image("scaffolding_right", "/assets/jumfrog/scaffolding/scaffolding_right.png");
+    scene.load.image("scaffolding_single", "/assets/jumfrog/scaffolding/scaffolding_single.png");
   }
+  static loadTile(scene: Phaser.Scene) {
+    scene.load.image("tile", "/assets/jumfrog/tile/tile.png");
+    scene.load.image("tile_t", "/assets/jumfrog/tile/tile_t.png");
+    scene.load.image("tile_b", "/assets/jumfrog/tile/tile_b.png");
+    scene.load.image("tile_l", "/assets/jumfrog/tile/tile_l.png");
+    scene.load.image("tile_r", "/assets/jumfrog/tile/tile_r.png");
+    scene.load.image("tile_lb", "/assets/jumfrog/tile/tile_lb.png");
+    scene.load.image("tile_lt", "/assets/jumfrog/tile/tile_lt.png");
+    scene.load.image("tile_rb", "/assets/jumfrog/tile/tile_rb.png");
+    scene.load.image("tile_rt", "/assets/jumfrog/tile/tile_rt.png");
+    scene.load.image("background", "/assets/jumfrog/background.png");
+  }
+
   static createFrogAnimation(scene: Phaser.Scene) {
     scene.anims.create({
       key: "idle",

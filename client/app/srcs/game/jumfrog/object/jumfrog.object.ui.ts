@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import {
-  BOTTOM,
-  mapConfig, SCREEN_HEIGHT, SCREEN_WIDTH, X,
+  mapConfig,
 } from '../config/jumfrog.map.config';
 import type { Stage } from '../scene/jumfrog.scene.stage';
 
@@ -20,10 +19,6 @@ export class UI extends Phaser.GameObjects.Container {
     super(scene, x, y);
     this._height = 0;
     this._startTime = Date.now();
-    this.leftWall = scene.add.rectangle(0, 0, X, SCREEN_HEIGHT, 0x000000).setOrigin(0, 0);
-    this.bottomWall = scene.add.rectangle(0, SCREEN_HEIGHT - BOTTOM, SCREEN_WIDTH, BOTTOM, 0x000000).setOrigin(0, 0);
-    this.rightWall = scene.add.rectangle(SCREEN_WIDTH - X, 0, X, SCREEN_HEIGHT, 0x000000).setOrigin(0, 0);
-    this.topWall = scene.add.rectangle(0, 0, SCREEN_WIDTH, 10, 0x000000).setOrigin(0, 0);
     this.timeText = scene.add.text(10, 10, 'Time: 0s', {
       fontSize: '16px',
       color: '#ffffff',
@@ -33,8 +28,7 @@ export class UI extends Phaser.GameObjects.Container {
       color: '#ffffff',
     });
 
-    this.add([this.leftWall, this.bottomWall, this.rightWall, this.topWall, this.timeText, this.heightText]);
-
+    this.add([this.timeText, this.heightText]);
     scene.uiLayer.add(this);
     scene.add.existing(this);
   }

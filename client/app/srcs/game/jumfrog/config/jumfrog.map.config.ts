@@ -4,7 +4,7 @@ export const SCREEN_HEIGHT = 800;
 export const MAP_H = 8000;
 export const MAP_W = 800;
 export const X = SCREEN_WIDTH / 2 - MAP_W / 2;
-export const BOTTOM = 10; // Height of the ground layer
+export const BOTTOM = 32; // Height of the ground layer
 
 export const mapConfig = {
   width: MAP_W,

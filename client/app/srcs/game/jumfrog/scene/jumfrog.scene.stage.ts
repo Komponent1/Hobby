@@ -7,6 +7,8 @@ import {
   BOTTOM, mapConfig, SCREEN_HEIGHT, SCREEN_WIDTH,
 } from '../config/jumfrog.map.config';
 import { UI } from '../object/jumfrog.object.ui';
+import { Tile } from '../object/jumfrog.object.tile';
+import { Background } from '../object/jumfrog.object.background';
 
 export class Stage extends Scene {
   constructor() {
@@ -22,6 +24,7 @@ export class Stage extends Scene {
   preload() {
     Loader.loadFrog(this);
     Loader.loadScaffoldingComp(this);
+    Loader.loadTile(this);
   }
   create() {
     this.objLayer = this.add.layer();
@@ -30,6 +33,12 @@ export class Stage extends Scene {
 
     uiCamera.ignore(this.objLayer);
     uiCamera.ignore(this.physics.world.debugGraphic);
+    this.cameras.main.ignore(this.uiLayer);
+
+    Background.create(this);
+    Tile.create(this);
+    this.ui = UI.create(this);
+
     this.physics.world.setBounds(
       SCREEN_WIDTH / 2 - mapConfig.width / 2,
       0,
@@ -48,7 +57,6 @@ export class Stage extends Scene {
     this.cameras.main.followOffset.set(0, 0);
 
     this.physics.add.collider(this.player, this.scaffoldings.getAll());
-    this.ui = UI.create(this);
   }
   update() {
     this.player.update();
