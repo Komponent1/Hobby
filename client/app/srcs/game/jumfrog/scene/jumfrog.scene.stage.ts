@@ -9,6 +9,7 @@ import {
 import { UI } from '../object/ui/jumfrog.object.ui';
 import { Tile } from '../object/jumfrog.object.tile';
 import { Background } from '../object/jumfrog.object.background';
+import { Map } from '../object/jumfrog.object.map';
 
 export class Stage extends Scene {
   constructor() {
@@ -42,6 +43,7 @@ export class Stage extends Scene {
 
     this.background = Background.create(this);
     Tile.create(this);
+    Map.create(this);
     this.ui = UI.create(this);
 
     this.physics.world.setBounds(

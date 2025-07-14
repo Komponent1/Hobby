@@ -53,7 +53,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.setVelocityX(0);
       this.changeState(CharacterState.READY_JUMP);
       if (this._jumpPower < 700) {
-        this._jumpPower += 5;
+        this._jumpPower += 7;
       }
     } else if (this._cursor.space.isUp) {
       if (this.state !== CharacterState.READY_JUMP) return;

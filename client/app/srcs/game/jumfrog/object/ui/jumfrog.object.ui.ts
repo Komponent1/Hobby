@@ -11,10 +11,6 @@ export class UI extends Phaser.GameObjects.Container {
 
   public timeText!: Phaser.GameObjects.Text;
   public heightText!: Phaser.GameObjects.Text;
-  public leftWall!: Phaser.GameObjects.Rectangle;
-  public bottomWall!: Phaser.GameObjects.Rectangle;
-  public rightWall!: Phaser.GameObjects.Rectangle;
-  public topWall!: Phaser.GameObjects.Rectangle;
   public explainKey!: ExplainKey;
 
   constructor(scene: Stage, x: number, y: number) {
