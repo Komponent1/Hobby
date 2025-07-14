@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { JUMP_DOWN_FRAME, JUMP_TOP_FRAME, JUMP_UP_FRAME } from '../jumfrog.constant';
 import type { Stage } from '../scene/jumfrog.scene.stage';
 
@@ -11,6 +12,7 @@ export enum GroundType {
   NORMAL = 'normal',
   ICE = 'ice',
 }
+export const FRCITION = 0.99;
 export class Player extends Phaser.Physics.Arcade.Sprite {
   private _cursor: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   private _jumpPower: number = 0;
@@ -60,8 +62,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     if (this._cursor.space.isDown) {
       this.changeState(CharacterState.READY_JUMP);
       if (this._groundType === GroundType.ICE) {
+        this.setAccelerationX(0);
         this.setVelocityX(
-          (this.body as Phaser.Physics.Arcade.Body).velocity.x * 0.99,
+          (this.body as Phaser.Physics.Arcade.Body).velocity.x * FRCITION,
         );
       } else {
         this.setVelocityX(0);
@@ -74,7 +77,19 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.changeState(CharacterState.JUMP);
       scene.sound.play('jump');
       if (this.flipX) {
-        this.setVelocity(-200, -this._jumpPower);
+        if (this._groundType === GroundType.ICE) {
+          this.setVelocity(
+            (this.body as Phaser.Physics.Arcade.Body).velocity.x - 200 < -200 ? -200 : (this.body as Phaser.Physics.Arcade.Body).velocity.x - 200,
+            -this._jumpPower,
+          );
+        } else {
+          this.setVelocity(-200, -this._jumpPower);
+        }
+      } else if (this._groundType === GroundType.ICE) {
+        this.setVelocity(
+          (this.body as Phaser.Physics.Arcade.Body).velocity.x + 200 > 0 ? 200 : (this.body as Phaser.Physics.Arcade.Body).velocity.x + 200,
+          -this._jumpPower,
+        );
       } else {
         this.setVelocity(200, -this._jumpPower);
       }
@@ -86,17 +101,32 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       || this.state === CharacterState.READY_JUMP) return;
     if (this._cursor.left.isDown) {
       this.changeState(CharacterState.WALK);
-      this.setVelocityX(-200);
+      if (this._groundType === GroundType.ICE) {
+        this.setAccelerationX(-220);
+        if ((this.body as Phaser.Physics.Arcade.Body).velocity.x < -200) {
+          this.setVelocityX(-200);
+        }
+      } else {
+        this.setVelocityX(-200);
+      }
       this.flipX = true;
     } else if (this._cursor.right.isDown) {
       this.changeState(CharacterState.WALK);
-      this.setVelocityX(200);
+      if (this._groundType === GroundType.ICE) {
+        this.setAccelerationX(220);
+        if ((this.body as Phaser.Physics.Arcade.Body).velocity.x > 200) {
+          this.setVelocityX(200);
+        }
+      } else {
+        this.setVelocityX(200);
+      }
       this.flipX = false;
     } else if ((this.body as Phaser.Physics.Arcade.Body).onFloor()) {
       this.changeState(CharacterState.IDLE);
+      this.setAccelerationX(0);
       if (this._groundType === GroundType.ICE) {
         this.setVelocityX(
-          (this.body as Phaser.Physics.Arcade.Body).velocity.x * 0.99,
+          (this.body as Phaser.Physics.Arcade.Body).velocity.x * FRCITION,
         );
       } else {
         this.setVelocityX(0); // 일반 발판 위에서는 멈춤

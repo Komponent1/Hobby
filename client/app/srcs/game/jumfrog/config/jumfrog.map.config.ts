@@ -203,5 +203,12 @@ export const mapConfig = {
       movable: false,
       etc: 'ice',
     },
+    {
+      x: X + 600,
+      y: MAP_H - 3400,
+      len: 1,
+      movable: false,
+      etc: 'ice',
+    },
   ],
 };

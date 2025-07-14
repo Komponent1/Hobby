@@ -86,7 +86,7 @@ export class Stage extends Scene {
       },
     );
     DevelopConfig.create(this);
-    uiCamera.ignore(this.physics.world.debugGraphic);
+    // uiCamera.ignore(this.physics.world.debugGraphic);
   }
   update() {
     this.player.update(this);
