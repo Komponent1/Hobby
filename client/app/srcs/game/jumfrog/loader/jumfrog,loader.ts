@@ -31,7 +31,27 @@ export class Loader {
     scene.load.image("tile_rt", "/assets/jumfrog/tile/tile_rt.png");
     scene.load.image("background", "/assets/jumfrog/background.png");
   }
-
+  static loadUi(scene: Phaser.Scene) {
+    scene.load.spritesheet("keyboard", "/assets/jumfrog/ui/keyboard.png", {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    scene.load.spritesheet("keyboard_extra", "/assets/jumfrog/ui/keyboard_extra.png", {
+      frameWidth: 32,
+      frameHeight: 16,
+    });
+  }
+  static createKeyAnimation(scene: Phaser.Scene) {
+    scene.anims.create({
+      key: "space_press",
+      frames: scene.anims.generateFrameNumbers("spacebar", {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 60,
+      repeat: -1,
+    });
+  }
   static createFrogAnimation(scene: Phaser.Scene) {
     scene.anims.create({
       key: "idle",

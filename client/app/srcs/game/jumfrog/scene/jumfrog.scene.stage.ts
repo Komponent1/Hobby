@@ -6,7 +6,7 @@ import { ScaffoldingPool } from '../object/jumfrog.object.scaffoldingpool';
 import {
   BOTTOM, mapConfig, SCREEN_HEIGHT, SCREEN_WIDTH,
 } from '../config/jumfrog.map.config';
-import { UI } from '../object/jumfrog.object.ui';
+import { UI } from '../object/ui/jumfrog.object.ui';
 import { Tile } from '../object/jumfrog.object.tile';
 import { Background } from '../object/jumfrog.object.background';
 
@@ -26,6 +26,7 @@ export class Stage extends Scene {
     Loader.loadFrog(this);
     Loader.loadScaffoldingComp(this);
     Loader.loadTile(this);
+    Loader.loadUi(this);
   }
   create() {
     this.objLayer = this.add.layer();
@@ -35,6 +36,9 @@ export class Stage extends Scene {
     uiCamera.ignore(this.objLayer);
     uiCamera.ignore(this.physics.world.debugGraphic);
     this.cameras.main.ignore(this.uiLayer);
+
+    Loader.createFrogAnimation(this);
+    Loader.createKeyAnimation(this);
 
     this.background = Background.create(this);
     Tile.create(this);
@@ -48,8 +52,6 @@ export class Stage extends Scene {
     );
     this.cameras.main.setBounds(0, 0, mapConfig.width, mapConfig.height);
     this.cameras.main.ignore(this.uiLayer);
-
-    Loader.createFrogAnimation(this);
 
     this.player = Player.create(this, mapConfig.width / 2, mapConfig.height - BOTTOM);
     this.scaffoldings = ScaffoldingPool.create(this);

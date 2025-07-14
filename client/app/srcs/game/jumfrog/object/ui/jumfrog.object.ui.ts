@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 import {
   mapConfig,
-} from '../config/jumfrog.map.config';
-import type { Stage } from '../scene/jumfrog.scene.stage';
+} from '../../config/jumfrog.map.config';
+import type { Stage } from '../../scene/jumfrog.scene.stage';
+import { ExplainKey } from './jumfrog.object.explain_key';
 
 export class UI extends Phaser.GameObjects.Container {
   private _height: number;
@@ -14,6 +15,7 @@ export class UI extends Phaser.GameObjects.Container {
   public bottomWall!: Phaser.GameObjects.Rectangle;
   public rightWall!: Phaser.GameObjects.Rectangle;
   public topWall!: Phaser.GameObjects.Rectangle;
+  public explainKey!: ExplainKey;
 
   constructor(scene: Stage, x: number, y: number) {
     super(scene, x, y);
@@ -27,8 +29,10 @@ export class UI extends Phaser.GameObjects.Container {
       fontSize: '16px',
       color: '#ffffff',
     });
+    this.explainKey = ExplainKey.create(scene);
 
-    this.add([this.timeText, this.heightText]);
+    this.add([this.timeText, this.heightText, this.explainKey]);
+
     scene.uiLayer.add(this);
     scene.add.existing(this);
   }
@@ -48,5 +52,7 @@ export class UI extends Phaser.GameObjects.Container {
       this._height = Math.floor((mapConfig.height - player.y - 10) / 100);
       this.heightText.setText(`Height: ${this._height}m`);
     }
+
+    this.explainKey.update();
   }
 }
