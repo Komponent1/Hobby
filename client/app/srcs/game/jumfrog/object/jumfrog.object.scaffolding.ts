@@ -44,7 +44,6 @@ export class Scaffolding extends Phaser.GameObjects.Container {
     body.setSize(this.width, this.height);
     body.setImmovable();
     body.setDirectControl();
-    body.setCollideWorldBounds(true);
     body.setAllowGravity(false);
     body.setOffset(this.width / 2, this.height / 2);
   }

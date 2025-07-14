@@ -20,6 +20,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
     this.body?.setSize(20, 20);
     this.setScale(1.5);
+    this.setBounceX(0.1);
     this._cursor = scene.input.keyboard?.createCursorKeys();
   }
   changeState(state: CharacterState) {
