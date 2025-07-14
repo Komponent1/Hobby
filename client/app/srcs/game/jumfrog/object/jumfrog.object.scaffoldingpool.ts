@@ -1,6 +1,7 @@
 import { mapConfig } from '../config/jumfrog.map.config';
 import { Scaffolding } from './jumfrog.object.scaffolding';
 import type { Stage } from '../scene/jumfrog.scene.stage';
+import { IceScaffolding } from './jumfrog.object.ice_scaffolding';
 
 export class ScaffoldingPool {
   private _scaffoldings: Scaffolding[] = [];
@@ -19,6 +20,16 @@ export class ScaffoldingPool {
   getAll(): Scaffolding[] {
     return this._scaffoldings;
   }
+  getAllNormal(): Scaffolding[] {
+    return this._scaffoldings.filter(
+      (scaffolding) => !(scaffolding instanceof IceScaffolding),
+    ) as Scaffolding[];
+  }
+  getAllIce(): IceScaffolding[] {
+    return this._scaffoldings.filter(
+      (scaffolding) => scaffolding instanceof IceScaffolding,
+    ) as IceScaffolding[];
+  }
 
   clear() {
     this._scaffoldings.forEach((scaffolding) => scaffolding.destroy());
@@ -28,14 +39,25 @@ export class ScaffoldingPool {
   static create(scene: Stage): ScaffoldingPool {
     const pool = new ScaffoldingPool(scene);
     mapConfig.scaffoldings.forEach((scaffoldingConfig) => {
-      const scaffolding = Scaffolding.create(
-        scene,
-        scaffoldingConfig.x,
-        scaffoldingConfig.y,
-        scaffoldingConfig.len,
-        scaffoldingConfig.movable,
-      );
-      pool.add(scaffolding);
+      if (scaffoldingConfig.etc === 'ice') {
+        const scaffolding = IceScaffolding.create(
+          scene,
+          scaffoldingConfig.x,
+          scaffoldingConfig.y,
+          scaffoldingConfig.len,
+          scaffoldingConfig.movable,
+        );
+        pool.add(scaffolding);
+      } else {
+        const scaffolding = Scaffolding.create(
+          scene,
+          scaffoldingConfig.x,
+          scaffoldingConfig.y,
+          scaffoldingConfig.len,
+          scaffoldingConfig.movable,
+        );
+        pool.add(scaffolding);
+      }
     });
 
     return pool;

@@ -5,7 +5,6 @@ import type { Stage } from '../scene/jumfrog.scene.stage';
 export const MARGIN = 50;
 export class Scaffolding extends Phaser.GameObjects.Container {
   private _movable = false;
-  private _offset = 0;
 
   constructor(scene: Stage, x: number, y: number, len: number, movable: boolean = false) {
     super(scene, x, y);
@@ -24,7 +23,6 @@ export class Scaffolding extends Phaser.GameObjects.Container {
       const right = scene.add.image(left.width, 0, 'scaffolding_right').setOrigin(0, 0);
       this.add([left, right]);
       this.setSize(left.width + right.width, left.height);
-      this._offset = left.width / 2;
     } else if (len >= 3) {
       const left = scene.add.image(0, 0, 'scaffolding_left').setOrigin(0, 0);
       const middle = scene.add.image(left.width, 0, 'scaffolding_middle').setOrigin(0, 0);
@@ -35,7 +33,6 @@ export class Scaffolding extends Phaser.GameObjects.Container {
       const right = scene.add.image(left.width + (len - 2) * middle.width, 0, 'scaffolding_right').setOrigin(0, 0);
       this.add([left, ...objs, middle, right]);
       this.setSize(left.width + (len - 2) * middle.width + right.width, left.height);
-      this._offset = left.width + (len - 3) * middle.width;
     }
     this.setInteractive();
 
@@ -46,19 +43,16 @@ export class Scaffolding extends Phaser.GameObjects.Container {
     body.setDirectControl();
     body.setAllowGravity(false);
     body.setOffset(this.width / 2, this.height / 2);
-  }
 
-  static create(scene: Stage, x: number, y: number, len: number, movable: boolean = false): Scaffolding {
-    const scaffolding = new Scaffolding(scene, x, y, len, movable);
-    if (scaffolding._movable) {
+    if (this._movable) {
       scene.tweens.add({
-        targets: scaffolding,
-        x: X + MARGIN,
-        duration: ((scaffolding.x - MARGIN) / (MAP_W - scaffolding.width)) * 5000,
+        targets: this,
+        x: X,
+        duration: ((this.x - X) / (MAP_W - this.width)) * 5000,
         onComplete: () => {
           scene.tweens.add({
-            targets: scaffolding,
-            x: { from: X + MARGIN, to: X + MAP_W - scaffolding.width },
+            targets: this,
+            x: { from: X, to: X + MAP_W - this.width },
             duration: 5000,
             yoyo: true,
             repeat: -1,
@@ -66,6 +60,9 @@ export class Scaffolding extends Phaser.GameObjects.Container {
         },
       });
     }
-    return scaffolding;
+  }
+
+  static create(scene: Stage, x: number, y: number, len: number, movable: boolean = false): Scaffolding {
+    return new Scaffolding(scene, x, y, len, movable);
   }
 }

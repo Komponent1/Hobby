@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import {
   mapConfig,
+  X,
 } from '../../config/jumfrog.map.config';
 import type { Stage } from '../../scene/jumfrog.scene.stage';
 import { ExplainKey } from './jumfrog.object.explain_key';
@@ -17,13 +18,15 @@ export class UI extends Phaser.GameObjects.Container {
     super(scene, x, y);
     this._height = 0;
     this._startTime = Date.now();
-    this.timeText = scene.add.text(10, 10, 'Time: 0s', {
+    this.timeText = scene.add.text(10, 10, 'TIME: 0s', {
       fontSize: '16px',
       color: '#ffffff',
+      fontStyle: 'bold',
     });
-    this.heightText = scene.add.text(10, 30, 'Height: 0m', {
-      fontSize: '16px',
+    this.heightText = scene.add.text(10, 30, '0m', {
+      fontSize: '32px',
       color: '#ffffff',
+      fontStyle: 'bold',
     });
     this.explainKey = ExplainKey.create(scene);
 
@@ -34,19 +37,19 @@ export class UI extends Phaser.GameObjects.Container {
   }
 
   static create(scene: Stage): UI {
-    const ui = new UI(scene, 0, 0);
+    const ui = new UI(scene, X - 150, 0);
 
     return ui;
   }
 
   update(scene: Stage) {
     const elapsedTime = Math.floor((Date.now() - this._startTime) / 1000);
-    this.timeText.setText(`Time: ${elapsedTime}s`);
+    this.timeText.setText(`TIME: ${elapsedTime}s`);
 
     const {player} = scene;
     if (player) {
       this._height = Math.floor((mapConfig.height - player.y - 10) / 100);
-      this.heightText.setText(`Height: ${this._height}m`);
+      this.heightText.setText(`${this._height}m`);
     }
 
     this.explainKey.update();
