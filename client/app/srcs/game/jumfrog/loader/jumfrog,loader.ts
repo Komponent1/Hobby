@@ -19,6 +19,7 @@ export class Loader {
     scene.load.image("scaffolding_right", "/assets/jumfrog/scaffolding/scaffolding_right.png");
     scene.load.image("scaffolding_single", "/assets/jumfrog/scaffolding/scaffolding_single.png");
   }
+  /** 출처: https://free-game-assets.itch.io/free-swamp-2d-tileset-pixel-art */
   static loadTile(scene: Phaser.Scene) {
     scene.load.image("tile", "/assets/jumfrog/tile/tile.png");
     scene.load.image("tile_t", "/assets/jumfrog/tile/tile_t.png");
@@ -31,6 +32,7 @@ export class Loader {
     scene.load.image("tile_rt", "/assets/jumfrog/tile/tile_rt.png");
     scene.load.image("background", "/assets/jumfrog/background.png");
   }
+  /** 출처: https://dreammix.itch.io/keyboard-keys-for-ui */
   static loadUi(scene: Phaser.Scene) {
     scene.load.spritesheet("keyboard", "/assets/jumfrog/ui/keyboard.png", {
       frameWidth: 16,
@@ -41,16 +43,9 @@ export class Loader {
       frameHeight: 16,
     });
   }
-  static createKeyAnimation(scene: Phaser.Scene) {
-    scene.anims.create({
-      key: "space_press",
-      frames: scene.anims.generateFrameNumbers("spacebar", {
-        start: 0,
-        end: 1,
-      }),
-      frameRate: 60,
-      repeat: -1,
-    });
+  /** 출처: https://kanekizlf.itch.io/jump-sounds */
+  static loadSound(scene: Phaser.Scene) {
+    scene.load.audio("jump", "/assets/jumfrog/sound/jump.mp3");
   }
   static createFrogAnimation(scene: Phaser.Scene) {
     scene.anims.create({

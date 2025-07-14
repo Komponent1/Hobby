@@ -27,6 +27,7 @@ export class Stage extends Scene {
     Loader.loadScaffoldingComp(this);
     Loader.loadTile(this);
     Loader.loadUi(this);
+    Loader.loadSound(this);
   }
   create() {
     this.objLayer = this.add.layer();
@@ -38,7 +39,6 @@ export class Stage extends Scene {
     this.cameras.main.ignore(this.uiLayer);
 
     Loader.createFrogAnimation(this);
-    Loader.createKeyAnimation(this);
 
     this.background = Background.create(this);
     Tile.create(this);
@@ -62,7 +62,7 @@ export class Stage extends Scene {
     this.physics.add.collider(this.player, this.scaffoldings.getAll());
   }
   update() {
-    this.player.update();
+    this.player.update(this);
     this.ui.update(this);
   }
 }

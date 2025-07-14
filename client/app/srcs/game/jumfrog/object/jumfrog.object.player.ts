@@ -45,7 +45,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
     this.setState(state);
   }
-  jump() {
+  jump(scene: Stage) {
     if (!this._cursor) return;
     if (this.state === CharacterState.JUMP) return;
     if (this.body?.velocity.y !== 0) return;
@@ -57,6 +57,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       }
     } else if (this._cursor.space.isUp) {
       if (this.state !== CharacterState.READY_JUMP) return;
+      scene.sound.play('jump');
       if (this.flipX) {
         this.setVelocity(-200, -this._jumpPower);
       } else {
@@ -79,9 +80,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  update() {
+  update(scene: Stage) {
     if (!this.body) return;
-    this.jump();
+    this.jump(scene);
     this.move();
 
     if ((this.body as Phaser.Physics.Arcade.Body).onFloor()) {
