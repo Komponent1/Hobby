@@ -87,7 +87,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         }
       } else if (this._groundType === GroundType.ICE) {
         this.setVelocity(
-          (this.body as Phaser.Physics.Arcade.Body).velocity.x + 200 > 0 ? 200 : (this.body as Phaser.Physics.Arcade.Body).velocity.x + 200,
+          (this.body as Phaser.Physics.Arcade.Body).velocity.x + 200 > 200 ? 200 : (this.body as Phaser.Physics.Arcade.Body).velocity.x + 200,
           -this._jumpPower,
         );
       } else {
