@@ -9,6 +9,9 @@ import { ExplainKey } from './jumfrog.object.explain_key';
 export class UI extends Phaser.GameObjects.Container {
   private _height: number;
   private _startTime: number;
+  get startTime() {
+    return this._startTime;
+  }
 
   public timeText!: Phaser.GameObjects.Text;
   public heightText!: Phaser.GameObjects.Text;

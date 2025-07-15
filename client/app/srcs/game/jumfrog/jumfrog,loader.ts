@@ -6,7 +6,10 @@ export class Loader {
       frameHeight: 48,
     });
   }
-
+  /** 출처: https://free-game-assets.itch.io/free-swamp-2d-tileset-pixel-art */
+  static loadClearStone(scene: Phaser.Scene) {
+    scene.load.image("clear_stone", "/assets/jumfrog/clear_stone.png");
+  }
   /** 출처: https://free-game-assets.itch.io/free-swamp-2d-tileset-pixel-art */
   static loadScaffoldingComp(scene: Phaser.Scene) {
     scene.load.image("scaffolding_left", "/assets/jumfrog/scaffolding/scaffolding_left.png");
@@ -43,15 +46,21 @@ export class Loader {
     });
   }
   /** 출처: https://kanekizlf.itch.io/jump-sounds */
-  static loadSound(scene: Phaser.Scene) {
+  static loadJumpSound(scene: Phaser.Scene) {
     scene.load.audio("jump", "/assets/jumfrog/sound/jump.mp3");
+  }
+  /** https://placeholder-assets.itch.io/50-free-sounds-pack */
+  static loadClearSound(scene: Phaser.Scene) {
+    scene.load.audio("clear", "/assets/jumfrog/sound/clear.wav");
   }
 
   static create(scene: Phaser.Scene) {
-    this.loadSound(scene);
+    this.loadJumpSound(scene);
+    this.loadClearSound(scene);
     this.loadFrog(scene);
     this.loadScaffoldingComp(scene);
     this.loadTile(scene);
     this.loadUi(scene);
+    this.loadClearStone(scene);
   }
 }

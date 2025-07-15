@@ -13,6 +13,7 @@ import { Background } from '../object/jumfrog.object.background';
 import { Map } from '../object/jumfrog.object.map';
 import { DevelopConfig } from '../develop/jumfrog.develop.config';
 import { AnimationCreator } from '../jumpfrog.animation';
+import { ClearStone } from '../object/jumfrog.object.clearStone';
 
 export const PLAYER_POSITION_X = X + 50;
 export const PLAYER_POSITION_Y = mapConfig.height - BOTTOM - 50;
@@ -30,11 +31,7 @@ export class Stage extends Scene {
   public uiLayer!: Phaser.GameObjects.Layer;
 
   preload() {
-    Loader.loadFrog(this);
-    Loader.loadScaffoldingComp(this);
-    Loader.loadTile(this);
-    Loader.loadUi(this);
-    Loader.loadSound(this);
+    Loader.create(this);
   }
   create() {
     this.objLayer = this.add.layer();
@@ -85,8 +82,9 @@ export class Stage extends Scene {
         }
       },
     );
+    ClearStone.create(this);
     DevelopConfig.create(this);
-    // uiCamera.ignore(this.physics.world.debugGraphic);
+    uiCamera.ignore(this.physics.world.debugGraphic);
   }
   update() {
     this.player.update(this);

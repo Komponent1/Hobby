@@ -2,7 +2,7 @@ import { MAP_H, X } from '../config/jumfrog.map.config';
 import type { Stage } from '../scene/jumfrog.scene.stage';
 
 export const PLAYER_POSITION_X = X + 50;
-export const PLAYER_POSITION_Y = MAP_H - 5750;
+export const PLAYER_POSITION_Y = MAP_H - 6060;
 
 export class DevelopPlayer {
   constructor(scene: Stage) {
