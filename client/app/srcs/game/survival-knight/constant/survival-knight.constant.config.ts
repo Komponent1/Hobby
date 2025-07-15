@@ -1,5 +1,5 @@
-export const SCREEN_WIDTH = window.innerWidth;
-export const SCREEN_HEIGHT = window.innerHeight;
+export const SCREEN_WIDTH = 1800;
+export const SCREEN_HEIGHT = 800;
 export const MAP_RATIO = 1.1;
 export const ROW = 50;
 export const COL = 30;

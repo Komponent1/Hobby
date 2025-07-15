@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react';
 import {useRouter} from 'next/router';
 import Portal from "../common/common.components/common.components.portal";
 import LoadPage from "../common/common.components/common.components.loadPage";
-import ArticleIntro from './components/main.component.article';
-import InformationIntro from './components/main.component.information';
-import GameIntro from './components/main.component.game';
+import ArticleIntro from './components/main.component.articleintro';
+import InformationIntro from './components/main.component.informationintro';
+import GameIntro from './components/main.component.gameintro';
 
 const MainPage: React.FC = () => {
   const router = useRouter();

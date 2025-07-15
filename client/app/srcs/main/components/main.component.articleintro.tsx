@@ -8,7 +8,7 @@ type Props = {
 };
 const ArticleIntro: React.FC<Props> = ({ onLink }) => {
   const latestArticles: Article[] = useMemo(
-    () => Object.values(ArticleJson as { [key: string]: Article }).slice(-3).reverse(),
+    () => Object.values(ArticleJson as { [key: string]: Article }).slice(-4).reverse(),
     [],
   );
 
@@ -16,18 +16,22 @@ const ArticleIntro: React.FC<Props> = ({ onLink }) => {
     <div className="flex">
       <FlipCard
         front={(
-          <h1 className="mb-2 text-2xl font-bold tracking-tight text-white">
-            블로그
-          </h1>
+          <div className="flex flex-col items-center h-full justify-center">
+            <h1 className="mb-2 text-2xl font-bold tracking-tight text-white">
+              블로그
+            </h1>
+          </div>
         )}
         back={(
-          <p className="font-normal text-gray-400">
-            게시글 저장소
-          </p>
+          <div className="flex flex-col items-center h-full justify-center">
+            <p className="font-normal text-gray-400">
+              게시글 저장소
+            </p>
+          </div>
         )}
         onClick={() => onLink('/article')}
       />
-      <div className="flex flex-col justify-center items-start ml-4">
+      <div className="flex flex-col items-start ml-4">
         <h2 className="mb-4 text-xl font-bold tracking-tight text-white">
           최신 게시글
         </h2>

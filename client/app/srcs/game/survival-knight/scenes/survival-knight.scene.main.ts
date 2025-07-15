@@ -5,19 +5,23 @@ import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../constant/survival-knight.constant.
 import {Stage} from './survival-knight.scene.stage';
 import {RetryCheck} from './survival-knight.scene.retryCheck';
 import { Shop } from "./survival-knight.scene.shop";
+import { ExplainKey } from '../object/ui/survival-knight.object.expainKey';
 
 export class Main extends Scene {
   public tileMap!: TileMap;
   public startButton!: Phaser.GameObjects.Image;
+  public explainKey!: ExplainKey;
 
   constructor() {
     super("Main");
   }
 
   preload() {
+    Loader.loadCharacterSprite(this, 'player');
     Loader.loadTilemap(this);
     Loader.loadUi(this, 'ui');
     Loader.loadSound(this);
+    Loader.loadKeyboard(this);
   }
   init() {
     this.tileMap = TileMap.init();
@@ -53,5 +57,12 @@ export class Main extends Scene {
     this.cameras.main.once("camerafadeoutcomplete", () => {
       this.scene.start("Stage", {fadeIn: true});
     });
+
+    Loader.createAnimationV2(this, 'player');
+    this.explainKey = ExplainKey.create(this);
+  }
+
+  update() {
+    this.explainKey.update();
   }
 }

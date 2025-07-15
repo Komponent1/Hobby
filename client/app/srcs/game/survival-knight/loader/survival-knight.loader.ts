@@ -21,6 +21,17 @@ export class Loader {
     scene.load.image('deco_grass', `/assets/survival-knight/tile/deco_grass.png`);
     scene.load.image('water', `/assets/survival-knight/tile/water.png`);
   }
+  /** 출처: https://dreammix.itch.io/keyboard-keys-for-ui */
+  static loadKeyboard(scene: Scene) {
+    scene.load.spritesheet("keyboard", "/assets/survival-knight/ui/keyboard.png", {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    scene.load.spritesheet("keyboard_extra", "/assets/survival-knight/ui/keyboard_extra.png", {
+      frameWidth: 32,
+      frameHeight: 16,
+    });
+  }
   static createBoundaryAnimation(scene: Scene) {
     scene.anims.create({
       key: 'boundary_wave',
