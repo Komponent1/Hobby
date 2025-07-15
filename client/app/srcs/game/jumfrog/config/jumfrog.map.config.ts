@@ -113,8 +113,8 @@ export const mapConfig = {
       movable: false,
     },
     {
-      x: X + 250,
-      y: MAP_H - 1760,
+      x: X + 300,
+      y: MAP_H - 1750,
       len: 1,
       movable: false,
     },
