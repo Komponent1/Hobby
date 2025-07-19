@@ -1,10 +1,13 @@
+export const MAP_WIDTH = 1700;
+export const MAP_HEIGHT = 750;
+
 /** 사과 크기 */
-export const BASE_W = 64;
-export const BASE_H = 64;
-export const BRICK_W = 48;
-export const BRICK_H = 48;
+export const BASE_W = 48;
+export const BASE_H = 48;
+export const BRICK_W = 40;
+export const BRICK_H = 40;
 export const BRICK_FONT_SIZE = 32;
-export const BRICK_FONT_STROKE = 4;
+export const BRICK_FONT_STROKE = 2;
 /** 사과 사이 마진 */
 export const MARGIN = 16;
 /** 게임 보드 가로 세로 개수 */
@@ -48,7 +51,7 @@ export enum BlockDestroyType {
 }
 /** 폭탄 이동 위치 */
 export const BOMBS_MOVE_POS = {
-  x: 1920 - 250,
+  x: MAP_WIDTH - 250,
   y: 450,
 };
 export const BOMBS_DURATION = 300;

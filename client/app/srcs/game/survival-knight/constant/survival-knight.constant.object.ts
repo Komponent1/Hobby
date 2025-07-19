@@ -23,11 +23,11 @@ export const FRAME = {
   },
 };
 export const GOBLIN_TORCH = {
-  SPEED: 7,
+  SPEED: 6,
   HP: 10,
   ATTACK: 10,
   EXP: 10,
-  GEN_TIME: 2000,
+  GEN_TIME: 1000,
   W: 80,
   H: 80,
 };
@@ -36,7 +36,7 @@ export const FIRE = {
   HP: 10,
   ATTACK: 10,
   EXP: 10,
-  GEN_TIME: 2000,
+  GEN_TIME: 1000,
   W: 80,
   H: 80,
   SHOOT_INTERVAL: 1000,

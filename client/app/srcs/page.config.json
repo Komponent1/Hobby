@@ -1,33 +1,39 @@
 {
-  "main": {
-    "title": "Main",
-    "path": "/",
-    "description": ""
-  },
-  "articles": {
-    "title": "Article",
-    "path": "/article",
-    "description": "게시글 저장소",
-    "children": {
-      "path": "/article/:id"
+  "order": [
+    "main",
+    "steam",
+    "blog",
+    "information",
+    "game"
+  ],
+  "page": {
+    "main": {
+      "title": "Main",
+      "path": "/",
+      "description": ""
+    },
+    "blog": {
+      "title": "블로그",
+      "path": "/article",
+      "description": "게시글 저장소",
+      "children": {
+        "path": "/article/:id"
+      }
+    },
+    "information": {
+      "title": "개발 정보",
+      "path": "/informations",
+      "description": "가벼운 로깅 문서 저장소"
+    },
+    "game": {
+      "title": "웹 게임",
+      "path": "/game",
+      "description": "웹 게임 저장소"
+    },
+    "steam": {
+      "title": "스팀 정보",
+      "path": "/steam",
+      "description": "스팀 계정 대시보드"
     }
-  },
-  "information": {
-    "title": "Informations",
-    "path": "/informations",
-    "description": "가벼운 로깅 문서 저장소"
-  },
-  "game": {
-    "title": "Game",
-    "path": "/game",
-    "description": "웹 게임 저장소",
-    "children": {
-      "path": "/game/survival-knight"
-    }
-  },
-  "steam": {
-    "title": "Steam",
-    "path": "/steam",
-    "description": "스팀 계정 대시보드"
   }
 }

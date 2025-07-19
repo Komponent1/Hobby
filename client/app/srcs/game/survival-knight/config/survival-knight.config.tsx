@@ -4,14 +4,14 @@ import { Main } from "../scenes/survival-knight.scene.main";
 import { Shop } from "../scenes/survival-knight.scene.shop";
 import {RetryCheck} from '../scenes/survival-knight.scene.retryCheck';
 import { Clear } from "../scenes/survival-knight.scene.clear";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constant/survival-knight.constant.config';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.WEBGL,
   parent: 'game-container',
   scale: {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    mode: Phaser.Scale.FIT,
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
   },
   physics: {
     default: 'matter',

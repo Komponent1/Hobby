@@ -56,7 +56,6 @@ export class Keyboard {
     if (scene.player.status === CharacterStatus.ATTACK) return;
 
     if (this.cursor.space?.isDown) {
-      console.log('attack');
       scene.player.swordAttack(scene);
     }
   }

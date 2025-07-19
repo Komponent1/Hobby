@@ -4,18 +4,34 @@ import {InformationList} from '../dto/informations';
 export const useSearch = ({
   informations,
   informationList,
+  tags,
 }: {
   informations: InformationList[];
   informationList: InformationList[];
+  tags: string[];
 }) => {
   const [filteredInformation, setFilteredInformation] = useState<InformationList[]>(
     informationList,
   );
   const [searchTags, setSearchTags] = useState<string[]>([]);
   const [text, setText] = useState<string>('');
+  const [filteredTags, setFilteredTags] = useState<string[]>([]);
   useEffect(() => {
     setFilteredInformation(informations);
   }, [informations]);
+  useEffect(() => {
+    setFilteredTags(tags);
+  }, [tags]);
+  useEffect(() => {
+    if (text === '') {
+      setFilteredTags(tags);
+    } else {
+      setFilteredTags(
+        tags.filter((tag) => tag.toLowerCase().includes(text.toLowerCase())),
+      );
+    }
+  }, [text, tags]);
+
   useEffect(() => {
     if (searchTags.length === 0) {
       setFilteredInformation(informationList);
@@ -40,5 +56,6 @@ export const useSearch = ({
     search,
     deleteSearchTag,
     filteredInformation,
+    filteredTags,
   };
 };

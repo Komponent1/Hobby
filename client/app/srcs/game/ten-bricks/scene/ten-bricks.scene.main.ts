@@ -4,6 +4,8 @@ import {
   BASE_H,
   BASE_W,
   COL,
+  MAP_HEIGHT,
+  MAP_WIDTH,
   MARGIN,
   ROW,
   WINDOW_H, WINDOW_POS_X, WINDOW_POS_Y, WINDOW_RADIUS, WINDOW_STROKE, WINDOW_W,
@@ -65,7 +67,7 @@ export class Main extends Scene {
     const mouse = this.add.image(50, 20, 'mouse-right');
     const tutoText = this.add.text(0, 20, '=', {fontSize: 48, fontStyle: 'bold', color: '#000'}).setOrigin(0.5, 0.5);
     const bomb = this.add.image(-35, 20, 'bomb-normal').setScale(0.6);
-    this.add.container(1920 - 250, 600, [back, mouse, tutoText, bomb, title]);
+    this.add.container(MAP_WIDTH - 250, 600, [back, mouse, tutoText, bomb, title]);
 
     const timerBackground = this.add.graphics();
     timerBackground.fillStyle(0xffffff, 1);
@@ -90,13 +92,13 @@ export class Main extends Scene {
       fontStyle: 'bold',
     }).setStroke('#000', 4).setOrigin(0.5, 0.5);
 
-    this.add.container(1920 - 250, 200, [
+    this.add.container(MAP_WIDTH - 250, 200, [
       timerBackground,
       timerLeft,
       timerText,
     ]);
 
-    this.add.image(1920 - 250, 450, 'bomb-normal').setOrigin(0.5, 0.5);
+    this.add.image(MAP_WIDTH - 250, 450, 'bomb-normal').setOrigin(0.5, 0.5);
 
     const button = this.add.rectangle(0, 0, 200, 100, 0xffffff)
       .setInteractive()
@@ -109,13 +111,13 @@ export class Main extends Scene {
       color: "#fff",
       fontFamily: "noto",
     }).setOrigin(0.5, 0.5).setStroke("#000", 4);
-    this.startButton = this.add.container(1920 / 2, 1080 / 2, [button, text]).on("pointerover", () => {
+    this.startButton = this.add.container(MAP_WIDTH / 2, MAP_HEIGHT / 2, [button, text]).on("pointerover", () => {
       this.startButton.setScale(1.1);
     }).on("pointerout", () => {
       this.startButton.setScale(1);
     });
 
-    this.add.text(1920 / 2, 1080 / 2 - 150, "TEN BRICKS", {
+    this.add.text(MAP_WIDTH / 2, MAP_HEIGHT / 2 - 150, "TEN BRICKS", {
       fontSize: "128px",
       color: "#000",
       fontFamily: "noto",

@@ -1,3 +1,4 @@
+import { MAP_WIDTH } from '../constant/ten-bricks.constant.stage';
 import type { Stage } from "../scene/ten-bricks.scene.stage";
 import { Timer } from "./ten-bricks.object.timer";
 
@@ -17,7 +18,7 @@ export class Ui {
   }
 
   create(scene: Stage) {
-    this._continer = scene.add.container(1920 - 250, 200);
+    this._continer = scene.add.container(MAP_WIDTH - 250, 200);
     this.timer.create(scene, this._continer);
     this.scoreText = scene.add.text(0, 150, `SCORE ${scene.stageInfo.score}`, {
       fontFamily: 'noto',
@@ -49,7 +50,7 @@ export class Ui {
     const mouse = scene.add.image(50, 20, 'mouse-right');
     const text = scene.add.text(0, 20, '=', {fontSize: 48, fontStyle: 'bold', color: '#000'}).setOrigin(0.5, 0.5);
     const bomb = scene.add.image(-35, 20, 'bomb-normal').setScale(0.6);
-    this.tutorial = scene.add.container(1920 - 250, 600, [back, mouse, text, bomb, title]);
+    this.tutorial = scene.add.container(MAP_WIDTH - 250, 600, [back, mouse, text, bomb, title]);
   }
   update(scene: Stage) {
     this.timer.update(scene);

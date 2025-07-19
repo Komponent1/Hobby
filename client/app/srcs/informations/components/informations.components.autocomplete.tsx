@@ -41,7 +41,7 @@ const Autocomplete: React.FC<Props> = ({
         onKeyDown={(e) => e.key === 'Enter' && handleClick(text)}
       />
       {show && (
-        <div className="absolute w-full bg-white border border-gray-200 rounded-md shadow-md z-50">
+        <div className="absolute w-full bg-white border border-gray-200 rounded-md shadow-md z-50 overflow-y-scroll max-h-120">
           {tags.map((tag) => (
             <button
               key={tag}

@@ -76,6 +76,76 @@ const GamePage: React.FC = () => (
 export default GamePage;
 ```
 
+### GameConfig와 Container
+
+앞서 DynamicComponent로 불러올 페이지는 phaser 객체를 불러와 화면에 그리도록 해야한다. 이룰 정의하는 config를 설정해야하고 이는 아래와 같이 설정한다.
+
+**GameContainer.ts(page에 붙일 껍데기)**
+```typescript
+const GameContainer = forwardRef<RefPhaserGame, {}>((_, ref) => {
+  const game = useRef<Phaser.Game | null>(null);
+
+  useLayoutEffect(() => {
+    if (game.current === null) {
+      game.current = new Phaser.Game(gameConfig);
+    }
+
+    return () => {
+      game.current?.destroy(true);
+      if (game.current !== null) {
+        game.current = null;
+      }
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    if (typeof ref === 'function') {
+      ref({ game: game.current, scene: null });
+    } else if (ref) {
+      ref.current = { game: game.current, scene: null };
+    }
+  }, [ref]);
+
+  return (
+    <div id="game-container" />
+  );
+});
+
+GameContainer.displayName = 'Game';
+```
+
+**GameConfig(Phaser 설정파일) 예시**
+```typescript
+export const gameConfig: Phaser.Types.Core.GameConfig = {
+  type: Phaser.WEBGL,
+  parent: 'game-container',
+  scale: {
+    width: 1920,
+    height: 1080,
+    mode: Phaser.Scale.FIT,
+  },
+  physics: {
+    default: 'arcade',
+    arcade: {
+      debug: true,
+      gravity: { x: 0, y: 980 },
+    },
+  },
+  input: {
+    keyboard: true,
+    mouse: true,
+  },
+  dom: {
+    createContainer: true,
+  },
+  backgroundColor: '#ffffff',
+  scene: [
+    Stage, /** Phaser로 생성한 Scene */
+  ],
+};
+
+```
+
 ### Phaser with React
 
 해당 작업에 포함되지 않았지만 Phaser와 React상의 이벤트를 전달할 필요가 있을 수 있다(외부 버튼이 요구되는 경우 등)

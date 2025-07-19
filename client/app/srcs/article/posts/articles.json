@@ -45,5 +45,71 @@
       "nextjs",
       "migration"
     ]
+  },
+  "8": {
+    "id": 8,
+    "title": "Phaser Game - 2 Loader",
+    "path": "Phaser Game - 2 Object 구성하기.md",
+    "tags": [
+      "phaser",
+      "series"
+    ]
+  },
+  "9": {
+    "id": 9,
+    "title": "Phaser Game - 3 캐릭터 만들어보기",
+    "path": "Phaser Game - 3 캐릭터 만들어보기.md",
+    "tags": [
+      "phaser",
+      "series",
+      "class"
+    ]
+  },
+  "10": {
+    "id": 10,
+    "title": "Phaser Game - 4 캐릭터 상태와 애니메이션",
+    "path": "Phaser Game - 4 캐릭터 상태와 애니메이션.md",
+    "tags": [
+      "phaser",
+      "series",
+      "class"
+    ]
+  },
+  "11": {
+    "id": 11,
+    "title": "Phaser Game - 5 점프하기",
+    "path": "Phaser Game - 5 점프하기.md",
+    "tags": [
+      "phaser",
+      "series"
+    ]
+  },
+  "12": {
+    "id": 12,
+    "title": "Phaser Game - 6 발판 만들기",
+    "path": "Phaser Game - 6 발판 만들기.md",
+    "tags": [
+      "phaser",
+      "series",
+      "collision"
+    ]
+  },
+  "13": {
+    "id": 13,
+    "title": "Phaser Game - 7 맵 구성 기초",
+    "path": "Phaser Game - 7 맵 구성 기초.md",
+    "tags": [
+      "phaser",
+      "series"
+    ]
+  },
+  "14": {
+    "id": 14,
+    "title": "Phaser Game - 8 UI 만들기",
+    "path": "Phaser Game - 8 UI 만들기.md",
+    "tags": [
+      "phaser",
+      "series"
+    ]
   }
 }

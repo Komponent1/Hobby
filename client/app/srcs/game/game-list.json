@@ -10,5 +10,11 @@
     "path": "/game/ten-bricks",
     "description": "10을 만들어라",
     "thumbnail": "/thumbnail/ten-bricks-thumbnail.png"
+  },
+  "jumfrog": {
+    "title": "Jumfrog",
+    "path": "/game/jumfrog",
+    "description": "점프킹 짭",
+    "thumbnail": "/thumbnail/jumfrog-thumbnail.png"
   }
 }

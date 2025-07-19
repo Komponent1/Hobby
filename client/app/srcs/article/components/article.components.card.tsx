@@ -5,7 +5,7 @@ import Chip from './article.components.chip';
 import {TAG_COLORS} from '../article.constant';
 
 type Props = {
-  id: string;
+  id: number;
   photo?: string;
   title: string;
   tags: string[];
