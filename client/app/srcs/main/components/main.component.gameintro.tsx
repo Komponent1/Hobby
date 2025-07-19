@@ -28,7 +28,7 @@ const GameIntro: React.FC<Props> = ({ onLink }) => {
         )}
         onClick={() => onLink('/game')}
       />
-      <div className="flex flex-col justify-center items-start ml-4">
+      <div className="flex-col justify-center items-start ml-4 hidden lg:flex">
         <h2 className="mb-4 text-xl font-bold tracking-tight text-white">
           게임 목록
         </h2>

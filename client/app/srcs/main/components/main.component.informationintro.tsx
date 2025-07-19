@@ -33,7 +33,7 @@ const InformationIntro: React.FC<Props> = ({ onLink }) => {
         )}
         onClick={() => onLink('/informations')}
       />
-      <div className="flex flex-col justify-center items-start ml-4">
+      <div className="flex-col justify-center items-start ml-4 hidden lg:flex">
         <h2 className="mb-8 text-xl font-bold tracking-tight text-white">
           {`총 정보 수 : ${informationList.length}`}
         </h2>

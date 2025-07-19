@@ -1,11 +1,18 @@
 {
-  "main": {
-    "title": "Main",
-    "path": "/",
-    "description": ""
-  },
-  "default": {
-    "articles": {
+  "order": [
+    "main",
+    "steam",
+    "blog",
+    "information",
+    "game"
+  ],
+  "page": {
+    "main": {
+      "title": "Main",
+      "path": "/",
+      "description": ""
+    },
+    "blog": {
       "title": "블로그",
       "path": "/article",
       "description": "게시글 저장소",
@@ -21,13 +28,8 @@
     "game": {
       "title": "웹 게임",
       "path": "/game",
-      "description": "웹 게임 저장소",
-      "children": {
-        "path": "/game/survival-knight"
-      }
-    }
-  },
-  "etc": {
+      "description": "웹 게임 저장소"
+    },
     "steam": {
       "title": "스팀 정보",
       "path": "/steam",

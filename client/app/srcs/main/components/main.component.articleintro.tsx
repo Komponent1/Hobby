@@ -31,7 +31,7 @@ const ArticleIntro: React.FC<Props> = ({ onLink }) => {
         )}
         onClick={() => onLink('/article')}
       />
-      <div className="flex flex-col items-start ml-4">
+      <div className="flex-col items-start ml-4 hidden lg:flex">
         <h2 className="mb-4 text-xl font-bold tracking-tight text-white">
           최신 게시글
         </h2>
