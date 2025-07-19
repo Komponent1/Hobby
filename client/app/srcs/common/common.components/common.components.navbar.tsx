@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from "next/router";
 import pages from '../../page.config.json';
-import {Page, PageConfig} from '../common.dto';
+import {Page} from '../common.dto';
 import Portal from "./common.components.portal";
 import LoadPage from "./common.components.loadPage";
 
@@ -12,17 +12,9 @@ const Navbar: React.FC = () => {
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const pageList: Page[] = useMemo(() => {
     const pageLinks: Page[] = [];
-    Object.keys(pages as PageConfig).forEach((key) => {
+    pages.order.forEach((key) => {
       if (key === 'main') return;
-      if (key === 'default') {
-        (Object.keys(pages.default) as Array<keyof typeof pages.default>).forEach((subPage) => {
-          pageLinks.push(pages.default[subPage]);
-        });
-      } else if (key === 'etc') {
-        (Object.keys(pages.etc) as Array<keyof typeof pages.etc>).forEach((subPage) => {
-          pageLinks.push(pages.etc[subPage]);
-        });
-      }
+      pageLinks.push(pages.page[key as keyof typeof pages.page] as Page);
     });
     return pageLinks;
   }, []);

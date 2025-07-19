@@ -7,11 +7,8 @@ export type Page = {
   };
 };
 export type PageConfig = {
-  main: Page;
-  default: {
+  order: string[];
+  page: {
     [key: string]: Page;
-  }
-  etc: {
-    [key: string]: Page;
-  }
+  };
 };
