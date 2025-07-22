@@ -13,7 +13,7 @@ const Area: React.FC<Props> = ({ backgroundUrl, children }) => (
     >
       {backgroundUrl && (
         <div
-          className="w-full h-full absolute opacity-30 bg-cover bg-center mask-radial-[100%_100%_at_50%_55%,_black_8%,_rgba(0,0,0,0)_75%] z-0"
+          className="w-full h-full absolute opacity-30 bg-cover bg-center mask-radial-[100%_100%_at_50%_55%,_black_8%,_rgba(0,0,0,0)_75%] z-negative-1"
           style={{ backgroundImage: `url(${backgroundUrl})`, mixBlendMode: 'unset' }}
         />
       )}

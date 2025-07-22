@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import {GameData} from '../dto/steam.dto.game';
 import {useViewData} from '../hooks/steam.hooks.viewData';
 import {
-  Infobox, Dounutchart, Table, Card, Pagination,
+  Dounutchart, Table, Card, Pagination,
   BgBlurImage,
 } from '../components';
 import { useAnalyzeTag } from "../hooks/steam.hooks.analyzeTag";
@@ -12,9 +12,13 @@ import {useAnalyzeGenres} from '../hooks/steam.hooks.analyzeGenres';
 import { TABLE_VIEW_NUM, useGetTable } from "../hooks/steam.hooks.getTable";
 import { PlayerSummary } from "../dto/steam.dto.api";
 import { Typography } from "../../common/common.components";
-import { num2wonComma } from "../utils/steam.util.string";
-import { useAnalyzePrice } from '../hooks/steam.hooks.analyzePrice';
+import { useAnalyzeUnplayedGame } from '../hooks/steam.hooks.analyzePrice';
 import Area from '../components/steam.component.area';
+import PlayTime from '../components/steam.component.playtime';
+import OwnGame from '../components/steam.component.ownGame';
+import MostPlayedGame from '../components/steam.component.mostplaytime';
+import Price from '../components/steam.component.price';
+import UnplayedGame from '../components/steam.component.unplayedprice';
 
 type Props = {
   owedGameDatas: GameData[];
@@ -24,10 +28,12 @@ const SteamViewBoard: React.FC<Props> = observer(({
   owedGameDatas,
   playerSummary,
 }) => {
-  const {mostPlayedGame, allPlayTime, totalPrice} = useViewData(owedGameDatas);
+  const {
+    freeMostPlayedGame, paidMostPlayedGame, allPlayTime, totalPrice,
+  } = useViewData(owedGameDatas);
   const {tagPercentage} = useAnalyzeTag(owedGameDatas);
   const {genrePercentage} = useAnalyzeGenres(owedGameDatas);
-  const {unplayedGamesPrice} = useAnalyzePrice(owedGameDatas);
+  const {unplayedGames, unplayedGamesPrice} = useAnalyzeUnplayedGame(owedGameDatas);
   const {
     gameTable, viewData, setDataIndex, sortOrder, sortData,
   } = useGetTable(owedGameDatas);
@@ -52,23 +58,26 @@ const SteamViewBoard: React.FC<Props> = observer(({
         </div>
       </div>
       <div className="z-30">
-        <div className="w-screen flex flex-row flex-wrap">
-          <div className="flex-1 p-6 md:mt-16 grid grid-cols-1 gap-6 xl:grid-cols-4 auto-rows-auto">
+        <div className="w-screen flex flex-row flex-wrap justify-center items-center">
+          <div className="flex-1 p-6 md:mt-16 grid grid-cols-1 gap-6 lg:grid-cols-3 auto-rows-auto max-w-[1368px]">
             <Area backgroundUrl="/icon/steam.svg">
-              <Infobox title="총 플레이 타임" information={`${Math.floor(allPlayTime / 60)} 시간`} />
+              <PlayTime playTime={allPlayTime} />
             </Area>
-            <Card>
-              <Infobox title="보유한 게임 수" information={String(owedGameDatas.length)} />
-            </Card>
-            <Area backgroundUrl={mostPlayedGame.system_data.header_image}>
-              <Infobox title="가장 많이 플레이한 게임" information={`${mostPlayedGame.system_data.name} (${Math.floor(mostPlayedGame.personal_data.playtime_forever / 60)} 시간)`} />
+            <Area backgroundUrl="/icon/steam.svg">
+              <OwnGame ownedGameDatas={owedGameDatas} />
             </Area>
-            <Card>
-              <Infobox title="총 게임 금액" information={`${num2wonComma(totalPrice / 100)}`} />
-            </Card>
-            <Card>
-              <Infobox title="플레이하지 않은 게임 금액" information={`${num2wonComma(unplayedGamesPrice / 100)}`} />
-            </Card>
+            <Area backgroundUrl="/icon/steam.svg">
+              <Price totalPrice={totalPrice} />
+            </Area>
+            <Area backgroundUrl={freeMostPlayedGame.system_data.header_image}>
+              <MostPlayedGame free mostPlayedGame={freeMostPlayedGame} />
+            </Area>
+            <Area backgroundUrl={paidMostPlayedGame.system_data.header_image}>
+              <MostPlayedGame free={false} mostPlayedGame={paidMostPlayedGame} />
+            </Area>
+            <Area backgroundUrl={unplayedGames.length > 0 ? unplayedGames[0].system_data.header_image : '/icon/steam.svg'}>
+              <UnplayedGame unplayedGames={unplayedGames} totalUnplayedPrice={unplayedGamesPrice} />
+            </Area>
           </div>
         </div>
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-3 p-6">
