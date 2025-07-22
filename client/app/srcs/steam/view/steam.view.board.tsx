@@ -14,6 +14,7 @@ import { PlayerSummary } from "../dto/steam.dto.api";
 import { Typography } from "../../common/common.components";
 import { num2wonComma } from "../utils/steam.util.string";
 import { useAnalyzePrice } from '../hooks/steam.hooks.analyzePrice';
+import Area from '../components/steam.component.area';
 
 type Props = {
   owedGameDatas: GameData[];
@@ -53,15 +54,15 @@ const SteamViewBoard: React.FC<Props> = observer(({
       <div className="z-30">
         <div className="w-screen flex flex-row flex-wrap">
           <div className="flex-1 p-6 md:mt-16 grid grid-cols-1 gap-6 xl:grid-cols-4 auto-rows-auto">
-            <Card>
+            <Area backgroundUrl="/icon/steam.svg">
               <Infobox title="총 플레이 타임" information={`${Math.floor(allPlayTime / 60)} 시간`} />
-            </Card>
+            </Area>
             <Card>
               <Infobox title="보유한 게임 수" information={String(owedGameDatas.length)} />
             </Card>
-            <Card bgImage={mostPlayedGame.system_data.header_image}>
+            <Area backgroundUrl={mostPlayedGame.system_data.header_image}>
               <Infobox title="가장 많이 플레이한 게임" information={`${mostPlayedGame.system_data.name} (${Math.floor(mostPlayedGame.personal_data.playtime_forever / 60)} 시간)`} />
-            </Card>
+            </Area>
             <Card>
               <Infobox title="총 게임 금액" information={`${num2wonComma(totalPrice / 100)}`} />
             </Card>
