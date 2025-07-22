@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import InformationJson from '../../informations/posts/informations.json';
-import FlipCard from './main.components.flipcard';
+import { SimpleCard } from './main.component.simplecard';
 
 type Props = {
   onLink: (path: string) => void;
@@ -15,43 +15,31 @@ const InformationIntro: React.FC<Props> = ({ onLink }) => {
     return Array.from(tagSet).slice(0, 6);
   }, [informationList]);
   return (
-    <div className="flex">
-      <FlipCard
-        front={(
-          <div className="flex flex-col items-center h-full justify-center">
-            <h1 className="mb-2 text-2xl font-bold tracking-tight text-white">
-              정보
-            </h1>
-          </div>
-        )}
-        back={(
-          <div className="flex flex-col items-center h-full justify-center">
-            <p className="font-normal text-gray-400">
-              정보 저장소
-            </p>
-          </div>
-        )}
-        onClick={() => onLink('/informations')}
-      />
-      <div className="flex-col justify-center items-start ml-4 hidden lg:flex">
-        <h2 className="mb-8 text-xl font-bold tracking-tight text-white">
-          {`총 정보 수 : ${informationList.length}`}
-        </h2>
-        <h2 className="mb-4 text-xl font-bold tracking-tight text-white">
-          주요 태그
-        </h2>
-        <ul className="flex flex-wrap gap-2 mb-4">
-          {tags.map((tag) => (
-            <li key={tag} className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
-              {tag}
+    <SimpleCard
+      icon="info_circle_fill"
+      iconBackground="bg-yellow-500"
+      title="개발 팁"
+      description="개발 간결 팁 저장소"
+      onLink={() => onLink('/informations')}
+      etc={(
+        <div>
+          <p className="text-gray-300 py-1 text-lg mb-4 font-extrabold">
+            {`총 정보 수 : ${informationList.length}`}
+          </p>
+          <ul className="flex flex-wrap gap-2 mb-4">
+            {tags.map((tag) => (
+              <li key={tag} className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
+                {tag}
+              </li>
+            ))}
+            <li className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
+              ...
             </li>
-          ))}
-          <li className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
-            ...
-          </li>
-        </ul>
-      </div>
-    </div>
+          </ul>
+        </div>
+        )}
+    />
+
   );
 };
 

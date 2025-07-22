@@ -16,3 +16,9 @@ body {
 ::-webkit-scrollbar-track {
   background-color: #ffffff;
 }
+
+@layer components {
+  .text-shadow {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  }
+}

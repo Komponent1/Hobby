@@ -1,26 +1,39 @@
 import React from 'react';
-import FlipCard from './main.components.flipcard';
+import Image from 'next/image';
+import { SimpleCard } from './main.component.simplecard';
 
 type Props = {
   onLink: (path: string) => void;
 };
+const tags = ['총 플탐', '1000원당 플탐', '총 구매 금액'];
 const SteamIntro: React.FC<Props> = ({ onLink }) => (
-  <FlipCard
-    front={(
-      <div className="flex flex-col items-center h-full justify-center">
-        <h1 className="mb-2 text-2xl font-bold tracking-tight text-white">
-          스팀
-        </h1>
+  <SimpleCard
+    icon="steam"
+    iconBackground="bg-white"
+    title="스팀 돌아보기"
+    description="스팀 정보 돌아보기"
+    onLink={() => onLink('/steam')}
+    etc={(
+      <div className="relative">
+        <Image
+          src="/icon/steam.svg"
+          alt="Steam Logo"
+          width={300}
+          height={300}
+          className="absolute -bottom-24 -right-24 opacity-30 -z-0"
+        />
+        <ul className="flex flex-wrap gap-2 mb-4">
+          {tags.map((tag) => (
+            <li key={tag} className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm z-10">
+              {tag}
+            </li>
+          ))}
+          <li className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm z-10">
+            ...
+          </li>
+        </ul>
       </div>
-        )}
-    back={(
-      <div className="flex flex-col items-center h-full justify-center">
-        <p className="font-normal text-gray-400 text-nowrap">
-          개인 스팀 정보 분석
-        </p>
-      </div>
-        )}
-    onClick={() => onLink('/steam')}
+    )}
   />
 );
 
