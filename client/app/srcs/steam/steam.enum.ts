@@ -4,7 +4,6 @@ export enum PageKey {
   BOARD = 'board',
 }
 export enum LoadingRange {
-  ERROR = 'error',
   PLAYER_SUMMARIES = '25%',
   OWNED_GAMES = '50%',
   GAME_DATA = '75%',
