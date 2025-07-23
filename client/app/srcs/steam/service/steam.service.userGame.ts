@@ -13,7 +13,7 @@ class UserGameService {
       const rawData = await response.json();
       this.userStore.setPlayerSummaries(rawData.players[0]);
     } catch (err) {
-      /** TODO: Error 처리 */
+      throw new Error('Failed to load player summaries');
     }
   }
 
@@ -23,7 +23,7 @@ class UserGameService {
       const rawData = await response.json();
       this.userStore.setOwnedGame(rawData.games);
     } catch (err) {
-      /** TODO: Error 처리 */
+      throw new Error('Failed to load owned games');
     }
   }
 
@@ -32,7 +32,7 @@ class UserGameService {
       const gameDatas = await getGameData(this.userStore.ownedGames);
       this.userStore.setOwnedGameData(gameDatas);
     } catch (err) {
-      /** TODO: Error 처리 */
+      throw new Error('Failed to load game data from web page');
     }
   }
 }

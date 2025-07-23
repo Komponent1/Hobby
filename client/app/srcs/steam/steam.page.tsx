@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+/* eslint-disable no-alert */
+import React, {useEffect, useState} from 'react';
 import { observer } from 'mobx-react';
 import {useGetData} from './hooks/steam.hooks.getData';
 import SteamViewMain from './view/steam.view.main';
@@ -10,8 +11,15 @@ import Navbar from '../common/common.components/common.components.navbar';
 const SteamPage: React.FC = observer(() => {
   const [currentPage, setCurrentPage] = useState<PageKey>(PageKey.MAIN);
   const {
-    playerSummary, ownedGameDatas, getDataWithSteamCode, loadRange,
+    error, setError, playerSummary, ownedGameDatas, getDataWithSteamCode, loadRange,
   } = useGetData(setCurrentPage);
+
+  useEffect(() => {
+    if (error) {
+      alert('An error occurred while fetching data. Please try again.');
+      setError(false);
+    }
+  }, [error, setError]);
 
   return (
     <div>

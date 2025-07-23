@@ -165,5 +165,15 @@
       "physics",
       "setDirectControl"
     ]
+  },
+  "18": {
+    "id": 18,
+    "title": "absolute와 z-index",
+    "path": "absolute와 z-index.md",
+    "tags": [
+      "css",
+      "z-index",
+      "absolute"
+    ]
   }
 }
