@@ -5,6 +5,7 @@ import rehypeDocument from "rehype-document";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 import remarkRehype from "remark-rehype";
+import remarkGfm from "remark-gfm";
 import fs from 'fs';
 import path from 'path';
 import articlesJson from './posts/articles.json';
@@ -37,6 +38,7 @@ export async function getArticleProps({pid}: Property) {
   const file = fs.readFileSync(filePath, 'utf-8');
   const parsed = await unified()
     .use(remarkParse)
+    .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypeDocument)
     .use(rehypeFormat)
