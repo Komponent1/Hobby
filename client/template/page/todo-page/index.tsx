@@ -1,5 +1,5 @@
 import React from 'react';
-import {TodoPage} from '../../srcs/todo/todo.page';
+import TodoPage from '../../srcs/todo/todo.page';
 import {getTodoProps} from '../../srcs/todo/todo.props';
 
 type ServerSideProps = {

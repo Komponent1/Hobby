@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReservationPage} from '../../srcs/reservation/reservation.page';
+import ReservationPage from '../../srcs/reservation/reservation.page';
 import {getReservationProps} from '../../srcs/reservation/reservation.props';
 
 type ServerSideProps = {
