@@ -22,7 +22,9 @@ export const postReservation = async (
     throw error;
   }
 };
-export const getReservations = async ({filter}: {filter: ReservationFilter}): Promise<Reservation[]> => {
+export const getReservations = async (
+  {filter}: {filter: ReservationFilter},
+): Promise<Reservation[]> => {
   try {
     let api = '';
     switch (filter.timeType) {

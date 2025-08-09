@@ -5,7 +5,7 @@ import {getReservationProps} from '../../srcs/reservation/reservation.props';
 type ServerSideProps = {
 
 };
-const Reservation: React.FC<ServerSideProps> = ({}) => <ReservationPage />;
+const Reservation: React.FC<ServerSideProps> = () => <ReservationPage />;
 
 export default Reservation;
 
