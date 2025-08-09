@@ -196,5 +196,15 @@
       "natgateway",
       "costdown"
     ]
+  },
+  "21": {
+    "id": 21,
+    "title": "typeorm migration",
+    "path": "typeorm migration.md",
+    "tags": [
+      "typeorm",
+      "migration",
+      "db"
+    ]
   }
 }
