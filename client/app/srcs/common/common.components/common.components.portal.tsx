@@ -3,8 +3,9 @@ import { createPortal } from "react-dom";
 
 type Props = {
   children: React.ReactNode;
+  type: string;
 };
-const Portal: React.FC<Props> = ({children}) => {
+const Portal: React.FC<Props> = ({children, type}) => {
   const [mounted, setMounted] = useState<boolean>(false);
   useEffect(() => {
     setMounted(true);
@@ -14,6 +15,6 @@ const Portal: React.FC<Props> = ({children}) => {
 
   if (typeof window === 'undefined' || !mounted) return null;
 
-  return mounted ? createPortal(children, document.getElementById('modal-root') as HTMLElement) : null;
+  return mounted ? createPortal(children, document.getElementById(type) as HTMLElement) : null;
 };
 export default Portal;

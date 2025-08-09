@@ -31,6 +31,10 @@ const nextConfig = {
       {
         source: '/steam_api/:path*',
         destination: 'https://store.steampowered.com/api/:path*',
+      },
+      {
+        source: '/reservation/:path*',
+        destination: 'http://host.docker.internal:3000/reservation/:path*',
       }
     ]
   }

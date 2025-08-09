@@ -40,7 +40,7 @@ const MainPage: React.FC = () => {
           <Etc />
         </div>
       </div>
-      <Portal>
+      <Portal type="loading-root">
         <LoadPage isLoad={isLoad} />
       </Portal>
     </div>

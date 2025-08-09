@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
           </ul>
         </div>
       </div>
-      <Portal>
+      <Portal type="loading-root">
         <LoadPage isLoad={isLoad} />
       </Portal>
     </nav>
