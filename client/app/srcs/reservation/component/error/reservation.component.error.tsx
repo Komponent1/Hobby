@@ -3,9 +3,11 @@
 import React from 'react';
 import { ErrorType, useErrorStore } from '../../store/reservation.store.error';
 
-const ErrorModal: React.FC<{ message: string }> = ({ message }) => {
+const ErrorModal: React.FC = () => {
+  const errorType = useErrorStore((state) => state.errorType);
   const setErrorType = useErrorStore((state) => state.setErrorType);
 
+  if (errorType === ErrorType.None) return null;
   return (
     <button
       type="button"
@@ -14,7 +16,6 @@ const ErrorModal: React.FC<{ message: string }> = ({ message }) => {
     >
       <div onClick={(e) => e.stopPropagation()}>
         <h2>Error</h2>
-        <p>{message}</p>
         <button type="button" onClick={() => setErrorType(ErrorType.None)}>
           Reload Page
         </button>

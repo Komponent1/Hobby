@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useReservation } from '../../hooks/reservation.hook.reservation';
 import { Reservation } from '../../dto/reservation.dto.reservation';
@@ -9,7 +10,7 @@ const WeekCalendar: React.FC = () => {
   }, []);
 
   const groupedReservations = reservations.reduce((acc, reservation) => {
-    const date = new Date(reservation.date).toLocaleDateString();
+    const date = new Date(reservation.startTime).toLocaleDateString();
     if (!acc[date]) {
       acc[date] = [];
     }
@@ -25,7 +26,7 @@ const WeekCalendar: React.FC = () => {
           <ul>
             {rev.map((reservation) => (
               <li key={reservation.id} className="flex border-2 border-gray-300 p-2 mb-2">
-                <div>{reservation.date.toDateString()}</div>
+                <div>{reservation.startTime.toDateString()}</div>
                 <div>{reservation.name}</div>
                 <div>{reservation.nail.name}</div>
                 <div>{reservation.staff.name}</div>

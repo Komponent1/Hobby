@@ -4,7 +4,8 @@ import { DropdownMenu, Modal, StaffList } from './component';
 import { ModalType, useModalStore } from './store/reservation.store.modal';
 import NailList from './component/reservation.component.nailList';
 import WeekCalendar from './component/calendar/reservation.component.weekCalendar';
-import Error from '../../pages/error';
+import ErrorModal from './component/error/reservation.component.error';
+import DayCalendar from './component/calendar/reservation.component.dayCalendar';
 
 const ReservationPage: React.FC = () => {
   const setModalType = useModalStore((state) => state.setModalType);
@@ -29,7 +30,7 @@ const ReservationPage: React.FC = () => {
         Add Nail
       </button>
       <hr />
-      <WeekCalendar />
+      <DayCalendar />
       <button
         type="button"
         onClick={() => setModalType(ModalType.AddReservation)}
@@ -45,7 +46,7 @@ const ReservationPage: React.FC = () => {
         <DropdownMenu />
       </Portal>
       <Portal type="error-root">
-        <Error />
+        <ErrorModal />
       </Portal>
     </div>
   );

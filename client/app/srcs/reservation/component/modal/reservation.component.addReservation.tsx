@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useCallback, useState } from 'react';
 import { useStaffStore } from '../../store/reservation.store.staff';
 import { useNailStore } from '../../store/reservation.store.nail';
@@ -7,7 +8,7 @@ import { ModalType, useModalStore } from '../../store/reservation.store.modal';
 const AddReservation: React.FC = () => {
   const staffs = useStaffStore((state) => state.staffs);
   const nails = useNailStore((state) => state.nails);
-  const { createReservation } = useReservation();
+  const { createReservation, fetchReservations } = useReservation();
   const setModalType = useModalStore((state) => state.setModalType);
 
   const [name, setName] = useState('');
@@ -30,15 +31,16 @@ const AddReservation: React.FC = () => {
     await createReservation({
       name,
       phone,
-      startTime,
+      startTime: new Date(startTime).toString(),
       staffId,
       nailId,
       nailSpendMinute,
     });
     handleReset();
+    fetchReservations();
     setModalType(ModalType.None);
   }, [
-    createReservation, name, phone, startTime, staffId, nailId, handleReset, setModalType, nails,
+    createReservation, name, phone, startTime, staffId, nailId, handleReset, setModalType, nails, fetchReservations,
   ]);
 
   return (

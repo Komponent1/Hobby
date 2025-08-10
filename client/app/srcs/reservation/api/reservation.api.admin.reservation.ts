@@ -42,7 +42,7 @@ export const getReservations = async (
         api = `/reservation/admin/reservations/month/${filter.date.toISOString()}`;
         break;
       case 'day':
-        api = `/reservation/admin/reservations/day/${filter.date.toISOString()}`;
+        api = `/reservation/admin/reservations/date/${filter.date.toISOString()}`;
         break;
       default:
         api = '/reservation/admin/reservations';
@@ -57,7 +57,8 @@ export const getReservations = async (
     const data = await response.json();
     return data.map((item: any) => ({
       ...item,
-      date: new Date(item.date),
+      startTime: new Date(item.startTime),
+      endTime: new Date(item.endTime),
       createdAt: new Date(item.createdAt),
     }));
   } catch (error) {

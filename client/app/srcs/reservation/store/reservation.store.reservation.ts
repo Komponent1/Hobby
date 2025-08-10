@@ -18,7 +18,7 @@ type ReservationState = {
   updateReservation: (id: string, updatedReservation: Partial<Reservation>) => void;
   deleteReservation: (id: string) => void;
   reservationFilter: ReservationFilter;
-  setReservationFilter?: (filter: Partial<ReservationFilter>) => void;
+  setReservationFilter: (filter: Partial<ReservationFilter>) => void;
 };
 export const useReservationStore = create<ReservationState>((set) => ({
   reservations: [],
@@ -37,7 +37,7 @@ export const useReservationStore = create<ReservationState>((set) => ({
     reservations: state.reservations.filter((reservation) => reservation.id !== id),
   })),
   reservationFilter: {
-    timeType: ReservationFilterType.WEEK,
+    timeType: ReservationFilterType.DAY,
     date: new Date(),
     staffId: undefined,
   },
