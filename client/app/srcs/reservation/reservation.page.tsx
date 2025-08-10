@@ -4,6 +4,7 @@ import { DropdownMenu, Modal, StaffList } from './component';
 import { ModalType, useModalStore } from './store/reservation.store.modal';
 import NailList from './component/reservation.component.nailList';
 import WeekCalendar from './component/calendar/reservation.component.weekCalendar';
+import Error from '../../pages/error';
 
 const ReservationPage: React.FC = () => {
   const setModalType = useModalStore((state) => state.setModalType);
@@ -42,6 +43,9 @@ const ReservationPage: React.FC = () => {
       </Portal>
       <Portal type="drop-down-root">
         <DropdownMenu />
+      </Portal>
+      <Portal type="error-root">
+        <Error />
       </Portal>
     </div>
   );

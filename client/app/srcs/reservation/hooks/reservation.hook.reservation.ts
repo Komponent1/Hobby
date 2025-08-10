@@ -1,11 +1,13 @@
 import { useCallback, useState } from 'react';
 import { useReservationStore } from '../store/reservation.store.reservation';
 import * as adminReservationApi from '../api/reservation.api.admin.reservation';
+import { ErrorType, useErrorStore } from '../store/reservation.store.error';
 
 export const useReservation = () => {
   const filter = useReservationStore((state) => state.reservationFilter);
   const reservations = useReservationStore((state) => state.reservations);
   const initReservation = useReservationStore((state) => state.initReservation);
+  const setErrorType = useErrorStore((state) => state.setErrorType);
 
   const [loading, setLoading] = useState(false);
 
@@ -16,11 +18,11 @@ export const useReservation = () => {
       const data = await adminReservationApi.getReservations({ filter });
       initReservation(data);
     } catch (error) {
-      console.error('Error fetching reservations:', error);
+      setErrorType(ErrorType.Unknown);
     } finally {
       setLoading(false);
     }
-  }, [loading, filter, initReservation]);
+  }, [loading, filter, initReservation, setErrorType]);
 
   const createReservation = useCallback(async ({
     name, phone, date, staffId, nailId,
@@ -42,11 +44,11 @@ export const useReservation = () => {
         nailId,
       });
     } catch (error) {
-      console.error('Error creating reservation:', error);
+      setErrorType(ErrorType.Unknown);
     } finally {
       setLoading(false);
     }
-  }, [loading]);
+  }, [loading, setErrorType]);
 
   return {
     reservations,

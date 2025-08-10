@@ -18,6 +18,7 @@ export default class MyDocument extends Document {
           <div id="modal-root" />
           <div id="loading-root" />
           <div id="drop-down-root" />
+          <div id="error-root" />
         </body>
       </Html>
     );

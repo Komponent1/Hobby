@@ -8,11 +8,11 @@ export enum ModalType {
 }
 type ModalState = {
   modalType: ModalType;
-  setModalType: (type: ModalType) => void;
+  setModalType: (type: ModalType, props?: any) => void;
   props: any;
 };
 export const useModalStore = create<ModalState>((set) => ({
   modalType: ModalType.None,
-  setModalType: (type: ModalType) => set({ modalType: type }),
+  setModalType: (type: ModalType, props: any) => set({ modalType: type, props }),
   props: {},
 }));
