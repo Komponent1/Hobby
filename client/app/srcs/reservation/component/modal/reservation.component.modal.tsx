@@ -34,17 +34,16 @@ const Modal: React.FC = () => {
 
   if (modalType === ModalType.None) return null;
   return (
-    <button
-      type="button"
-      className={`absolute top-0 left-0 w-screen h-screen ${backgroundStyle}`}
+    <div
+      className={`fixed top-0 left-0 w-screen h-screen ${backgroundStyle}`}
       onClick={handleClose}
     >
-      <div className="opacity-100" onClick={(e) => e.stopPropagation()}>
+      <div onClick={(e) => e.stopPropagation()}>
         {modalType === ModalType.AddStaff && <AddStaff />}
         {modalType === ModalType.AddNail && <AddNail />}
         {modalType === ModalType.AddReservation && <AddReservation />}
       </div>
-    </button>
+    </div>
   );
 };
 
