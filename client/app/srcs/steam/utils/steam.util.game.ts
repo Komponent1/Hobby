@@ -42,10 +42,8 @@ export const crawlingDataFromAppid = async (
     };
   } catch (err) {
     if (err instanceof TagParsingException) {
-      console.log('TagParsingException: ', game.appid);
       return undefined;
     }
-    console.log('Other Exception: ', game.appid, (err as any).name);
     return undefined;
   }
 };

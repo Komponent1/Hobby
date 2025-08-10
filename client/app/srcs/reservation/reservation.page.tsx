@@ -3,7 +3,6 @@ import { Portal } from '../common/common.components';
 import { DropdownMenu, Modal, StaffList } from './component';
 import { ModalType, useModalStore } from './store/reservation.store.modal';
 import NailList from './component/reservation.component.nailList';
-import WeekCalendar from './component/calendar/reservation.component.weekCalendar';
 import ErrorModal from './component/error/reservation.component.error';
 import DayCalendar from './component/calendar/reservation.component.dayCalendar';
 
