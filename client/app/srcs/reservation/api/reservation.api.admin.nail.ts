@@ -1,19 +1,22 @@
 import { Nail } from '../dto/reservation.dto.nail';
+import { ErrorType } from '../store/reservation.store.error';
 
-export const postNail = async ({ name, price }: { name: string; price: number }): Promise<Nail> => {
+export const postNail = async (
+  { name, price, spendMinute }
+  : { name: string; price: number; spendMinute: number },
+): Promise<Nail> => {
   try {
     const response = await fetch(`/reservation/admin/nail`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name, price }),
+      body: JSON.stringify({ name, price, spendMinute }),
     });
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error creating nail:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };
 export const getNails = async (): Promise<Nail[]> => {
@@ -22,8 +25,7 @@ export const getNails = async (): Promise<Nail[]> => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching nails:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };
 export const deleteNail = async (id: string): Promise<void> => {
@@ -35,8 +37,7 @@ export const deleteNail = async (id: string): Promise<void> => {
       throw new Error('Failed to delete nail');
     }
   } catch (error) {
-    console.error('Error deleting nail:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };
 export const patchNail = async (id: string, name: string, price: number): Promise<void> => {
@@ -52,8 +53,7 @@ export const patchNail = async (id: string, name: string, price: number): Promis
       throw new Error('Failed to update nail');
     }
   } catch (error) {
-    console.error('Error updating nail:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };
 export const getNailById = async (id: string): Promise<Nail> => {
@@ -65,8 +65,7 @@ export const getNailById = async (id: string): Promise<Nail> => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching nail by ID:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };
 export const getNailByName = async (name: string): Promise<Nail[]> => {
@@ -78,7 +77,6 @@ export const getNailByName = async (name: string): Promise<Nail[]> => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching nails by name:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };

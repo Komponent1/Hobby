@@ -25,19 +25,21 @@ export const useReservation = () => {
   }, [loading, filter, initReservation, setErrorType]);
 
   const createReservation = useCallback(async ({
-    name, phone, date, staffId, nailId,
+    name, phone, startTime, staffId, nailId, nailSpendMinute,
   }: {
     name: string;
     phone: string;
-    date: string;
+    startTime: string;
     staffId: string;
     nailId: string;
+    nailSpendMinute: number;
   }) => {
     if (loading) return;
     setLoading(true);
     try {
       await adminReservationApi.postReservation({
-        date,
+        startTime,
+        endTime: new Date(new Date(startTime).getTime() + nailSpendMinute * 60000).toISOString(),
         phone,
         name,
         staffId,

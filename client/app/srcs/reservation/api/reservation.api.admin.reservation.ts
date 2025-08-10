@@ -1,11 +1,19 @@
 import { Reservation } from '../dto/reservation.dto.reservation';
+import { ErrorType } from '../store/reservation.store.error';
 import { ReservationFilter } from '../store/reservation.store.reservation';
 
 export const postReservation = async (
   {
-    date, phone, name, staffId, nailId,
+    startTime, endTime, phone, name, staffId, nailId,
   }
-  : { date: string, phone: string, name: string, staffId: string, nailId: string },
+  : {
+    startTime: string,
+    endTime: string;
+    phone: string,
+    name: string,
+    staffId: string,
+    nailId: string,
+  },
 ): Promise<void> => {
   try {
     await fetch('/reservation/admin/reservation', {
@@ -14,12 +22,11 @@ export const postReservation = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        date, phone, name, staffId, nailId,
+        startTime, endTime, phone, name, staffId, nailId,
       }),
     });
   } catch (error) {
-    console.error('Error creating reservation:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };
 export const getReservations = async (
@@ -54,7 +61,6 @@ export const getReservations = async (
       createdAt: new Date(item.createdAt),
     }));
   } catch (error) {
-    console.error('Error fetching reservations:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };

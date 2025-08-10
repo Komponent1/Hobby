@@ -26,11 +26,11 @@ export const useNail = () => {
     }
   }, [initNails, loading, setErrorType]);
 
-  const createNail = useCallback(async (name: string, price: number) => {
+  const createNail = useCallback(async (name: string, price: number, spendMinute: number) => {
     if (loading) return;
     setLoading(true);
     try {
-      const nail = await adminNailApi.postNail({ name, price });
+      const nail = await adminNailApi.postNail({ name, price, spendMinute });
       addNail(nail);
     } catch (err) {
       setErrorType(ErrorType.Unknown);

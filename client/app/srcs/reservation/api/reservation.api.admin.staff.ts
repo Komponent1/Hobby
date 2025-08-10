@@ -1,4 +1,5 @@
 import { Staff } from '../dto/reservation.dto.staff';
+import { ErrorType } from '../store/reservation.store.error';
 
 export const postStaff = async ({name}: {name: string}): Promise<Staff> => {
   try {
@@ -12,8 +13,7 @@ export const postStaff = async ({name}: {name: string}): Promise<Staff> => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error creating staff:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };
 export const getStaffs = async (): Promise<Staff[]> => {
@@ -22,8 +22,7 @@ export const getStaffs = async (): Promise<Staff[]> => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching staff:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };
 export const deleteStaff = async (id: string): Promise<void> => {
@@ -35,8 +34,7 @@ export const deleteStaff = async (id: string): Promise<void> => {
       throw new Error('Failed to delete staff');
     }
   } catch (error) {
-    console.error('Error deleting staff:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };
 export const patchStaff = async (id: string, name: string): Promise<void> => {
@@ -52,7 +50,6 @@ export const patchStaff = async (id: string, name: string): Promise<void> => {
       throw new Error('Failed to update staff');
     }
   } catch (error) {
-    console.error('Error updating staff:', error);
-    throw error;
+    throw new Error(ErrorType.Unknown);
   }
 };

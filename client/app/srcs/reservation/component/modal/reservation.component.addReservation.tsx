@@ -12,31 +12,34 @@ const AddReservation: React.FC = () => {
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [date, setDate] = useState('');
+  const [startTime, setStartTime] = useState('');
   const [staffId, setStaffId] = useState('');
   const [nailId, setNailId] = useState('');
 
   const handleReset = useCallback(() => {
     setName('');
     setPhone('');
-    setDate('');
+    setStartTime('');
     setStaffId('');
     setNailId('');
   }, []);
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(name, phone, date, staffId, nailId);
 
+    const nailSpendMinute = nails.find((nail) => nail.id === nailId)?.spendMinute || 0;
     await createReservation({
       name,
       phone,
-      date,
+      startTime,
       staffId,
       nailId,
+      nailSpendMinute,
     });
     handleReset();
     setModalType(ModalType.None);
-  }, [createReservation, name, phone, date, staffId, nailId, handleReset, setModalType]);
+  }, [
+    createReservation, name, phone, startTime, staffId, nailId, handleReset, setModalType, nails,
+  ]);
 
   return (
     <div>
@@ -44,7 +47,7 @@ const AddReservation: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
         <input type="text" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-        <input type="date" placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} />
+        <input type="datetime-local" placeholder="Start Time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
         <select value={staffId} onChange={(e) => setStaffId(e.target.value)}>
           <option value="">Select Staff</option>
           {staffs.map((staff) => (
