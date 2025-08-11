@@ -67,8 +67,8 @@ const DayCalendar: React.FC = () => {
                     key={reservation.id}
                     className="bg-amber-600 absolute"
                     style={{
-                      top: `${(reservation.startTime.getHours() - 11) * LAYOUT.cellH}px`,
-                      height: `${1 * LAYOUT.cellH}px`,
+                      top: `${(reservation.startTime.getHours() - 11 + reservation.startTime.getMinutes() / 60) * LAYOUT.cellH}px`,
+                      height: `${((reservation.endTime.getTime() - reservation.startTime.getTime()) / 1000 / 60 / 60) * LAYOUT.cellH}px`,
                       width: `${LAYOUT.cellW}px`,
                     }}
                   >

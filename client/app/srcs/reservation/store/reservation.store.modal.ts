@@ -12,7 +12,7 @@ type ModalState = {
   props: any;
 };
 export const useModalStore = create<ModalState>((set) => ({
-  modalType: ModalType.AddReservation,
+  modalType: ModalType.None,
   setModalType: (type: ModalType, props: any) => set({ modalType: type, props }),
   props: {},
 }));
