@@ -2,6 +2,8 @@
 import React, { useCallback, useEffect } from 'react';
 import { useStaffStore } from '../../store/reservation.store.staff';
 import { useReservation } from '../../hooks/reservation.hook.reservation';
+import { DropdownMenuType, useDropdownMenu } from '../../store/reservation.store.dropdownmenu';
+import { Reservation } from '../../dto/reservation.dto.reservation';
 
 const LAYOUT = {
   topH: 48,
@@ -14,6 +16,7 @@ const DayCalendar: React.FC = () => {
     reservations, fetchReservations, changeReservationFilter, reservationFilter,
   } = useReservation();
   const staffs = useStaffStore((state) => state.staffs);
+  const setDropdownMenuType = useDropdownMenu((state) => state.setDropdownMenuType);
 
   useEffect(() => {
     fetchReservations(reservationFilter);
@@ -23,6 +26,14 @@ const DayCalendar: React.FC = () => {
     newDate.setDate(newDate.getDate() + (direction === 'prev' ? -1 : 1));
     changeReservationFilter({ date: newDate });
   }, [changeReservationFilter, reservationFilter.date]);
+  const onClickCell = useCallback((e: React.MouseEvent, reservation: Reservation) => {
+    e.stopPropagation();
+    setDropdownMenuType(
+      DropdownMenuType.controlReservation,
+      { x: e.clientX, y: e.clientY },
+      { reservation },
+    );
+  }, [setDropdownMenuType]);
 
   return (
     <div className="mb-4">
@@ -63,7 +74,8 @@ const DayCalendar: React.FC = () => {
               {reservations
                 .filter((reservation) => reservation.staff.id === staff.id)
                 .map((reservation) => (
-                  <div
+                  <button
+                    type="button"
                     key={reservation.id}
                     className="bg-amber-600 absolute"
                     style={{
@@ -71,10 +83,11 @@ const DayCalendar: React.FC = () => {
                       height: `${((reservation.endTime.getTime() - reservation.startTime.getTime()) / 1000 / 60 / 60) * LAYOUT.cellH}px`,
                       width: `${LAYOUT.cellW}px`,
                     }}
+                    onClick={(e) => onClickCell(e, reservation)}
                   >
                     <h4>{reservation.name}</h4>
                     <p>{reservation.nail.name}</p>
-                  </div>
+                  </button>
                 ))}
             </div>
           </div>

@@ -2,10 +2,10 @@ import React, { useCallback } from 'react';
 import { DropdownMenuType, useDropdownMenu } from '../../store/reservation.store.dropdownmenu';
 import { useStaff } from '../../hooks/reservatio.hook.staff';
 
-export type DropdownMenuProps = {
+export type ControlStaffProps = {
   staffId: string;
 };
-const ControlStaff: React.FC<DropdownMenuProps> = ({ staffId }) => {
+const ControlStaff: React.FC<ControlStaffProps> = ({ staffId }) => {
   const setDropdownMenuType = useDropdownMenu((state) => state.setDropdownMenuType);
   const {deleteStaffById} = useStaff();
   const deleteStaff = useCallback((e: React.MouseEvent) => {

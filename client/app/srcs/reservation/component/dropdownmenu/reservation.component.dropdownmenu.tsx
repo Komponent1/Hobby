@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { DropdownMenuType, useDropdownMenu } from '../../store/reservation.store.dropdownmenu';
 import ControlStaff from './reservation.component.controlStaff';
 import ControlNail from './reservation.component.controlNail';
+import ControlReservation from './reservation.component.controlReservation';
 
 const DropdownMenu: React.FC = () => {
   const props = useDropdownMenu((state) => state.props);
@@ -22,6 +23,8 @@ const DropdownMenu: React.FC = () => {
       >
         {dropdownMenuType === DropdownMenuType.controlStaff && <ControlStaff {...props} />}
         {dropdownMenuType === DropdownMenuType.controlNail && <ControlNail {...props} />}
+        {dropdownMenuType === DropdownMenuType.controlReservation
+          && <ControlReservation {...props} />}
       </div>
     </button>
   );

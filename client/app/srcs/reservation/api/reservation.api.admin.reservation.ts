@@ -65,3 +65,31 @@ export const getReservations = async (
     throw new Error(ErrorType.Unknown);
   }
 };
+export const deleteReservation = async (reservationId: string): Promise<void> => {
+  try {
+    await fetch(`/reservation/admin/reservation/${reservationId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    throw new Error(ErrorType.Unknown);
+  }
+};
+export const patchReservation = async (
+  reservationId: string,
+  updateData: Partial<Reservation>,
+): Promise<void> => {
+  try {
+    await fetch(`/reservation/admin/reservation/${reservationId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updateData),
+    });
+  } catch (error) {
+    throw new Error(ErrorType.Unknown);
+  }
+};

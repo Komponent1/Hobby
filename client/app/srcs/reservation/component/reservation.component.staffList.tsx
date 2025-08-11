@@ -7,8 +7,6 @@ type Props = {};
 const StaffList: React.FC<Props> = () => {
   const { fetchStaffs, staffs } = useStaff();
   const setDropdownMenuType = useDropdownMenu((state) => state.setDropdownMenuType);
-  const setPosition = useDropdownMenu((state) => state.setPosition);
-  const setProps = useDropdownMenu((state) => state.setProps);
 
   useEffect(() => {
     fetchStaffs();
@@ -16,10 +14,12 @@ const StaffList: React.FC<Props> = () => {
 
   const handleDropdownMenu = useCallback((e: React.MouseEvent, staffId: string) => {
     e.stopPropagation();
-    setProps({ staffId });
-    setPosition(e.clientX, e.clientY);
-    setDropdownMenuType(DropdownMenuType.controlStaff);
-  }, [setDropdownMenuType, setPosition, setProps]);
+    setDropdownMenuType(
+      DropdownMenuType.controlStaff,
+      { x: e.clientX, y: e.clientY },
+      { staffId },
+    );
+  }, [setDropdownMenuType]);
 
   return (
     <div>

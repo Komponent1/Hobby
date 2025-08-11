@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { ReservationFilter, useReservationStore } from '../store/reservation.store.reservation';
 import * as adminReservationApi from '../api/reservation.api.admin.reservation';
 import { ErrorType, useErrorStore } from '../store/reservation.store.error';
+import { Reservation } from '../dto/reservation.dto.reservation';
 
 export const useReservation = () => {
   const reservationFilter = useReservationStore((state) => state.reservationFilter);
@@ -59,11 +60,40 @@ export const useReservation = () => {
     setReservationFilter({ ...reservationFilter, ...filterChange });
   };
 
+  const deleteReservationById = useCallback(async (reservationId: string) => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      await adminReservationApi.deleteReservation(reservationId);
+    } catch (error) {
+      setErrorType(ErrorType.Unknown);
+    } finally {
+      setLoading(false);
+    }
+  }, [loading, setErrorType]);
+
+  const updateReservation = useCallback(async (
+    reservationId: string,
+    updateData: Partial<Reservation>,
+  ) => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      await adminReservationApi.patchReservation(reservationId, updateData);
+    } catch (error) {
+      setErrorType(ErrorType.Unknown);
+    } finally {
+      setLoading(false);
+    }
+  }, [loading, setErrorType]);
+
   return {
     reservations,
     reservationFilter,
     createReservation,
     fetchReservations,
     changeReservationFilter,
+    deleteReservationById,
+    updateReservation,
   };
 };

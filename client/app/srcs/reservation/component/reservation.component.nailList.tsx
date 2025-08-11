@@ -7,8 +7,6 @@ type Props = {};
 const NailList: React.FC<Props> = () => {
   const { fetchNails, nails } = useNail();
   const setDropdownMenuType = useDropdownMenu((state) => state.setDropdownMenuType);
-  const setPosition = useDropdownMenu((state) => state.setPosition);
-  const setProps = useDropdownMenu((state) => state.setProps);
 
   useEffect(() => {
     fetchNails();
@@ -16,10 +14,12 @@ const NailList: React.FC<Props> = () => {
 
   const handleDropdownMenu = useCallback((e: React.MouseEvent, nailId: string) => {
     e.stopPropagation();
-    setProps({ nailId });
-    setPosition(e.clientX, e.clientY);
-    setDropdownMenuType(DropdownMenuType.controlNail);
-  }, [setDropdownMenuType, setPosition, setProps]);
+    setDropdownMenuType(
+      DropdownMenuType.controlNail,
+      { x: e.clientX, y: e.clientY },
+      { nailId },
+    );
+  }, [setDropdownMenuType]);
 
   return (
     <div>
