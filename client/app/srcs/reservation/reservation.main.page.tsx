@@ -16,6 +16,12 @@ const ReservationMainPage: React.FC = () => {
   if (!accessToken || accessToken === '') return null;
   return (
     <div>
+      <header>
+        <h1 className="text-lg font-bold">Reservation Management</h1>
+      </header>
+      <main>
+        <DayCalendar />
+      </main>
       <button type="button" onClick={logout} className="mb-4 rounded-sm border-2 border-gray-300 bg-white px-4 py-2 text-sm">
         Logout
       </button>
@@ -37,7 +43,6 @@ const ReservationMainPage: React.FC = () => {
         Add Nail
       </button>
       <hr />
-      <DayCalendar />
       <button
         type="button"
         onClick={() => setModalType(ModalType.AddReservation)}

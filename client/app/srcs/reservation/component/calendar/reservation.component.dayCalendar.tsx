@@ -1,5 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from 'react';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { useStaffStore } from '../../store/reservation.store.staff';
 import { useReservation } from '../../hooks/reservation.hook.reservation';
 import { DropdownMenuType, useDropdownMenu } from '../../store/reservation.store.dropdownmenu';
@@ -36,6 +39,9 @@ const DayCalendar: React.FC = () => {
   return (
     <div className="mb-4">
       <div className="flex">
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateCalendar />
+        </LocalizationProvider>
         <button type="button" onClick={() => changeDate('prev')}>
           Previous Day
         </button>
