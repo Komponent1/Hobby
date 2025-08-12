@@ -1,4 +1,4 @@
-import {ErrorType} from '../store/reservation.store.error';
+import { UnAuthorizedException } from '../util/reservation.util.exception';
 
 export const postLogin = async (uid: string, pw: string): Promise<{
   access_token: string;
@@ -16,6 +16,6 @@ export const postLogin = async (uid: string, pw: string): Promise<{
     const data = await response.json();
     return data;
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    throw new UnAuthorizedException();
   }
 };

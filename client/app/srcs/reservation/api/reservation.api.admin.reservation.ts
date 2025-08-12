@@ -1,6 +1,8 @@
+import { HttpException } from '../dto/reservation.dto.exception';
 import { Reservation } from '../dto/reservation.dto.reservation';
 import { ErrorType } from '../store/reservation.store.error';
 import { ReservationFilter } from '../store/reservation.store.reservation';
+import { UnAuthorizedException, UnknownException } from '../util/reservation.util.exception';
 
 export const postReservation = async (
   {
@@ -28,7 +30,10 @@ export const postReservation = async (
       }),
     });
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    if ((error as HttpException).statusCode === 401) {
+      throw new UnAuthorizedException();
+    }
+    throw new UnknownException();
   }
 };
 export const getReservations = async (
@@ -65,7 +70,10 @@ export const getReservations = async (
       createdAt: new Date(item.createdAt),
     }));
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    if ((error as HttpException).statusCode === 401) {
+      throw new Error(ErrorType.UnAuthorized);
+    }
+    throw new UnknownException();
   }
 };
 export const deleteReservation = async (
@@ -80,7 +88,10 @@ export const deleteReservation = async (
       },
     });
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    if ((error as HttpException).statusCode === 401) {
+      throw new Error(ErrorType.UnAuthorized);
+    }
+    throw new UnknownException();
   }
 };
 export const patchReservation = async (
@@ -97,6 +108,9 @@ export const patchReservation = async (
       body: JSON.stringify(updateData),
     });
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    if ((error as HttpException).statusCode === 401) {
+      throw new Error(ErrorType.UnAuthorized);
+    }
+    throw new UnknownException();
   }
 };

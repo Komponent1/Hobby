@@ -1,10 +1,13 @@
+import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import * as adminStaffApi from '../api/reservation.api.admin.staff';
 import { useStaffStore } from '../store/reservation.store.staff';
 import { ErrorType, useErrorStore } from '../store/reservation.store.error';
 import { useAuthStore } from '../store/reservation.store.auth';
+import { UnAuthorizedException } from '../util/reservation.util.exception';
 
 export const useStaff = () => {
+  const router = useRouter();
   const accessToken = useAuthStore((state) => state.accessToken);
   const staffs = useStaffStore((state) => state.staffs);
   const initStaff = useStaffStore((state) => state.initStaff);
@@ -22,11 +25,15 @@ export const useStaff = () => {
       const data = await adminStaffApi.getStaffs({ accessToken });
       initStaff(data);
     } catch (err) {
+      if (err instanceof UnAuthorizedException) {
+        router.push('reservation/login');
+        return;
+      }
       setErrorType(ErrorType.Unknown);
     } finally {
       setLoading(false);
     }
-  }, [initStaff, loading, setErrorType, accessToken]);
+  }, [initStaff, loading, setErrorType, accessToken, router]);
 
   const createStaff = useCallback(async (name: string) => {
     if (loading) return;
@@ -47,11 +54,15 @@ export const useStaff = () => {
       await adminStaffApi.deleteStaff({ accessToken, id });
       deleteStaff(id);
     } catch (err) {
+      if (err instanceof UnAuthorizedException) {
+        router.push('reservation/login');
+        return;
+      }
       setErrorType(ErrorType.Unknown);
     } finally {
       setLoading(false);
     }
-  }, [deleteStaff, loading, setErrorType, accessToken]);
+  }, [deleteStaff, loading, setErrorType, accessToken, router]);
   const updateStaffById = useCallback(async (id: string, name: string) => {
     if (loading) return;
     setLoading(true);
@@ -61,11 +72,15 @@ export const useStaff = () => {
       });
       updateStaff(id, name);
     } catch (err) {
+      if (err instanceof UnAuthorizedException) {
+        router.push('reservation/login');
+        return;
+      }
       setErrorType(ErrorType.Unknown);
     } finally {
       setLoading(false);
     }
-  }, [updateStaff, loading, setErrorType, accessToken]);
+  }, [updateStaff, loading, setErrorType, accessToken, router]);
 
   return {
     staffs,

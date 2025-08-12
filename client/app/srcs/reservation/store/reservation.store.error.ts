@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 export enum ErrorType {
   None = 'NONE',
+  UnAuthorized = 'UNAUTHORIZED',
   Unknown = 'UNKNOWN',
 }
 type ErrorState = {

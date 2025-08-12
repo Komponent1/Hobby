@@ -1,5 +1,6 @@
+import { HttpException } from '../dto/reservation.dto.exception';
 import { Nail } from '../dto/reservation.dto.nail';
-import { ErrorType } from '../store/reservation.store.error';
+import { UnAuthorizedException, UnknownException } from '../util/reservation.util.exception';
 
 export const postNail = async (
   {
@@ -19,7 +20,10 @@ export const postNail = async (
     const data = await response.json();
     return data;
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    if ((error as HttpException).statusCode === 401) {
+      throw new UnAuthorizedException();
+    }
+    throw new UnknownException();
   }
 };
 export const getNails = async ({
@@ -36,7 +40,10 @@ export const getNails = async ({
     const data = await response.json();
     return data;
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    if ((error as HttpException).statusCode === 401) {
+      throw new UnAuthorizedException();
+    }
+    throw new UnknownException();
   }
 };
 export const deleteNail = async (
@@ -50,7 +57,10 @@ export const deleteNail = async (
       },
     });
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    if ((error as HttpException).statusCode === 401) {
+      throw new UnAuthorizedException();
+    }
+    throw new UnknownException();
   }
 };
 export const patchNail = async ({
@@ -74,7 +84,7 @@ export const patchNail = async ({
       body: JSON.stringify({ name, price }),
     });
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    throw new UnknownException();
   }
 };
 export const getNailById = async (
@@ -89,7 +99,10 @@ export const getNailById = async (
     const data = await response.json();
     return data;
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    if (error as HttpException) {
+      throw new UnAuthorizedException();
+    }
+    throw new UnknownException();
   }
 };
 export const getNailByName = async (
@@ -107,6 +120,9 @@ export const getNailByName = async (
     const data = await response.json();
     return data;
   } catch (error) {
-    throw new Error(ErrorType.Unknown);
+    if ((error as HttpException).statusCode === 401) {
+      throw new UnAuthorizedException();
+    }
+    throw new UnknownException();
   }
 };
