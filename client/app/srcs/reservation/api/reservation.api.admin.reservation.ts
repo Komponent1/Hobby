@@ -4,9 +4,10 @@ import { ReservationFilter } from '../store/reservation.store.reservation';
 
 export const postReservation = async (
   {
-    startTime, endTime, phone, name, staffId, nailId,
+    accessToken, startTime, endTime, phone, name, staffId, nailId,
   }
   : {
+    accessToken: string;
     startTime: string,
     endTime: string;
     phone: string,
@@ -20,6 +21,7 @@ export const postReservation = async (
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
         startTime, endTime, phone, name, staffId, nailId,
@@ -30,7 +32,7 @@ export const postReservation = async (
   }
 };
 export const getReservations = async (
-  {filter}: {filter: ReservationFilter},
+  {accessToken, filter}: {accessToken: string; filter: ReservationFilter},
 ): Promise<Reservation[]> => {
   try {
     let api = '';
@@ -52,6 +54,7 @@ export const getReservations = async (
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     const data = await response.json();
@@ -65,12 +68,15 @@ export const getReservations = async (
     throw new Error(ErrorType.Unknown);
   }
 };
-export const deleteReservation = async (reservationId: string): Promise<void> => {
+export const deleteReservation = async (
+  {accessToken, reservationId}: {accessToken: string; reservationId: string},
+): Promise<void> => {
   try {
     await fetch(`/reservation/admin/reservation/${reservationId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
     });
   } catch (error) {
@@ -78,14 +84,15 @@ export const deleteReservation = async (reservationId: string): Promise<void> =>
   }
 };
 export const patchReservation = async (
-  reservationId: string,
-  updateData: Partial<Reservation>,
+  {accessToken, reservationId, updateData}
+  : {accessToken: string; reservationId: string; updateData: Partial<Reservation>},
 ): Promise<void> => {
   try {
     await fetch(`/reservation/admin/reservation/${reservationId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(updateData),
     });

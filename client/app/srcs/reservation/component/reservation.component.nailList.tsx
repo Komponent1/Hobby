@@ -1,16 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { DropdownMenuType, useDropdownMenu } from '../store/reservation.store.dropdownmenu';
 import { useNail } from '../hooks/reservation.hook.nail';
 
 type Props = {};
 const NailList: React.FC<Props> = () => {
-  const { fetchNails, nails } = useNail();
+  const { nails } = useNail();
   const setDropdownMenuType = useDropdownMenu((state) => state.setDropdownMenuType);
-
-  useEffect(() => {
-    fetchNails();
-  }, []);
 
   const handleDropdownMenu = useCallback((e: React.MouseEvent, nailId: string) => {
     e.stopPropagation();

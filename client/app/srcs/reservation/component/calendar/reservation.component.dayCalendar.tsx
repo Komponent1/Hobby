@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useStaffStore } from '../../store/reservation.store.staff';
 import { useReservation } from '../../hooks/reservation.hook.reservation';
 import { DropdownMenuType, useDropdownMenu } from '../../store/reservation.store.dropdownmenu';
@@ -13,19 +13,17 @@ const LAYOUT = {
 };
 const DayCalendar: React.FC = () => {
   const {
-    reservations, fetchReservations, changeReservationFilter, reservationFilter,
+    reservations, changeReservationFilter, fetchReservations, reservationFilter,
   } = useReservation();
   const staffs = useStaffStore((state) => state.staffs);
   const setDropdownMenuType = useDropdownMenu((state) => state.setDropdownMenuType);
 
-  useEffect(() => {
-    fetchReservations(reservationFilter);
-  }, [reservationFilter]);
   const changeDate = useCallback((direction: 'prev' | 'next') => {
     const newDate = new Date(reservationFilter.date);
     newDate.setDate(newDate.getDate() + (direction === 'prev' ? -1 : 1));
-    changeReservationFilter({ date: newDate });
-  }, [changeReservationFilter, reservationFilter.date]);
+    const changedFilter = changeReservationFilter({ date: newDate });
+    fetchReservations(changedFilter);
+  }, [changeReservationFilter, reservationFilter.date, fetchReservations]);
   const onClickCell = useCallback((e: React.MouseEvent, reservation: Reservation) => {
     e.stopPropagation();
     setDropdownMenuType(

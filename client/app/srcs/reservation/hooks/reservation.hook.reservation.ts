@@ -3,8 +3,10 @@ import { ReservationFilter, useReservationStore } from '../store/reservation.sto
 import * as adminReservationApi from '../api/reservation.api.admin.reservation';
 import { ErrorType, useErrorStore } from '../store/reservation.store.error';
 import { Reservation } from '../dto/reservation.dto.reservation';
+import { useAuthStore } from '../store/reservation.store.auth';
 
 export const useReservation = () => {
+  const accessToken = useAuthStore((state) => state.accessToken);
   const reservationFilter = useReservationStore((state) => state.reservationFilter);
   const setReservationFilter = useReservationStore((state) => state.setReservationFilter);
   const reservations = useReservationStore((state) => state.reservations);
@@ -18,7 +20,7 @@ export const useReservation = () => {
     setLoading(true);
     try {
       const data = await adminReservationApi.getReservations(
-        { filter: filter || reservationFilter },
+        { accessToken, filter: filter || reservationFilter },
       );
       initReservation(data);
     } catch (error) {
@@ -26,7 +28,7 @@ export const useReservation = () => {
     } finally {
       setLoading(false);
     }
-  }, [loading, initReservation, setErrorType, reservationFilter]);
+  }, [loading, initReservation, setErrorType, reservationFilter, accessToken]);
 
   const createReservation = useCallback(async ({
     name, phone, startTime, staffId, nailId, nailSpendMinute,
@@ -42,6 +44,7 @@ export const useReservation = () => {
     setLoading(true);
     try {
       await adminReservationApi.postReservation({
+        accessToken,
         startTime,
         endTime: new Date(new Date(startTime).getTime() + nailSpendMinute * 60000).toString(),
         phone,
@@ -54,23 +57,28 @@ export const useReservation = () => {
     } finally {
       setLoading(false);
     }
-  }, [loading, setErrorType]);
+  }, [loading, setErrorType, accessToken]);
 
   const changeReservationFilter = (filterChange: Partial<ReservationFilter>) => {
-    setReservationFilter({ ...reservationFilter, ...filterChange });
+    const changedFilter = { ...reservationFilter, ...filterChange };
+    setReservationFilter(changedFilter);
+    return changedFilter;
   };
 
   const deleteReservationById = useCallback(async (reservationId: string) => {
     if (loading) return;
     setLoading(true);
     try {
-      await adminReservationApi.deleteReservation(reservationId);
+      await adminReservationApi.deleteReservation({
+        accessToken,
+        reservationId,
+      });
     } catch (error) {
       setErrorType(ErrorType.Unknown);
     } finally {
       setLoading(false);
     }
-  }, [loading, setErrorType]);
+  }, [loading, setErrorType, accessToken]);
 
   const updateReservation = useCallback(async (
     reservationId: string,
@@ -79,13 +87,17 @@ export const useReservation = () => {
     if (loading) return;
     setLoading(true);
     try {
-      await adminReservationApi.patchReservation(reservationId, updateData);
+      await adminReservationApi.patchReservation({
+        accessToken,
+        reservationId,
+        updateData,
+      });
     } catch (error) {
       setErrorType(ErrorType.Unknown);
     } finally {
       setLoading(false);
     }
-  }, [loading, setErrorType]);
+  }, [loading, setErrorType, accessToken]);
 
   return {
     reservations,
