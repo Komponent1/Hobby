@@ -26,7 +26,7 @@ export const useStaff = () => {
       initStaff(data);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);
@@ -42,11 +42,15 @@ export const useStaff = () => {
       const staff = await adminStaffApi.postStaff({ name, accessToken });
       addStaff(staff);
     } catch (err) {
+      if (err instanceof UnAuthorizedException) {
+        router.push('/reservation/login');
+        return;
+      }
       setErrorType(ErrorType.Unknown);
     } finally {
       setLoading(false);
     }
-  }, [addStaff, loading, setErrorType, accessToken]);
+  }, [addStaff, loading, setErrorType, accessToken, router]);
   const deleteStaffById = useCallback(async (id: string) => {
     if (loading) return;
     setLoading(true);
@@ -55,7 +59,7 @@ export const useStaff = () => {
       deleteStaff(id);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);
@@ -73,7 +77,7 @@ export const useStaff = () => {
       updateStaff(id, name);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);

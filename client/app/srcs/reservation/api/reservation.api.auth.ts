@@ -5,17 +5,17 @@ export const postLogin = async (uid: string, pw: string): Promise<{
   uid: string;
   name: string;
 }> => {
-  try {
-    const response = await fetch(`/reservation/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ uid, pw }),
-    });
+  const response = await fetch(`/reservation/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ uid, pw }),
+  });
+  if (response.ok) {
     const data = await response.json();
     return data;
-  } catch (error) {
-    throw new UnAuthorizedException();
   }
+
+  throw new UnAuthorizedException();
 };

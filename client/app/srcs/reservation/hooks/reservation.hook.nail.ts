@@ -26,7 +26,7 @@ export const useNail = () => {
       initNails(data);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);
@@ -45,7 +45,7 @@ export const useNail = () => {
       addNail(nail);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);
@@ -62,7 +62,7 @@ export const useNail = () => {
       deleteNail(id);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);
@@ -81,7 +81,7 @@ export const useNail = () => {
       updateNail(id, name, price);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);

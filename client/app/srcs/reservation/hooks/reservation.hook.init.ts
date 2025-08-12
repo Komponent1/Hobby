@@ -17,7 +17,7 @@ export const useInitEffect = () => {
   useEffect(() => {
     const token = checkTokenInStorage();
     if (!token) {
-      router.push('/reservation/login');
+      router.push('/login');
     }
   }, []);
   useEffect(() => {

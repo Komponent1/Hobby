@@ -28,7 +28,7 @@ export const useReservation = () => {
       initReservation(data);
     } catch (error) {
       if (error instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);
@@ -61,7 +61,7 @@ export const useReservation = () => {
       });
     } catch (error) {
       if (error instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);
@@ -86,7 +86,7 @@ export const useReservation = () => {
       });
     } catch (error) {
       if (error instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);
@@ -109,7 +109,7 @@ export const useReservation = () => {
       });
     } catch (error) {
       if (error instanceof UnAuthorizedException) {
-        router.push('reservation/login');
+        router.push('/reservation/login');
         return;
       }
       setErrorType(ErrorType.Unknown);
