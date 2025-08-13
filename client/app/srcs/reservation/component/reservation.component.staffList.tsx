@@ -5,7 +5,6 @@ import { DropdownMenuType, useDropdownMenu } from '../store/reservation.store.dr
 type Props = {};
 const StaffList: React.FC<Props> = () => {
   const { staffs } = useStaff();
-  console.log(staffs);
   const setDropdownMenuType = useDropdownMenu((state) => state.setDropdownMenuType);
 
   const handleDropdownMenu = useCallback((e: React.MouseEvent, staffId: string) => {
