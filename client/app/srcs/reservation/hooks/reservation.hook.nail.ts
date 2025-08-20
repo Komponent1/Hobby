@@ -18,11 +18,11 @@ export const useNail = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const fetchNails = useCallback(async () => {
+  const fetchNails = useCallback(async (token?: string) => {
     if (loading) return;
     setLoading(true);
     try {
-      const data = await adminNailApi.getNails({accessToken});
+      const data = await adminNailApi.getNails({accessToken: token || accessToken});
       initNails(data);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {

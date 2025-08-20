@@ -13,7 +13,7 @@ const ControlReservation: React.FC<ControlReservationProps> = ({ reservation }) 
   const deleteReservation = useCallback(async (e: React.MouseEvent) => {
     e.stopPropagation();
     await deleteReservationById(reservation.id);
-    await fetchReservations();
+    await fetchReservations({});
     setDropdownMenuType(DropdownMenuType.None);
   }, [fetchReservations, deleteReservationById, reservation.id, setDropdownMenuType]);
 

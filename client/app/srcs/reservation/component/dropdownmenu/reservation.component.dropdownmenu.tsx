@@ -16,7 +16,7 @@ const DropdownMenu: React.FC = () => {
 
   if (dropdownMenuType === DropdownMenuType.None) return null;
   return (
-    <button type="button" className="absolute top-0 h-full w-full opacity-100" onClick={handleClose}>
+    <button type="button" className="absolute top-0 h-full w-full opacity-100 z-30" onClick={handleClose}>
       <div
         className="absolute opacity-100"
         style={{ top: position.y, left: position.x }}

@@ -18,11 +18,11 @@ export const useStaff = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const fetchStaffs = useCallback(async () => {
+  const fetchStaffs = useCallback(async (token?: string) => {
     if (loading) return;
     setLoading(true);
     try {
-      const data = await adminStaffApi.getStaffs({ accessToken });
+      const data = await adminStaffApi.getStaffs({ accessToken: token || accessToken });
       initStaff(data);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {

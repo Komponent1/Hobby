@@ -7,7 +7,7 @@ import { useNail } from './reservation.hook.nail';
 import { useReservation } from './reservation.hook.reservation';
 
 export const useInitEffect = () => {
-  const { checkTokenInStorage, accessToken } = useAuth();
+  const { checkTokenInStorage } = useAuth();
   const {fetchStaffs} = useStaff();
   const {fetchNails} = useNail();
   const {fetchReservations} = useReservation();
@@ -18,13 +18,10 @@ export const useInitEffect = () => {
     const token = checkTokenInStorage();
     if (!token) {
       router.push('/login');
+      return;
     }
+    fetchStaffs(token);
+    fetchNails(token);
+    fetchReservations({token});
   }, []);
-  useEffect(() => {
-    if (accessToken !== '') {
-      fetchStaffs();
-      fetchNails();
-      fetchReservations();
-    }
-  }, [accessToken]);
 };

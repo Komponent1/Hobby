@@ -14,13 +14,13 @@ const Modal: React.FC = () => {
   useEffect(() => {
     switch (modalType) {
       case ModalType.AddStaff:
-        setBackgroundStyle('bg-gray-500 opacity-50 flex items-center justify-center');
+        setBackgroundStyle('bg-gray-500/50 flex items-center justify-center');
         break;
       case ModalType.AddNail:
-        setBackgroundStyle('bg-gray-500 opacity-50 flex items-center justify-center');
+        setBackgroundStyle('bg-gray-500/50 flex items-center justify-center');
         break;
       case ModalType.AddReservation:
-        setBackgroundStyle('bg-gray-500 opacity-50 flex items-center justify-center');
+        setBackgroundStyle('bg-gray-500/50 flex items-center justify-center');
         break;
       case ModalType.None:
       default:
@@ -35,7 +35,7 @@ const Modal: React.FC = () => {
   if (modalType === ModalType.None) return null;
   return (
     <div
-      className={`fixed top-0 left-0 w-screen h-screen ${backgroundStyle}`}
+      className={`fixed top-0 left-0 w-screen h-screen z-20 ${backgroundStyle}`}
       onClick={handleClose}
     >
       <div onClick={(e) => e.stopPropagation()}>

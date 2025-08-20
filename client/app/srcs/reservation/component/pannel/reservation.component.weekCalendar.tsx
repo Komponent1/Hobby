@@ -6,7 +6,7 @@ import { Reservation } from '../../dto/reservation.dto.reservation';
 const WeekCalendar: React.FC = () => {
   const { reservations, fetchReservations } = useReservation();
   useEffect(() => {
-    fetchReservations();
+    fetchReservations({});
   }, []);
 
   const groupedReservations = reservations.reduce((acc, reservation) => {

@@ -19,6 +19,7 @@ export default class MyDocument extends Document {
           <div id="loading-root" />
           <div id="drop-down-root" />
           <div id="error-root" />
+          <div id="bottom-slide-root" />
         </body>
       </Html>
     );

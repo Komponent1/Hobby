@@ -44,7 +44,7 @@ const AddReservation: React.FC = () => {
       nailSpendMinute,
     });
     handleReset();
-    fetchReservations();
+    fetchReservations({});
     setModalType(ModalType.None);
   }, [
     createReservation, name, phone, startTime, staffId, nailId, handleReset, setModalType, nails, fetchReservations, date,

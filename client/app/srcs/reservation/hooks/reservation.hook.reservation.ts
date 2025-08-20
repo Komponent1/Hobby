@@ -18,12 +18,15 @@ export const useReservation = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const fetchReservations = useCallback(async (filter?: ReservationFilter) => {
+  const fetchReservations = useCallback(async ({filter, token}:{
+    filter?: ReservationFilter;
+    token?: string;
+  }) => {
     if (loading) return;
     setLoading(true);
     try {
       const data = await adminReservationApi.getReservations(
-        { accessToken, filter: filter || reservationFilter },
+        { accessToken: token || accessToken, filter: filter || reservationFilter },
       );
       initReservation(data);
     } catch (error) {
