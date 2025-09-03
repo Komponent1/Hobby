@@ -11,7 +11,7 @@ type Props = {
   reservationFilter: ReservationFilter;
 };
 const Sider: React.FC<Props> = ({ changeDate, reservationFilter }) => (
-  <div>
+  <div className="bg-white rounded-3xl pt-4 pb-4">
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
         value={dayjs(reservationFilter.date)}

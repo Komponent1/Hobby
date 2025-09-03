@@ -9,18 +9,12 @@ import BottomTab from './component/reservation.component.bottomTab';
 import BottomSlide from './component/bottomSlide/reservation.component.bottomSlide';
 
 const ReservationMainPage: React.FC = () => {
-  const { accessToken, logout } = useAuth();
+  const { accessToken } = useAuth();
   useInitEffect();
 
   if (!accessToken || accessToken === '') return null;
   return (
-    <div className="bg-amber-100">
-      <header className="flex justify-between items-center p-4">
-        <h1 className="text-2xl font-bold">Reservation Management</h1>
-        <button type="button" onClick={logout} className="mb-4 rounded-sm border-2 border-gray-300 bg-white px-4 py-2 text-sm">
-          Logout
-        </button>
-      </header>
+    <div className="bg-primary">
       <main className="mb-24">
         <Pannel />
       </main>
