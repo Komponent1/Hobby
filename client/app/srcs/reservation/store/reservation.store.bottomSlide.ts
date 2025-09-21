@@ -11,7 +11,7 @@ type BottomSlideState = {
   props: any;
 };
 export const useBottomSlide = create<BottomSlideState>((set) => ({
-  bottomSlideType: BottomSlideType.Staff,
+  bottomSlideType: BottomSlideType.None,
   setBottomSlideType: (type: BottomSlideType, props: any) => set({ bottomSlideType: type, props }),
   props: {},
 }));

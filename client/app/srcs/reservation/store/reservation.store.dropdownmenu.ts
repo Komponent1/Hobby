@@ -5,6 +5,7 @@ export enum DropdownMenuType {
   controlStaff = 'CONTROL_STAFF',
   controlNail = 'CONTROL_NAIL',
   controlReservation = 'CONTROL_RESERVATION',
+  dateChanger = 'DATE_CHANGER',
 }
 type DropdownMenuState = {
   position: { x: number; y: number };

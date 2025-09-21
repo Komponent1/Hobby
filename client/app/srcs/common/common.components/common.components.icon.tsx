@@ -4,7 +4,7 @@
 import Image from 'next/image';
 import React from 'react';
 import {
-  ArrowDownRight, CalendarPlusFill, Cart4, CartPlusFill, Controller, FileEarmarkFill, InfoCircleFill,
+  ArrowDownRight, CalendarPlusFill, Cart4, CartPlusFill, ChevronLeft, ChevronRight, Controller, FileEarmarkFill, InfoCircleFill,
   People,
   PersonPlusFill,
   PersonVcardFill,
@@ -22,17 +22,17 @@ const Icon: React.FC<Props> = ({
 }) => {
   switch (name) {
     case "file_earmark_fill":
-      return <FileEarmarkFill size={size} color={color} onClick={onClick} />;
+      return <FileEarmarkFill size={size} color={color} onClick={onClick} className={`${onClick ? 'cursor-pointer' : ''}`} />;
     case "arrow_down_right":
-      return <ArrowDownRight size={size} color={color} onClick={onClick} />;
+      return <ArrowDownRight size={size} color={color} onClick={onClick} className={`${onClick ? 'cursor-pointer' : ''}`} />;
     case "info_circle_fill":
-      return <InfoCircleFill size={size} color={color} onClick={onClick} />;
+      return <InfoCircleFill size={size} color={color} onClick={onClick} className={`${onClick ? 'cursor-pointer' : ''}`} />;
     case "controller":
-      return <Controller size={size} color={color} onClick={onClick} />;
+      return <Controller size={size} color={color} onClick={onClick} className={`${onClick ? 'cursor-pointer' : ''}`} />;
     case "calendar_plus_fill":
-      return <CalendarPlusFill size={size} color={color} onClick={onClick} />;
+      return <CalendarPlusFill size={size} color={color} onClick={onClick} className={`${onClick ? 'cursor-pointer' : ''}`} />;
     case "person_plus_fill":
-      return <PersonPlusFill size={size} color={color} onClick={onClick} />;
+      return <PersonPlusFill size={size} color={color} onClick={onClick} className={`${onClick ? 'cursor-pointer' : ''}`} />;
     case "cart_plus_fill":
       return <CartPlusFill size={size} color={color} onClick={onClick} />;
     case "person_vcard_fill":
@@ -43,6 +43,10 @@ const Icon: React.FC<Props> = ({
       return <Cart4 size={size} color={color} onClick={onClick} />;
     case "three_dots_vertical":
       return <ThreeDotsVertical size={size} color={color} onClick={onClick} />;
+    case "chevron_left":
+      return <ChevronLeft size={size} color={color} onClick={onClick} className={`${onClick ? 'cursor-pointer' : ''}`} />;
+    case "chevron_right":
+      return <ChevronRight size={size} color={color} onClick={onClick} className={`${onClick ? 'cursor-pointer' : ''}`} />;
     case "steam":
       return (
         <div onClick={onClick}>

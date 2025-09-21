@@ -3,6 +3,7 @@ import { DropdownMenuType, useDropdownMenu } from '../../store/reservation.store
 import ControlStaff from './reservation.component.controlStaff';
 import ControlNail from './reservation.component.controlNail';
 import ControlReservation from './reservation.component.controlReservation';
+import DateChanger from './reservation.component.dateChanger';
 
 const DropdownMenu: React.FC = () => {
   const props = useDropdownMenu((state) => state.props);
@@ -25,6 +26,8 @@ const DropdownMenu: React.FC = () => {
         {dropdownMenuType === DropdownMenuType.controlNail && <ControlNail {...props} />}
         {dropdownMenuType === DropdownMenuType.controlReservation
           && <ControlReservation {...props} />}
+        {dropdownMenuType === DropdownMenuType.dateChanger
+          && <DateChanger {...props} />}
       </div>
     </button>
   );
