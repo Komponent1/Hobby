@@ -6,7 +6,7 @@ type Props = {
   title: string;
 };
 const Header: React.FC<Props> = ({ title }) => (
-  <div style={{height: HeaderHeight}}>
+  <div className="p-4" style={{height: HeaderHeight}}>
     <Typography type="h3">
       {title}
     </Typography>

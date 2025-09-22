@@ -7,13 +7,11 @@ type Props = {
   currentPanel: PannelType;
 };
 const Pannel: React.FC<Props> = ({ currentPanel }) => (
-  <div className="flex pt-4 pb-4 pl-4">
-    <div className="w-full">
-      <Header title="예약관리" />
-      {currentPanel === PannelType.RESERVATION && (
-        <DailyCalendar />
-      )}
-    </div>
+  <div className="w-full h-full">
+    <Header title="예약관리" />
+    {currentPanel === PannelType.RESERVATION && (
+    <DailyCalendar />
+    )}
   </div>
 );
 

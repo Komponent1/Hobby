@@ -6,6 +6,7 @@ import { Icon, Typography } from '../../../common/common.components';
 import { DropdownMenuType, useDropdownMenu } from '../../store/reservation.store.dropdownmenu';
 import { useReservation } from '../../hooks/reservation.hook.reservation';
 import { ReservationFilter } from '../../store/reservation.store.reservation';
+import { CalendarHeaderHeight } from '../reservation.component.constant';
 
 type Props = {
 
@@ -37,10 +38,14 @@ const CalendarHeader: React.FC<Props> = () => {
     fetchReservations({ filter: changedFilter });
   }, [changeReservationFilter, fetchReservations, reservationFilter]);
 
-  /** TODO: 레이아웃 정렬 필요 */
   return (
-    <div className="border-gray-300 border-b-2 border-t-2 p-4 flex justify-between items-center">
-      <Button variant="outlined" onClick={() => changeDate('today')}>Today</Button>
+    <div
+      className="border-gray-300 border-b-2 border-t-2 p-4 grid grid-cols-3"
+      style={{height: CalendarHeaderHeight}}
+    >
+      <div>
+        <Button variant="outlined" onClick={() => changeDate('today')}>Today</Button>
+      </div>
       <div className="flex items-center gap-8">
         <Icon name="chevron_left" size={18} onClick={() => changeDate('prev')} color="gray" />
         <div
@@ -54,7 +59,6 @@ const CalendarHeader: React.FC<Props> = () => {
         </div>
         <Icon name="chevron_right" size={18} onClick={() => changeDate('next')} color="gray" />
       </div>
-      <div />
     </div>
   );
 };

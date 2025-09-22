@@ -5,7 +5,6 @@ import ErrorModal from './component/error/reservation.component.error';
 import { useInitEffect } from './hooks/reservation.hook.init';
 import { useAuth } from './hooks/reservation.hook.auth';
 import Pannel from './component/pannel/reservation.component.pannel';
-import BottomTab from './component/reservation.component.bottomTab';
 import BottomSlide from './component/bottomSlide/reservation.component.bottomSlide';
 import { PannelType } from './component/reservation.component.enum';
 import Sider from './component/sider/reservation.compeont.sider';
@@ -21,14 +20,14 @@ const ReservationMainPage: React.FC = () => {
   return (
     <div>
       <Sider
+        currentPannel={currentPanel}
         setCurrentPanel={setCurrentPanel}
         setVisible={setSiderVisible}
         visible={siderVisible}
       />
-      <main style={{ marginLeft: siderVisible ? `${SiderWidth}px` : '0' }}>
+      <main className="h-screen overflow-hidden" style={{ marginLeft: siderVisible ? `${SiderWidth}px` : '0' }}>
         <Pannel currentPanel={currentPanel} />
       </main>
-      <BottomTab />
       <Portal type="modal-root">
         <Modal />
       </Portal>
