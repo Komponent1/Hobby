@@ -5,7 +5,7 @@ import { UnAuthorizedException, UnknownException } from '../util/reservation.uti
 
 export const postReservation = async (
   {
-    accessToken, startTime, endTime, phone, name, staffId, nailId,
+    accessToken, startTime, endTime, phone, name, staffId, productId,
   }
   : {
     accessToken: string;
@@ -14,7 +14,7 @@ export const postReservation = async (
     phone: string,
     name: string,
     staffId: string,
-    nailId: string,
+    productId: string,
   },
 ): Promise<void> => {
   const response = await fetch('/reservation/admin/reservation', {
@@ -24,7 +24,7 @@ export const postReservation = async (
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
-      startTime, endTime, phone, name, staffId, nailId,
+      startTime, endTime, phone, name, staffId, productId,
     }),
   });
   if (!response.ok) {

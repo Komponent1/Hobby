@@ -1,29 +1,29 @@
 import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useNailStore } from '../store/reservation.store.nail';
-import * as adminNailApi from '../api/reservation.api.admin.nail';
+import { useProductStore } from '../store/reservation.store.product';
+import * as adminProductApi from '../api/reservation.api.admin.product';
 import { ErrorType, useErrorStore } from '../store/reservation.store.error';
 import { useAuthStore } from '../store/reservation.store.auth';
 import { UnAuthorizedException } from '../util/reservation.util.exception';
 
-export const useNail = () => {
+export const useProduct = () => {
   const router = useRouter();
   const accessToken = useAuthStore((state) => state.accessToken);
-  const nails = useNailStore((state) => state.nails);
-  const initNails = useNailStore((state) => state.initNails);
-  const addNail = useNailStore((state) => state.addNail);
-  const deleteNail = useNailStore((state) => state.deleteNail);
-  const updateNail = useNailStore((state) => state.updateNail);
+  const products = useProductStore((state) => state.products);
+  const initProducts = useProductStore((state) => state.initProducts);
+  const addProduct = useProductStore((state) => state.addProduct);
+  const deleteProduct = useProductStore((state) => state.deleteProduct);
+  const updateProduct = useProductStore((state) => state.updateProduct);
   const setErrorType = useErrorStore((state) => state.setErrorType);
 
   const [loading, setLoading] = useState(false);
 
-  const fetchNails = useCallback(async (token?: string) => {
+  const fetchProducts = useCallback(async (token?: string) => {
     if (loading) return;
     setLoading(true);
     try {
-      const data = await adminNailApi.getNails({accessToken: token || accessToken});
-      initNails(data);
+      const data = await adminProductApi.getProducts({accessToken: token || accessToken});
+      initProducts(data);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
         router.push('/reservation/login');
@@ -33,16 +33,16 @@ export const useNail = () => {
     } finally {
       setLoading(false);
     }
-  }, [initNails, loading, setErrorType, accessToken, router]);
+  }, [initProducts, loading, setErrorType, accessToken, router]);
 
-  const createNail = useCallback(async (name: string, price: number, spendMinute: number) => {
+  const createProduct = useCallback(async (name: string, price: number, spendMinute: number) => {
     if (loading) return;
     setLoading(true);
     try {
-      const nail = await adminNailApi.postNail({
+      const product = await adminProductApi.postProduct({
         accessToken, name, price, spendMinute,
       });
-      addNail(nail);
+      addProduct(product);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
         router.push('/reservation/login');
@@ -52,14 +52,14 @@ export const useNail = () => {
     } finally {
       setLoading(false);
     }
-  }, [addNail, loading, setErrorType, accessToken, router]);
+  }, [addProduct, loading, setErrorType, accessToken, router]);
 
-  const deleteNailById = useCallback(async (id: string) => {
+  const deleteProductById = useCallback(async (id: string) => {
     if (loading) return;
     setLoading(true);
     try {
-      await adminNailApi.deleteNail({id, accessToken});
-      deleteNail(id);
+      await adminProductApi.deleteProduct({id, accessToken});
+      deleteProduct(id);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
         router.push('/reservation/login');
@@ -69,16 +69,16 @@ export const useNail = () => {
     } finally {
       setLoading(false);
     }
-  }, [deleteNail, loading, setErrorType, accessToken, router]);
+  }, [deleteProduct, loading, setErrorType, accessToken, router]);
 
-  const updateNailById = useCallback(async (id: string, name: string, price: number) => {
+  const updateProductById = useCallback(async (id: string, name: string, price: number) => {
     if (loading) return;
     setLoading(true);
     try {
-      await adminNailApi.patchNail({
+      await adminProductApi.patchProduct({
         id, name, price, accessToken,
       });
-      updateNail(id, name, price);
+      updateProduct(id, name, price);
     } catch (err) {
       if (err instanceof UnAuthorizedException) {
         router.push('/reservation/login');
@@ -88,9 +88,9 @@ export const useNail = () => {
     } finally {
       setLoading(false);
     }
-  }, [updateNail, loading, setErrorType, accessToken, router]);
+  }, [updateProduct, loading, setErrorType, accessToken, router]);
 
   return {
-    nails, fetchNails, createNail, deleteNailById, updateNail, updateNailById, loading,
+    products, fetchProducts, createProduct, deleteProductById, updateProductById, loading,
   };
 };

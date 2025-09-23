@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { ModalType, useModalStore } from '../../store/reservation.store.modal';
-import { useNail } from '../../hooks/reservation.hook.nail';
+import { useProduct } from '../../hooks/reservation.hook.product';
 
-const AddNail: React.FC = () => {
+const AddProduct: React.FC = () => {
   const setModalType = useModalStore((state) => state.setModalType);
-  const { createNail } = useNail();
+  const { createProduct } = useProduct();
   const [name, setName] = React.useState('');
   const [price, setPrice] = React.useState(0);
   const [spendMinute, setSpendMinute] = React.useState(0);
@@ -12,7 +12,7 @@ const AddNail: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim() && price > 0 && spendMinute > 0) {
-      createNail(name, price, spendMinute);
+      createProduct(name, price, spendMinute);
       setName('');
       setPrice(0);
       setSpendMinute(0);
@@ -39,27 +39,27 @@ const AddNail: React.FC = () => {
           type="text"
           value={name}
           onChange={onChangeName}
-          placeholder="Enter nail service name"
+          placeholder="Enter product name"
           required
         />
         <input
           type="number"
           value={price}
           onChange={onChangePrice}
-          placeholder="Enter nail service price"
+          placeholder="Enter product price"
           required
         />
         <input
           type="number"
           value={spendMinute}
           onChange={onChangeSpendMinute}
-          placeholder="Enter nail service spend minute"
+          placeholder="Enter product spend minute"
           required
         />
-        <button type="submit">Add Nail Service</button>
+        <button type="submit">Add Product</button>
       </form>
     </div>
   );
 };
 
-export default AddNail;
+export default AddProduct;

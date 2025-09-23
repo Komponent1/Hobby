@@ -1,4 +1,4 @@
-import { Nail } from './reservation.dto.nail';
+import { Product } from './reservation.dto.product';
 import { Staff } from './reservation.dto.staff';
 
 export type Reservation = {
@@ -9,5 +9,5 @@ export type Reservation = {
   phone: string;
   name: string;
   staff: Staff;
-  nail: Nail;
+  product: Product;
 };

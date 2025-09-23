@@ -1,17 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
-import { PannelType } from '../reservation.component.enum';
 import { Icon, Typography } from '../../../common/common.components';
+import { PannelType, PannelIconMatch, PannelTextMatch } from '../reservation.component.enum';
 
-const iconMatch = {
-  [PannelType.RESERVATION]: 'calendar_plus_fill',
-  [PannelType.STAFF]: 'people_fill',
-  [PannelType.SERVICE]: 'cart4',
-};
-const texxtMatch = {
-  [PannelType.RESERVATION]: '예약 관리',
-  [PannelType.STAFF]: '직원 관리',
-  [PannelType.SERVICE]: '서비스 관리',
-};
 type Props = {
   setPannel: (panel: PannelType) => void;
   currentPannel?: PannelType;
@@ -30,8 +20,8 @@ const MenuItem: React.FC<Props> = ({ type, setPannel, currentPannel }) => {
         backgroundColor: selected ? '#3b82f6' : 'transparent',
       }}
     >
-      <Icon name={iconMatch[type]} size={24} onClick={changePannel} />
-      <Typography type="p" customClass="ml-2">{texxtMatch[type]}</Typography>
+      <Icon name={PannelIconMatch[type]} size={24} onClick={changePannel} />
+      <Typography type="p" customClass="ml-2">{PannelTextMatch[type]}</Typography>
     </div>
   );
 };

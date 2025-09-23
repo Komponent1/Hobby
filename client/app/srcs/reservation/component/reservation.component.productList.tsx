@@ -1,32 +1,32 @@
 import React, { useCallback } from 'react';
 import { DropdownMenuType, useDropdownMenu } from '../store/reservation.store.dropdownmenu';
-import { useNail } from '../hooks/reservation.hook.nail';
+import { useProduct } from '../hooks/reservation.hook.product';
 
 type Props = {};
-const NailList: React.FC<Props> = () => {
-  const { nails } = useNail();
+const ProductList: React.FC<Props> = () => {
+  const { products } = useProduct();
   const setDropdownMenuType = useDropdownMenu((state) => state.setDropdownMenuType);
 
-  const handleDropdownMenu = useCallback((e: React.MouseEvent, nailId: string) => {
+  const handleDropdownMenu = useCallback((e: React.MouseEvent, productId: string) => {
     e.stopPropagation();
     setDropdownMenuType(
-      DropdownMenuType.controlNail,
+      DropdownMenuType.controlProduct,
       { x: e.clientX, y: e.clientY },
-      { nailId },
+      { productId },
     );
   }, [setDropdownMenuType]);
 
   return (
     <div>
-      <h2>Nail List</h2>
+      <h2>Product List</h2>
       <ul>
-        {nails.map((nail) => (
-          <li key={nail.id}>
-            {nail.name}
-            <span>{nail.price}</span>
+        {products.map((product) => (
+          <li key={product.id}>
+            {product.name}
+            <span>{product.price}</span>
             <button
               type="button"
-              onClick={(e) => handleDropdownMenu(e, nail.id)}
+              onClick={(e) => handleDropdownMenu(e, product.id)}
             >
               Control
             </button>
@@ -37,4 +37,4 @@ const NailList: React.FC<Props> = () => {
   );
 };
 
-export default NailList;
+export default ProductList;

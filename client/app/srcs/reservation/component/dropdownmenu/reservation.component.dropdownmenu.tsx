@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { DropdownMenuType, useDropdownMenu } from '../../store/reservation.store.dropdownmenu';
 import ControlStaff from './reservation.component.controlStaff';
-import ControlNail from './reservation.component.controlNail';
+import ControlProduct from './reservation.component.controlProduct';
 import ControlReservation from './reservation.component.controlReservation';
 import DateChanger from './reservation.component.dateChanger';
 
@@ -23,7 +23,7 @@ const DropdownMenu: React.FC = () => {
         style={{ top: position.y, left: position.x }}
       >
         {dropdownMenuType === DropdownMenuType.controlStaff && <ControlStaff {...props} />}
-        {dropdownMenuType === DropdownMenuType.controlNail && <ControlNail {...props} />}
+        {dropdownMenuType === DropdownMenuType.controlProduct && <ControlProduct {...props} />}
         {dropdownMenuType === DropdownMenuType.controlReservation
           && <ControlReservation {...props} />}
         {dropdownMenuType === DropdownMenuType.dateChanger

@@ -3,7 +3,7 @@ import { create } from 'zustand';
 export enum BottomSlideType {
   None = 'NONE',
   Staff = 'STAFF',
-  Nail = 'NAIL',
+  Product = 'PRODUCT',
 }
 type BottomSlideState = {
   bottomSlideType: BottomSlideType;

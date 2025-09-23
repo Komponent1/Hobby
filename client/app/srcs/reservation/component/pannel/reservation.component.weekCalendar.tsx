@@ -28,7 +28,7 @@ const WeekCalendar: React.FC = () => {
               <li key={reservation.id} className="flex border-2 border-gray-300 p-2 mb-2">
                 <div>{reservation.startTime.toDateString()}</div>
                 <div>{reservation.name}</div>
-                <div>{reservation.nail.name}</div>
+                <div>{reservation.product.name}</div>
                 <div>{reservation.staff.name}</div>
                 <div>{reservation.phone}</div>
               </li>

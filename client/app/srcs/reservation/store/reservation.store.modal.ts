@@ -3,7 +3,7 @@ import { create } from 'zustand';
 export enum ModalType {
   None = 'NONE',
   AddStaff = 'ADD_STAFF',
-  AddNail = 'ADD_NAIL',
+  AddProduct = 'ADD_PRODUCT',
   AddReservation = 'ADD_RESERVATION',
 }
 type ModalState = {

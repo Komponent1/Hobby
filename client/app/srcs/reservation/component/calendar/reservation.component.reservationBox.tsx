@@ -34,7 +34,7 @@ const ReservationBox: React.FC<Props> = ({reservation}) => (
     }}
   >
     <h3 className="font-bold">{reservation.name}</h3>
-    <p>{reservation.nail.name}</p>
+    <p>{reservation.product.name}</p>
     <Typography type="tiny" color="gray">
       {`${getTimeString(reservation.startTime)} > ${getTimeString(reservation.endTime)}`}
     </Typography>

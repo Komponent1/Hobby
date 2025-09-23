@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ModalType, useModalStore } from '../../store/reservation.store.modal';
 import AddStaff from './reservation.component.addStaff';
-import AddNail from './reservation.component.addNail';
+import AddProduct from './reservation.component.addProduct';
 import AddReservation from './reservation.component.addReservation';
 
 const Modal: React.FC = () => {
@@ -16,7 +16,7 @@ const Modal: React.FC = () => {
       case ModalType.AddStaff:
         setBackgroundStyle('bg-gray-500/50 flex items-center justify-center');
         break;
-      case ModalType.AddNail:
+      case ModalType.AddProduct:
         setBackgroundStyle('bg-gray-500/50 flex items-center justify-center');
         break;
       case ModalType.AddReservation:
@@ -40,7 +40,7 @@ const Modal: React.FC = () => {
     >
       <div onClick={(e) => e.stopPropagation()}>
         {modalType === ModalType.AddStaff && <AddStaff />}
-        {modalType === ModalType.AddNail && <AddNail />}
+        {modalType === ModalType.AddProduct && <AddProduct />}
         {modalType === ModalType.AddReservation && <AddReservation />}
       </div>
     </div>

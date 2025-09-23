@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from './reservation.hook.auth';
 import { useStaff } from './reservatio.hook.staff';
-import { useNail } from './reservation.hook.nail';
+import { useProduct } from './reservation.hook.product';
 import { useReservation } from './reservation.hook.reservation';
 
 export const useInitEffect = () => {
   const { checkTokenInStorage } = useAuth();
   const {fetchStaffs} = useStaff();
-  const {fetchNails} = useNail();
+  const {fetchProducts} = useProduct();
   const {fetchReservations} = useReservation();
 
   const router = useRouter();
@@ -21,7 +21,7 @@ export const useInitEffect = () => {
       return;
     }
     fetchStaffs(token);
-    fetchNails(token);
+    fetchProducts(token);
     fetchReservations({token});
   }, []);
 };

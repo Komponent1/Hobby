@@ -41,14 +41,14 @@ export const useReservation = () => {
   }, [loading, initReservation, setErrorType, reservationFilter, accessToken, router]);
 
   const createReservation = useCallback(async ({
-    name, phone, startTime, staffId, nailId, nailSpendMinute,
+    name, phone, startTime, staffId, productId, productSpendMinute,
   }: {
     name: string;
     phone: string;
     startTime: string;
     staffId: string;
-    nailId: string;
-    nailSpendMinute: number;
+    productId: string;
+    productSpendMinute: number;
   }) => {
     if (loading) return;
     setLoading(true);
@@ -56,11 +56,11 @@ export const useReservation = () => {
       await adminReservationApi.postReservation({
         accessToken,
         startTime,
-        endTime: new Date(new Date(startTime).getTime() + nailSpendMinute * 60000).toString(),
+        endTime: new Date(new Date(startTime).getTime() + productSpendMinute * 60000).toString(),
         phone,
         name,
         staffId,
-        nailId,
+        productId,
       });
     } catch (error) {
       if (error instanceof UnAuthorizedException) {

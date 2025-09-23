@@ -3,7 +3,7 @@ import { create } from 'zustand';
 export enum DropdownMenuType {
   None = 'NONE',
   controlStaff = 'CONTROL_STAFF',
-  controlNail = 'CONTROL_NAIL',
+  controlProduct = 'CONTROL_PRODUCT',
   controlReservation = 'CONTROL_RESERVATION',
   dateChanger = 'DATE_CHANGER',
 }

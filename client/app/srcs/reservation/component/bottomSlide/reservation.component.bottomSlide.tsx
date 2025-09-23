@@ -2,8 +2,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useCallback } from 'react';
 import { BottomSlideType, useBottomSlide } from '../../store/reservation.store.bottomSlide';
-import StaffPannel from './reservation.component.staffPannel';
-import NailPannel from './reservation.component.nailPannel';
 
 const BottomSlide: React.FC = () => {
   const bottomSlideType = useBottomSlide((state) => state.bottomSlideType);
@@ -20,10 +18,7 @@ const BottomSlide: React.FC = () => {
       onClick={handleClose}
     >
       <div onClick={(e) => e.stopPropagation()}>
-        <div className="fixed bottom-0 rounded-t-2xl bg-white p-4 border w-full flex justify-center items-center">
-          {bottomSlideType === BottomSlideType.Staff && <StaffPannel />}
-          {bottomSlideType === BottomSlideType.Nail && <NailPannel />}
-        </div>
+        <div className="fixed bottom-0 rounded-t-2xl bg-white p-4 border w-full flex justify-center items-center" />
       </div>
     </div>
   );

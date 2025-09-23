@@ -2,13 +2,13 @@
 /* eslint-disable max-len */
 import React, { useCallback, useState } from 'react';
 import { useStaffStore } from '../../store/reservation.store.staff';
-import { useNailStore } from '../../store/reservation.store.nail';
+import { useProductStore } from '../../store/reservation.store.product';
 import { useReservation } from '../../hooks/reservation.hook.reservation';
 import { ModalType, useModalStore } from '../../store/reservation.store.modal';
 
 const AddReservation: React.FC = () => {
   const staffs = useStaffStore((state) => state.staffs);
-  const nails = useNailStore((state) => state.nails);
+  const products = useProductStore((state) => state.products);
   const { createReservation, fetchReservations } = useReservation();
   const setModalType = useModalStore((state) => state.setModalType);
 
@@ -17,7 +17,7 @@ const AddReservation: React.FC = () => {
   const [date, setDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [staffId, setStaffId] = useState('');
-  const [nailId, setNailId] = useState('');
+  const [productId, setProductId] = useState('');
 
   const handleReset = useCallback(() => {
     setName('');
@@ -25,29 +25,29 @@ const AddReservation: React.FC = () => {
     setDate('');
     setStartTime('');
     setStaffId('');
-    setNailId('');
+    setProductId('');
   }, []);
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name || !phone || !date || !startTime || !staffId || !nailId) {
+    if (!name || !phone || !date || !startTime || !staffId || !productId) {
       alert('모든 필드를 입력해주세요.');
       return;
     }
-    const nailSpendMinute = nails.find((nail) => nail.id === nailId)?.spendMinute || 0;
+    const productSpendMinute = products.find((product) => product.id === productId)?.spendMinute || 0;
     await createReservation({
       name,
       phone,
       startTime: new Date(`${date} ${startTime}`).toString(),
       staffId,
-      nailId,
-      nailSpendMinute,
+      productId,
+      productSpendMinute,
     });
     handleReset();
     fetchReservations({});
     setModalType(ModalType.None);
   }, [
-    createReservation, name, phone, startTime, staffId, nailId, handleReset, setModalType, nails, fetchReservations, date,
+    createReservation, name, phone, startTime, staffId, productId, handleReset, setModalType, products, fetchReservations, date,
   ]);
 
   return (
@@ -103,11 +103,11 @@ const AddReservation: React.FC = () => {
               </option>
             ))}
           </select>
-          <select value={nailId} onChange={(e) => setNailId(e.target.value)}>
+          <select value={productId} onChange={(e) => setProductId(e.target.value)}>
             <option value="">네일 선택</option>
-            {nails.map((nail) => (
-              <option key={nail.id} value={nail.id}>
-                {nail.name}
+            {products.map((product) => (
+              <option key={product.id} value={product.id}>
+                {product.name}
               </option>
             ))}
           </select>

@@ -1,13 +1,13 @@
-import { Nail } from '../dto/reservation.dto.nail';
+import { Product } from '../dto/reservation.dto.product';
 import { UnAuthorizedException, UnknownException } from '../util/reservation.util.exception';
 
-export const postNail = async (
+export const postProduct = async (
   {
     accessToken, name, price, spendMinute,
   }
   : { accessToken: string; name: string; price: number; spendMinute: number },
-): Promise<Nail> => {
-  const response = await fetch(`/reservation/admin/nail`, {
+): Promise<Product> => {
+  const response = await fetch(`/reservation/admin/product`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -25,12 +25,12 @@ export const postNail = async (
   }
   throw new UnknownException();
 };
-export const getNails = async ({
+export const getProducts = async ({
   accessToken,
 }: {
   accessToken: string;
-}): Promise<Nail[]> => {
-  const response = await fetch(`/reservation/admin/nails`, {
+}): Promise<Product[]> => {
+  const response = await fetch(`/reservation/admin/products`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -45,10 +45,10 @@ export const getNails = async ({
   }
   throw new UnknownException();
 };
-export const deleteNail = async (
+export const deleteProduct = async (
   {id, accessToken}: {id: string; accessToken: string},
 ): Promise<void> => {
-  const response = await fetch(`/reservation/admin/nail/${id}`, {
+  const response = await fetch(`/reservation/admin/product/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -61,7 +61,7 @@ export const deleteNail = async (
     throw new UnknownException();
   }
 };
-export const patchNail = async ({
+export const patchProduct = async ({
   id,
   name,
   price,
@@ -72,7 +72,7 @@ export const patchNail = async ({
   price: number;
   accessToken: string;
 }): Promise<void> => {
-  const response = await fetch(`/reservation/admin/nail/${id}`, {
+  const response = await fetch(`/reservation/admin/product/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -84,10 +84,10 @@ export const patchNail = async ({
     throw new UnknownException();
   }
 };
-export const getNailById = async (
+export const getProductById = async (
   {accessToken, id}: {accessToken: string; id: string},
-): Promise<Nail> => {
-  const response = await fetch(`/reservation/admin/nail/${id}`, {
+): Promise<Product> => {
+  const response = await fetch(`/reservation/admin/product/${id}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -101,10 +101,10 @@ export const getNailById = async (
   }
   throw new UnknownException();
 };
-export const getNailByName = async (
+export const getProductByName = async (
   {accessToken, name}: {accessToken: string; name: string},
-): Promise<Nail[]> => {
-  const response = await fetch(`/reservation/admin/nail?name=${encodeURIComponent(name)}`, {
+): Promise<Product[]> => {
+  const response = await fetch(`/reservation/admin/product?name=${encodeURIComponent(name)}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
