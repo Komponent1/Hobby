@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
-import { useStaff } from '../hooks/reservatio.hook.staff';
-import { DropdownMenuType, useDropdownMenu } from '../store/reservation.store.dropdownmenu';
-import { Icon } from '../../common/common.components';
-import { ModalType, useModalStore } from '../store/reservation.store.modal';
+import { Icon } from '../../../common/common.components';
+import { ModalType, useModalStore } from '../../store/reservation.store.modal';
+import { DropdownMenuType, useDropdownMenu } from '../../store/reservation.store.dropdownmenu';
+import { useStaff } from '../../hooks/reservatio.hook.staff';
 
-type Props = {};
-const StaffList: React.FC<Props> = () => {
+const StaffList: React.FC = () => {
   const { staffs } = useStaff();
   const setDropdownMenuType = useDropdownMenu((state) => state.setDropdownMenuType);
   const setModalType = useModalStore((state) => state.setModalType);

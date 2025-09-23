@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useCallback, useMemo } from 'react';
 import { Icon, Typography } from '../../../common/common.components';
 import { PannelType, PannelIconMatch, PannelTextMatch } from '../reservation.component.enum';
@@ -19,8 +21,9 @@ const MenuItem: React.FC<Props> = ({ type, setPannel, currentPannel }) => {
       style={{
         backgroundColor: selected ? '#3b82f6' : 'transparent',
       }}
+      onClick={changePannel}
     >
-      <Icon name={PannelIconMatch[type]} size={24} onClick={changePannel} />
+      <Icon name={PannelIconMatch[type]} size={24} />
       <Typography type="p" customClass="ml-2">{PannelTextMatch[type]}</Typography>
     </div>
   );
