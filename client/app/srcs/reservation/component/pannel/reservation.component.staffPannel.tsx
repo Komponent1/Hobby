@@ -4,7 +4,7 @@ import { PannelIconMatch, PannelTextMatch, PannelType } from '../reservation.com
 import { ModalType, useModalStore } from '../../store/reservation.store.modal';
 import Header from './reservation.component.header';
 import { Icon, Typography } from '../../../common/common.components';
-import StaffList from '../staff/reservation.component.staffList';
+import StaffTable from '../staff/staffTable/reservation.component.staffTable';
 
 type Props = {
   currentPanel: PannelType;
@@ -28,7 +28,7 @@ const StaffPannel: React.FC<Props> = ({ currentPanel }) => {
           </Button>
         </div>
       </Header>
-      <StaffList />
+      <StaffTable />
     </div>
   );
 };
