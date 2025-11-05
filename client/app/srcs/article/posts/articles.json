@@ -111,5 +111,17 @@
       "phaser",
       "series"
     ]
+  },
+  "15": {
+    "id": 15,
+    "title": "AWS에 자동 배포하기",
+    "path": "AWS에 자동 배포하기.md",
+    "tags": [
+      "aws",
+      "s3",
+      "nestjs",
+      "codedeploy",
+      "githubactions"
+    ]
   }
 }

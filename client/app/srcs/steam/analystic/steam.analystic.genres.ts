@@ -4,7 +4,7 @@ export const getGenres = (gameDatas: GameData[]) => {
   const genres: {id: number; description: string}[] = [];
 
   gameDatas.forEach((gameData) => {
-    if (gameData.system_data) {
+    if (gameData.system_data && gameData.system_data.genres) {
       gameData.system_data.genres.forEach((genre) => {
         const found = genres.find((g) => g.id === genre.id);
         if (!found) {
@@ -18,7 +18,7 @@ export const getGenres = (gameDatas: GameData[]) => {
 export const getGenresCounter = (gameDatas: GameData[]) => {
   const genresCounter = new Map<number, number>();
   gameDatas.forEach((gameData) => {
-    if (gameData.system_data) {
+    if (gameData.system_data && gameData.system_data.genres) {
       gameData.system_data.genres.forEach((genre) => {
         if (genresCounter.has(genre.id)) {
           genresCounter.set(genre.id, genresCounter.get(genre.id) as number + 1);

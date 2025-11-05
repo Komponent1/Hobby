@@ -175,5 +175,26 @@
       "z-index",
       "absolute"
     ]
+  },
+  "19": {
+    "id": 19,
+    "title": "private subnet ssm 연결하기",
+    "path": "private subnet ssm 연결하기.md",
+    "tags": [
+      "aws",
+      "ssm",
+      "privatesubnet"
+    ]
+  },
+  "20": {
+    "id": 20,
+    "title": "Nestjs 배포 시 외부 인터넷에서 미리 받을만한 것",
+    "path": "Nestjs 배포 시 외부 인터넷에서 미리 받을만한 것.md",
+    "tags": [
+      "aws",
+      "ec2",
+      "natgateway",
+      "costdown"
+    ]
   }
 }
