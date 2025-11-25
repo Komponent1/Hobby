@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useRouter } from 'next/router';
-import Sidebar from '../component/seolim-ui.component.sidebar';
+import { Sidebar } from '../component';
 import { uiData } from '../ui-data';
 
 const SeolimUiLayout: React.FC<{children: React.ReactNode}> = ({ children }) => {
