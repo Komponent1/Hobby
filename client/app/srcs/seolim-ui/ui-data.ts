@@ -1,4 +1,4 @@
-export type UI = 'Input' | 'Button';
+export type UI = 'Input' | 'Button' | 'Typography';
 export type UIItem = {
   name: string;
   link: string;
@@ -17,9 +17,14 @@ export const uiData: UIData = {
       name: 'Button',
       link: '/seolim-ui/button',
     },
+    Typography: {
+      name: 'Typography',
+      link: '/seolim-ui/typography',
+    },
   },
   order: [
     'Button',
     'Input',
+    'Typography',
   ],
 };
