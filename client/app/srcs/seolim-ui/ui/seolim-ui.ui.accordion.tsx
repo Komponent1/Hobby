@@ -9,217 +9,217 @@ const UiAccordion: React.FC = () => (
   <div className="space-y-6">
     <HeadBox>
       <Title text="Accordion" />
-      <Description text="Expandable content sections that organize information in a compact way." />
+      <Description text="정보를 컴팩하게 정리하는 확장 가능한 콘텐츠 섹션입니다." />
     </HeadBox>
 
     <div className="space-y-4">
-      <Title text="Props" />
+      <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'titles', type: 'React.ReactNode[]', description: 'Array of titles for each accordion section.' },
-          { name: 'children', type: 'React.ReactNode', description: 'Content to display in the accordion sections.' },
-          { name: 'color', type: 'string', description: 'The background color of the accordion.' },
-          { name: 'selectColor', type: 'string', description: 'The color when an item is selected.' },
-          { name: 'size', type: 'sm | md | lg', description: 'The size of the accordion.' },
-          { name: 'variant', type: 'alwaysOpen | singleOpen', description: 'Behavior when opening/closing sections.' },
-          { name: 'titleVariant', type: 'normal | arrow | plus', description: 'The style of the title indicator.' },
-          { name: 'outlineVariant', type: 'none | box | innerBox', description: 'The outline style of the accordion.' },
+          { name: 'titles', type: 'React.ReactNode[]', description: '각 아코디언 섹션의 제목 배열입니다.' },
+          { name: 'children', type: 'React.ReactNode', description: '아코디언 섹션에 표시될 콘텐츠입니다.' },
+          { name: 'color', type: 'string', description: '아코디언의 배경 색상입니다.' },
+          { name: 'selectColor', type: 'string', description: '항목이 선택되었을 때의 색상입니다.' },
+          { name: 'size', type: 'sm | md | lg', description: '아코디언의 크기입니다.' },
+          { name: 'variant', type: 'alwaysOpen | singleOpen', description: '섹션 열기/닫기 동작 방식입니다.' },
+          { name: 'titleVariant', type: 'normal | arrow | plus', description: '제목 표시기의 스타일입니다.' },
+          { name: 'outlineVariant', type: 'none | box | innerBox', description: '아코디언의 외곽선 스타일입니다.' },
         ]}
       />
     </div>
 
     <UiBox>
-      <Title text="VARIANTS" />
-      <Description text="Accordion variants control opening behavior - alwaysOpen allows multiple sections, singleOpen allows only one." />
+      <Title text="변형" />
+      <Description text="아코디언 변형은 열기 동작을 제어합니다. alwaysOpen은 여러 섹션을 허용하고, singleOpen은 하나만 허용합니다." />
       <div className="space-y-6 mt-4">
         <div>
-          <p className="text-sm text-gray-600 mb-2">Single Open (default):</p>
+          <p className="text-sm text-gray-600 mb-2">단일 열기 (기본값):</p>
           <Accordion
-            titles={['Section 1', 'Section 2', 'Section 3']}
+            titles={['섹션 1', '섹션 2', '섹션 3']}
             variant="singleOpen"
           >
-            <div>Content for section 1</div>
-            <div>Content for section 2</div>
-            <div>Content for section 3</div>
+            <div>1번 섹션 콘텐츠</div>
+            <div>2번 섹션 콘텐츠</div>
+            <div>3번 섹션 콘텐츠</div>
           </Accordion>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600 mb-2">Always Open:</p>
+          <p className="text-sm text-gray-600 mb-2">항상 열기:</p>
           <Accordion
-            titles={['Section A', 'Section B', 'Section C']}
+            titles={['섹션 A', '섹션 B', '섹션 C']}
             variant="alwaysOpen"
           >
-            <div>Content for section A</div>
-            <div>Content for section B</div>
-            <div>Content for section C</div>
+            <div>A번 섹션 콘텐츠</div>
+            <div>B번 섹션 콘텐츠</div>
+            <div>C번 섹션 콘텐츠</div>
           </Accordion>
         </div>
       </div>
     </UiBox>
 
     <UiBox>
-      <Title text="TITLE VARIANTS" />
-      <Description text="Title variants change the indicator style for expanded/collapsed states." />
+      <Title text="제목 변형" />
+      <Description text="제목 변형은 확장/축소 상태에 따른 표시기 스타일을 변경합니다." />
       <div className="space-y-6 mt-4">
         <div>
-          <p className="text-sm text-gray-600 mb-2">Normal:</p>
+          <p className="text-sm text-gray-600 mb-2">일반:</p>
           <Accordion
-            titles={['Normal Title', 'Another Title']}
+            titles={['일반 제목', '다른 제목']}
             titleVariant="normal"
           >
-            <div>Content with normal title style</div>
-            <div>More content here</div>
+            <div>일반 제목 스타일의 콘텐츠</div>
+            <div>여기에 더 많은 콘텐츠</div>
           </Accordion>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600 mb-2">Arrow:</p>
+          <p className="text-sm text-gray-600 mb-2">화살표:</p>
           <Accordion
-            titles={['Arrow Title', 'Another Title']}
+            titles={['화살표 제목', '다른 제목']}
             titleVariant="arrow"
           >
-            <div>Content with arrow indicator</div>
-            <div>More content here</div>
+            <div>화살표 표시기가 있는 콘텐츠</div>
+            <div>여기에 더 많은 콘텐츠</div>
           </Accordion>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600 mb-2">Plus:</p>
+          <p className="text-sm text-gray-600 mb-2">플러스:</p>
           <Accordion
-            titles={['Plus Title', 'Another Title']}
+            titles={['플러스 제목', '다른 제목']}
             titleVariant="plus"
           >
-            <div>Content with plus indicator</div>
-            <div>More content here</div>
+            <div>플러스 표시기가 있는 콘텐츠</div>
+            <div>여기에 더 많은 콘텐츠</div>
           </Accordion>
         </div>
       </div>
     </UiBox>
 
     <UiBox>
-      <Title text="SIZES" />
-      <Description text="Accordion sizes affect the overall scale and padding of the component." />
+      <Title text="크기" />
+      <Description text="아코디언 크기는 컴포넌트의 전체적인 스케일과 패딩에 영향을 줍니다." />
       <div className="space-y-6 mt-4">
         <div>
-          <p className="text-sm text-gray-600 mb-2">Small:</p>
+          <p className="text-sm text-gray-600 mb-2">작은:</p>
           <Accordion
-            titles={['Small Size', 'Section 2']}
+            titles={['작은 크기', '섹션 2']}
             size="sm"
           >
-            <div>Content in small accordion</div>
-            <div>More content</div>
+            <div>작은 아코디언의 콘텐츠</div>
+            <div>더 많은 콘텐츠</div>
           </Accordion>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600 mb-2">Medium:</p>
+          <p className="text-sm text-gray-600 mb-2">중간:</p>
           <Accordion
-            titles={['Medium Size', 'Section 2']}
+            titles={['중간 크기', '섹션 2']}
             size="md"
           >
-            <div>Content in medium accordion</div>
-            <div>More content</div>
+            <div>중간 아코디언의 콘텐츠</div>
+            <div>더 많은 콘텐츠</div>
           </Accordion>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600 mb-2">Large:</p>
+          <p className="text-sm text-gray-600 mb-2">큰:</p>
           <Accordion
-            titles={['Large Size', 'Section 2']}
+            titles={['큰 크기', '섹션 2']}
             size="lg"
           >
-            <div>Content in large accordion</div>
-            <div>More content</div>
+            <div>큰 아코디언의 콘텐츠</div>
+            <div>더 많은 콘텐츠</div>
           </Accordion>
         </div>
       </div>
     </UiBox>
 
     <UiBox>
-      <Title text="OUTLINE VARIANTS" />
-      <Description text="Outline variants control the border and visual separation of accordion sections." />
+      <Title text="외곽선 변형" />
+      <Description text="외곽선 변형은 아코디언 섹션의 테두리와 시각적 구분을 제어합니다." />
       <div className="space-y-6 mt-4">
         <div>
-          <p className="text-sm text-gray-600 mb-2">None:</p>
+          <p className="text-sm text-gray-600 mb-2">없음:</p>
           <Accordion
-            titles={['No Outline', 'Section 2']}
+            titles={['외곽선 없음', '섹션 2']}
             outlineVariant="none"
           >
-            <div>Content without outline</div>
-            <div>More content</div>
+            <div>외곽선 없는 콘텐츠</div>
+            <div>더 많은 콘텐츠</div>
           </Accordion>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600 mb-2">Box:</p>
+          <p className="text-sm text-gray-600 mb-2">박스:</p>
           <Accordion
-            titles={['Box Outline', 'Section 2']}
+            titles={['박스 외곽선', '섹션 2']}
             outlineVariant="box"
           >
-            <div>Content with box outline</div>
-            <div>More content</div>
+            <div>박스 외곽선이 있는 콘텐츠</div>
+            <div>더 많은 콘텐츠</div>
           </Accordion>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600 mb-2">Inner Box:</p>
+          <p className="text-sm text-gray-600 mb-2">내부 박스:</p>
           <Accordion
-            titles={['Inner Box', 'Section 2']}
+            titles={['내부 박스', '섹션 2']}
             outlineVariant="innerBox"
           >
-            <div>Content with inner box outline</div>
-            <div>More content</div>
+            <div>내부 박스 외곽선이 있는 콘텐츠</div>
+            <div>더 많은 콘텐츠</div>
           </Accordion>
         </div>
       </div>
     </UiBox>
 
     <UiBox>
-      <Title text="EXAMPLES" />
-      <Description text="Common accordion use cases with different configurations." />
+      <Title text="예제" />
+      <Description text="다양한 구성을 가진 일반적인 아코디언 사용 사례입니다." />
       <div className="space-y-6 mt-4">
         <div>
-          <p className="text-sm text-gray-600 mb-2">FAQ Style:</p>
+          <p className="text-sm text-gray-600 mb-2">FAQ 스타일:</p>
           <Accordion
             titles={[
-              'What is this component?',
-              'How do I use it?',
-              'Can I customize it?',
+              '이 컴포넌트는 무엇인가요?',
+              '어떻게 사용하나요?',
+              '커스터마이즈할 수 있나요?',
             ]}
             variant="singleOpen"
             titleVariant="plus"
             outlineVariant="box"
           >
-            <div>This is an accordion component that organizes content in expandable sections.</div>
-            <div>Import it from @seolim/designsystem and provide titles and children props.</div>
-            <div>Yes, you can customize colors, sizes, variants, and outline styles.</div>
+            <div>이것은 콘텐츠를 확장 가능한 섹션으로 정리하는 아코디언 컴포넌트입니다.</div>
+            <div>@seolim/designsystem에서 가져와서 titles와 children props를 제공하면 됩니다.</div>
+            <div>네, 색상, 크기, 변형, 외곽선 스타일을 커스터마이즈할 수 있습니다.</div>
           </Accordion>
         </div>
 
         <div>
-          <p className="text-sm text-gray-600 mb-2">Settings Panel:</p>
+          <p className="text-sm text-gray-600 mb-2">설정 패널:</p>
           <Accordion
-            titles={['General Settings', 'Advanced Options', 'Security']}
+            titles={['일반 설정', '고급 옵션', '보안']}
             variant="alwaysOpen"
             titleVariant="arrow"
             outlineVariant="innerBox"
             size="md"
           >
             <div className="space-y-2">
-              <div>• Theme preference</div>
-              <div>• Language selection</div>
-              <div>• Auto-save settings</div>
+              <div>• 테마 설정</div>
+              <div>• 언어 선택</div>
+              <div>• 자동 저장 설정</div>
             </div>
             <div className="space-y-2">
-              <div>• Debug mode</div>
-              <div>• Performance monitoring</div>
-              <div>• Cache settings</div>
+              <div>• 디버그 모드</div>
+              <div>• 성능 모니터링</div>
+              <div>• 캐시 설정</div>
             </div>
             <div className="space-y-2">
-              <div>• Two-factor authentication</div>
-              <div>• Password requirements</div>
-              <div>• Session timeout</div>
+              <div>• 2단계 인증</div>
+              <div>• 비밀번호 요구사항</div>
+              <div>• 세션 타임아웃</div>
             </div>
           </Accordion>
         </div>

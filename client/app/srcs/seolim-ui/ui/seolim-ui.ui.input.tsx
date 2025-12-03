@@ -9,47 +9,47 @@ const UiInput: React.FC = () => (
   <div className="space-y-6">
     <HeadBox>
       <Title text="Input" />
-      <Description text="Text input components for user data entry." />
+      <Description text="사용자 데이터 입력을 위한 텍스트 입력 컴포넌트입니다." />
     </HeadBox>
 
     <div className="space-y-4">
-      <Title text="Props" />
+      <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'value', type: 'string', description: 'The value of the input field.' },
-          { name: 'placeholder', type: 'string', description: 'Placeholder text for the input field.' },
-          { name: 'disabled', type: 'boolean', description: 'Whether the input is disabled.' },
-          { name: 'error', type: 'boolean', description: 'Whether the input has an error state.' },
-          { name: 'onChange', type: '(value: string) => void', description: 'Callback function when input value changes.' },
+          { name: 'value', type: 'string', description: '입력 필드의 값입니다.' },
+          { name: 'placeholder', type: 'string', description: '입력 필드의 플레이스홀더 텍스트입니다.' },
+          { name: 'disabled', type: 'boolean', description: '입력이 비활성화될지 여부입니다.' },
+          { name: 'error', type: 'boolean', description: '입력이 오류 상태인지 여부입니다.' },
+          { name: 'onChange', type: '(value: string) => void', description: '입력 값이 변경될 때 실행되는 콜백 함수입니다.' },
         ]}
       />
     </div>
 
     <UiBox>
-      <Title text="BASIC" />
-      <Description text="Basic input field for text entry." />
+      <Title text="기본" />
+      <Description text="텍스트 입력을 위한 기본 입력 필드입니다." />
       <div className="mt-4">
-        <Input value="" onChange={() => {}} placeholder="Enter text here" />
+        <Input value="" onChange={() => {}} placeholder="여기에 텍스트를 입력하세요" />
       </div>
     </UiBox>
 
     <UiBox>
-      <Title text="STATES" />
-      <Description text="Input states include Normal, Disabled, and Error." />
+      <Title text="상태" />
+      <Description text="입력 상태에는 일반, 비활성화, 오류가 있습니다." />
       <div className="space-y-3 mt-4">
-        <Input value="" onChange={() => {}} placeholder="Normal input" />
-        <Input value="Disabled Input" onChange={() => {}} disabled />
-        <Input value="Error Input" onChange={() => {}} error />
+        <Input value="" onChange={() => {}} placeholder="일반 입력" />
+        <Input value="비활성화된 입력" onChange={() => {}} disabled />
+        <Input value="오류 입력" onChange={() => {}} error />
       </div>
     </UiBox>
 
     <UiBox>
-      <Title text="PLACEHOLDERS" />
-      <Description text="Different placeholder examples." />
+      <Title text="플레이스홀더" />
+      <Description text="다양한 플레이스홀더 예제입니다." />
       <div className="space-y-3 mt-4">
-        <Input value="" onChange={() => {}} placeholder="Enter your name" />
-        <Input value="" onChange={() => {}} placeholder="Enter your email" />
-        <Input value="" onChange={() => {}} placeholder="Enter your message" />
+        <Input value="" onChange={() => {}} placeholder="이름을 입력하세요" />
+        <Input value="" onChange={() => {}} placeholder="이메일을 입력하세요" />
+        <Input value="" onChange={() => {}} placeholder="메시지를 입력하세요" />
       </div>
     </UiBox>
   </div>
