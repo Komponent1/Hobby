@@ -205,5 +205,15 @@
       "nextjs",
       "pagerouter"
     ]
+  },
+  "22": {
+    "id": 22,
+    "title": "타입 병합 충돌",
+    "path": "타입 병합 충돌.md",
+    "tags": [
+      "typescript",
+      "type",
+      "error"
+    ]
   }
 }
