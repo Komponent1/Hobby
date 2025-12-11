@@ -1,4 +1,4 @@
-export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination';
+export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination' | 'Spinner';
 export type UIItem = {
   name: string;
   link: string;
@@ -53,6 +53,10 @@ export const uiData: UIData = {
       name: 'Pagination',
       link: '/seolim-ui/pagination',
     },
+    Spinner: {
+      name: 'Spinner',
+      link: '/seolim-ui/spinner',
+    },
   },
   order: [
     'Button',
@@ -66,5 +70,6 @@ export const uiData: UIData = {
     'Alert',
     'Progress',
     'Pagination',
+    'Spinner',
   ],
 };
