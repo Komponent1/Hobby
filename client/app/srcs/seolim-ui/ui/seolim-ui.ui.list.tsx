@@ -97,7 +97,7 @@ const UiList: React.FC = () => (
 
         <div>
           <p className="text-sm font-medium mb-4">기능 목록</p>
-          <List title="주요 기능" type="circle">
+          <List title="주요 기능">
             {[
               '사용자 인증 및 권한 관리',
               '실시간 데이터 동기화',
@@ -124,7 +124,6 @@ const UiList: React.FC = () => (
           <List
             title="프로젝트 단계"
             variant="underline"
-            type="square"
             selected
             selectedIndex={2}
           >
@@ -135,7 +134,6 @@ const UiList: React.FC = () => (
           <List
             title="우선순위"
             variant="none"
-            type="disc"
             selected
             selectedIndex={0}
           >
