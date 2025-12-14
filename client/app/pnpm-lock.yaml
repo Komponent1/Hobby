@@ -18,8 +18,8 @@ importers:
         specifier: ^5.10.5
         version: 5.16.14(@emotion/react@11.14.0(@types/react@18.0.20)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.20)(react@18.2.0))(@types/react@18.0.20)(react@18.2.0))(@types/react@18.0.20)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@seolim/designsystem':
-        specifier: ^0.0.33
-        version: 0.0.33(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^0.0.34
+        version: 0.0.34(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@seolim/react-ui':
         specifier: ^0.3.1
         version: 0.3.2(@emotion/react@11.14.0(@types/react@18.0.20)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.20)(react@18.2.0))(@types/react@18.0.20)(react@18.2.0))(@types/react@18.0.20)(react-bootstrap-icons@1.11.5(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -509,8 +509,8 @@ packages:
   '@rushstack/eslint-patch@1.10.5':
     resolution: {integrity: sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==}
 
-  '@seolim/designsystem@0.0.33':
-    resolution: {integrity: sha512-jSnnPdtOBdKHZW/T/ct21TcPT87R9m0JqJhiOGlZKAvgvLxBMm/w/jvw+rUhQb2TgP0xlMh9D5QeAIfCmNOqYw==}
+  '@seolim/designsystem@0.0.34':
+    resolution: {integrity: sha512-9mBRHcFgblp0YtyNDIUmQKaZ8NinxdAye6zErpafOVCl5K7sAM8fIRxDOOkL6hg/+mFokR41ChzRxA0Y56C2aA==}
     peerDependencies:
       react: '>=17'
       react-dom: '>=17'
@@ -3324,7 +3324,7 @@ snapshots:
 
   '@rushstack/eslint-patch@1.10.5': {}
 
-  '@seolim/designsystem@0.0.33(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@seolim/designsystem@0.0.34(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
