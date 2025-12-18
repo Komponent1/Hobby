@@ -1,4 +1,4 @@
-export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination' | 'Spinner' | 'Tooltip' | 'List' | 'Table' | 'Tab' | 'Carousel' | 'Navbar' | 'Card';
+export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination' | 'Spinner' | 'Tooltip' | 'List' | 'Table' | 'Tab' | 'Carousel' | 'Navbar' | 'Card' | 'Skeleton';
 export type UIItem = {
   name: string;
   link: string;
@@ -85,6 +85,10 @@ export const uiData: UIData = {
       name: 'Card',
       link: '/seolim-ui/card',
     },
+    Skeleton: {
+      name: 'Skeleton',
+      link: '/seolim-ui/skeleton',
+    },
   },
   order: [
     'Button',
@@ -106,5 +110,6 @@ export const uiData: UIData = {
     'Carousel',
     'Navbar',
     'Card',
+    'Skeleton',
   ],
 };
