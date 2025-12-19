@@ -16,15 +16,33 @@ const UiNavbar: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'icon', type: 'React.ReactNode', description: '네비게이션 바의 아이콘입니다.' },
-          { name: 'title', type: 'string', description: '네비게이션 바의 제목입니다.' },
-          { name: 'titleLink', type: 'string', description: '제목 클릭 시 이동할 링크입니다.' },
-          { name: 'links', type: '{ label: string; href: string }[]', description: '네비게이션 링크 배열입니다.' },
-          { name: 'type', type: 'default | fixed | sticky', description: '네비게이션 바의 위치 타입입니다.' },
-          { name: 'variant', type: 'centered | right', description: '링크 정렬 방식입니다.' },
-          { name: 'backgroundColor', type: 'string', description: '배경 색상입니다.' },
-          { name: 'textColor', type: 'string', description: '텍스트 색상입니다.' },
-          { name: 'children', type: 'React.ReactNode', description: '추가 콘텐츠입니다.' },
+          {
+            name: 'icon', type: 'React.ReactNode', default: '-', description: '네비게이션 바의 아이콘입니다.',
+          },
+          {
+            name: 'title', type: 'string', default: '-', description: '네비게이션 바의 제목입니다.',
+          },
+          {
+            name: 'titleLink', type: 'string', default: '-', description: '제목 클릭 시 이동할 링크입니다.',
+          },
+          {
+            name: 'links', type: '{ label: string; href: string }[]', default: '-', description: '네비게이션 링크 배열입니다.',
+          },
+          {
+            name: 'type', type: 'default | fixed | sticky', default: 'default', description: '네비게이션 바의 위치 타입입니다.',
+          },
+          {
+            name: 'variant', type: 'centered | right', default: 'centered', description: '링크 정렬 방식입니다.',
+          },
+          {
+            name: 'backgroundColor', type: 'string', default: '-', description: '배경 색상입니다.',
+          },
+          {
+            name: 'textColor', type: 'string', default: '-', description: '텍스트 색상입니다.',
+          },
+          {
+            name: 'children', type: 'React.ReactNode', default: '-', description: '추가 콘텐츠입니다.',
+          },
         ]}
       />
     </div>

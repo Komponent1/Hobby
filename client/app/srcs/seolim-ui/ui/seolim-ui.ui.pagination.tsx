@@ -21,11 +21,21 @@ const UiPagination: React.FC = () => {
         <Title text="속성" />
         <PropsTable
           datas={[
-            { name: 'variant', type: 'default | compact', description: '페이지네이션의 스타일 변형입니다.' },
-            { name: 'totalItems', type: 'number', description: '전체 아이템 개수입니다.' },
-            { name: 'itemsPerPage', type: 'number', description: '페이지당 아이템 개수입니다.' },
-            { name: 'currentPage', type: 'number', description: '현재 페이지 번호입니다.' },
-            { name: 'onPageChange', type: '(page: number) => void', description: '페이지 변경 시 호출되는 콜백 함수입니다.' },
+            {
+              name: 'variant', type: 'default | compact', default: 'default', description: '페이지네이션의 스타일 변형입니다.',
+            },
+            {
+              name: 'totalItems', type: 'number', default: '-', description: '전체 아이템 개수입니다.',
+            },
+            {
+              name: 'itemsPerPage', type: 'number', default: '-', description: '페이지당 아이템 개수입니다.',
+            },
+            {
+              name: 'currentPage', type: 'number', default: '1', description: '현재 페이지 번호입니다.',
+            },
+            {
+              name: 'onPageChange', type: '(page: number) => void', default: '-', description: '페이지 변경 시 호출되는 콜백 함수입니다.',
+            },
           ]}
         />
       </div>

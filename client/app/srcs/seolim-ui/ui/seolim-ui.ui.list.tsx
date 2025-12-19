@@ -16,12 +16,24 @@ const UiList: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'children', type: 'React.ReactNode[]', description: '목록 항목들입니다.' },
-          { name: 'variant', type: 'none | underline', description: '목록의 스타일 변형입니다.' },
-          { name: 'selected', type: 'boolean', description: '선택 기능을 활성화할지 여부입니다.' },
-          { name: 'selectedIndex', type: 'number', description: '선택된 항목의 인덱스입니다.' },
-          { name: 'title', type: 'string', description: '목록의 제목입니다.' },
-          { name: 'titleProps', type: 'TypographyProps', description: '제목의 Typography 속성입니다.' },
+          {
+            name: 'children', type: 'React.ReactNode[]', default: '-', description: '목록 항목들입니다.',
+          },
+          {
+            name: 'variant', type: 'none | underline', default: 'none', description: '목록의 스타일 변형입니다.',
+          },
+          {
+            name: 'selected', type: 'boolean', default: 'false', description: '선택 기능을 활성화할지 여부입니다.',
+          },
+          {
+            name: 'selectedIndex', type: 'number', default: '-', description: '선택된 항목의 인덱스입니다.',
+          },
+          {
+            name: 'title', type: 'string', default: '-', description: '목록의 제목입니다.',
+          },
+          {
+            name: 'titleProps', type: 'TypographyProps', default: '-', description: '제목의 Typography 속성입니다.',
+          },
         ]}
       />
     </div>

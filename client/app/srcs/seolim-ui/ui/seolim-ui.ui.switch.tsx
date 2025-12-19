@@ -16,13 +16,27 @@ const UiSwitch: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'size', type: 'sm | md | lg', description: '스위치의 크기입니다.' },
-          { name: 'id', type: 'string', description: '스위치의 고유 식별자입니다.' },
-          { name: 'checked', type: 'boolean', description: '스위치의 활성화 상태입니다.' },
-          { name: 'onChange', type: '(checked: boolean) => void', description: '스위치 상태가 변경될 때 호출되는 함수입니다.' },
-          { name: 'disabled', type: 'boolean', description: '스위치의 비활성화 여부입니다.' },
-          { name: 'accentColor', type: 'string', description: '스위치의 강조 색상입니다.' },
-          { name: '...HTMLInputProps', type: 'InputHTMLAttributes', description: 'HTML input 엘리먼트의 나머지 속성들입니다.' },
+          {
+            name: 'size', type: 'sm | md | lg', default: 'md', description: '스위치의 크기입니다.',
+          },
+          {
+            name: 'id', type: 'string', default: '-', description: '스위치의 고유 식별자입니다.',
+          },
+          {
+            name: 'checked', type: 'boolean', default: 'false', description: '스위치의 활성화 상태입니다.',
+          },
+          {
+            name: 'onChange', type: '(checked: boolean) => void', default: '-', description: '스위치 상태가 변경될 때 호출되는 함수입니다.',
+          },
+          {
+            name: 'disabled', type: 'boolean', default: 'false', description: '스위치의 비활성화 여부입니다.',
+          },
+          {
+            name: 'accentColor', type: 'string', default: '-', description: '스위치의 강조 색상입니다.',
+          },
+          {
+            name: '...HTMLInputProps', type: 'InputHTMLAttributes', default: '-', description: 'HTML input 엘리먼트의 나머지 속성들입니다.',
+          },
         ]}
       />
     </div>

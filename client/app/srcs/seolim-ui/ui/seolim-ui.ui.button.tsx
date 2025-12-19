@@ -16,16 +16,36 @@ const UiButton: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'content', type: 'React.ReactNode', description: '버튼 내부에 표시될 콘텐츠입니다.' },
-          { name: 'label', type: 'string', description: '접근성을 위한 aria-label 값입니다.' },
-          { name: 'onClick', type: '() => void', description: '버튼 클릭 시 실행될 콜백 함수입니다.' },
-          { name: 'variant', type: 'outline | solid | text', description: '버튼의 시각적 스타일입니다.' },
-          { name: 'corner', type: 'rounded | square', description: '버튼의 모서리 스타일입니다.' },
-          { name: 'size', type: 'sm | md | lg', description: '버튼의 크기입니다.' },
-          { name: 'full', type: 'boolean', description: '버튼이 전체 너비를 차지할지 여부입니다.' },
-          { name: 'color', type: 'string', description: '버튼의 배경 색상입니다.' },
-          { name: 'textColor', type: 'string', description: '버튼의 텍스트 색상입니다.' },
-          { name: 'disabled', type: 'boolean', description: '버튼이 비활성화될지 여부입니다.' },
+          {
+            name: 'content', type: 'React.ReactNode', default: '-', description: '버튼 내부에 표시될 콘텐츠입니다.',
+          },
+          {
+            name: 'label', type: 'string', default: '-', description: '접근성을 위한 aria-label 값입니다.',
+          },
+          {
+            name: 'onClick', type: '() => void', default: '-', description: '버튼 클릭 시 실행될 콜백 함수입니다.',
+          },
+          {
+            name: 'variant', type: 'outline | solid | text', default: 'solid', description: '버튼의 시각적 스타일입니다.',
+          },
+          {
+            name: 'corner', type: 'rounded | square', default: 'rounded', description: '버튼의 모서리 스타일입니다.',
+          },
+          {
+            name: 'size', type: 'sm | md | lg', default: 'md', description: '버튼의 크기입니다.',
+          },
+          {
+            name: 'full', type: 'boolean', default: 'false', description: '버튼이 전체 너비를 차지할지 여부입니다.',
+          },
+          {
+            name: 'color', type: 'string', default: '-', description: '버튼의 배경 색상입니다.',
+          },
+          {
+            name: 'textColor', type: 'string', default: '-', description: '버튼의 텍스트 색상입니다.',
+          },
+          {
+            name: 'disabled', type: 'boolean', default: 'false', description: '버튼이 비활성화될지 여부입니다.',
+          },
         ]}
       />
     </div>

@@ -16,15 +16,33 @@ const UiCard: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'type', type: 'content | header-content | content-footer | image-content | content-image | image_overlay', description: '카드의 레이아웃 타입입니다.' },
-          { name: 'size', type: 'sm | md | lg', description: '카드의 크기입니다.' },
-          { name: 'src', type: 'string', description: '이미지 소스 URL입니다.' },
-          { name: 'alt', type: 'string', description: '이미지 대체 텍스트입니다.' },
-          { name: 'hoverType', type: 'shadow | lift | none', description: '호버 시 효과 타입입니다.' },
-          { name: 'children', type: 'React.ReactNode', description: '카드의 주요 콘텐츠입니다.' },
-          { name: 'header', type: 'React.ReactNode', description: '카드의 헤더 콘텐츠입니다.' },
-          { name: 'footer', type: 'React.ReactNode', description: '카드의 푸터 콘텐츠입니다.' },
-          { name: 'autoPadding', type: 'boolean', description: '자동으로 패딩을 적용할지 여부입니다.' },
+          {
+            name: 'type', type: 'content | header-content | content-footer | image-content | content-image | image_overlay', default: 'content', description: '카드의 레이아웃 타입입니다.',
+          },
+          {
+            name: 'size', type: 'sm | md | lg', default: 'md', description: '카드의 크기입니다.',
+          },
+          {
+            name: 'src', type: 'string', default: '-', description: '이미지 소스 URL입니다.',
+          },
+          {
+            name: 'alt', type: 'string', default: '-', description: '이미지 대체 텍스트입니다.',
+          },
+          {
+            name: 'hoverType', type: 'shadow | lift | none', default: 'none', description: '호버 시 효과 타입입니다.',
+          },
+          {
+            name: 'children', type: 'React.ReactNode', default: '-', description: '카드의 주요 콘텐츠입니다.',
+          },
+          {
+            name: 'header', type: 'React.ReactNode', default: '-', description: '카드의 헤더 콘텐츠입니다.',
+          },
+          {
+            name: 'footer', type: 'React.ReactNode', default: '-', description: '카드의 푸터 콘텐츠입니다.',
+          },
+          {
+            name: 'autoPadding', type: 'boolean', default: 'false', description: '자동으로 패딩을 적용할지 여부입니다.',
+          },
         ]}
       />
     </div>

@@ -26,13 +26,27 @@ const UiCarousel: React.FC = () => {
         <Title text="속성" />
         <PropsTable
           datas={[
-            { name: 'children', type: 'React.ReactNode[]', description: '캐러셀에 표시될 콘텐츠 배열입니다.' },
-            { name: 'currentIndex', type: 'number', description: '현재 표시 중인 슬라이드의 인덱스입니다.' },
-            { name: 'onIndexChange', type: '(index: number) => void', description: '인덱스 변경 시 호출되는 콜백 함수입니다.' },
-            { name: 'showButtons', type: 'boolean', description: '이전/다음 버튼을 표시할지 여부입니다.' },
-            { name: 'autoPlay', type: 'boolean', description: '자동 재생을 활성화할지 여부입니다.' },
-            { name: 'autoPlayInterval', type: 'number', description: '자동 재생 간격(밀리초)입니다.' },
-            { name: 'variant', type: 'arrows | indicators', description: '캐러셀의 스타일 변형입니다.' },
+            {
+              name: 'children', type: 'React.ReactNode[]', default: '-', description: '캐러셀에 표시될 콘텐츠 배열입니다.',
+            },
+            {
+              name: 'currentIndex', type: 'number', default: '0', description: '현재 표시 중인 슬라이드의 인덱스입니다.',
+            },
+            {
+              name: 'onIndexChange', type: '(index: number) => void', default: '-', description: '인덱스 변경 시 호출되는 콜백 함수입니다.',
+            },
+            {
+              name: 'showButtons', type: 'boolean', default: 'true', description: '이전/다음 버튼을 표시할지 여부입니다.',
+            },
+            {
+              name: 'autoPlay', type: 'boolean', default: 'false', description: '자동 재생을 활성화할지 여부입니다.',
+            },
+            {
+              name: 'autoPlayInterval', type: 'number', default: '3000', description: '자동 재생 간격(밀리초)입니다.',
+            },
+            {
+              name: 'variant', type: 'arrows | indicators', default: 'arrows', description: '캐러셀의 스타일 변형입니다.',
+            },
           ]}
         />
       </div>

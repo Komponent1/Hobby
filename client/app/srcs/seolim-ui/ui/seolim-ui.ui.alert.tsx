@@ -16,11 +16,21 @@ const UiAlert: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'head', type: 'string', description: '알림의 제목입니다. (선택 사항)' },
-          { name: 'message', type: 'React.ReactNode', description: '알림 메시지 내용입니다.' },
-          { name: 'type', type: 'success | error | info | warning', description: '알림의 타입입니다.' },
-          { name: 'size', type: 'sm | md | lg', description: '알림의 크기입니다.' },
-          { name: 'variant', type: 'filled | outlined', description: '알림의 시각적 스타일입니다.' },
+          {
+            name: 'head', type: 'string', default: '-', description: '알림의 제목입니다. (선택 사항)',
+          },
+          {
+            name: 'message', type: 'React.ReactNode', default: '-', description: '알림 메시지 내용입니다.',
+          },
+          {
+            name: 'type', type: 'success | error | info | warning', default: 'info', description: '알림의 타입입니다.',
+          },
+          {
+            name: 'size', type: 'sm | md | lg', default: 'md', description: '알림의 크기입니다.',
+          },
+          {
+            name: 'variant', type: 'filled | outlined', default: 'filled', description: '알림의 시각적 스타일입니다.',
+          },
         ]}
       />
     </div>

@@ -16,17 +16,39 @@ const UiAvatar: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'type', type: 'image | text', description: '아바타의 타입입니다. 이미지 또는 텍스트를 표시합니다.' },
-          { name: 'size', type: 'sm | md | lg', description: '아바타의 크기입니다.' },
-          { name: 'variant', type: 'circle | square', description: '아바타의 모양입니다.' },
-          { name: 'outline', type: 'boolean', description: '아바타에 외곽선을 표시할지 여부입니다.' },
-          { name: 'color', type: 'string', description: '아바타의 텍스트 색상입니다.' },
-          { name: 'backgroundColor', type: 'string', description: '아바타의 배경 색상입니다.' },
-          { name: 'outlineColor', type: 'string', description: '외곽선의 색상입니다.' },
-          { name: 'dot', type: 'none | top | bottom', description: '상태 표시 점의 위치입니다.' },
-          { name: 'dotColor', type: 'string', description: '상태 표시 점의 색상입니다.' },
-          { name: 'src', type: 'string', description: '이미지 타입일 때 표시할 이미지 URL입니다.' },
-          { name: 'alt', type: 'string', description: '이미지의 대체 텍스트입니다.' },
+          {
+            name: 'type', type: 'image | text', default: 'text', description: '아바타의 타입입니다. 이미지 또는 텍스트를 표시합니다.',
+          },
+          {
+            name: 'size', type: 'sm | md | lg', default: 'md', description: '아바타의 크기입니다.',
+          },
+          {
+            name: 'variant', type: 'circle | square', default: 'circle', description: '아바타의 모양입니다.',
+          },
+          {
+            name: 'outline', type: 'boolean', default: 'false', description: '아바타에 외곽선을 표시할지 여부입니다.',
+          },
+          {
+            name: 'color', type: 'string', default: '-', description: '아바타의 텍스트 색상입니다.',
+          },
+          {
+            name: 'backgroundColor', type: 'string', default: '-', description: '아바타의 배경 색상입니다.',
+          },
+          {
+            name: 'outlineColor', type: 'string', default: '-', description: '외곽선의 색상입니다.',
+          },
+          {
+            name: 'dot', type: 'none | top | bottom', default: 'none', description: '상태 표시 점의 위치입니다.',
+          },
+          {
+            name: 'dotColor', type: 'string', default: '-', description: '상태 표시 점의 색상입니다.',
+          },
+          {
+            name: 'src', type: 'string', default: '-', description: '이미지 타입일 때 표시할 이미지 URL입니다.',
+          },
+          {
+            name: 'alt', type: 'string', default: '-', description: '이미지의 대체 텍스트입니다.',
+          },
         ]}
       />
     </div>

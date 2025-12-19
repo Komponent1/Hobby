@@ -19,11 +19,21 @@ const UiBadge: React.FC = () => (
         <Description text="text prop을 사용하는 간단한 텍스트 기반 배지입니다." />
         <PropsTable
           datas={[
-            { name: 'text', type: 'string', description: '배지 내부에 표시될 텍스트입니다.' },
-            { name: 'variant', type: 'hard | soft | outlined', description: '배지의 시각적 스타일입니다.' },
-            { name: 'size', type: 'sm | md | lg', description: '배지의 크기입니다.' },
-            { name: 'corner', type: 'rounded | square', description: '배지의 모서리 스타일입니다.' },
-            { name: 'color', type: 'string', description: '배지의 색상입니다.' },
+            {
+              name: 'text', type: 'string', default: '-', description: '배지 내부에 표시될 텍스트입니다.',
+            },
+            {
+              name: 'variant', type: 'hard | soft | outlined', default: 'hard', description: '배지의 시각적 스타일입니다.',
+            },
+            {
+              name: 'size', type: 'sm | md | lg', default: 'md', description: '배지의 크기입니다.',
+            },
+            {
+              name: 'corner', type: 'rounded | square', default: 'rounded', description: '배지의 모서리 스타일입니다.',
+            },
+            {
+              name: 'color', type: 'string', default: '-', description: '배지의 색상입니다.',
+            },
           ]}
         />
       </div>
@@ -92,11 +102,21 @@ const UiBadge: React.FC = () => (
         <Description text="복잡한 콘텐츠를 위해 React.ReactNode children을 받는 고급 배지입니다." />
         <PropsTable
           datas={[
-            { name: 'children', type: 'React.ReactNode', description: '배지 내부에 표시될 콘텐츠입니다.' },
-            { name: 'variant', type: 'hard | soft | outlined', description: '배지의 시각적 스타일입니다.' },
-            { name: 'size', type: 'sm | md | lg', description: '배지의 크기입니다.' },
-            { name: 'corner', type: 'rounded | square', description: '배지의 모서리 스타일입니다.' },
-            { name: 'color', type: 'string', description: '배지의 색상입니다.' },
+            {
+              name: 'children', type: 'React.ReactNode', default: '-', description: '배지 내부에 표시될 콘텐츠입니다.',
+            },
+            {
+              name: 'variant', type: 'hard | soft | outlined', default: 'hard', description: '배지의 시각적 스타일입니다.',
+            },
+            {
+              name: 'size', type: 'sm | md | lg', default: 'md', description: '배지의 크기입니다.',
+            },
+            {
+              name: 'corner', type: 'rounded | square', default: 'rounded', description: '배지의 모서리 스타일입니다.',
+            },
+            {
+              name: 'color', type: 'string', default: '-', description: '배지의 색상입니다.',
+            },
           ]}
         />
       </div>

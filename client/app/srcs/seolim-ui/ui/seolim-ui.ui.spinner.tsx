@@ -16,9 +16,15 @@ const UiSpinner: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'size', type: 'sm | md | lg | number', description: '스피너의 크기입니다. 문자열 또는 픽셀 값을 지정할 수 있습니다.' },
-          { name: 'variant', type: 'default | inverted', description: '스피너의 스타일 변형입니다.' },
-          { name: 'color', type: 'string', description: '스피너의 색상입니다.' },
+          {
+            name: 'size', type: 'sm | md | lg | number', default: 'md', description: '스피너의 크기입니다. 문자열 또는 픽셀 값을 지정할 수 있습니다.',
+          },
+          {
+            name: 'variant', type: 'default | inverted', default: 'default', description: '스피너의 스타일 변형입니다.',
+          },
+          {
+            name: 'color', type: 'string', default: '-', description: '스피너의 색상입니다.',
+          },
         ]}
       />
     </div>

@@ -16,11 +16,21 @@ const UiTab: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'tabs', type: 'string[]', description: '탭의 제목 배열입니다.' },
-          { name: 'children', type: 'React.ReactNode[]', description: '각 탭에 표시될 콘텐츠 배열입니다.' },
-          { name: 'variant', type: 'line | box | pill | segment', description: '탭의 스타일 변형입니다.' },
-          { name: 'defaultIndex', type: 'number', description: '기본으로 선택될 탭의 인덱스입니다.' },
-          { name: 'bordered', type: 'boolean', description: '탭 컨텐츠 영역에 테두리를 표시할지 여부입니다.' },
+          {
+            name: 'tabs', type: 'string[]', default: '-', description: '탭의 제목 배열입니다.',
+          },
+          {
+            name: 'children', type: 'React.ReactNode[]', default: '-', description: '각 탭에 표시될 콘텐츠 배열입니다.',
+          },
+          {
+            name: 'variant', type: 'line | box | pill | segment', default: 'line', description: '탭의 스타일 변형입니다.',
+          },
+          {
+            name: 'defaultIndex', type: 'number', default: '0', description: '기본으로 선택될 탭의 인덱스입니다.',
+          },
+          {
+            name: 'bordered', type: 'boolean', default: 'false', description: '탭 컨텐츠 영역에 테두리를 표시할지 여부입니다.',
+          },
         ]}
       />
     </div>

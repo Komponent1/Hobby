@@ -16,10 +16,18 @@ const UiTypography: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'size', type: 'xs | sm | md | lg | xl | 2xl | 3xl | 4xl | 5xl | 6xl | 7xl | 8xl | 9xl', description: '타이포그래피의 크기입니다.' },
-          { name: 'weight', type: 'light | regular | bold | extraBold', description: '타이포그래피의 두께입니다.' },
-          { name: 'color', type: 'string', description: '타이포그래피의 색상입니다.' },
-          { name: 'type', type: 'p | span', description: '타이포그래피의 HTML 요소 타입입니다.' },
+          {
+            name: 'size', type: 'xs | sm | md | lg | xl | 2xl | 3xl | 4xl | 5xl | 6xl | 7xl | 8xl | 9xl', default: 'md', description: '타이포그래피의 크기입니다.',
+          },
+          {
+            name: 'weight', type: 'light | regular | bold | extraBold', default: 'regular', description: '타이포그래피의 두께입니다.',
+          },
+          {
+            name: 'color', type: 'string', default: '-', description: '타이포그래피의 색상입니다.',
+          },
+          {
+            name: 'type', type: 'p | span', default: 'p', description: '타이포그래피의 HTML 요소 타입입니다.',
+          },
         ]}
       />
     </div>

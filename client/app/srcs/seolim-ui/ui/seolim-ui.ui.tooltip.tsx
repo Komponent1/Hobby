@@ -16,13 +16,27 @@ const UiTooltip: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'children', type: 'React.ReactNode', description: '툴팁이 적용될 요소입니다.' },
-          { name: 'content', type: 'React.ReactNode', description: '툴팁에 표시될 내용입니다.' },
-          { name: 'position', type: 'top | bottom | left | right', description: '툴팁이 표시될 위치입니다.' },
-          { name: 'arrow', type: 'boolean', description: '툴팁에 화살표를 표시할지 여부입니다.' },
-          { name: 'backgroundColor', type: 'string', description: '툴팁의 배경 색상입니다.' },
-          { name: 'textColor', type: 'string', description: '툴팁의 텍스트 색상입니다.' },
-          { name: 'width', type: 'number', description: '툴팁의 너비를 픽셀 단위로 설정합니다.' },
+          {
+            name: 'children', type: 'React.ReactNode', default: '-', description: '툴팁이 적용될 요소입니다.',
+          },
+          {
+            name: 'content', type: 'React.ReactNode', default: '-', description: '툴팁에 표시될 내용입니다.',
+          },
+          {
+            name: 'position', type: 'top | bottom | left | right', default: 'top', description: '툴팁이 표시될 위치입니다.',
+          },
+          {
+            name: 'arrow', type: 'boolean', default: 'false', description: '툴팁에 화살표를 표시할지 여부입니다.',
+          },
+          {
+            name: 'backgroundColor', type: 'string', default: '-', description: '툴팁의 배경 색상입니다.',
+          },
+          {
+            name: 'textColor', type: 'string', default: '-', description: '툴팁의 텍스트 색상입니다.',
+          },
+          {
+            name: 'width', type: 'number', default: '-', description: '툴팁의 너비를 픽셀 단위로 설정합니다.',
+          },
         ]}
       />
     </div>

@@ -16,11 +16,21 @@ const UiInput: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'value', type: 'string', description: '입력 필드의 값입니다.' },
-          { name: 'placeholder', type: 'string', description: '입력 필드의 플레이스홀더 텍스트입니다.' },
-          { name: 'disabled', type: 'boolean', description: '입력이 비활성화될지 여부입니다.' },
-          { name: 'error', type: 'boolean', description: '입력이 오류 상태인지 여부입니다.' },
-          { name: 'onChange', type: '(value: string) => void', description: '입력 값이 변경될 때 실행되는 콜백 함수입니다.' },
+          {
+            name: 'value', type: 'string', default: '-', description: '입력 필드의 값입니다.',
+          },
+          {
+            name: 'placeholder', type: 'string', default: '-', description: '입력 필드의 플레이스홀더 텍스트입니다.',
+          },
+          {
+            name: 'disabled', type: 'boolean', default: 'false', description: '입력이 비활성화될지 여부입니다.',
+          },
+          {
+            name: 'error', type: 'boolean', default: 'false', description: '입력이 오류 상태인지 여부입니다.',
+          },
+          {
+            name: 'onChange', type: '(value: string) => void', default: '-', description: '입력 값이 변경될 때 실행되는 콜백 함수입니다.',
+          },
         ]}
       />
     </div>

@@ -62,10 +62,18 @@ const UiTable: React.FC = () => {
         <Title text="속성" />
         <PropsTable
           datas={[
-            { name: 'datas', type: '{ [key: string]: React.ReactNode }[]', description: '테이블에 표시할 데이터 배열입니다.' },
-            { name: 'columns', type: '{ header: string; accessor: string }[]', description: '테이블의 컬럼 정의입니다.' },
-            { name: 'variant', type: 'default | striped | bordered', description: '테이블의 스타일 변형입니다.' },
-            { name: 'selecterable', type: 'boolean', description: '행 선택 기능을 활성화할지 여부입니다.' },
+            {
+              name: 'datas', type: '{ [key: string]: React.ReactNode }[]', default: '-', description: '테이블에 표시할 데이터 배열입니다.',
+            },
+            {
+              name: 'columns', type: '{ header: string; accessor: string }[]', default: '-', description: '테이블의 컬럼 정의입니다.',
+            },
+            {
+              name: 'variant', type: 'default | striped | bordered', default: 'default', description: '테이블의 스타일 변형입니다.',
+            },
+            {
+              name: 'selecterable', type: 'boolean', default: 'false', description: '행 선택 기능을 활성화할지 여부입니다.',
+            },
           ]}
         />
       </div>

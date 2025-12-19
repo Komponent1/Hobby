@@ -18,9 +18,15 @@ const UiSkeleton: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'variant', type: 'simple | card', description: '스켈레톤의 스타일 변형입니다.' },
-          { name: 'lineCount', type: 'number', description: '표시할 라인의 수입니다.' },
-          { name: 'size', type: 'sm | md | lg', description: '스켈레톤의 크기입니다.' },
+          {
+            name: 'variant', type: 'simple | card', default: 'simple', description: '스켈레톤의 스타일 변형입니다.',
+          },
+          {
+            name: 'lineCount', type: 'number', default: '3', description: '표시할 라인의 수입니다.',
+          },
+          {
+            name: 'size', type: 'sm | md | lg', default: 'md', description: '스켈레톤의 크기입니다.',
+          },
         ]}
       />
     </div>

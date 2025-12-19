@@ -16,14 +16,30 @@ const UiAccordion: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'titles', type: 'React.ReactNode[]', description: '각 아코디언 섹션의 제목 배열입니다.' },
-          { name: 'children', type: 'React.ReactNode', description: '아코디언 섹션에 표시될 콘텐츠입니다.' },
-          { name: 'color', type: 'string', description: '아코디언의 배경 색상입니다.' },
-          { name: 'selectColor', type: 'string', description: '항목이 선택되었을 때의 색상입니다.' },
-          { name: 'size', type: 'sm | md | lg', description: '아코디언의 크기입니다.' },
-          { name: 'variant', type: 'alwaysOpen | singleOpen', description: '섹션 열기/닫기 동작 방식입니다.' },
-          { name: 'titleVariant', type: 'normal | arrow | plus', description: '제목 표시기의 스타일입니다.' },
-          { name: 'outlineVariant', type: 'none | box | innerBox', description: '아코디언의 외곽선 스타일입니다.' },
+          {
+            name: 'titles', type: 'React.ReactNode[]', default: '-', description: '각 아코디언 섹션의 제목 배열입니다.',
+          },
+          {
+            name: 'children', type: 'React.ReactNode', default: '-', description: '아코디언 섹션에 표시될 콘텐츠입니다.',
+          },
+          {
+            name: 'color', type: 'string', default: '-', description: '아코디언의 배경 색상입니다.',
+          },
+          {
+            name: 'selectColor', type: 'string', default: '-', description: '항목이 선택되었을 때의 색상입니다.',
+          },
+          {
+            name: 'size', type: 'sm | md | lg', default: 'md', description: '아코디언의 크기입니다.',
+          },
+          {
+            name: 'variant', type: 'alwaysOpen | singleOpen', default: 'singleOpen', description: '섹션 열기/닫기 동작 방식입니다.',
+          },
+          {
+            name: 'titleVariant', type: 'normal | arrow | plus', default: 'normal', description: '제목 표시기의 스타일입니다.',
+          },
+          {
+            name: 'outlineVariant', type: 'none | box | innerBox', default: 'none', description: '아코디언의 외곽선 스타일입니다.',
+          },
         ]}
       />
     </div>

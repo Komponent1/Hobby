@@ -35,13 +35,27 @@ const UiProgress: React.FC = () => {
         <Title text="속성" />
         <PropsTable
           datas={[
-            { name: 'progress', type: 'number', description: '진행률 (0 - 1 사이의 값)입니다.' },
-            { name: 'size', type: 'sm | md | lg', description: '프로그레스의 크기입니다.' },
-            { name: 'variant', type: 'bar | circle', description: '프로그레스의 형태입니다.' },
-            { name: 'color', type: 'string', description: '프로그레스의 색상입니다.' },
-            { name: 'label', type: 'string', description: '프로그레스 바 내부 또는 하단에 표시될 라벨입니다.' },
-            { name: 'percent', type: 'boolean', description: '퍼센트 표시 여부입니다.' },
-            { name: 'width', type: 'number | string', description: '바 형태일 때 프로그레스의 너비입니다. (bar variant 전용)' },
+            {
+              name: 'progress', type: 'number', default: '-', description: '진행률 (0 - 1 사이의 값)입니다.',
+            },
+            {
+              name: 'size', type: 'sm | md | lg', default: 'md', description: '프로그레스의 크기입니다.',
+            },
+            {
+              name: 'variant', type: 'bar | circle', default: 'bar', description: '프로그레스의 형태입니다.',
+            },
+            {
+              name: 'color', type: 'string', default: '-', description: '프로그레스의 색상입니다.',
+            },
+            {
+              name: 'label', type: 'string', default: '-', description: '프로그레스 바 내부 또는 하단에 표시될 라벨입니다.',
+            },
+            {
+              name: 'percent', type: 'boolean', default: 'false', description: '퍼센트 표시 여부입니다.',
+            },
+            {
+              name: 'width', type: 'number | string', default: '-', description: '바 형태일 때 프로그레스의 너비입니다. (bar variant 전용)',
+            },
           ]}
         />
       </div>

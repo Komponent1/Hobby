@@ -16,13 +16,27 @@ const UiCheckbox: React.FC = () => (
       <Title text="속성" />
       <PropsTable
         datas={[
-          { name: 'id', type: 'string', description: '체크박스의 고유 식별자입니다.' },
-          { name: 'size', type: 'sm | md | lg', description: '체크박스의 크기입니다.' },
-          { name: 'onChange', type: '(value: string, checked: boolean) => void', description: '체크박스 상태가 변경될 때 호출되는 함수입니다.' },
-          { name: 'label', type: 'React.ReactNode', description: '체크박스 옆에 표시할 라벨입니다.' },
-          { name: 'checked', type: 'boolean', description: '체크박스의 선택 상태입니다.' },
-          { name: 'accentColor', type: 'string', description: '체크박스의 강조 색상입니다.' },
-          { name: '...HTMLInputProps', type: 'InputHTMLAttributes', description: 'HTML input 엘리먼트의 나머지 속성들입니다.' },
+          {
+            name: 'id', type: 'string', default: '-', description: '체크박스의 고유 식별자입니다.',
+          },
+          {
+            name: 'size', type: 'sm | md | lg', default: 'md', description: '체크박스의 크기입니다.',
+          },
+          {
+            name: 'onChange', type: '(value: string, checked: boolean) => void', default: '-', description: '체크박스 상태가 변경될 때 호출되는 함수입니다.',
+          },
+          {
+            name: 'label', type: 'React.ReactNode', default: '-', description: '체크박스 옆에 표시할 라벨입니다.',
+          },
+          {
+            name: 'checked', type: 'boolean', default: 'false', description: '체크박스의 선택 상태입니다.',
+          },
+          {
+            name: 'accentColor', type: 'string', default: '-', description: '체크박스의 강조 색상입니다.',
+          },
+          {
+            name: '...HTMLInputProps', type: 'InputHTMLAttributes', default: '-', description: 'HTML input 엘리먼트의 나머지 속성들입니다.',
+          },
         ]}
       />
     </div>
