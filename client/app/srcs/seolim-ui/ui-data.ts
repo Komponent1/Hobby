@@ -1,4 +1,4 @@
-export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination' | 'Spinner' | 'Tooltip' | 'List' | 'Table' | 'Tab' | 'Carousel' | 'Navbar' | 'Card' | 'Skeleton' | 'Modal' | 'Snackbar' | 'ContextMenu';
+export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination' | 'Spinner' | 'Tooltip' | 'List' | 'Table' | 'Tab' | 'Carousel' | 'Navbar' | 'Card' | 'Skeleton' | 'Modal' | 'Snackbar' | 'ContextMenu' | 'Divider';
 export type UIItem = {
   name: string;
   link: string;
@@ -101,6 +101,10 @@ export const uiData: UIData = {
       name: 'ContextMenu',
       link: '/seolim-ui/context-menu',
     },
+    Divider: {
+      name: 'Divider',
+      link: '/seolim-ui/divider',
+    },
   },
   order: [
     'Button',
@@ -126,5 +130,6 @@ export const uiData: UIData = {
     'Modal',
     'Snackbar',
     'ContextMenu',
+    'Divider',
   ],
 };
