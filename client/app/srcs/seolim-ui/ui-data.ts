@@ -1,4 +1,4 @@
-export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination' | 'Spinner' | 'Tooltip' | 'List' | 'Table' | 'Tab' | 'Carousel' | 'Navbar' | 'Card' | 'Skeleton' | 'Modal' | 'Snackbar' | 'ContextMenu' | 'Divider';
+export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination' | 'Spinner' | 'Tooltip' | 'List' | 'Table' | 'Tab' | 'Carousel' | 'Navbar' | 'Card' | 'Skeleton' | 'Modal' | 'Snackbar' | 'ContextMenu' | 'Divider' | 'FloatButton';
 export type UIItem = {
   name: string;
   link: string;
@@ -105,6 +105,10 @@ export const uiData: UIData = {
       name: 'Divider',
       link: '/seolim-ui/divider',
     },
+    FloatButton: {
+      name: 'FloatButton',
+      link: '/seolim-ui/float-button',
+    },
   },
   order: [
     'Button',
@@ -131,5 +135,6 @@ export const uiData: UIData = {
     'Snackbar',
     'ContextMenu',
     'Divider',
+    'FloatButton',
   ],
 };
