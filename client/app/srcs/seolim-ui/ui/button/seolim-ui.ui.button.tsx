@@ -51,38 +51,6 @@ const UiButton: React.FC = () => (
       </div>
     </UiBox>
 
-    <UiBox {...examples.color}>
-      <div className="space-y-6 mt-4">
-        <div>
-          <p className="text-sm text-gray-600 mb-2">Solid 버튼 색상</p>
-          <div className="flex gap-3 flex-wrap">
-            <Button content="파란색 버튼" variant="solid" color="#3b82f6" onClick={() => {}} />
-            <Button content="초록색 버튼" variant="solid" color="#22c55e" onClick={() => {}} />
-            <Button content="빨간색 버튼" variant="solid" color="#ef4444" onClick={() => {}} />
-            <Button content="보라색 버튼" variant="solid" color="#a855f7" onClick={() => {}} />
-          </div>
-        </div>
-        <div>
-          <p className="text-sm text-gray-600 mb-2">Outline 버튼 색상</p>
-          <div className="flex gap-3 flex-wrap">
-            <Button content="파란색 아웃라인" variant="outline" color="#3b82f6" onClick={() => {}} />
-            <Button content="초록색 아웃라인" variant="outline" color="#22c55e" onClick={() => {}} />
-            <Button content="빨간색 아웃라인" variant="outline" color="#ef4444" onClick={() => {}} />
-            <Button content="보라색 아웃라인" variant="outline" color="#a855f7" onClick={() => {}} />
-          </div>
-        </div>
-        <div>
-          <p className="text-sm text-gray-600 mb-2">Text 버튼 색상</p>
-          <div className="flex gap-3 flex-wrap">
-            <Button content="파란색 텍스트" variant="text" color="#3b82f6" onClick={() => {}} />
-            <Button content="초록색 텍스트" variant="text" color="#22c55e" onClick={() => {}} />
-            <Button content="빨간색 텍스트" variant="text" color="#ef4444" onClick={() => {}} />
-            <Button content="보라색 텍스트" variant="text" color="#a855f7" onClick={() => {}} />
-          </div>
-        </div>
-      </div>
-    </UiBox>
-
     <UiBox {...examples.example}>
       <div className="space-y-6 mt-4">
         <div>

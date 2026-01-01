@@ -22,7 +22,7 @@ const UiBox: React.FC<UiBoxProps> = ({
         <Description text={description || ''} />
         {additionalDescription}
       </div>
-      <div className="border-black/10 rounded-2xl overflow-hidden border-2">
+      <div className="border-black/10 rounded-2xl overflow-hidden border-2 dark:border-white/10">
         <div className="px-4 pb-4">
           {children}
         </div>

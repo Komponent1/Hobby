@@ -21,12 +21,6 @@ export const propsTable = [
     name: 'full', type: 'boolean', default: 'false', description: '버튼이 전체 너비를 차지할지 여부입니다.',
   },
   {
-    name: 'color', type: 'string', default: '-', description: '버튼의 배경 색상입니다.',
-  },
-  {
-    name: 'textColor', type: 'string', default: '-', description: '버튼의 텍스트 색상입니다.',
-  },
-  {
     name: 'disabled', type: 'boolean', default: 'false', description: '버튼이 비활성화될지 여부입니다.',
   },
 ];

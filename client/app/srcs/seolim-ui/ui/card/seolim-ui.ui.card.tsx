@@ -75,7 +75,7 @@ const UiCard: React.FC = () => (
           <Card
             type="header-content"
             header={(
-              <div className="p-4 bg-gray-100 font-bold">
+              <div className="p-4 font-bold">
                 헤더 영역
               </div>
             )}
@@ -90,7 +90,7 @@ const UiCard: React.FC = () => (
           <Card
             type="content-footer"
             footer={(
-              <div className="p-4 bg-gray-100 text-center">
+              <div className="p-4 text-center">
                 <Button content="액션" size="sm" onClick={() => {}} />
               </div>
             )}
