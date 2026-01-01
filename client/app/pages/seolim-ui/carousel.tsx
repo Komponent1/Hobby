@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiCarousel from '../../srcs/seolim-ui/ui/seolim-ui.ui.carousel';
+import UiCarousel from '../../srcs/seolim-ui/ui/carousel/seolim-ui.ui.carousel';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

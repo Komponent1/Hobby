@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiBadge from '../../srcs/seolim-ui/ui/seolim-ui.ui.badge';
+import UiBadge from '../../srcs/seolim-ui/ui/badge/seolim-ui.ui.badge';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

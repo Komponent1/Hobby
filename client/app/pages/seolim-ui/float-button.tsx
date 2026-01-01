@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiFloatButton from '../../srcs/seolim-ui/ui/seolim-ui.ui.float-button';
+import UiFloatButton from '../../srcs/seolim-ui/ui/float-button/seolim-ui.ui.float-button';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

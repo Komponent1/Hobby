@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiTypography from '../../srcs/seolim-ui/ui/seolim-ui.ui.typography';
+import UiTypography from '../../srcs/seolim-ui/ui/typography/seolim-ui.ui.typography';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiDivider from '../../srcs/seolim-ui/ui/seolim-ui.ui.divider';
+import UiDivider from '../../srcs/seolim-ui/ui/divider/seolim-ui.ui.divider';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

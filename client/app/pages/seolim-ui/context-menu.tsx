@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiContextMenu from '../../srcs/seolim-ui/ui/seolim-ui.ui.context-menu';
+import UiContextMenu from '../../srcs/seolim-ui/ui/context-menu/seolim-ui.ui.context-menu';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

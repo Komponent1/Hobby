@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiSwitch from '../../srcs/seolim-ui/ui/seolim-ui.ui.switch';
+import UiSwitch from '../../srcs/seolim-ui/ui/switch/seolim-ui.ui.switch';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

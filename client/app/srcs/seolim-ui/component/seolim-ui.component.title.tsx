@@ -5,6 +5,6 @@ type Props = {
   text: string;
 };
 const Title: React.FC<Props> = ({ text }) => (
-  <Typography size="3xl" weight="extraBold">{text}</Typography>
+  <Typography element="p" size="3xl" weight="bold">{text}</Typography>
 );
 export default Title;

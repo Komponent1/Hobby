@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiList from '../../srcs/seolim-ui/ui/seolim-ui.ui.list';
+import UiList from '../../srcs/seolim-ui/ui/list/seolim-ui.ui.list';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

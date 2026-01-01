@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiRadio from '../../srcs/seolim-ui/ui/seolim-ui.ui.radio';
+import UiRadio from '../../srcs/seolim-ui/ui/radio/seolim-ui.ui.radio';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

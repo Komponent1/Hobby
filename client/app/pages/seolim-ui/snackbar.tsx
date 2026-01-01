@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiSnackbar from '../../srcs/seolim-ui/ui/seolim-ui.ui.snackbar';
+import UiSnackbar from '../../srcs/seolim-ui/ui/snackbar/seolim-ui.ui.snackbar';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

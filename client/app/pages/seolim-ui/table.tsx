@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiTable from '../../srcs/seolim-ui/ui/seolim-ui.ui.table';
+import UiTable from '../../srcs/seolim-ui/ui/table/seolim-ui.ui.table';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 

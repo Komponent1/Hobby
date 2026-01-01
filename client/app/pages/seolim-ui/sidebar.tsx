@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import UiSidebar from '../../srcs/seolim-ui/ui/seolim-ui.ui.sidebar';
+import UiSidebar from '../../srcs/seolim-ui/ui/sidebar/seolim-ui.ui.sidebar';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 
