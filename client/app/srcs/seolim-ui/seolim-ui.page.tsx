@@ -1,7 +1,8 @@
 import React from 'react';
+import MainPage from './ui/seolim-ui.main.page';
 
 const SeolimUiPage: React.FC = () => (
-  <div />
+  <MainPage />
 );
 
 export default SeolimUiPage;
