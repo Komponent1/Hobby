@@ -46,7 +46,9 @@ const Ui${PascalName}: React.FC = () => (
 export default Ui${PascalName};
 `;
 
-      fs.writeFileSync(`${__dirname}/app/srcs/seolim-ui/ui/seolim-ui.ui.${filename}.tsx`, uiComponentTemplate);
+      fs.mkdirSync(`${__dirname}/app/srcs/seolim-ui/ui/${filename}`, { recursive: true });
+      fs.writeFileSync(`${__dirname}/app/srcs/seolim-ui/ui/${filename}/seolim-ui.ui.${filename}.tsx`, uiComponentTemplate);
+      fs.writeFileSync(`${__dirname}/app/srcs/seolim-ui/ui/${filename}/seolim-ui.ui.${filename}.example.ts`, '');
 
       // 3. Update ui-data.ts
       const uiDataPath = `${__dirname}/app/srcs/seolim-ui/ui-data.ts`;
