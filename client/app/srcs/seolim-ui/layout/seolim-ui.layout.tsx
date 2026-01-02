@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useRouter } from 'next/router';
-import {ThemeProvider} from '@seolim/designsystem';
+import {Navbar, ThemeProvider} from '@seolim/designsystem';
 import { Sidebar } from '../component';
 import { uiData } from '../ui-data';
 
@@ -11,17 +11,18 @@ const SeolimUiLayout: React.FC<{children: React.ReactNode}> = ({ children }) => 
     link: uiData.data[key].link,
   })), []);
   const link = router.pathname;
-  const currentUi = uiList.findIndex((item) => item.link === link);
+  const currentUi = uiList.findIndex((item) => item.link === link) + 1;
 
   return (
-    <div style={{ display: 'flex' }}>
-      <Sidebar selectedItemIndex={currentUi} items={uiList} />
-      <ThemeProvider>
-        <main style={{ flexGrow: 1, padding: '24px' }}>
+    <ThemeProvider>
+      <Navbar type="fixed" icon={<span>🚀</span>} title="SEOLIM UI" titleLink="/seolim-ui" />
+      <div className="flex h-[calc(100vh-62px)] mt-[62px]">
+        <Sidebar selectedItemIndex={currentUi} items={uiList} />
+        <main className="flex-grow-1 p-8 overflow-y-auto h-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {children}
         </main>
-      </ThemeProvider>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 };
 export default SeolimUiLayout;

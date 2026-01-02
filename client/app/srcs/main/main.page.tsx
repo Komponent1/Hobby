@@ -8,6 +8,7 @@ import SteamIntro from './components/main.component.steamintro';
 import InformationIntro from './components/main.component.informationintro';
 import GameIntro from './components/main.component.gameintro';
 import { Etc } from './components/main.component.etc';
+import UiIntro from './components/main.component.seolim-uiIntro';
 
 const MainPage: React.FC = () => {
   const router = useRouter();
@@ -33,6 +34,8 @@ const MainPage: React.FC = () => {
                 return (<GameIntro onLink={onLink} />);
               case 'steam':
                 return (<SteamIntro onLink={onLink} />);
+              case 'seolim-ui':
+                return (<UiIntro onLink={onLink} />);
               default:
                 return null;
             }
