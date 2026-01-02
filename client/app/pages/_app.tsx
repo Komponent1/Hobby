@@ -3,8 +3,17 @@ import Head from 'next/head';
 import '../styles/global.css';
 import '../styles/github.markdown.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
+export type NextPageWithLayout<P = {}> = React.FC<P> & {
+  getLayout?: (page: React.ReactElement) => React.ReactNode;
+};
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
+  return getLayout(
     <>
       <Head>
         <meta charSet="utf-8" />
@@ -13,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="google-site-verification" content="mr23KVn0BRrTbtugcOFIlxqeCtz0vhO03sTWfwrcln8" />
       </Head>
       <Component {...pageProps} />
-    </>
+    </>,
   );
 }
 

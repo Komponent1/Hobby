@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: 'avatars.steamstatic.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.pixabay.com',
+        port: '',
+      }
     ]
   },
   reactStrictMode: true,

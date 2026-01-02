@@ -196,5 +196,24 @@
       "natgateway",
       "costdown"
     ]
+  },
+  "21": {
+    "id": 21,
+    "title": "Page Router의 공통 page layout 구현",
+    "path": "Page Router의 공통 page layout 구현.md",
+    "tags": [
+      "nextjs",
+      "pagerouter"
+    ]
+  },
+  "22": {
+    "id": 22,
+    "title": "타입 병합 충돌",
+    "path": "타입 병합 충돌.md",
+    "tags": [
+      "typescript",
+      "type",
+      "error"
+    ]
   }
 }

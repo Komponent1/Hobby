@@ -4,7 +4,8 @@
     "steam",
     "blog",
     "information",
-    "game"
+    "game",
+    "seolim-ui"
   ],
   "page": {
     "main": {
@@ -34,6 +35,14 @@
       "title": "스팀 정보",
       "path": "/steam",
       "description": "스팀 계정 대시보드"
+    },
+    "seolim-ui": {
+      "title": "SEOLIM UI",
+      "path": "/seolim-ui",
+      "description": "SEOLIM UI 컴포넌트 라이브러리",
+      "children": {
+        "path": "/seolim-ui/:component"
+      }
     }
   }
 }
