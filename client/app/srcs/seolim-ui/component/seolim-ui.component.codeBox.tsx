@@ -7,7 +7,7 @@ type Props = {
   language?: string;
 };
 
-const CodeBox: React.FC<Props> = ({ children, language = 'jsx' }) => {
+const CodeBox: React.FC<Props> = ({ children, language = 'tsx' }) => {
   const codeContent = typeof children === 'string'
     ? children
     : React.Children.toArray(children).join('');
