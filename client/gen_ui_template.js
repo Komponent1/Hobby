@@ -17,7 +17,7 @@ rl.question('  Write UI Component Name (kebab-case, e.g. text-area): ', (filenam
       // 1. Create page file in pages/seolim-ui/
       const pageTemplate = `/* eslint-disable max-len */
 import React from 'react';
-import Ui${PascalName} from '../../srcs/seolim-ui/ui/${filename}seolim-ui.ui.${filename}';
+import Ui${PascalName} from '../../srcs/seolim-ui/ui/${filename}/seolim-ui.ui.${filename}';
 import type { NextPageWithLayout } from '../_app';
 import SeolimUiLayout from '../../srcs/seolim-ui/layout/seolim-ui.layout';
 
