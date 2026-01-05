@@ -4,7 +4,7 @@ import {
   Description, UiBox, HeadBox, Title,
   PropsTable,
 } from '../../component';
-import { examples } from './seolim-ui.ui.card.example';
+import { examples, propsTable } from './seolim-ui.ui.card.example';
 
 const UiCard: React.FC = () => (
   <div className="space-y-6">
@@ -16,35 +16,7 @@ const UiCard: React.FC = () => (
     <div className="space-y-4">
       <Title text="속성" />
       <PropsTable
-        datas={[
-          {
-            name: 'type', type: 'content | header-content | content-footer | image-content | content-image | image_overlay', default: 'content', description: '카드의 레이아웃 타입입니다.',
-          },
-          {
-            name: 'size', type: 'sm | md | lg', default: 'md', description: '카드의 크기입니다.',
-          },
-          {
-            name: 'src', type: 'string', default: '-', description: '이미지 소스 URL입니다.',
-          },
-          {
-            name: 'alt', type: 'string', default: '-', description: '이미지 대체 텍스트입니다.',
-          },
-          {
-            name: 'hoverType', type: 'shadow | lift | none', default: 'none', description: '호버 시 효과 타입입니다.',
-          },
-          {
-            name: 'children', type: 'React.ReactNode', default: '-', description: '카드의 주요 콘텐츠입니다.',
-          },
-          {
-            name: 'header', type: 'React.ReactNode', default: '-', description: '카드의 헤더 콘텐츠입니다.',
-          },
-          {
-            name: 'footer', type: 'React.ReactNode', default: '-', description: '카드의 푸터 콘텐츠입니다.',
-          },
-          {
-            name: 'autoPadding', type: 'boolean', default: 'false', description: '자동으로 패딩을 적용할지 여부입니다.',
-          },
-        ]}
+        datas={propsTable}
       />
     </div>
 
@@ -60,7 +32,7 @@ const UiCard: React.FC = () => (
     </UiBox>
 
     <UiBox {...examples.type}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
         <div>
           <p className="text-sm font-medium mb-4">Content</p>
           <Card type="content">
@@ -143,7 +115,7 @@ const UiCard: React.FC = () => (
     </UiBox>
 
     <UiBox {...examples.size}>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
         <div>
           <p className="text-sm font-medium mb-4">Small</p>
           <Card type="content" size="sm">
@@ -172,10 +144,19 @@ const UiCard: React.FC = () => (
           </Card>
         </div>
       </div>
+      <div>
+        <p className="text-sm font-medium mb-4">Full</p>
+        <Card type="content" size="full">
+          <div className="p-4">
+            <h3 className="font-bold mb-2">전체 카드</h3>
+            <p className="text-sm text-gray-600">full 크기의 카드입니다.</p>
+          </div>
+        </Card>
+      </div>
     </UiBox>
 
     <UiBox {...examples.hover}>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
         <div>
           <p className="text-sm font-medium mb-4">Shadow</p>
           <Card type="content" hoverType="shadow">
@@ -277,7 +258,7 @@ const UiCard: React.FC = () => (
       <div className="space-y-8 mt-4">
         <div>
           <p className="text-sm font-medium mb-4">제품 카드</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card
               type="image-content"
               src="https://cdn.pixabay.com/photo/2015/05/15/01/48/computer-767776_1280.jpg"

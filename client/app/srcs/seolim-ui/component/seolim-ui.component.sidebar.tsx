@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import {
-  List, Sidebar, Typography, useTheme,
+  List, Sidebar, Typography, useMediaQuery, useTheme,
 } from '@seolim/designsystem';
 import {useRouter} from 'next/router';
 
@@ -17,12 +17,13 @@ type Props = {
 const UiSidebar: React.FC<Props> = ({ items, selectedItemIndex }) => {
   const router = useRouter();
   const { theme } = useTheme();
+  const isDesktop = useMediaQuery('(min-width: 1025px)');
   const onClick = (link: string) => {
     router.push(link);
   };
 
   return (
-    <Sidebar variant="alwaysOpen" position="left" style={{position: 'relative'}}>
+    <Sidebar variant={isDesktop ? "alwaysOpen" : "collapsible"} position="left" buttonTop={200} style={{position: isDesktop ? 'relative' : 'fixed'}}>
       <div
         className="overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       >
