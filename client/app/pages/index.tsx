@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import {getMainPropsFromLocal} from '../srcs/main/main.local.props';
+import MainContainer from '../srcs/main/main.container';
 import MainPage from '../srcs/main/main.page';
 
 function Main() {
@@ -14,7 +15,9 @@ function Main() {
         <meta name="og:description" content="모두의 개발은 개발자의 블로그입니다." />
         <meta name="og:image" content="https://blog-sage-pi.vercel.app/logo.png" />
       </Head>
-      <MainPage />
+      <MainContainer>
+        <MainPage />
+      </MainContainer>
     </div>
   );
 }

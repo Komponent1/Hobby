@@ -1,3 +1,4 @@
+import {Spinner} from '@seolim/designsystem';
 import React from 'react';
 
 type Props = {
@@ -9,7 +10,7 @@ const LoadPage: React.FC<Props> = ({isLoad}) => {
     <div
       className="fixed top-0 left-0 h-screen w-screen flex justify-center items-center bg-gray-900 z-50 opacity-50"
     >
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white z-50" />
+      <Spinner size="lg" />
     </div>
   );
 };

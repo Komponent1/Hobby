@@ -20,7 +20,7 @@ const PropsTable: React.FC<Props> = ({ datas }) => {
   ];
 
   return (
-    <div className="border border-gray-300 rounded-lg overflow-hidden">
+    <div className="border border-gray-300 rounded-lg overflow-hidden mt-4">
       <div className="text-sm">
         <Table datas={tableData} columns={columns} variant="striped" />
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Typography} from '@seolim/designsystem';
 import {SimpleCard} from './main.component.simplecard';
 
 type Props = {
@@ -6,15 +7,16 @@ type Props = {
 };
 const UiIntro: React.FC<Props> = ({ onLink }) => (
   <SimpleCard
-    icon="file_earmark_fill"
+    icon="my"
     title="SEOLIM UI"
+    iconBackground="bg-gray-800"
     description="My personal React component library"
     onLink={() => onLink('/seolim-ui')}
     etc={(
       <div className="flex-col items-start lg:flex relative">
-        <h2 className="mb-4 text-xl font-bold tracking-tight text-white">
-          SEOLIM UI에 오신 것을 환영합니다!
-        </h2>
+        <Typography element="p" type="secondary" size="xl" weight="bold">
+          간결한 react 컴포넌트 라이브러리
+        </Typography>
       </div>
       )}
   />

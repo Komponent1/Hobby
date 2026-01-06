@@ -25,6 +25,12 @@ const Icon: React.FC<Props> = ({ name, size = 24, color = "currentColor" }) => {
           <Image src="/icon/steam.svg" alt="Steam" width={size} height={size} />
         </div>
       );
+    case "my":
+      return (
+        <div>
+          <Image src="/icon/logo.png" alt="My Icon" width={size} height={size} />
+        </div>
+      );
     default:
       return null;
   }
