@@ -9,6 +9,42 @@ const UiTheme: React.FC = () => (
       <Description text="디자인의 테마를 결정할 수 있습니다." />
     </HeadBox>
 
+    <Title text="개요" />
+    <Description text="Seolim UI의 테마는 ThemeProvider와 useTheme 훅을 통해 사용할 수 있습니다." />
+    <Description text="아래 스크립트가 어플리케이션 <head>에 반드시 포함되어야합니다." />
+    <div className="overflow-hidden rounded-2xl mt-8 mb-20">
+      <CodeBox>
+        {`(function() {
+  var mode = 'light';
+  
+  // 시스템 다크모드 설정 확인
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    mode = 'dark';
+  }
+  
+  // data-theme attribute로 모드 저장
+  document.documentElement.setAttribute('data-theme', mode);
+  
+  // CSS 변수 및 배경색 설정 (FOUC 방지)
+  var isDark = mode === 'dark';
+  var bgColor = isDark ? '#020617' : '#FFFFFF';
+  var textColor = isDark ? '#F9FAFB' : '#111827';
+  
+  document.documentElement.style.setProperty('--theme-bg', bgColor);
+  document.documentElement.style.setProperty('--theme-text', textColor);
+  document.documentElement.style.backgroundColor = bgColor;
+  document.documentElement.style.color = textColor;
+  document.documentElement.style.colorScheme = mode;
+})();
+을 직접 삽입
+
+혹은
+
+import { themeInitScript } from '@seolim/designsystem'; 사용
+`}
+      </CodeBox>
+    </div>
+
     <Title text="기본 사용법" />
     <Description text="애플리리케이션을 THemeProvider로 감쌉니다.useTheme 훅을 사용하여 theme를 사용할 수 있습니다." />
     <div className="overflow-hidden rounded-2xl mt-8 mb-20">
