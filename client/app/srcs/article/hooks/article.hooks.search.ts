@@ -8,7 +8,6 @@ export const useSearch = (articles: Article[]) => {
   }, [articles]);
   const search = useCallback(
     (text: string) => {
-      console.log("text" + text);
       const regex = new RegExp(text.split(" ").join("|"), "i");
       const filtered = articles.filter((article) => regex.test(article.title));
       setFilteredArticle(filtered);

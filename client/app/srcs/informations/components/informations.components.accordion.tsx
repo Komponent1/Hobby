@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from "react";
-import { InformationList } from "../dto/informations";
 import { Badge, Typography } from "@seolim/designsystem";
+import { InformationList } from "../dto/informations";
 
 type AccordionItemProps = {
   information: InformationList;
@@ -14,8 +14,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
   open,
   close,
   openId,
-}) => {
-  return (
+}) => (
     <div key={information.information.id}>
       <h2 id={`accordion-collapse-heading-${information.information.id}`}>
         <button
@@ -72,7 +71,6 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
       </div>
     </div>
   );
-};
 
 type Props = {
   informations: InformationList[];

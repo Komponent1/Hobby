@@ -1,9 +1,7 @@
 import React, { useCallback } from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import GameList from "./game-list.json";
 import Navbar from "../common/common.components/common.components.navbar";
-import { SimpleCard } from "../main/components/main.component.simplecard";
 import GameCard from "./component/game.component.gamecard";
 
 export type GameConfig = {

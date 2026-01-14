@@ -2,9 +2,9 @@
 import React from "react";
 import Image from "next/image";
 import "highlight.js/styles/a11y-dark.css";
+import { Badge, Typography, useTheme } from "@seolim/designsystem";
 import { Article } from "./dto/article";
 import Navbar from "../common/common.components/common.components.navbar";
-import { Badge, Typography, useTheme } from "@seolim/designsystem";
 
 type Props = {
   content: string;

@@ -69,7 +69,7 @@ const UiAutocomplete: React.FC = () => {
             onSelect={handleSelect}
             suggestions={suggestions}
             placeholder="과일을 입력하세요"
-            withSearchButton={true}
+            withSearchButton
           />
         </div>
       </UiBox>

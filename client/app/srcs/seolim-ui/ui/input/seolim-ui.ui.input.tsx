@@ -98,7 +98,7 @@ const UiInput: React.FC = () => (
           value=""
           onChange={() => {}}
           placeholder="검색어를 입력하세요"
-          withSubmitButton={true}
+          withSubmitButton
           onClickSubmitButton={() => {}}
         />
       </div>

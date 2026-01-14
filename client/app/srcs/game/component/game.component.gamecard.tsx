@@ -1,6 +1,6 @@
 import React from "react";
-import type { GameConfig } from "../game.page";
 import { Card, Typography, useTheme } from "@seolim/designsystem";
+import type { GameConfig } from "../game.page";
 
 type Props = GameConfig[string] & {
   onLink: () => void;
