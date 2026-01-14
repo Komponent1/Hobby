@@ -7,7 +7,6 @@ import ArticleIntro from './components/main.component.articleintro';
 import SteamIntro from './components/main.component.steamintro';
 import InformationIntro from './components/main.component.informationintro';
 import GameIntro from './components/main.component.gameintro';
-import { Etc } from './components/main.component.etc';
 import UiIntro from './components/main.component.seolim-uiIntro';
 
 const MainPage: React.FC = () => {
@@ -17,30 +16,30 @@ const MainPage: React.FC = () => {
     setIsLoad(true);
     router.push(path);
   }, [router, setIsLoad]);
+
   return (
-    <div className="bg-cover bg-center min-h-screen w-screen bg-neutral-800">
+    <div className="bg-cover bg-center min-h-screen w-screen">
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 pt-20 max-w-[1368px] w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 pt-20 max-w-[1368px] w-full">
 
           {PageJson.order.map((page) => {
             switch (page) {
               case 'main':
                 return (<Fragment key={page} />);
               case 'blog':
-                return (<ArticleIntro onLink={onLink} />);
+                return (<ArticleIntro onLink={onLink} key={page} />);
               case 'information':
-                return (<InformationIntro onLink={onLink} />);
+                return (<InformationIntro onLink={onLink} key={page} />);
               case 'game':
-                return (<GameIntro onLink={onLink} />);
+                return (<GameIntro onLink={onLink} key={page} />);
               case 'steam':
-                return (<SteamIntro onLink={onLink} />);
+                return (<SteamIntro onLink={onLink} key={page} />);
               case 'seolim-ui':
-                return (<UiIntro onLink={onLink} />);
+                return (<UiIntro onLink={onLink} key={page} />);
               default:
                 return null;
             }
           })}
-          <Etc />
         </div>
       </div>
       <Portal>

@@ -14,7 +14,6 @@ export const useSearch = ({
     informationList,
   );
   const [searchTags, setSearchTags] = useState<string[]>([]);
-  const [text, setText] = useState<string>('');
   const [filteredTags, setFilteredTags] = useState<string[]>([]);
   useEffect(() => {
     setFilteredInformation(informations);
@@ -22,15 +21,6 @@ export const useSearch = ({
   useEffect(() => {
     setFilteredTags(tags);
   }, [tags]);
-  useEffect(() => {
-    if (text === '') {
-      setFilteredTags(tags);
-    } else {
-      setFilteredTags(
-        tags.filter((tag) => tag.toLowerCase().includes(text.toLowerCase())),
-      );
-    }
-  }, [text, tags]);
 
   useEffect(() => {
     if (searchTags.length === 0) {
@@ -43,6 +33,11 @@ export const useSearch = ({
       );
     }
   }, [searchTags, informationList]);
+  const onType = useCallback((text: string) => {
+    setFilteredTags(
+      tags.filter((tag) => tag.includes(text) && !searchTags.includes(tag)),
+    );
+  }, [tags, searchTags]);
   const search = useCallback((inputText: string) => {
     setSearchTags((data) => ([...data, inputText]));
   }, []);
@@ -51,9 +46,8 @@ export const useSearch = ({
   }, []);
   return {
     searchTags,
-    text,
-    setText,
     search,
+    onType,
     deleteSearchTag,
     filteredInformation,
     filteredTags,

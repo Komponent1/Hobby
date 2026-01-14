@@ -1,8 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import Chip from './article.components.chip';
-import {TAG_COLORS} from '../article.constant';
+import {Card, Badge, useTheme} from '@seolim/designsystem';
+import React, {useCallback, useMemo} from 'react';
+import {useRouter} from 'next/router';
 
 type Props = {
   id: number;
@@ -10,28 +8,41 @@ type Props = {
   title: string;
   tags: string[];
 };
-const Card: React.FC<Props> = ({
+const ArticleCard: React.FC<Props> = ({
   id, photo, title, tags,
-}) => (
-  <div className="self-stretch mb-2 hover:transition-transform hover:transform hover:scale-105">
-    <Link href={`/article/${id}`}>
-      <div className="rounded-sm shadow-md h-full">
-        <div className="h-52 grid place-items-center bg-slate-100 relative">
-          {photo ? <Image fill src={photo} alt={title} className="bg:slate-100 m-0 rounded-t lazy object-contain" /> : <div className="w-full h-full" />}
-        </div>
-        <div className="px-6 py-5">
+}) => {
+  const { color } = useTheme().theme;
+  const router = useRouter();
+  const onLink = useCallback(() => {
+    router.push(`/article/${id}`);
+  }, [id, router]);
+  const colors = useMemo(() => ([
+    color.primary.main,
+    color.warning.main,
+  ]), [color]);
+  return (
+    <div onClick={onLink} className="cursor-pointer h-full">
+      <Card
+        type="image-content"
+        src={photo || 'logo.png'}
+        alt={title}
+        hoverType="lift"
+        size="md"
+        autoPadding={false}
+      >
+        <div className="p-2 h-32 border-t border-t-gray-200 dark:border-t-gray-700">
           <div className="font-semibold text-lg mb-2">
             {title}
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             {tags.map((tag, index) => (
-              <Chip label={tag} key={`${title}_${tag}`} {...TAG_COLORS[index % TAG_COLORS.length]} />
+              <Badge variant="hard" size="sm" corner="square" color={colors[index % colors.length]} key={`${title}_badge_${tag}`} text={tag} />
             ))}
           </div>
         </div>
-      </div>
-    </Link>
-  </div>
-);
+      </Card>
+    </div>
+  );
+};
 
-export default Card;
+export default ArticleCard;

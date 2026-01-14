@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
+import {Typography} from '@seolim/designsystem';
 import ArticleJson from '../../article/posts/articles.json';
 import { Article } from '../../article/dto/article';
 import { SimpleCard } from './main.component.simplecard';
@@ -28,21 +29,22 @@ const ArticleIntro: React.FC<Props> = ({ onLink }) => {
             height={350}
             className="absolute -bottom-24 -right-24 opacity-15 -z-0 rounded-2xl"
           />
-          <h2 className="mb-4 text-xl font-bold tracking-tight text-white">
-            최신 게시글
-          </h2>
-          <ul>
-            {latestArticle.map((article) => (
-              <li key={article.id} className="mb-2 z-10">
-                <a
-                  href={`/article/${article.id}`}
-                  className="text-gray-400 hover:text-white z-10"
-                >
-                  {article.title}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="z-10">
+            <Typography element="p" type="primary" size="xl" weight="bold">
+              최신 게시글
+            </Typography>
+            <ul>
+              {latestArticle.map((article) => (
+                <li key={article.id}>
+                  <Typography element="span" type="tertiary" size="md">
+                    <a href={`/article/${article.id}`}>
+                      {article.title}
+                    </a>
+                  </Typography>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
     />

@@ -1,4 +1,4 @@
-export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination' | 'Spinner' | 'Tooltip' | 'List' | 'Table' | 'Tab' | 'Carousel' | 'Navbar' | 'Card' | 'Skeleton' | 'Modal' | 'Snackbar' | 'ContextMenu' | 'Divider' | 'FloatButton' | 'Select' | 'Radio' | 'Autocomplete' | 'Sidebar' | 'Stepper';
+export type UI = 'Input' | 'Button' | 'Typography' | 'Badge' | 'Accordion' | 'Avatar' | 'Checkbox' | 'Switch' | 'Alert' | 'Progress' | 'Pagination' | 'Spinner' | 'Tooltip' | 'List' | 'Table' | 'Tab' | 'Carousel' | 'Navbar' | 'Card' | 'Skeleton' | 'Modal' | 'Snackbar' | 'ContextMenu' | 'Divider' | 'FloatButton' | 'Select' | 'Radio' | 'Autocomplete' | 'Sidebar' | 'Stepper' | 'Theme' | 'MediaQuery';
 export type UIItem = {
   name: string;
   link: string;
@@ -129,6 +129,14 @@ export const uiData: UIData = {
       name: 'Stepper',
       link: '/seolim-ui/stepper',
     },
+    Theme: {
+      name: 'Theme',
+      link: '/seolim-ui/theme',
+    },
+    MediaQuery: {
+      name: 'MediaQuery',
+      link: '/seolim-ui/media-query',
+    },
   },
   order: [
     'Accordion',
@@ -161,5 +169,7 @@ export const uiData: UIData = {
     'Table',
     'Tooltip',
     'Typography',
+    'Theme',
+    'MediaQuery',
   ],
 };

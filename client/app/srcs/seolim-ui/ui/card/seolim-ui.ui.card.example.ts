@@ -4,7 +4,7 @@ export const propsTable = [
     name: 'type', type: 'content | header-content | content-footer | image-content | content-image | image_overlay', default: 'content', description: '카드의 레이아웃 타입입니다.',
   },
   {
-    name: 'size', type: 'sm | md | lg', default: 'md', description: '카드의 크기입니다.',
+    name: 'size', type: 'sm | md | lg | full', default: 'md', description: '카드의 크기입니다.',
   },
   {
     name: 'src', type: 'string', default: '-', description: '이미지 소스 URL입니다.',
@@ -102,6 +102,12 @@ export const examples = {
   <div className="p-4">
     <h3 className="font-bold mb-2">큰 카드</h3>
     <p className="text-sm text-gray-600">lg 크기의 카드입니다.</p>
+  </div>
+</Card>
+<Card type="content" size="full">
+  <div className="p-4">
+    <h3 className="font-bold mb-2">전체 카드</h3>
+    <p className="text-sm text-gray-600">full 크기의 카드입니다.</p>
   </div>
 </Card>
 `,

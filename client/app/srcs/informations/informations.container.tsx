@@ -1,4 +1,5 @@
 import React from 'react';
+import {ThemeProvider} from '@seolim/designsystem';
 import InformationsPage from "./informations.page";
 import ContextProvider from "./store/informations.store.root";
 import { InformationList } from "./dto/informations";
@@ -8,7 +9,9 @@ type Props = {
 };
 const InformationsContainer: React.FC<Props> = ({informations}) => (
   <ContextProvider>
-    <InformationsPage informations={informations} />
+    <ThemeProvider>
+      <InformationsPage informations={informations} />
+    </ThemeProvider>
   </ContextProvider>
 );
 

@@ -42,4 +42,31 @@ function Example() {
   );
 }`,
   },
+  type: {
+    title: '타입',
+    description: 'type prop으로 텍스트의 스타일 타입을 설정할 수 있습니다.',
+    codeContent: `import { Typography } from '@seolim/designsystem';
+
+function Example() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Typography type="primary" size="md" element="p">
+        이것은 primary 타입 타이포그래피입니다.
+      </Typography>
+      <Typography type="secondary" size="md" element="p">
+        이것은 secondary 타입 타이포그래피입니다.
+      </Typography>
+      <Typography type="tertiary" size="md" element="p">
+        이것은 tertiary 타입 타이포그래피입니다.
+      </Typography>
+      <Typography type="disabled" size="md" element="p">
+        이것은 disabled 타입 타이포그래피입니다.
+      </Typography>
+      <Typography type="inverse" size="md" element="p">
+        이것은 inverse 타입 타이포그래피입니다.
+      </Typography>
+    </div>
+  );
+}`,
+  },
 };

@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import {Badge, Typography} from '@seolim/designsystem';
 import InformationJson from '../../informations/posts/informations.json';
 import { SimpleCard } from './main.component.simplecard';
 
@@ -23,18 +24,13 @@ const InformationIntro: React.FC<Props> = ({ onLink }) => {
       onLink={() => onLink('/informations')}
       etc={(
         <div>
-          <p className="text-gray-300 py-1 text-lg mb-4 font-extrabold">
+          <Typography element="p" type="primary" size="xl" weight="bold">
             {`총 정보 수 : ${informationList.length}`}
-          </p>
-          <ul className="flex flex-wrap gap-2 mb-4">
+          </Typography>
+          <ul className="flex flex-wrap gap-2 mt-4">
             {tags.map((tag) => (
-              <li key={tag} className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
-                {tag}
-              </li>
+              <Badge key={tag} variant="hard" size="md" text={tag} />
             ))}
-            <li className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
-              ...
-            </li>
           </ul>
         </div>
         )}

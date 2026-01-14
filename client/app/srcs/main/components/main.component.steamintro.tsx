@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import {Badge} from '@seolim/designsystem';
 import { SimpleCard } from './main.component.simplecard';
 
 type Props = {
@@ -9,7 +10,7 @@ const tags = ['총 플탐', '1000원당 플탐', '총 구매 금액'];
 const SteamIntro: React.FC<Props> = ({ onLink }) => (
   <SimpleCard
     icon="steam"
-    iconBackground="bg-white"
+    iconBackground="bg-gray-600"
     title="스팀 돌아보기"
     description="스팀 정보 돌아보기"
     onLink={() => onLink('/steam')}
@@ -24,13 +25,10 @@ const SteamIntro: React.FC<Props> = ({ onLink }) => (
         />
         <ul className="flex flex-wrap gap-2 mb-4">
           {tags.map((tag) => (
-            <li key={tag} className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm z-10">
-              {tag}
-            </li>
+            <div className="z-10" key={tag}>
+              <Badge variant="hard" text={tag} />
+            </div>
           ))}
-          <li className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm z-10">
-            ...
-          </li>
         </ul>
       </div>
     )}
