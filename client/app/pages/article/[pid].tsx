@@ -1,23 +1,30 @@
-import React from 'react';
-import ArticlesPidPage from '../../srcs/article/article.pid.page';
-import { getArticleProps, getArticlesListPath } from '../../srcs/article/article.pid.props';
+import React from "react";
+import {
+  getArticleProps,
+  getArticlesListPath,
+} from "../../srcs/article/article.pid.props";
 import { Article } from "../../srcs/article/dto/article";
+import ArticlePidContainer from "../../srcs/article/article.pid.container";
 
 type Props = {
   content: string;
   article: Article;
   anchorPoints: string[];
 };
-const ArticlesPid: React.FC<Props> = ({content, article, anchorPoints}) => (
-  <ArticlesPidPage content={content} article={article} anchorPoints={anchorPoints} />
+const ArticlesPid: React.FC<Props> = ({ content, article, anchorPoints }) => (
+  <ArticlePidContainer
+    content={content}
+    article={article}
+    anchorPoints={anchorPoints}
+  />
 );
 
 export function getStaticPaths() {
   return getArticlesListPath();
 }
-export async function getStaticProps({params}: {params: {pid: string}}) {
-  const {pid} = params;
-  const props = await getArticleProps({pid});
+export async function getStaticProps({ params }: { params: { pid: string } }) {
+  const { pid } = params;
+  const props = await getArticleProps({ pid });
   return props;
 }
 

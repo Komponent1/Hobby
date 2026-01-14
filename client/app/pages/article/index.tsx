@@ -1,13 +1,13 @@
 import React from 'react';
 import { getArticlePropsFromLocal } from '../../srcs/article/article.props';
-import ArticlesPage from '../../srcs/article/article.page';
 import { Article } from '../../srcs/article/dto/article';
+import ArticleContainer from '../../srcs/article/article.container';
 
 type Props = {
   articles: Article[];
 };
 const Articles: React.FC<Props> = ({articles}) => (
-  <ArticlesPage articles={articles} />
+  <ArticleContainer articles={articles} />
 );
 
 export default Articles;

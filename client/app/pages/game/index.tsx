@@ -1,8 +1,6 @@
-import React from 'react';
-import GamePage from "../../srcs/game/game.page";
+import React from "react";
+import GameContainer from "../../srcs/game/game.container";
 
-const Game: React.FC = () => (
-  <GamePage />
-);
+const Game: React.FC = () => <GameContainer />;
 
 export default Game;

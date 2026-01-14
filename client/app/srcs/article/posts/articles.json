@@ -123,5 +123,15 @@
       "codedeploy",
       "githubactions"
     ]
+  },
+  "16": {
+    "id": 16,
+    "title": "SSR theme hydration 문제",
+    "path": "SSR theme hydration 문제.md",
+    "tags": [
+      "ssr",
+      "hydration",
+      "designsystem"
+    ]
   }
 }

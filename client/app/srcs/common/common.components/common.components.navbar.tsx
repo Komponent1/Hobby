@@ -1,59 +1,52 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from "next/router";
-import pages from '../../page.config.json';
-import {Page} from '../common.dto';
-import Portal from "./common.components.portal";
-import LoadPage from "./common.components.loadPage";
+/* eslint-disable react/jsx-wrap-multilines */
+import React, { useMemo, useState, useEffect } from "react";
+import Image from "next/image";
+import { Navbar as SeolimNavbar } from "@seolim/designsystem";
+import pages from "../../page.config.json";
 
-const Navbar: React.FC = () => {
-  const router = useRouter();
-  const [isLoad, setIsLoad] = useState<boolean>(false);
-  const pageList: Page[] = useMemo(() => {
-    const pageLinks: Page[] = [];
+type Props = {
+  navbarType?: "default" | "fixed" | "sticky";
+};
+const Navbar: React.FC<Props> = ({ navbarType = "default" }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  const pageList = useMemo(() => {
+    const pageLinks: { label: string; href: string }[] = [];
     pages.order.forEach((key) => {
-      if (key === 'main') return;
-      pageLinks.push(pages.page[key as keyof typeof pages.page] as Page);
+      if (key === "main") return;
+      pageLinks.push({
+        label: pages.page[key as keyof typeof pages.page].title,
+        href: pages.page[key as keyof typeof pages.page].path,
+      });
     });
     return pageLinks;
   }, []);
-  const onLink = useCallback((page: Page) => {
-    if (page.path === router.route) return;
-    setIsLoad(true);
-    router.push(page.path);
-  }, [router]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
-    <nav className="bg-slate-900 fixed w-full z-50 top-0 start-0 shadow-md">
-      <div className="max-w-(--breakpoint-xl) flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link href="/">
-          <div className="flex items-center space-x-3 rtl:space-x-reverse">
-            <Image src="/logo.png" className="h-8" alt="Flowbite Logo" width={32} height={32} style={{borderRadius: 32}} />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">SEOLIM</span>
-          </div>
-        </Link>
-        <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-          <ul className="flex flex-col text-white p-4 md:p-0 mt-4 font-medium rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-            {pageList.map((page) => (
-              <li key={page.title}>
-                <button
-                  type="button"
-                  onClick={() => onLink(page)}
-                  className="block py-2 px-3 rounded-sm md:bg-transparent md:p-0"
-                  aria-label="nav-link"
-                >
-                  {page.title}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <Portal>
-        <LoadPage isLoad={isLoad} />
-      </Portal>
-    </nav>
+    <SeolimNavbar
+      type={navbarType}
+      icon={
+        <Image
+          src="/logo.png"
+          className="h-8"
+          alt="Flowbite Logo"
+          width={32}
+          height={32}
+          style={{ borderRadius: 32 }}
+        />
+      }
+      title="SEOLIM"
+      titleLink="/"
+      links={pageList}
+    />
   );
 };
 
