@@ -3,42 +3,42 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'cdn.cloudflare.steamstatic.com',
-        port: '',
+        protocol: "https",
+        hostname: "cdn.cloudflare.steamstatic.com",
+        port: "",
       },
       {
-        protocol: 'https',
-        hostname: 'shared.akamai.steamstatic.com',
-        port: '',
+        protocol: "https",
+        hostname: "shared.akamai.steamstatic.com",
+        port: "",
       },
       {
-        protocol: 'https',
-        hostname: 'avatars.steamstatic.com',
-        port: '',
+        protocol: "https",
+        hostname: "avatars.steamstatic.com",
+        port: "",
       },
       {
-        protocol: 'https',
-        hostname: 'cdn.pixabay.com',
-        port: '',
-      }
-    ]
+        protocol: "https",
+        hostname: "cdn.pixabay.com",
+        port: "",
+      },
+    ],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
 
   async rewrites() {
     return [
       {
-        source: '/app/:path*',
-        destination: 'https://store.steampowered.com/app/:path*',
+        source: "/app/:path*",
+        destination: "https://store.steampowered.com/app/:path*",
       },
       {
-        source: '/steam_api/:path*',
-        destination: 'https://store.steampowered.com/api/:path*',
-      }
-    ]
-  }
-}
+        source: "/steam_api/:path*",
+        destination: "https://store.steampowered.com/api/:path*",
+      },
+    ];
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

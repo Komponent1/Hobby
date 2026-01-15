@@ -26,6 +26,15 @@ importers:
       '@tailwindcss/oxide-linux-arm64-musl':
         specifier: ^4.0.6
         version: 4.0.6
+      '@tanstack/query-async-storage-persister':
+        specifier: ^5.90.19
+        version: 5.90.19
+      '@tanstack/react-query':
+        specifier: ^5.90.17
+        version: 5.90.17(react@18.2.0)
+      '@tanstack/react-query-persist-client':
+        specifier: ^5.90.19
+        version: 5.90.19(@tanstack/react-query@5.90.17(react@18.2.0))(react@18.2.0)
       '@tensorflow/tfjs':
         specifier: ^4.20.0
         version: 4.22.0(seedrandom@3.0.5)
@@ -641,6 +650,26 @@ packages:
 
   '@tailwindcss/postcss@4.0.0':
     resolution: {integrity: sha512-lI2bPk4TvwavHdehjr5WiC6HnZ59hacM6ySEo4RM/H7tsjWd8JpqiNW9ThH7rO/yKtrn4mGBoXshpvn8clXjPg==}
+
+  '@tanstack/query-async-storage-persister@5.90.19':
+    resolution: {integrity: sha512-z244oz8ZSvfSSgwWjC8smvhwiztHP9mIhO209JpE1izQG+KfZskph5yHizERsyCIj3IUIIzgYm09/UbZD/wDOA==}
+
+  '@tanstack/query-core@5.90.17':
+    resolution: {integrity: sha512-hDww+RyyYhjhUfoYQ4es6pbgxY7LNiPWxt4l1nJqhByjndxJ7HIjDxTBtfvMr5HwjYavMrd+ids5g4Rfev3lVQ==}
+
+  '@tanstack/query-persist-client-core@5.91.16':
+    resolution: {integrity: sha512-jhcLN5vRpI3+DgXhLqPWvBjVorE9MxGH59uezwVBW7FJ9uTriaRmodoXytn557po6D4s1jb+tPTJYLscqLFSSw==}
+
+  '@tanstack/react-query-persist-client@5.90.19':
+    resolution: {integrity: sha512-9afBZIAgipv79Nt2WgStlFijvB7GRIlglrI4vYETAtHV0s5qNpxxu6V1FZlWXqMxaXdcPoF/ADqs+Q4hKdUfQg==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.90.17
+      react: ^18 || ^19
+
+  '@tanstack/react-query@5.90.17':
+    resolution: {integrity: sha512-PGc2u9KLwohDUSchjW9MZqeDQJfJDON7y4W7REdNBgiFKxQy+Pf7eGjiFWEj5xPqKzAeHYdAb62IWI1a9UJyGQ==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@tensorflow/tfjs-backend-cpu@4.22.0':
     resolution: {integrity: sha512-1u0FmuLGuRAi8D2c3cocHTASGXOmHc/4OvoVDENJayjYkS119fcTcQf4iHrtLthWyDIPy3JiPhRrZQC9EwnhLw==}
@@ -3471,6 +3500,28 @@ snapshots:
       lightningcss: 1.29.1
       postcss: 8.5.1
       tailwindcss: 4.0.0
+
+  '@tanstack/query-async-storage-persister@5.90.19':
+    dependencies:
+      '@tanstack/query-core': 5.90.17
+      '@tanstack/query-persist-client-core': 5.91.16
+
+  '@tanstack/query-core@5.90.17': {}
+
+  '@tanstack/query-persist-client-core@5.91.16':
+    dependencies:
+      '@tanstack/query-core': 5.90.17
+
+  '@tanstack/react-query-persist-client@5.90.19(@tanstack/react-query@5.90.17(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@tanstack/query-persist-client-core': 5.91.16
+      '@tanstack/react-query': 5.90.17(react@18.2.0)
+      react: 18.2.0
+
+  '@tanstack/react-query@5.90.17(react@18.2.0)':
+    dependencies:
+      '@tanstack/query-core': 5.90.17
+      react: 18.2.0
 
   '@tensorflow/tfjs-backend-cpu@4.22.0(@tensorflow/tfjs-core@4.22.0)':
     dependencies:
