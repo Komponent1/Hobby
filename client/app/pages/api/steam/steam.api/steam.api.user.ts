@@ -56,6 +56,8 @@ export const getOwnedGames = async (
           key: process.env.STEAM_API_KEY as string,
           steamid,
           skip_unvetted_apps: 0,
+          include_appinfo: 1,
+          include_played_free_games: 1,
           format: "json",
         }
       )

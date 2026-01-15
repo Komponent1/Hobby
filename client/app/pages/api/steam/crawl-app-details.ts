@@ -30,7 +30,7 @@ const getCategories = (dom: HTMLElement) => {
 };
 
 const getRating = (dom: HTMLElement) => {
-  const div = dom.querySelector("#review_histogram_rollup_section");
+  const div = dom.querySelector("#userReviews");
   if (div === null) return "";
   const rating = div.querySelector(".game_review_summary");
   if (rating === null) return "";
