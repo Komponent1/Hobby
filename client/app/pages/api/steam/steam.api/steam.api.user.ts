@@ -14,8 +14,8 @@ import {
   GameDetailResponse,
   GetOwnedGamesResponse,
   PlayerSummary,
-} from "../dto/steam.dto.api";
-import { queryString } from "../../common/common.utils/url";
+} from "./steam.dto.api";
+import { queryString } from "../../../../srcs/common/common.utils/url";
 /**
  * 유저 정보 요약
  * @param steamids 스팀 계정 아이디

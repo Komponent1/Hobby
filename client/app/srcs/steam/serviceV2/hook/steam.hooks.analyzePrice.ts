@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
-import { GameData } from '../dto/steam.dto.game';
-import { getUnplayedGames, getUnplayedGamesPrice } from '../analystic/steam.analystic.sumarry';
+import { useEffect, useState } from "react";
+import { GameData } from "../../dto/steam.dto.game";
+import {
+  getUnplayedGames,
+  getUnplayedGamesPrice,
+} from "../../analystic/steam.analystic.sumarry";
 
 export const useAnalyzeUnplayedGame = (gameDatas: GameData[]) => {
   const [unplayedGames, setUnplayedGames] = useState<GameData[]>([]);

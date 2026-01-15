@@ -1,13 +1,8 @@
-import { STORE_URL } from "./steam.api.constant";
 import {
   GetOwnedGamesException,
   GetPlayerSummariesException,
 } from "./steam.exception";
-import {
-  GameDetailResponse,
-  OwnedGames,
-  PlayerSummary,
-} from "../../dto/steam.dto.api";
+import { OwnedGames, PlayerSummary } from "../../dto/steam.dto.api";
 /**
  * 유저 정보 요약
  * @param steamids 스팀 계정 아이디
@@ -37,13 +32,4 @@ export const getOwnedGames = async (steamid: string): Promise<OwnedGames[]> => {
   } catch (err) {
     throw new GetOwnedGamesException();
   }
-};
-export const getGameDetail = async (
-  appid: string
-): Promise<GameDetailResponse> => {
-  const res = await fetch(
-    `${STORE_URL}/appdetails?appids=${appid}&l=ko-kr&cc=ko-kr`
-  );
-  const result = await res.json();
-  return result;
 };
