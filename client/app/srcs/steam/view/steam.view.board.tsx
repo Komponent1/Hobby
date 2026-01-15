@@ -17,7 +17,6 @@ import {
   useGetTable,
 } from "../serviceV2/hook/steam.hooks.getTable";
 import { PlayerSummary } from "../dto/steam.dto.api";
-import { Typography } from "../../common/common.components";
 import { useAnalyzeUnplayedGame } from "../serviceV2/hook/steam.hooks.analyzePrice";
 import Area from "../components/steam.component.area";
 import PlayTime from "../components/steam.component.playtime";
@@ -47,9 +46,6 @@ const SteamViewBoard: React.FC<Props> = observer(
         <div className="mt-32 z-30 grid xl:grid-cols-3 grid-cols-1 px-32">
           <div className="xl:col-span-2 text-center xl:text-left text-white text-4xl font-bold content-center">
             {`${playerSummary.personaname} 분석 결과`}
-            <Typography type="p" color="text-gray-200">
-              19세 게임은 정상적인 정보를 확인하지 못할 수 있습니다
-            </Typography>
           </div>
           <div>
             <div className="relative bg-slate-300 h-32 w-32 ml-6 flex items-center justify-center border-4 border-slate-600">

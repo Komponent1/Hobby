@@ -3,14 +3,7 @@
 import { CrawlingData, GameData } from "../dto/steam.dto.game";
 import { TagParsingException } from "../serviceV2/steam.apiv2/steam.exception";
 import { OwnedGames } from "../dto/steam.dto.api";
-import {
-  getAppName,
-  getAppPhoto,
-  getCategories,
-  getGameHtmlDOM,
-  getRating,
-  getTags,
-} from "./steam.util.crawling";
+import { getGameHtmlDOM } from "./steam.util.crawling";
 
 export type RawGameCategory = {
   appid: string;
@@ -36,12 +29,10 @@ export const crawlingDataFromAppid = async (
 ): Promise<CrawlingData | undefined> => {
   try {
     const { appid, playtime_forever: playtime } = game;
-    const dom = await getGameHtmlDOM(appid);
-    const categories = getCategories(dom);
-    const tags = getTags(categories);
-    const name = getAppName(dom) as string;
-    const photoUrl = getAppPhoto(appid) as string;
-    const rating = getRating(dom) as string;
+    const { name, rating, categories, tags, photoUrl } = await getGameHtmlDOM(
+      appid
+    );
+
     return {
       appid,
       categories,

@@ -1,53 +1,27 @@
-import parse, { HTMLElement } from "node-html-parser";
-import {
-  GetStoreHtmlException,
-  TagParsingException,
-} from "../serviceV2/steam.apiv2/steam.exception";
+import { GetStoreHtmlException } from "../serviceV2/steam.apiv2/steam.exception";
 
-export const getTags = (categories: any) => {
-  const tags = categories.map((category: any) => category.name);
-  return tags;
-};
-export const getCategories = (dom: HTMLElement) => {
-  try {
-    const div = dom.querySelector("#responsive_page_template_content");
-    const scripts = div?.querySelectorAll("script");
-    const tagScript = scripts?.find((script) =>
-      script.rawText.includes("InitAppTagModal")
-    );
-    if (tagScript === undefined) throw new Error();
-
-    const tagsText = tagScript?.rawText.match(/\[[^\]]+\]/g);
-    if (tagScript === undefined || tagsText === null) throw new Error();
-
-    const categories = JSON.parse(tagsText[0]);
-    return categories;
-  } catch (err) {
-    throw new TagParsingException();
-  }
-};
-export const getRating = (dom: HTMLElement) => {
-  const div = dom.querySelector("#review_histogram_rollup_section");
-  if (div === null) return "";
-  const rating = div.querySelector(".game_review_summary");
-  if (rating === null) return "";
-  const ratingText = rating.textContent;
-  return ratingText || "";
-};
-export const getAppName = (dom: HTMLElement) => {
-  const div = dom.querySelector("#appHubAppName");
-  const name = div?.textContent;
-  return name;
-};
 export const getAppPhoto = (appid: number) =>
   `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/header.jpg`;
-export const getGameHtmlDOM = async (appid: number): Promise<HTMLElement> => {
+export const getGameHtmlDOM = async (
+  appid: number
+): Promise<{
+  appid: number;
+  name: string;
+  rating: string;
+  categories: any[];
+  tags: any[];
+  photoUrl: string;
+}> => {
   try {
-    const html = await fetch(`/app/${appid}`, {
-      cache: "force-cache",
-    });
-    const text = await html.text();
-    return parse(text);
+    // 서버 API 엔드포인트를 통해 요청 (서버 사이드에서 쿠키 처리)
+    const response = await fetch(`/api/steam/crawl-app-details?appid=${appid}`);
+
+    if (!response.ok) {
+      throw new GetStoreHtmlException();
+    }
+
+    const data = await response.json();
+    return data;
   } catch (err) {
     throw new GetStoreHtmlException();
   }
