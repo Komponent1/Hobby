@@ -1,45 +1,29 @@
 /* eslint-disable no-alert */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { observer } from "mobx-react";
-import { useGetData } from "./hooks/steam.hooks.getData";
 import SteamViewMain from "./view/steam.view.main";
-import { PageKey } from "./steam.enum";
 import SteamViewBoard from "./view/steam.view.board";
 import SteamViewLoading from "./view/steam.view.loading";
 import Navbar from "../common/common.components/common.components.navbar";
+import { useGame } from "./serviceV2/hook/steam.hook.game";
 
 const SteamPage: React.FC = observer(() => {
-  const [currentPage, setCurrentPage] = useState<PageKey>(PageKey.MAIN);
-  const {
-    error,
-    setError,
-    playerSummary,
-    ownedGameDatas,
-    getDataWithSteamCode,
-    loadRange,
-  } = useGetData(setCurrentPage);
+  const { setSteamid, gameDetails, playerSummary, range, isPending } =
+    useGame();
 
-  useEffect(() => {
-    if (error) {
-      alert("An error occurred while fetching data. Please try again.");
-      setError(false);
-    }
-  }, [error, setError]);
+  const shouldShowMain = !playerSummary || !gameDetails;
+  const shouldShowBoard = playerSummary && gameDetails.length > 0 && !isPending;
 
   return (
     <div>
       <Navbar navbarType="fixed" />
-      {currentPage === PageKey.MAIN && (
-        <SteamViewMain getDataWithSteamCode={getDataWithSteamCode} />
-      )}
-      {currentPage === PageKey.BOARD && (
+      {shouldShowMain && <SteamViewMain onSubmit={setSteamid} />}
+      {isPending && !shouldShowMain && <SteamViewLoading loadRange={range} />}
+      {shouldShowBoard && (
         <SteamViewBoard
-          owedGameDatas={ownedGameDatas}
+          owedGameDatas={gameDetails}
           playerSummary={playerSummary}
         />
-      )}
-      {currentPage === PageKey.LOADING && (
-        <SteamViewLoading loadRange={loadRange} />
       )}
     </div>
   );
