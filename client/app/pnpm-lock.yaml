@@ -18,8 +18,8 @@ importers:
         specifier: ^5.10.5
         version: 5.16.14(@emotion/react@11.14.0(@types/react@18.0.20)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.20)(react@18.2.0))(@types/react@18.0.20)(react@18.2.0))(@types/react@18.0.20)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@seolim/designsystem':
-        specifier: ^0.1.20
-        version: 0.1.20(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^0.1.21
+        version: 0.1.21(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@seolim/react-ui':
         specifier: ^0.3.1
         version: 0.3.2(@emotion/react@11.14.0(@types/react@18.0.20)(react@18.2.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.0.20)(react@18.2.0))(@types/react@18.0.20)(react@18.2.0))(@types/react@18.0.20)(react-bootstrap-icons@1.11.5(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -528,8 +528,8 @@ packages:
   '@rushstack/eslint-patch@1.10.5':
     resolution: {integrity: sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==}
 
-  '@seolim/designsystem@0.1.20':
-    resolution: {integrity: sha512-WIBJcNxzIZTju97ASxrX1ObCZHP8Q0wzMZAY2hNhiQ+Glx0py5OJQ857gZMFdFJwOiroYJFjuvfFtsYi09sgxQ==}
+  '@seolim/designsystem@0.1.21':
+    resolution: {integrity: sha512-VrjC0GT05VAkYqIgJJbH9QgqpiILkxP25XTbSVvzrH4YRc++H2LVc4I+8cUGHn1QqVf/xCCGLfj2IFLmxJVhQw==}
     peerDependencies:
       react: '>=17'
       react-dom: '>=17'
@@ -617,7 +617,6 @@ packages:
   '@tailwindcss/oxide-linux-arm64-musl@4.0.6':
     resolution: {integrity: sha512-IoArz1vfuTR4rALXMUXI/GWWfx2EaO4gFNtBNkDNOYhlTD4NVEwE45nbBoojYiTulajI4c2XH8UmVEVJTOJKxA==}
     engines: {node: '>= 10'}
-    cpu: [arm64]
     os: [linux]
 
   '@tailwindcss/oxide-linux-x64-gnu@4.0.6':
@@ -1962,7 +1961,6 @@ packages:
   lightningcss-linux-arm64-musl@1.29.1:
     resolution: {integrity: sha512-UKMFrG4rL/uHNgelBsDwJcBqVpzNJbzsKkbI3Ja5fg00sgQnHw/VrzUTEc4jhZ+AN2BvQYz/tkHu4vt1kLuJyw==}
     engines: {node: '>= 12.0.0'}
-    cpu: [arm64]
     os: [linux]
 
   lightningcss-linux-x64-gnu@1.29.1:
@@ -3400,7 +3398,7 @@ snapshots:
 
   '@rushstack/eslint-patch@1.10.5': {}
 
-  '@seolim/designsystem@0.1.20(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@seolim/designsystem@0.1.21(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
