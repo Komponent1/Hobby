@@ -13,7 +13,7 @@ const GameCard: React.FC<Props> = ({
 }) => {
   const { theme } = useTheme();
   return (
-    <div>
+    <div onClick={onLink}>
       <Card
         type="image-content"
         hoverType="lift"
