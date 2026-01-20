@@ -16,5 +16,11 @@
     "path": "/game/jumfrog",
     "description": "점프킹 짭",
     "thumbnail": "/thumbnail/jumfrog-thumbnail.png"
+  },
+  "rock-breaker": {
+    "title": "RockBreaker",
+    "path": "/game/rock-breaker",
+    "description": "돌뿌수기 짭",
+    "thumbnail": "/thumbnail/rock-breaker-thumbnail.png"
   }
 }
