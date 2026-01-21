@@ -41,16 +41,11 @@ export class Stage extends Scene {
     // Rock과 Bullet 충돌 설정
     this.rockPool.pool.forEach((rock) => {
       this.bulletPool.pool.forEach((bullet) => {
-        this.physics.add.overlap(rock.object, bullet.object, () =>
+        this.physics.add.overlap(rock.rock, bullet.object, () =>
           Stage.onRockBulletCollision(rock, bullet),
         );
       });
     });
-  }
-
-  private static onRockBulletCollision(rock: Rock, bullet: Bullet) {
-    rock.decreaseHp(bullet.damage);
-    bullet.destroy();
   }
 
   update() {
@@ -63,5 +58,10 @@ export class Stage extends Scene {
       this.rockPool.spawnRock(this);
       this.spawnTimer = 0;
     }
+  }
+
+  private static onRockBulletCollision(rock: Rock, bullet: Bullet) {
+    rock.decreaseHp(bullet.damage);
+    bullet.destroy();
   }
 }

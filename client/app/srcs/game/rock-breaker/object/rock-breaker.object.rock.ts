@@ -1,20 +1,25 @@
 import { genTestCircle } from "../../utils/dummyObjectGenerator";
 import type { Stage } from "../scene/rock-breaker.scene.stage";
+import { HpBar } from "./rock-breaker.object.hpBar";
 
 export class Rock {
+  private _container: Phaser.GameObjects.Container;
   private _object: Phaser.Physics.Arcade.Sprite;
   private _speed: number;
   private _rank: number;
   private _fullHp: number;
   private _hp: number;
+  private _hpBar: HpBar;
   private _hasEnteredWorld: boolean;
   private _isActive: boolean;
 
   constructor() {
+    this._container = null as unknown as Phaser.GameObjects.Container;
     this._object = null as unknown as Phaser.Physics.Arcade.Sprite;
     this._speed = 100;
     this._rank = 1;
-    this._fullHp = 10;
+    this._fullHp = 3;
+    this._hpBar = new HpBar();
     this._hp = this._fullHp;
     this._hasEnteredWorld = false;
     this._isActive = false;
@@ -24,6 +29,9 @@ export class Rock {
     return this._isActive;
   }
   get object() {
+    return this._container;
+  }
+  get rock() {
     return this._object;
   }
 
@@ -34,16 +42,25 @@ export class Rock {
     this._object = genTestCircle({
       scene,
       radius: 20 * this._rank,
-      x,
-      y,
-      isStatic: false,
-    });
+      x: 0,
+      y: 0,
+    }) as Phaser.Physics.Arcade.Sprite;
 
-    // worldBounds collision 비활성화 (world 밖으로 나갈 수 있도록)
-    if (this._object.body) {
-      (this._object.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(
-        false,
-      );
+    this._hpBar.create(scene, 0, -(10 + 20 * this._rank));
+    this._container = scene.add.container(x, y, [
+      this._object,
+      this._hpBar.container,
+    ]);
+
+    // Container를 physics object로 만들기 (velocity만 사용, collision은 비활성화)
+    scene.physics.world.enable(this._container);
+
+    if (this._container.body) {
+      const body = this._container.body as Phaser.Physics.Arcade.Body;
+      body.setCollideWorldBounds(false);
+      // // Container의 collider 완전히 비활성화
+      body.setSize(0, 0);
+      body.setAllowGravity(false);
     }
   }
 
@@ -75,29 +92,36 @@ export class Rock {
         break;
     }
 
-    this._object.setPosition(x, y);
+    this._container.setPosition(x, y);
     this._hp = this._fullHp;
 
-    this._object.setPosition(x, y);
+    this._container.setPosition(x, y);
     this._hasEnteredWorld = false;
     const dir = new Phaser.Math.Vector2(
       bounds.centerX - x,
       bounds.centerY - y,
     ).normalize();
-    this._object.setVelocity(dir.x * this._speed, dir.y * this._speed);
+
+    // Container의 body에 velocity 적용
+    if (this._container.body) {
+      (this._container.body as Phaser.Physics.Arcade.Body).setVelocity(
+        dir.x * this._speed,
+        dir.y * this._speed,
+      );
+    }
     this._isActive = true;
   }
 
   update() {
-    if (!this._object) return;
+    if (!this._container) return;
     if (!this._isActive) return;
 
-    const { bounds } = this._object.scene.physics.world;
+    const { bounds } = this._container.scene.physics.world;
     const isInsideWorld =
-      this._object.x >= bounds.x &&
-      this._object.x <= bounds.x + bounds.width &&
-      this._object.y >= bounds.y &&
-      this._object.y <= bounds.y + bounds.height;
+      this._container.x >= bounds.x &&
+      this._container.x <= bounds.x + bounds.width &&
+      this._container.y >= bounds.y &&
+      this._container.y <= bounds.y + bounds.height;
 
     // world 안으로 한 번 들어왔는지 체크
     if (!this._hasEnteredWorld && isInsideWorld) {
@@ -107,10 +131,10 @@ export class Rock {
     // world 안에 들어온 적이 있고, 지금 밖으로 나간 경우에만 destroy
     if (this._hasEnteredWorld && !isInsideWorld) {
       const isFarOutside =
-        this._object.x < bounds.x - 100 ||
-        this._object.x > bounds.x + bounds.width + 100 ||
-        this._object.y < bounds.y - 100 ||
-        this._object.y > bounds.y + bounds.height + 100;
+        this._container.x < bounds.x - 100 ||
+        this._container.x > bounds.x + bounds.width + 100 ||
+        this._container.y < bounds.y - 100 ||
+        this._container.y > bounds.y + bounds.height + 100;
 
       if (isFarOutside) {
         this.destroy();
@@ -120,16 +144,22 @@ export class Rock {
 
   decreaseHp(amount: number) {
     this._hp -= amount;
+    this._hpBar.redraw(this._hp / this._fullHp);
     if (this._hp <= 0) {
       this.destroy();
     }
   }
 
   destroy() {
-    if (this._object) {
+    if (this._container) {
       this._isActive = false;
-      this._object.setPosition(-100, -100);
-      this._object.setVelocity(0, 0);
+      this._container.setPosition(-100, -100);
+      this._hpBar.redraw(1);
+
+      // Container의 body velocity를 0으로 설정
+      if (this._container.body) {
+        (this._container.body as Phaser.Physics.Arcade.Body).setVelocity(0, 0);
+      }
     }
   }
 }

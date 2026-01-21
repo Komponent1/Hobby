@@ -5,6 +5,7 @@ export const genTestRectangle = ({
   x,
   y,
   color = 0x00ff00,
+  hasPhysicsBody = true,
   isStatic = false,
 }: {
   scene: Phaser.Scene;
@@ -13,6 +14,7 @@ export const genTestRectangle = ({
   x: number;
   y: number;
   color?: number;
+  hasPhysicsBody?: boolean;
   isStatic?: boolean;
 }) => {
   // 동적 그래픽 생성
@@ -26,14 +28,16 @@ export const genTestRectangle = ({
   graphics.destroy();
 
   // physics.add.sprite으로 생성 (physics body 자동 추가)
-  const sprite = scene.physics.add.sprite(x, y, key);
-
-  // static 설정
-  if (isStatic) {
-    sprite.body.setImmovable(true);
+  if (hasPhysicsBody) {
+    const sprite = scene.physics.add.sprite(x, y, key);
+    if (isStatic) {
+      sprite.body.setImmovable(true);
+    }
+    return sprite as Phaser.Physics.Arcade.Sprite;
   }
+  const sprite = scene.add.sprite(x, y, key);
 
-  return sprite as Phaser.Physics.Arcade.Sprite;
+  return sprite as Phaser.GameObjects.Sprite;
 };
 
 export const genTestCircle = ({
@@ -42,12 +46,14 @@ export const genTestCircle = ({
   x,
   y,
   color = 0x00ff00,
+  hasPhysicsBody = true,
   isStatic = false,
 }: {
   scene: Phaser.Scene;
   radius: number;
   x: number;
   y: number;
+  hasPhysicsBody?: boolean;
   color?: number;
   isStatic?: boolean;
 }) => {
@@ -61,6 +67,10 @@ export const genTestCircle = ({
   graphics.generateTexture(key, radius * 2, radius * 2);
   graphics.destroy();
 
+  if (!hasPhysicsBody) {
+    const sprite = scene.add.sprite(x, y, key);
+    return sprite as Phaser.GameObjects.Sprite;
+  }
   // physics.add.sprite으로 생성 (physics body 자동 추가)
   const sprite = scene.physics.add.sprite(x, y, key);
 

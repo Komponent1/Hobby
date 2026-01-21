@@ -21,7 +21,13 @@ export class Ship {
   }
 
   create(scene: Stage) {
-    this._object = genTestRectangle({ scene, w: 50, h: 20, x: 375, y: 550 });
+    this._object = genTestRectangle({
+      scene,
+      w: 50,
+      h: 20,
+      x: 375,
+      y: 550,
+    }) as Phaser.Physics.Arcade.Sprite;
   }
 
   update(scene: Stage) {
