@@ -18,7 +18,7 @@ export class Rock {
     this._object = null as unknown as Phaser.Physics.Arcade.Sprite;
     this._speed = 100;
     this._rank = 1;
-    this._fullHp = 3;
+    this._fullHp = 1;
     this._hpBar = new HpBar();
     this._hp = this._fullHp;
     this._hasEnteredWorld = false;
@@ -61,6 +61,17 @@ export class Rock {
       // // Container의 collider 완전히 비활성화
       body.setSize(0, 0);
       body.setAllowGravity(false);
+    }
+  }
+
+  reset() {
+    this._isActive = false;
+    this._container.setPosition(-100, -100);
+    this._hpBar.redraw(1);
+
+    // Container의 body velocity를 0으로 설정
+    if (this._container.body) {
+      (this._container.body as Phaser.Physics.Arcade.Body).setVelocity(0, 0);
     }
   }
 
@@ -142,10 +153,11 @@ export class Rock {
     }
   }
 
-  decreaseHp(amount: number) {
+  decreaseHp(scene: Stage, amount: number) {
     this._hp -= amount;
     this._hpBar.redraw(this._hp / this._fullHp);
     if (this._hp <= 0) {
+      scene.coinPool.spawnCoin(this._container.x, this._container.y);
       this.destroy();
     }
   }

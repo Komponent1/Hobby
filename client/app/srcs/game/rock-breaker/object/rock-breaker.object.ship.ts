@@ -8,6 +8,7 @@ export class Ship {
   private _stopDistance: number;
   private _fireTimer: number;
   private _fireInterval: number;
+  private _isActive: boolean;
 
   constructor() {
     this._object = null as unknown as Phaser.Physics.Arcade.Sprite;
@@ -15,9 +16,13 @@ export class Ship {
     this._stopDistance = 30;
     this._fireTimer = 0;
     this._fireInterval = 3000; // 1초 (밀리초 단위)
+    this._isActive = true;
   }
   get object() {
     return this._object;
+  }
+  get isActive() {
+    return this._isActive;
   }
 
   create(scene: Stage) {
@@ -30,8 +35,14 @@ export class Ship {
     }) as Phaser.Physics.Arcade.Sprite;
   }
 
+  reset() {
+    this._object.setPosition(375, 550);
+    this._isActive = true;
+  }
+
   update(scene: Stage) {
     if (!this._object) return;
+    if (!this._isActive) return;
 
     const pointer = scene.input.activePointer;
 
@@ -63,6 +74,8 @@ export class Ship {
   }
 
   fire(scene: Stage) {
+    if (this._object === null) return;
+    if (this._isActive === false) return;
     let dir: Phaser.Math.Vector2;
 
     // 가장 가까운 rock 찾기
@@ -90,5 +103,10 @@ export class Ship {
       dir = new Phaser.Math.Vector2(dx / length, dy / length);
       scene.bulletPool.fireBullet(this._object.x, this._object.y, dir, 1);
     }
+  }
+
+  destroy() {
+    this._object.setVelocity(0, 0);
+    this._isActive = false;
   }
 }

@@ -15,6 +15,12 @@ export class RockPool {
     return this._pool;
   }
 
+  reset() {
+    this.pool.forEach((rock) => {
+      rock.reset();
+    });
+  }
+
   create(scene: Stage) {
     this.pool.forEach((rock) => {
       rock.create(scene);

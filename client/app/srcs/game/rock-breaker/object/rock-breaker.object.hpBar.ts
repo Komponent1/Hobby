@@ -1,4 +1,4 @@
-import { Stage } from "../scene/rock-breaker.scene.stage";
+import type { Stage } from "../scene/rock-breaker.scene.stage";
 
 export class HpBar {
   private _container: Phaser.GameObjects.Container;

@@ -1,4 +1,5 @@
-import type { Stage } from "../../jumfrog/scene/jumfrog.scene.stage";
+import { StageState } from "../rock-breaker.enum";
+import type { Stage } from "../scene/rock-breaker.scene.stage";
 
 export class Config {
   private _fullEngine: number;
@@ -9,6 +10,7 @@ export class Config {
   private _currentRank: number;
   private _currentScore: number;
   private _engineReducedRateTimer: number;
+  private _stageState: StageState;
 
   constructor() {
     this._fullEngine = 100;
@@ -19,6 +21,30 @@ export class Config {
     this._currentRank = 1;
     this._currentScore = 0;
     this._engineReducedRateTimer = 0;
+    this._stageState = StageState.PLAYING;
+  }
+
+  reset() {
+    this._engine = this._fullEngine;
+    this._currentScore = 0;
+    this._engineReducedRate = 0.9;
+    this._engineReducedRateTimer = 0;
+  }
+
+  update(scene: Stage) {
+    const deltaSeconds = scene.game.loop.delta / 1000; // 델타 시간을 초 단위로 변환
+
+    // 1초마다 engineReducedRate 증가
+    this._engineReducedRateTimer += deltaSeconds;
+    if (this._engineReducedRateTimer >= 1) {
+      this._engineReducedRate += 0.03;
+      this._engineReducedRateTimer = 0;
+      this._engine -= this.engineReducedRate;
+    }
+  }
+
+  addScore(amount: number) {
+    this._currentScore += amount;
   }
 
   get fullEngine() {
@@ -49,19 +75,11 @@ export class Config {
     return this._currentScore;
   }
 
-  update(scene: Stage) {
-    const deltaSeconds = scene.game.loop.delta / 1000; // 델타 시간을 초 단위로 변환
-
-    // 1초마다 engineReducedRate 증가
-    this._engineReducedRateTimer += deltaSeconds;
-    if (this._engineReducedRateTimer >= 1) {
-      this._engineReducedRate += 0.03;
-      this._engineReducedRateTimer = 0;
-      this._engine -= this.engineReducedRate;
-    }
+  get stageState() {
+    return this._stageState;
   }
 
-  addScore(amount: number) {
-    this._currentScore += amount;
+  set stageState(state: StageState) {
+    this._stageState = state;
   }
 }

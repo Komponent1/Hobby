@@ -33,12 +33,18 @@ export class Bullet {
       x: -100,
       y: -200,
       color: 0xff0000,
-    });
+    }) as Phaser.Physics.Arcade.Sprite;
     if (this._object.body) {
       (this._object.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(
         false,
       );
     }
+  }
+
+  reset() {
+    this._object.setPosition(-100, -200);
+    this._object.setVelocity(0, 0);
+    this._isActive = false;
   }
 
   fire(x: number, y: number, direction: Phaser.Math.Vector2, damage = 1) {

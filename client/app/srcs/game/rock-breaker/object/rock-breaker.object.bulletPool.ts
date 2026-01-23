@@ -22,6 +22,12 @@ export class BulletPool {
     });
   }
 
+  reset() {
+    this.pool.forEach((bullet) => {
+      bullet.reset();
+    });
+  }
+
   update() {
     this.pool.forEach((bullet) => {
       bullet.update();
