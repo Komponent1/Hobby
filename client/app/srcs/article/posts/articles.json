@@ -133,5 +133,15 @@
       "hydration",
       "designsystem"
     ]
+  },
+  "17": {
+    "id": 17,
+    "title": "aws 인프라 복사하기",
+    "path": "aws 인프라 복사하기.md",
+    "tags": [
+      "terraform",
+      "aws",
+      "architecture"
+    ]
   }
 }
